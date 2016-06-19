@@ -12,23 +12,23 @@ The project will take place in three phases, each with a useful deliverable prod
 ###Phase 1
 During Phase 1 we will build and test a web-based interface that enables users to:
 
-*Identify an area of interest on the world map;
-*Create one or more named taxonomies, each with a set of named categories, to any of which they can assign the features they create; 
-*Create the full range of features supported by the GeoJSON specification (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, and Geometry Collection) by drawing on the map (see http://mapoflondon.uvic.ca/agas.htm for a rudimentary version of such a drawing interface);
-*Assign a range of properties to each feature (id, name, description, links to authority sources, etc.);
-*Assign each feature to one or more categories in one or more of the taxonomies created by the user;
-*Display the results in an instantly-updated live interface using a category-based menu similar to that on MoEML’s  Agas Map;
-*Save the results in two formats: (1) a GeoJSON file containing all the data (including taxonomy and category information), which can be re-uploaded into the interface to continue work on the project, and (2) an XML-TEI gazetteer for interchange purposes;
-*Deploy the completed map as a package of HTML, JavaScript, GeoJSON, and CSS by following some simple instructions.
+* Identify an area of interest on the world map;
+* Create one or more named taxonomies, each with a set of named categories, to any of which they can assign the features they create; 
+* Create the full range of features supported by the GeoJSON specification (Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon, and Geometry Collection) by drawing on the map (see http://mapoflondon.uvic.ca/agas.htm for a rudimentary version of such a drawing interface);
+* Assign a range of properties to each feature (id, name, description, links to authority sources, etc.);
+* Assign each feature to one or more categories in one or more of the taxonomies created by the user;
+* Display the results in an instantly-updated live interface using a category-based menu similar to that on MoEML’s  Agas Map;
+* Save the results in two formats: (1) a GeoJSON file containing all the data (including taxonomy and category information), which can be re-uploaded into the interface to continue work on the project, and (2) an XML-TEI gazetteer for interchange purposes;
+* Deploy the completed map as a package of HTML, JavaScript, GeoJSON, and CSS by following some simple instructions.
 
 This web-based interface can be deployed on a server or run locally on a user’s desktop. It will be released with full accompanying documentation and a video tutorial.
 
 ###Phase 2
 During Phase 2, we will use Electron to create a desktop application version of the Phase 1 product. The desktop version for Windows, Linux, and Macintosh will enable additional features such as:
 
-*Straightforward save/load of GeoJSON and TEI to the local disk;
-*In-app conversion between formats, allowing us to support KML and RDF in addition to the other two formats;
-*Automated building of a deployment package for any project with the click of a button.
+* Straightforward save/load of GeoJSON and TEI to the local disk;
+* In-app conversion between formats, allowing us to support KML and RDF in addition to the other two formats;
+* Automated building of a deployment package for any project with the click of a button.
 
 Electron is based on node.js, so we will be able to take advantage of local file i/o, as well as using libxml for XSLT 1.0 transformations between TEI and other formats such as KML and RDF. We will move the web-page menu up to the application window level and add additional menu items for the extra features. The Electron-based application will be released with accompanying documentation and its own video tutorial. All user-interface strings will be abstracted for easy translation.
 
