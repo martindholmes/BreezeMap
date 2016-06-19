@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="doAll" name="stolo">
+    
+    <!-- 
+    This is a general-purpose build file for the BreezeMap project. 
+    
+    It will pull down the latest version of OpenLayers from the OL 
+    site and put it into place in the pilot project tree. 
+    
+    Note: this uses additional jars in the same folder as the build file
+    to enable the use of JavaScript. Call it thus:
+    
+    ant -lib .
+  -->
+    
+    <property name="echo.separator" value="************************************************"/>
+    
+    <!--  We'll use the root directory of the ant file to do all our relative paths. -->
+    <dirname property="antfile.dir" file="${ant.file}"/>
+    <property name="proj.dir" value="${antfile.dir}/../"/> 
+    <property name="abs.proj.dir" location="${proj.dir}"/>
+   
+    
+    <target name="cleanup">
+        <echo message="${echo.separator}"/>
+        <echo message="Deleting old stuff."/>
+        <delete dir="${proj.dir}/kml"/>
+        <mkdir dir="${proj.dir}/kml"/>
+        <delete dir="${proj.dir}/ol3"/>
+        <mkdir dir="${proj.dir}/ol3"/>
+    </target>
+  
+  <target name="teiToGeoJSON">
+    <echo message="${echo.separator}"/>
+    <echo message="Converting TEI to GeoJSON."/>
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+      <arg value="-s:${proj.dir}/xml/campus.xml"/>
+      <arg value="-xsl:tei_to_geojson.xsl"/> 
+      <arg value="--suppressXsltNamespaceCheck:on"/>
+    </java>
+  </target>
+    
+    <target name="getOL3">
+        <echo message="${echo.separator}"/>
+        <echo message="Downloading the latest stable release of OpenLayers 3."/>
+<!--  First get the JSON file with the latest release data in it.     -->
+        <get src="https://api.github.com/repos/openlayers/ol3/releases/latest"
+            verbose="on" usetimestamp="true" dest="${proj.dir}/js/ol3latest.json"/>
+        <script language="javascript">
+            <![CDATA[
+        importClass(java.io.File);
+        importClass(java.io.FileReader);
+        importClass(java.io.BufferedReader);
+        importClass(java.io.FileWriter);
+        importClass(java.io.BufferedWriter);
+        
+        function doEcho(messidge){
+            echo = project.createTask("echo");
+            echo.setMessage(messidge);
+            echo.perform();
+        }
+        
+        doEcho("Parsing properties from JSON file...");
+        
+        var filePath = project.getProperty("proj.dir") + "/js/ol3latest.json";
+        var file = new File(filePath);
+        fr = new FileReader(file);
+        br = new BufferedReader(fr);
+        
+        // Read the file. 
+        // This assumes the file has no line breaks and is one line.
+        var json = br.readLine();
+        
+        // Evaluate the JSON.
+        var struct = eval("(" + json + ")");
+        
+        // Set each property in the project environment.
+        doEcho("Zipfile location is " + struct['assets'][0]['browser_download_url']);
+        project.setProperty("ol3zip", struct['assets'][0]['browser_download_url']);
+       
+        ]]>
+        </script>
+        <echo message="Downloading zip file from ${ol3zip}..."/>
+        <get src="${ol3zip}"
+            verbose="on" usetimestamp="true" dest="${proj.dir}/ol3/ol3latest.zip"/>
+        <echo message="Unzipping the files..."/>
+        <unzip src="${proj.dir}/ol3/ol3latest.zip" dest="${proj.dir}/ol3">
+            <patternset>
+                <include name="**/*.*"/>
+            </patternset>
+            <mapper type="flatten"/>
+        </unzip>
+    </target>
+  
+  <target name="minify">
+    <echo message="${echo.separator}"/>
+    <echo message="Minifying our JavaScript."/>
+    <java jar="yuicompressor-2.4.8.jar" fork="true">
+      <arg line="-o ${proj.dir}/js/hcmc_ol.min.js"/> 
+      <arg line="-v"/>
+      <arg line="--charset utf-8"/>
+      <arg line="${proj.dir}/js/hcmc_ol.js"/>
+    </java>
+  </target>
+    
+    <target name="doAll">
+      <antcall target="cleanup"/>
+      <antcall target="teiToGeoJSON"/>
+      <antcall target="getOL3"/>
+      <antcall target="minify"/>
+    </target>
+    
+</project>

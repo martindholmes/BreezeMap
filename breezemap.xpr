@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="17.1">
+    <meta>
+        <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
+        <options>
+            <serialized version="17.1" xml:space="preserve">
+                <map>
+                    <entry>
+                        <String>scenario.associations</String>
+                        <scenarioAssociation-array>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>xml/campus.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>BreezeMap TEI to GeoJSON (XSLT2)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>xml/breezemap.odd</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>TEI ODD to RelaxNG XML output to same folder</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                        </scenarioAssociation-array>
+                    </entry>
+                    <entry>
+                        <String>scenarios</String>
+                        <scenario-array>
+                            <scenario>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>BreezeMap TEI to GeoJSON (XSLT2)</String>
+                                </field>
+                                <field name="baseURL">
+                                    <String></String>
+                                </field>
+                                <field name="footerURL">
+                                    <String></String>
+                                </field>
+                                <field name="fOPMethod">
+                                    <String>pdf</String>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <String>Apache FOP</String>
+                                </field>
+                                <field name="headerURL">
+                                    <String></String>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <String>${pdu}/utilities/tei_to_geojson.xsl</String>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <String>${currentFileURL}</String>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>XSL</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <File>${pd}/js/campus.json</File>
+                                </field>
+                                <field name="outputResource">
+                                    <String>${pd}/js/campus.json</String>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <null/>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>Saxon-HE</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array/>
+                                </field>
+                            </scenario>
+                            <antScenario>
+                                <field name="additionalAntArgs">
+                                    <String></String>
+                                </field>
+                                <field name="buildTarget">
+                                    <String></String>
+                                </field>
+                                <field name="buildFilePath">
+                                    <String>${frameworkDir(TEI P5)}/xml/tei/stylesheet/relaxng/build-to.xml</String>
+                                </field>
+                                <field name="ditaParams">
+                                    <list>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>defaultSource</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>TEI source file.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>file:/home/mholmes/.com.oxygenxml/extensions/v17.1/frameworks/http___www.tei_c.org_release_oxygen_updateSite.oxygen/tei/xml/tei/odd/p5subset.xml</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>inputFile</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Path to the TEI XML file.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cf}</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>lang</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>The language of the output strings like "Attributes", "Class", "Datatype", "Declaration", "Note", "Optional", "Required", "Recommended", etc.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>en</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>outputFile</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Path where the output schema file will be saved.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${cfd}/${cfn}.rng</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>oxygenlib</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>Path to the Oxygen library folder.</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>${oxygenInstallDir}/lib</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                        <antParameter>
+                                            <field name="name">
+                                                <String>profile</String>
+                                            </field>
+                                            <field name="description">
+                                                <String>The profile of the output file, for example "tei", "oucs", "oucscourses", "enrich".</String>
+                                            </field>
+                                            <field name="value">
+                                                <String>default</String>
+                                            </field>
+                                            <field name="defaultValue">
+                                                <null/>
+                                            </field>
+                                            <field name="type">
+                                                <Integer>5</Integer>
+                                            </field>
+                                            <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                        </antParameter>
+                                    </list>
+                                </field>
+                                <field name="jvmArgs">
+                                    <String>-Xmx256m</String>
+                                </field>
+                                <field name="useCustomJavaHome">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="customJavaHomeDir">
+                                    <String></String>
+                                </field>
+                                <field name="useCustomANTHome">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="customANTHomeDir">
+                                    <String></String>
+                                </field>
+                                <field name="workingDir">
+                                    <String>${cfd}</String>
+                                </field>
+                                <field name="showConsoleAlways">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="advancedOptionsMap">
+                                    <null/>
+                                </field>
+                                <field name="name">
+                                    <String>TEI ODD to RelaxNG XML output to same folder</String>
+                                </field>
+                                <field name="baseURL">
+                                    <null/>
+                                </field>
+                                <field name="footerURL">
+                                    <null/>
+                                </field>
+                                <field name="fOPMethod">
+                                    <null/>
+                                </field>
+                                <field name="fOProcessorName">
+                                    <null/>
+                                </field>
+                                <field name="headerURL">
+                                    <null/>
+                                </field>
+                                <field name="inputXSLURL">
+                                    <null/>
+                                </field>
+                                <field name="inputXMLURL">
+                                    <null/>
+                                </field>
+                                <field name="defaultScenario">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="isFOPPerforming">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="type">
+                                    <String>ANT</String>
+                                </field>
+                                <field name="saveAs">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="openInBrowser">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="outputFile">
+                                    <null/>
+                                </field>
+                                <field name="outputResource">
+                                    <null/>
+                                </field>
+                                <field name="openOtherLocationInBrowser">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="locationToOpenInBrowserURL">
+                                    <String>${cfd}/${cfn}.rng</String>
+                                </field>
+                                <field name="openInEditor">
+                                    <Boolean>true</Boolean>
+                                </field>
+                                <field name="showInHTMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInXMLPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInSVGPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="showInResultSetPane">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="useXSLTInput">
+                                    <Boolean>false</Boolean>
+                                </field>
+                                <field name="xsltParams">
+                                    <list/>
+                                </field>
+                                <field name="cascadingStylesheets">
+                                    <String-array/>
+                                </field>
+                                <field name="xslTransformer">
+                                    <String>ANT</String>
+                                </field>
+                                <field name="extensionURLs">
+                                    <String-array>
+                                        <String>${oxygenHome}/classes/</String>
+                                        <String>${oxygenHome}/lib/oxygen.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenAuthor.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenDeveloper.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenEclipse.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenAuthorEclipse.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenDeveloperEclipse.jar</String>
+                                        <String>${oxygenHome}/lib/resolver.jar</String>
+                                        <String>${oxygenHome}/lib/xercesImpl.jar</String>
+                                        <String>${oxygenHome}/lib/saxon9ee.jar</String>
+                                        <String>${oxygenHome}/lib/saxon.jar</String>
+                                        <String>${oxygenHome}/lib/xml-apis-ext.jar</String>
+                                        <String>${oxygenHome}/lib/log4j.jar</String>
+                                    </String-array>
+                                </field>
+                            </antScenario>
+                        </scenario-array>
+                    </entry>
+                </map>
+            </serialized>
+        </options>
+    </meta>
+    <projectTree name="breezemap.xpr">
+        <folder path="."/>
+    </projectTree>
+</project>

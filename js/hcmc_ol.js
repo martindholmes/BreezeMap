@@ -1,0 +1,2611 @@
+/*jslint
+    white: true, for: true
+*/
+/* global
+    ol
+*/
+/* globals ol */
+
+"use strict";
+
+
+
+/**
+ * This file provides functionality built onto
+ * the OpenLayers3 API to handle data in various
+ * formats (GeoJSON initially, along with some
+ * additional custom data relating to the
+ * categories of features which cannot straightforwardly
+ * be encoded in GeoJSON) and create enhanced
+ * OL Features and interface components.
+ *
+ * It requires a CSS file called ../css/hcmc_ol.css, as 
+ * well as an image called placemark.png.
+ *
+ * Written by Martin Holmes beginning 2016-03 for
+ * general use, and piloted with the Stolo project.
+*/
+
+/**
+ * Namespace "hol" stands for HCMC Open Layers.
+ */
+
+/**
+ * @fileOverview Convenience library for rapidly building
+ *               OpenLayers3-based maps with complex
+ *               vector layers, where features are sorted
+ *               into multiple categories in a many-to-many
+ *               relationship, and a navigation panel is
+ *               required.
+ * @author <a href="mailto:mholmes@uvic.ca">Martin Holmes</a>
+ * @version 0.1.0
+ */
+
+/**
+ * Namespace "hol" stands for HCMC Open Layers.
+ *
+ * @module hol
+ */
+
+
+/**
+ * Root namespace
+ * @namespace hol
+ */
+var hol = {};
+
+/**
+ * Constants in hol namespace used
+ * for tracking the process of complex
+ * interactions between the navigation
+ * panel and the features on the map.
+ */
+ 
+/** @constant hol.NAV_IDLE No action to show or hide 
+ *                 features is currently happening.
+ *  @type {number} 
+ *  @default
+*/
+hol.NAV_IDLE = 0;
+
+/** @constant hol.NAV_SHOWHIDING_FEATURES Another
+ *                     user action has triggered the 
+ *                     showing/hiding of features, and that
+ *                     process is not yet complete.
+ *  @type {number}
+ *  @default
+*/
+hol.NAV_SHOWHIDING_FEATURES = 1;
+
+/** @constant hol.NAV_HARMONIZING_FEATURE_CHECKBOXES 
+ *                     A process of showing and hiding 
+ *                     features triggered by the user is 
+ *                     currently making sure all the checkboxes
+ *                     in the navigation panel for each feature
+ *                     are in the same state.
+ *  @type {number}
+ *  @default
+*/
+hol.NAV_HARMONIZING_FEATURE_CHECKBOXES = 2;
+
+/** @constant hol.NAV_HARMONIZING_CATEGORY_CHECKBOXES 
+ *                     A process of showing and hiding 
+ *                     features triggered by the user is 
+ *                     currently making sure all the checkboxes
+ *                     in the navigation panel for for categories
+ *                     reflect the combined state of their descendant
+ *                     feature checkboxes.
+ *  @type {number}
+ *  @default
+*/
+hol.NAV_HARMONIZING_CATEGORY_CHECKBOXES = 3;
+
+/** @constant hol.NAV_SHOWHIDING_CATEGORY 
+ *                 A process of showing or hiding 
+ *                     an entire category of features
+ *                     is currently in progress.
+ *  @type {number}
+ *  @default
+*/
+hol.NAV_SHOWHIDING_CATEGORY = 4;
+
+/**
+ * hol.Util class contains utility methods
+ * and constants for the rest of the classes.
+ *
+ * @class hol.Util Contains utility methods
+ * and constants for the rest of the classes.
+ * @constructor
+ */
+hol.Util = function () {};
+
+/**
+ * A utility function borrowed with thanks from here:
+ * http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+ * @function hol.Util.crudeHash
+ * @memberof hol.Util
+ * @description Creates a crude 
+ *                  one-way hash from an input string.
+ * @param {string} s The input string.
+ * @returns {number} A 32-bit integer.
+ */
+hol.Util.crudeHash = function(s){
+  var hash = 0, strlen = s.length, i, c;
+  if (strlen === 0) {
+    return hash;
+  }
+  for (i = 0; i<strlen; i++){
+    c = s.charCodeAt(i);
+    hash = ((hash << 5) - hash) + c;
+    hash &= hash; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+
+/**
+* Ten maximally distinct colours, useful when using many categories on a layer.
+* @type {string[]} 
+* @memberOf hol.Util
+*/
+hol.Util.tenColors = ['rgb(0, 0, 0)', 'rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)'];
+
+/**
+* @description Set of distinct colours, initially set to the ten defaults.
+* The end-user can override these colours if they wish. By default, 
+* identical to hol.Util.tenColors.
+* @type {string[]} 
+* @memberOf hol.Util
+*/
+hol.Util.colorSet = hol.Util.tenColors;
+
+/**
+* @description Get one of the distinct colours, but combine it with a translucency level.
+* @method hol.Util.getColorWithAlpha Get one of the distinct colours, but 
+*                                    combine it with a translucency level.
+* @param {number} catNum Number of the category
+* @param {string} alpha Alpha value (decimal between 0 and 1) in the form of a string.
+* @returns {string} String value of colour.
+*/
+hol.Util.getColorWithAlpha = function(catNum, alpha){
+  var rgb = hol.Util.tenColors[catNum % 10].replace('rgb\(', '').replace('\)', '').split('\s*,\s*');
+  return 'rgba(' + rgb.join(', ') + ', ' + alpha + ')';
+};
+
+/**
+* @description Array of strings representing ten maximally distinct colours, 
+* with an alpha setting of 0.6.
+* @type {string[]}
+* @memberOf hol.Util
+*/
+hol.Util.tenTranslucentColors = [];
+(function(){
+  var i, maxi;
+  for (i=0, maxi=hol.Util.tenColors.length; i<maxi; i++){
+    hol.Util.tenTranslucentColors.push(hol.Util.getColorWithAlpha(i, '0.6'));
+  }
+});
+
+
+/**
+* @description Set of distinct colours, with an alpha setting of 0.6. Initially set to
+* the hol.Util.tenTranslucentColors, but can be overridden by the end user.
+* @type {string[]}
+* @memberOf hol.Util
+*/
+hol.Util.translucentColorSet = hol.Util.tenTranslucentColors;
+
+/**
+ * @description Get the current main colour for a specific category, 
+ * based on its index number.
+ * @function hol.Util.getColorForCategory
+ * @memberof hol.Util
+ * @param  {number} catNum Number of the category.
+ * @return {color}
+ */
+hol.Util.getColorForCategory = function(catNum){
+  return hol.Util.colorSet[catNum % hol.Util.colorSet.length];
+};
+
+/**
+ * @description Get the current translucent colour for a specific category, 
+ * based on its index 
+ * @function hol.Util.getTranslucentColorForCategory
+ * @memberof hol.Util
+ * @param  {number} catNum Number of the category.
+ * @return {color}
+ */
+hol.Util.getTranslucentColorForCategory = function(catNum){
+  return hol.Util.translucentColorSet[catNum % hol.Util.translucentColorSet.length];
+};
+
+/**
+ * @function hol.Util.getCenter
+ * @memberof hol.Util
+ * @description Calculates the centre
+ *               point of an ol.Extent object.
+ * @param  {ol.Extent} OpenLayers ol.Extent object.
+ * @return {number[]} Array of two integers for x and y.
+ */
+hol.Util.getCenter = function(extent){
+  var x = extent[0] + (extent[2] - extent[0]);
+  var y = extent[1] + (extent[3] - extent[1]);
+  return [x,y];
+};
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.style.Style object which renders a feature as
+ * essentially invisible.
+ * @function hol.Util.getHiddenStyle
+ * @memberof hol.Util
+ * @description returns the default
+ *                    style for features when they are
+ *                    not visible on the map.
+ * @returns {object} ol.style.Style
+ */
+hol.Util.getHiddenStyle = function(){
+  return new ol.style.Style({
+    image: new ol.style.Circle({
+      fill: new ol.style.Fill({
+        color: 'rgba(255,255,255,0)'
+      }),
+      stroke: new ol.style.Stroke({
+        color: 'rgba(255,255,0,0)',
+        width: 16
+      }),
+      radius: 30
+    }),
+    fill: new ol.style.Fill({
+      color: 'rgba(255,255,255,0)'
+    }),
+    stroke: new ol.style.Stroke({
+      color: 'rgba(255,255,255,0)',
+      width: 12
+    })
+  });
+};
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.style.Style object which is used for drawing
+ * operations.
+ * @function hol.Util.getDrawingStyle
+ * @memberof hol.Util
+ * @description returns the default
+ *                    style for drawing new features on 
+ *                    the map when feature-editing is 
+ *                    enabled.
+ * @returns {object} ol.style.Style
+ */
+hol.Util.getDrawingStyle = function(){
+  return new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: 'rgba(255, 255, 255, 0.2)'
+    }),
+    stroke: new ol.style.Stroke({
+      color: '#ffcc33',
+      width: 2
+    }),
+    image: new ol.style.Circle({
+      radius: 7,
+      fill: new ol.style.Fill({
+        color: '#ffcc33'
+      })
+    })
+  })
+};
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.style.Style object designed for rendering a
+ * user-dragged box on the map.
+ * @function hol.Util.getDragBoxStyle
+ * @memberof hol.Util
+ * @description returns the default
+ *                    style for a box drawn by the user
+ *                    on the map using the mouse.
+ * @returns {object} ol.style.Style
+ */
+hol.Util.getDragBoxStyle = function(){
+  return new ol.style.Style({
+    stroke: new ol.style.Stroke({
+        color: '#33ff33',
+        width: 1
+    })
+  });
+};
+
+/**
+ * An immediately-executed function in the hol.Util 
+ *                   namespace which maintains 
+ *                   an incrementing counter, used for 
+ *                   purposes such as providing a high
+ *                   zIndex to make selected objects 
+ *                   appear above others in their layer.
+ * @function hol.Util.counter
+ * @memberof hol.Util
+ * @description returns a function which 
+ *                   returns an incremented counter value.
+ * @returns {function} a function which returns an integer.
+ */
+hol.Util.counter = (function(){
+  var c = 1000; //initial value.
+  return function(){return c++;};
+})();
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.style.Style object which renders a feature as
+ * it would appear when highlighted.
+ * @function hol.Util.getSelectedStyle
+ * @memberof hol.Util
+ * @description returns default
+ *                    style for features when they are
+ *                    selected on the map.
+ * @returns {function} Function which returns an Array of ol.style.Style
+ */
+hol.Util.getSelectedStyle = function(){
+//We use a closure to get a self-incrementing zIndex.
+  var newZ = hol.Util.counter();
+  return function(feature, resolution){
+    var catNum = this.getProperties().showingCat;
+    var catCol = hol.Util.getColorForCategory(catNum);
+    return [
+      new ol.style.Style({
+          image: new ol.style.Icon({
+          src: 'js/placemark.png',
+          imgSize: [20,30],
+          anchor: [0.5,1],
+          color: 'rgba(255,0,255,1)'
+        }),
+        /*image: new ol.style.Circle({
+          fill: new ol.style.Fill({
+            color: 'rgba(255,255,255,0)'
+          }),
+          stroke: new ol.style.Stroke({
+            color: 'rgba(255,0,255,0.6)',
+            width: 8
+          }),
+          radius: 10
+        }),*/
+        stroke: new ol.style.Stroke({
+          color: 'rgba(255,0,255,0.6)',
+          width: 8
+        }),
+        zIndex: newZ
+      }),
+      new ol.style.Style({
+       /*image: new ol.style.Circle({
+         fill: new ol.style.Fill({
+           color: 'rgba(255,255,255,0)'
+         }),
+         stroke: new ol.style.Stroke({
+           color: '#ffffff',
+           width: 3
+         }),
+         radius: 10
+       }),*/
+       stroke: new ol.style.Stroke({
+         color: '#ffffff',
+         width: 3
+       }),
+       text: new ol.style.Text({
+         font: '1em sans-serif',
+         fill: new ol.style.Fill({color: catCol}),
+         stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', outlineWidth: 3}),
+         text: this.getProperties().name
+       }),
+       zIndex: newZ
+     })
+    ];
+  };
+};
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.FeatureStyleFunction object which renders a feature as
+ * it would appear as a member of a specified category.
+ * @function hol.Util.getCategoryStyle
+ * @memberof hol.Util
+ * @description returns a constructed ol.FeatureStyleFunction
+ *                    for features when they are
+ *                    selected on the map.
+ * @param {number} catNum Index of the category in its array.
+ * @returns {function} ol.FeatureStyleFunction
+ */
+hol.Util.getCategoryStyle = function(catNum){
+  var col = hol.Util.getColorForCategory(catNum);
+  var transCol = hol.Util.getColorWithAlpha(catNum, '0.2');
+  
+  return function(feature, resolution){
+    var lineWidth = 2;
+    var geomType = this.getGeometry().getType();
+    if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
+      lineWidth = 5;
+    }
+    return [new ol.style.Style({
+      /*image: new ol.style.Circle({
+        fill: new ol.style.Fill({
+          color: transCol
+        }),
+        stroke: new ol.style.Stroke({
+          color: col,
+          width: 2
+        }),
+        radius: 10
+      }),*/
+      image: new ol.style.Icon({
+        src: 'js/placemark.png',
+        imgSize: [20,30],
+        anchor: [0.5,1],
+        color: transCol
+      }),
+      fill: new ol.style.Fill({
+          color: transCol
+        }),
+      stroke: new ol.style.Stroke({
+        color: col,
+        width: lineWidth
+      })
+    })];
+  };
+};
+
+/** Utility function which is passed an ol.Extent (minx, miny, maxx, maxy)
+   and returns the area of the rectangle.
+*  @method hol.Util.getSize Utility function for calculating the size of an ol.Extent.
+*  @param   {ol.Extent} extent
+*  @returns {number} The width * height of the extent.
+* */
+hol.Util.getSize = function(extent){
+  var w = extent[2] - extent[0];
+  var h = extent[3] - extent[1];
+  return (w * h);
+};
+
+/**
+ * A function in the hol.Util namespace which expands and
+ * contracts a category in the navigation panel.
+ * @function hol.Util.expandCollapseCategory
+ * @memberof hol.Util
+ * @description expands or
+ *                        contracts a category in the
+ *                        navigation panel.
+ * @param {object} sender The HTML element from which the
+ *                        call originates.
+ */
+hol.Util.expandCollapseCategory=function(sender){
+  var p = sender.parentNode;
+  if (p.classList.contains('headless')){return;}
+  if(p.classList.contains('expanded')){
+    p.classList.remove('expanded');
+  }
+  else{
+    p.classList.add('expanded');
+  }
+};
+
+
+/**
+ * @description A specific exception type we need to tell the user about.
+ * @constructor hol.Util.DataNotFoundError
+ * @memberof hol.Util
+ * @param {string} missingData Specifics of the data which is missing.
+ * @param {string} dataFile The file in which the data was expected to be found.
+ */
+hol.Util.DataNotFoundError = function(missingData, dataFile) {
+  this.message = 'Error: ' + missingData + ' not found in the JSON file ' + dataFile + '.';
+  this.stack = (new Error()).stack;
+};
+hol.Util.DataNotFoundError.prototype = Object.create(Error.prototype);
+hol.Util.DataNotFoundError.prototype.name = 'hol.Util.DataNotFoundError';
+
+/**
+ * @description Simple test function. Throws up an alert.
+ * @function test
+ * @param {string} inStr String to show in alert.
+ * @memberof hol.Util
+ */
+hol.Util.test=function(inStr){
+  alert('hol.Util.test has been called with ' + inStr + '.');
+};
+
+/**
+ * Method for retrieving JSON from a URL using
+ * XMLHttpRequest. Stolen from:
+ * https://github.com/mdn/promises-test/blob/gh-pages/index.html
+ * with thanks.
+ *
+ * Call like this:
+ *
+ *  hol.Util.ajaxRetrieve('json/myfile.json', 'json').then(function(response) {
+ *  // The first runs when the promise resolves, with the request.response
+ *  // specified within the resolve() method.
+ *  something.something = JSON.Parse(response);
+ *  // The second runs when the promise
+ *  // is rejected, and logs the Error specified with the reject() method.
+ *    }, function(Error) {
+ *      console.log(Error);
+ *  });
+ *
+ * @function hol.Util.ajaxRetrieve
+ * @memberof hol.Util
+ * @description Method for retrieving JSON from a URL using
+ * XMLHttpRequest. Stolen from:
+ * https://github.com/mdn/promises-test/blob/gh-pages/index.html
+ * with thanks.
+ * @param {string} url URL from which to retrieve target file.
+ * @param {string} responseType the mime type of the target document.
+ * @return Promise
+ */
+hol.Util.ajaxRetrieve = function(url, responseType) {
+  // Create new promise with the Promise() constructor;
+  // This has as its argument a function
+  // with two parameters, resolve and reject
+  return new Promise(function(resolve, reject) {
+    // Standard XHR to load a JSON file
+    var request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = responseType;
+    // When the request loads, check whether it was successful
+    request.onload = function() {
+      if (request.status === 200) {
+      // If successful, resolve the promise by passing back the request response
+        resolve(request.response);
+      } else {
+      // If it fails, reject the promise with a error message
+        reject(Error(responseType.toUpperCase() + ' file ' + url + 'did not load successfully; error code: ' + request.statusText));
+      }
+    };
+    request.onerror = function() {
+    // Also deal with the case when the entire request fails to begin with
+    // This is probably a network error, so reject the promise with an appropriate message
+        reject(Error('There was a network error.'));
+    };
+    // Send the request
+    request.send();
+  });
+};
+
+/**
+ * Function for parsing a URL query string. Pinched with thanks
+ * from here:
+ * http://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
+ *
+ * @function hol.Util.getQueryParam
+ * @memberof hol.Util
+ * @description parses a URL query
+ *         string and returns a value for a specified param name.
+ * @param {string} param The name of the param name to search for.
+ * @returns {string} the value of the param, or an empty string.
+ */
+hol.Util.getQueryParam = function(param) {
+    var i, vars, pair, query = window.location.search.substring(1);
+    vars = query.split('&');
+    for (i = 0; i < vars.length; i++) {
+        pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == param) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    return '';
+};
+
+
+/**
+ * hol.VectorLayer class is the core class which is
+ * instantiated to create the vector layer on the map.
+ * When constructing, pass it a pointer to the map,
+ * along with the URLs of the JSON files for categories
+ * and GeoJSON features, and it will take care of the
+ * rest.
+ *
+ * @class hol.VectorLayer
+ * @constructs hol.VectorLayer
+ * @param {ol.Map} map OpenLayers3 ol.Map object on
+ *        which the vector layer will be constructed.
+ * @param {string} featuresUrl URL of the GeoJSON file
+ *        which contains the features for the layer.
+ *
+ */
+hol.VectorLayer = function (olMap, featuresUrl, options){
+  var listenerKey, closeBtn, showTax, form, btn;
+  try{
+//First process the options object.
+    if (options === undefined){
+      options = {};
+    }
+//Setting for testing new features.
+    this.testing = options.testing || false;
+    this.allowUpload = options.allowUpload || false;
+    this.allowFeatureEditing = options.allowFeatureEditing || false;
+    this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
+        
+    this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
+                                                //To be set by the host application if required.
+    
+    this.docBody = document.getElementsByTagName('body')[0];//Stash a convenient ref to the body
+                                                            //of the host document.
+
+    this.map = olMap;
+    this.featuresUrl = featuresUrl || '';
+    this.draw = null;                          //Will point to drawing interaction if invoked.
+    this.modify = null;                        //Will point to modify interaction if invoked.
+    this.currDrawGeometry = '';                //Will hold e.g. 'Point', 'GeometryCollection'.
+    this.drawingFeatures = null;               //Will point to an ol.Collection() if invoked.
+    this.featureOverlay = null;                //Will carry drawn features if invoked.
+    this.coordsBox = null;                     //Will point to a box containing drawing coords. TEMPORARY.
+    this.splash = this.getSplashScreen();
+        
+    this.source = null;                        //Will point to the ol.source.Vector.
+    this.taxonomiesLoaded = false;             //Need to know when the taxonomies have been constructed.
+    this.features = [];                        //This is set to point to the features of the source after loading.
+    this.taxonomies = [];                      //Holds the reconstructed taxonomy/category sets after loading.
+    this.currTaxonomy = -1;                    //Holds the index of the taxonomy currently being displayed in the 
+                                               //navigation panel.
+    this.featsLoaded = false;                  //Good to know when loading of features is done.
+    this.featureDisplayStatus = hol.NAV_IDLE;  //Makes sure we don't try to do two things at the same time.
+    this.toolbar = null;                       //Pointer to the toolbar after we have created it.
+    this.iButton = null;                       //Pointer to Information button after we have created it.
+    this.taxonomySelector = null;              //Pointer to the taxonomy selector on the toolbar.
+    this.navPanel = null;                      //Pointer to the navPanel after we have created it.
+    this.navInput = null;                      //Pointer to the nav search input box after we've created it.
+    this.featureCheckboxes = null;             //Will be a nodeList of all checkboxes for features.
+    this.categoryCheckboxes = null;            //Will be a nodeList of all checkboxes for categories.
+    this.allFeaturesCheckbox = null;           //Will be a pointer to the show/hide all features checkbox.
+    this.selectedFeature = -1;                 //Will contain the index of the currently-selected feature, or -1.
+    this.selectedFeatureNav = null;            //Will contain a pointer to the navigation panel list item for
+                                               //the selected feature.
+    this.docTitle = null;                      //Will contain a pointer to the title span on the left of the toolbar.
+    this.menu = null;                          //Will contain a pointer to menu-like controls for editing etc. 
+    
+//Start by creating the toolbar for the page.
+    this.buildToolbar();
+
+//Next we create a div for displaying external retrieved documents.
+    this.docDisplayDiv = document.createElement('div');
+    this.docDisplayDiv.setAttribute('id', 'holDocDisplay');
+    closeBtn = document.createElement('span');
+    closeBtn.setAttribute('class', 'closeBtn');
+    closeBtn.appendChild(document.createTextNode('❌'));
+    closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
+    this.docDisplayDiv.appendChild(closeBtn);
+    this.docDisplayFrame = document.createElement('iframe');
+    this.docDisplayFrame.setAttribute('id', 'holDocDisplayFrame');
+    this.docDisplayDiv.appendChild(this.docDisplayFrame);
+    this.docBody.appendChild(this.docDisplayDiv);
+
+//Now we create a box-dragging feature.
+    this.dragBox = new ol.interaction.DragBox({
+      condition: ol.events.condition.platformModifierKeyOnly,
+      style: hol.Util.getDragBoxStyle()
+    });
+  
+    this.dragBox.on('boxend', function(e){
+      var boxExtent = this.dragBox.getGeometry().getExtent();
+      this.zoomToBox(boxExtent);
+    }.bind(this));
+  
+    this.map.addInteraction(this.dragBox);
+    
+//Add the click function to the map, even though there's nothing to receive it yet.
+    this.map.on('click', function(evt){this.selectFeatureFromPixel(evt.pixel);}.bind(this));
+    
+//Add the vector layer, with no source for the moment.
+    this.layer = new ol.layer.Vector({style: hol.Util.getHiddenStyle});
+    this.map.addLayer(this.layer);
+    
+//Now various extra optional features.
+    
+    if (this.allowUpload || this.allowFeatureEditing || this.allowTaxonomyEditing){
+      this.setupEditingMenu();
+    }
+    
+    if (this.allowUpload === true){
+      this.setupUpload();
+    }
+  
+    if (this.allowFeatureEditing === true){
+      this.setupFeatureEditing();
+    }
+    if (this.allowTaxonomyEditing === true){
+      this.setupTaxonomyEditing();
+    }
+    
+//Now start loading vector data.
+    if (this.featuresUrl !== ''){
+      this.loadGeoJSONFromString(this.featuresUrl);
+    }
+
+  }
+  catch(e){
+    console.error(e.message);
+  }
+};
+
+/**
+ * Function for setting up editing menu, used when editing 
+ * taxonomies or features, or uploading a GeoJSON file.
+ * 
+ * @function hol.VectorLayer.prototype.setupEditingMenu 
+ * @memberof hol.VectorLayer.prototype
+ * @description Sets up a base menu structure where menu items
+ *              for allowing upload of GeoJSON files and editing
+ *              of features and taxonomies will appear.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.setupEditingMenu = function(){ 
+  var nav, input, btn;
+  try{
+    this.menu = document.createElement('ul');
+    this.menu.setAttribute('class', 'holMenu');
+    this.toolbar.insertBefore(this.menu, this.iButton);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for setting up interface components for uploading 
+ *                         a GeoJSON file.
+ * 
+ * @function hol.VectorLayer.prototype.setupUpload 
+ * @memberof hol.VectorLayer.prototype
+ * @description Adds components to the toolbar to allow the user
+ *              to upload a GeoJSON file into the page.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.setupUpload = function(){
+  var input, fileMenu, ul, item;
+  try{
+    input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('id', 'fileInput');
+    input.setAttribute('accept', 'application/vnd.geo+json,application/json');
+    this.toolbar.appendChild(input);
+    fileMenu = document.createElement('li');
+    fileMenu.appendChild(document.createTextNode('File'));
+    ul = document.createElement('ul');
+    fileMenu.appendChild(ul);
+    item = document.createElement('li');
+    item.appendChild(document.createTextNode('Load file...'));
+    ul.appendChild(item);
+    this.menu.appendChild(fileMenu);
+    item.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
+    input.addEventListener('change', function(){
+      var reader = new FileReader();
+      reader.onload = (function(hol) { return function(e) {
+        if (input.files[0].type.match('xml')){
+          hol.teiToGeoJSON(e.target.result, 'js/tei_to_geojson_xslt1.xsl');
+        }
+        else{
+          hol.loadGeoJSONFromString(e.target.result);
+        }
+        
+      }; })(this);
+          console.log('Loading ' + input.files[0].type);
+          reader.readAsDataURL(input.files[0]);
+      }.bind(this), false);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for setting up feature-editing functionality.
+ * 
+ * @function hol.VectorLayer.prototype.setupFeatureEditing 
+ * @memberof hol.VectorLayer.prototype
+ * @description Sets up some interface controls that allow the user 
+ *              to create new features and edit existing ones.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.setupFeatureEditing = function(){ 
+  var li, menu, item, types, simpleTypes, i, maxi, j, maxj, submenu, subitem;
+  try{
+    types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
+    simpleTypes = ['Point', 'LineString', 'Polygon'];
+    li = document.createElement('li');
+    li.appendChild(document.createTextNode('Draw'));
+    menu = document.createElement('ul');
+    li.appendChild(menu);
+    for (i=0, maxi = types.length; i< maxi; i++){
+      item = document.createElement('li');
+      item.appendChild(document.createTextNode(types[i]));
+      menu.appendChild(item);
+      if (types[i] === 'GeometryCollection'){
+        item.appendChild(document.createTextNode('\u23F5'));
+        item.setAttribute('class', 'hasSubmenu');
+        submenu = document.createElement('ul');
+        for (j=0, maxj=simpleTypes.length; j<maxj; j++){
+          subitem = document.createElement('li');
+          subitem.appendChild(document.createTextNode(simpleTypes[j]));
+          subitem.addEventListener('click', this.addDrawInteraction.bind(this, (types[i]+':'+simpleTypes[j])), false);
+          submenu.appendChild(subitem);
+        }
+        item.appendChild(submenu);
+      }
+      else{
+        item.addEventListener('click', this.addDrawInteraction.bind(this, types[i]), false);
+      }
+    }
+    this.menu.appendChild(li);
+    this.drawingFeatures = new ol.Collection();
+    this.featureOverlay = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        features: this.drawingFeatures
+      }),
+      style: hol.Util.getDrawingStyle()
+    });
+    this.featureOverlay.setMap(this.map);
+    this.coordsBox = document.createElement('textarea');
+    this.coordsBox.setAttribute('id', 'holCoordsBox');
+    this.docBody.appendChild(this.coordsBox);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for setting up taxonomy-editing functionality.
+ * 
+ * @function hol.VectorLayer.prototype.setupTaxonomyEditing 
+ * @memberof hol.VectorLayer.prototype
+ * @description Sets up some interface controls that allow the user 
+ *              to create new taxonomies and categories, and edit 
+ *              existing ones.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.setupTaxonomyEditing = function(){ 
+  try{
+    
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for initiating a feature-drawing action
+ * 
+ * @function hol.VectorLayer.prototype.addDrawInteraction 
+ * @memberof hol.VectorLayer.prototype
+ * @description Initiates a drawing action for users editing and
+ *                        creating new feature geometries.
+ * @param {ol.geom.GeometryType} drawingType A string representing a
+ *                               specific feature type.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
+  try{
+  
+    if (drawingType === 'Clear'){
+      this.drawingFeatures.clear();
+      //this.coordsBox.value = '';
+      return true;
+    }
+    if (((drawingType !== this.currDrawGeometry)&&(!drawingType.match(/^GeometryCollection:/)))
+    ||((!this.currDrawGeometry.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
+      this.drawingFeatures.clear();
+      this.currDrawGeometry = '';
+    }
+    if (this.draw !== null){
+      this.map.removeInteraction(this.draw);      
+    } 
+    if (this.modify !== null){
+      this.map.removeInteraction(this.modify);
+    }
+    if (drawingType === 'None'){
+      this.drawingFeatures.clear();
+      this.coordsBox.style.display = 'none';
+      return true;
+    }
+    
+    
+    this.draw = new ol.interaction.Draw({
+      features: this.drawingFeatures,
+      type: /** @type {ol.geom.GeometryType} */ drawingType.replace(/^GeometryCollection:/, '')
+      });
+    this.draw.on('drawstart', function(evt){this.drawStart(evt);}.bind(this));
+    this.draw.on('drawend', function(evt){this.drawEnd(evt);}.bind(this));
+    this.map.addInteraction(this.draw);
+    this.modify = new ol.interaction.Modify({
+      features: this.drawingFeatures,
+      // the SHIFT key must be pressed to delete vertices, so
+      // that new vertices can be drawn at the same position
+      // of existing vertices
+      deleteCondition: function(event) {
+        return ol.events.condition.shiftKeyOnly(event) &&
+            ol.events.condition.singleClick(event);
+      }
+    });
+    this.modify.on('modifyend', function(evt){this.drawEnd(evt);}.bind(this));
+    this.map.addInteraction(this.modify);
+    this.currDrawGeometry = drawingType;
+    this.coordsBox.style.display = 'block';
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function to handle the initiation of drawing a feature.
+ * 
+ * @function hol.VectorLayer.prototype.drawStart 
+ * @memberof hol.VectorLayer.prototype
+ * @description Handles the beginning of a drawing operation, configuring the 
+ *                      drawing interface as needed.
+ * @param   {ol.interaction.DrawEvent} evt The event emitted by the 
+ *                        ol.interaction.Draw instance that has started.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.drawStart = function(){
+  try{
+    if (!this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
+      this.drawingFeatures.clear();
+    }
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function to handle the products of drawing a feature.
+ * 
+ * @function hol.VectorLayer.prototype.drawEnd 
+ * @memberof hol.VectorLayer.prototype
+ * @description Handles the end of a drawing operation, generating the 
+ *              appropriate output code.
+ * @param   {ol.interaction.DrawEvent} evt The event emitted by the 
+ *                        ol.interaction.Draw instance that has completed.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.drawEnd = function(evt){
+  var geojson = new ol.format.GeoJSON({});
+  var tmpFeat, i, maxi, j, maxj, tmpGeom, polys, arrGeoms;
+  if (this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
+    switch (this.currDrawGeometry){
+      case 'MultiPoint':
+        tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
+        tmpGeom = tmpFeat.getGeometry();
+        for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
+//console.log('adding point # ' + i);
+          tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        }
+//The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
+        if (typeof evt.feature !== 'undefined'){
+          tmpGeom.appendPoint(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        }
+        this.showCoords(tmpFeat.getGeometry());
+        break;
+      case 'MultiLineString':
+        tmpFeat = new ol.Feature({geometry: new ol.geom.MultiLineString([])});
+        tmpGeom = tmpFeat.getGeometry();
+        for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
+          tmpGeom.appendLineString(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        }
+        if (typeof evt.feature !== 'undefined'){
+          tmpGeom.appendLineString(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        }
+        this.showCoords(tmpFeat.getGeometry());
+        break;
+      case 'MultiPolygon':
+        maxi = this.drawingFeatures.getLength();
+        if (maxi > 0){
+          tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPolygon([])});
+          tmpGeom = tmpFeat.getGeometry();
+          for (i=0; i<maxi; i++){
+            polys = this.drawingFeatures.item(i).getGeometry().getPolygons();
+            for (j=0, maxj = polys.length; j<maxj; j++){
+              tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+            }
+          }
+          if (typeof evt.feature !== 'undefined'){
+            polys = evt.feature.getGeometry().getPolygons();
+            for (j=0, maxj = polys.length; j<maxj; j++){
+              tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+            }
+          }
+          this.showCoords(tmpGeom);
+        }
+        break;
+      default:
+//This must be a multi-geometry. Very gnarly indeed. 
+//Go through all features on the drawing layer and build something...
+//Now if we actually have multiple geometries...
+        maxi = this.drawingFeatures.getLength();
+        if (maxi > 0){
+        
+//Create an array to hold the geometries:
+          arrGeoms = [];
+          
+//Now go through all the features on the layer.
+          for (i=0; i<maxi; i++){
+            arrGeoms.push(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                      }
+//Add the feature from this drawing event.
+          if (typeof evt.feature !== 'undefined'){
+            arrGeoms.push(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          }
+//Create a new GeometryCollection with the array.
+          tmpGeom = new ol.geom.GeometryCollection(arrGeoms);
+          this.showCoords(tmpGeom);
+        }
+        break;
+    }
+  }
+  else{
+    if (typeof evt.feature !== 'undefined'){
+      tmpFeat = evt.feature;
+      this.showCoords(tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+    }
+    else{
+//This must be the end of a modify operation, in which case we just write the feature from the drawing layer.
+      this.showCoords(this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+    }
+  }
+  return true;
+};
+
+/**
+ * Function for writing out the coordinates of drawn geometries.
+ * Note that this is currently an ad-hoc rendering intended for
+ * the convenience of the researcher in our pilot project; eventually
+ * this will be part of the overall feature-editing interface.
+ * 
+ * @function hol.VectorLayer.prototype.showCoords 
+ * @memberof hol.VectorLayer.prototype
+ * @description Writes out the coordinates of drawn geometries to a 
+ *              textarea. Note that this is currently an ad-hoc rendering 
+ *              intended for the convenience of the researcher in our pilot 
+ *              project; eventually this will be part of the overall 
+ *              feature-editing interface.
+ * @param   {ol.geom.Geometry} geom A geometry or geometry collection in EPSG:4326.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+ 
+hol.VectorLayer.prototype.showCoords = function(geom){
+  var strGeoJSON, geoObj, i, maxi, teiLocation, geojson = new ol.format.GeoJSON();
+  try{
+    strGeoJSON = geojson.writeGeometry(geom, {decimals: 6});
+    geoObj = JSON.parse(strGeoJSON);
+//We have to handle the GeometryCollection differently in the TEI.  
+    if (geom.getType() === 'GeometryCollection'){
+      teiLocation = 'TEI:\n\n<location type="' + geoObj.type + '">\n';
+      for (i=0, maxi=geoObj.geometries.length; i<maxi; i++){
+        teiLocation += '  <geo n="' + geoObj.geometries[i].type + '">' + JSON.stringify(geoObj.geometries[i].coordinates) + '</geo>\n';
+      }
+      teiLocation += '</location>';
+      this.coordsBox.value = teiLocation + '\n\nGeoJSON:\n\n' + strGeoJSON; 
+    }
+    else{
+      teiLocation = 'TEI:\n\n<location type="' + geoObj.type + '">\n';
+      teiLocation += '  <geo>' + JSON.stringify(geoObj.coordinates) + '</geo>\n';
+      teiLocation += '</location>';
+      this.coordsBox.value = teiLocation + '\n\nGeoJSON:\n\n' + strGeoJSON; 
+    }
+    
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+//This load procedure is a a discrete process
+//that can be called from the constructor (assuming a GeoJSON
+//file is supplied to the constructor), but can also be called 
+//later to replace one set of features with another.
+/**
+ * Function for loading GeoJSON from a string variable.
+ * 
+ * @function hol.VectorLayer.prototype.loadGeoJSONFromString 
+ * @memberof hol.VectorLayer.prototype
+ * @description Reads the string supplied as GeoJSON and constructs
+ *              a feature set on the vector layer from it, then 
+ *              parses the feature set for taxonomies.
+ * @param   {String} geojson The input string; either GeoJSON or the url
+ *                           of a GeoJSON file.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){ 
+//Vars
+  var feats, listenerKey, showTax;
+
+  try{
+//Clear existing features on the map, along with taxonomies.
+//TODO: If source features or taxonomies have been edited, trap and warn.
+    if (this.source !== null){
+      this.source.clear();
+    }
+    
+    this.featsLoaded = false;
+    
+    this.taxonomies = [];
+    
+    this.taxonomiesLoaded = false;
+    
+    if (this.taxonomySelector !== null){
+      this.taxonomySelector.parentNode.removeChild(this.taxonomySelector);
+      this.taxonomySelector = null;
+    }
+
+//We need to know whether the input string is GeoJSON, TEI or a url.
+
+//This is a crude approach: does it contain a curly brace?
+    if (geojson.indexOf('{') > -1){
+//It's a GeoJSON string;
+
+//TODO: THIS IS BADLY BROKEN. The features are read, and the navbar is created,
+//but the map disappears and all features are points in the centre. Don't know 
+//why yet.
+      this.source.addFeatures((new ol.format.GeoJSON()).readFeatures(geojson));
+    }
+    else{
+//It's a URL.
+      this.featuresUrl = geojson;
+      this.source = new ol.source.Vector({
+        url: this.featuresUrl,
+        format: new ol.format.GeoJSON()
+      });
+      this.layer.setSource(this.source);
+    }
+    
+    listenerKey = this.source.on('change', function(e) {
+      var i, maxi;
+      if (this.source.getState() === 'ready') {
+      
+// and unregister the "change" listener
+        ol.Observable.unByKey(listenerKey);
+      
+        this.featsLoaded = true;
+        this.features = this.source.getFeatures();
+        
+//Now we need to set some additional properties on the features.
+        for (i=0, maxi= this.features.length; i<maxi; i++){
+          this.features[i].setProperties({"showing": false, "selected": false}, true);
+        }
+    
+//Now build the taxonomy data structure from the information
+//encoded in the features' properties component. If this succeeds
+//(returning the number of taxonomies created), we can move on.
+
+        if (this.readTaxonomies() > 0){
+        
+//Now we want to discover whether there's a preferred 
+//taxonomy to display, based on the URI query string.
+//Start by setting default value; if there are no taxonomies,
+//then -1; else the first one in the list.
+          this.currTaxonomy = 0;
+          showTax = hol.Util.getQueryParam('taxonomy');
+          if (showTax.length > 0){
+//It may be a name or an index number.
+            var showTaxInt = parseInt(showTax);
+            if ((Number.isInteger(showTaxInt))&&(showTaxInt < this.taxonomies.length)){
+              this.currTaxonomy = showTaxInt;
+            }
+            else{
+              for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+                if (this.taxonomies[i].name === showTax){
+                  this.currTaxonomy = i;
+                }
+              }
+            }
+          }
+          
+          this.buildTaxonomySelector();
+          this.buildNavPanel();
+//Now we can parse the query string in case anything is supposed
+//to be shown by default.
+          this.parseSearch();
+      
+      //Finally we're ready.
+          this.afterLoading();
+        }
+      }
+    }.bind(this));
+
+    
+//Success.
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for testing new features. Subject to change and 
+ * eventual removal.
+ * 
+ * @function hol.VectorLayer.prototype.addTestingFeatures 
+ * @memberof hol.VectorLayer.prototype
+ * @description Performs some initialization of features 
+ *              which are currently in development and testing.
+ *  @returns {Boolean} True (success) or false (failure).
+ */
+hol.VectorLayer.prototype.addTestingFeatures = function(){
+/*form = document.createElement('form');
+  this.textEditor = document.createElement('div');
+  this.textEditor.setAttribute('id', 'holTextEditor');
+  form.appendChild(this.textEditor);
+  this.textarea = document.createElement('textarea');
+  this.textEditor.appendChild(this.textarea);
+  btn = document.createElement('button');
+  btn.appendChild(document.createTextNode('Load'));
+  btn.setAttribute('type', 'button');
+  this.textEditor.appendChild(btn);
+  this.docBody.appendChild(form);*/
+  //btn.addEventListener('click', function(){this.loadGeoJSONFromString(this.textarea.value);}.bind(this), false);
+};
+
+/**
+ * Function for constructing a set of taxonomies, each containing
+ * a list of categories, and each category containing a set of 
+ * features.
+ * 
+ * @function hol.VectorLayer.prototype.readTaxonomies 
+ * @memberof hol.VectorLayer.prototype
+ * @description Reads the data in the properties members of the 
+ *           features, and uses it to construct a set of one or 
+ *           more taxonomies, each with a list of categories, 
+ *           with each category having a list of feature pointers.
+ * @returns {number} Total number of taxonomies constructed.
+ */
+hol.VectorLayer.prototype.readTaxonomies = function(){
+  var i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
+  catName, catPos, catId, foundTax, foundCat;
+  
+//Function for filtering taxonomy and category arrays by name.
+  var hasName = function hasName(element, index, array){
+    return element.name === this;
+  };
+  
+  try{
+    for (i=0, maxi=this.features.length; i<maxi; i++){
+      props = this.features[i].getProperties();
+      
+      if (props.taxonomies){
+        for (j=0, maxj=props.taxonomies.length; j<maxj; j++){
+          taxName = props.taxonomies[j].name;
+          taxPos = props.taxonomies[j].pos;
+          taxId = props.taxonomies[j].id;
+  //If this is the first time we're encountering this taxonomy, add it
+  //to the array.
+          //foundTax = this.taxonomies.filter(function(item) {return item.name === taxName;});
+          foundTax = this.taxonomies.filter(hasName, taxName);
+  
+          if (foundTax.length < 1){
+            this.taxonomies.push({name: taxName, pos: taxPos, id: taxId, categories: []});
+            foundTax[0] = this.taxonomies[this.taxonomies.length-1];
+          }
+          for (k=0, maxk=props.taxonomies[j].categories.length; k<maxk; k++){
+            catName = props.taxonomies[j].categories[k].name;
+            catPos = props.taxonomies[j].categories[k].pos;
+            catId = props.taxonomies[j].categories[k].id;
+            foundCat = foundTax[0].categories.filter(hasName, catName);
+            if (foundCat.length < 1){
+              foundTax[0].categories.push({name: catName, pos: catPos, id: catId, features: []});
+              foundCat[0] = foundTax[0].categories[foundTax[0].categories.length-1];
+            }
+            foundCat[0].features.push(this.features[i]);
+          }
+        }
+      }
+    }
+//Now we sort according to positions recorded in the GeoJSON file, so that 
+//the map interface reflects the order assigned by the user in the originating
+//TEI taxonomy setup.
+    this.taxonomies.sort(function(a,b){
+        if (a.pos < b.pos){return -1;}
+        if (a.pos > b.pos){return 1;}
+        return 0;
+      });
+    for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+      this.taxonomies[i].categories.sort(function(a,b){
+        if (a.pos < b.pos){return -1;}
+        if (a.pos > b.pos){return 1;}
+        return 0;
+      });
+    }
+    
+    this.taxonomiesLoaded = true;
+
+    return this.taxonomies.length;
+  }
+  catch(e){
+    console.error(e.message);
+    return 0;
+  }
+};
+
+/**
+ * Function for checking whether a particular taxonomy
+ *              contains a specific category or not.
+ *
+ * @function hol.VectorLayer.prototype.taxonomyHasCategory
+ * @memberof hol.VectorLayer.prototype
+ * @description Checks whether the specified taxonomy contains
+ *              a particular category or not.
+ * @param {number} taxNum The index of the taxonomy in the taxonomy 
+ *                 array
+ * @param {string} catId The id attribute of the category.
+ * @returns {Boolean} true (taxonomy exists and contains category)
+ *                    or false (taxonomy doesn't exist, or doesn't 
+ *                    contain the category)
+ */
+hol.VectorLayer.prototype.taxonomyHasCategory = function(taxNum, catId){
+  var i, maxi;
+  try{
+//First we check whether the taxonomy exists.
+    if ((taxNum < 0) || (taxNum >= this.taxonomies.length)){
+      return false;
+    } 
+//Now we figure out if the category is a string or a number.
+    for (i=0, maxi=this.taxonomies[taxNum].categories.length; i<maxi; i++){
+      if (this.taxonomies[taxNum].categories[i].id === catId){
+        return true;
+      }
+    }
+    return false;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for checking whether a particular taxonomy
+ *              contains a specific feature or not.
+ *
+ * @function hol.VectorLayer.prototype.taxonomyHasFeature
+ * @memberof hol.VectorLayer.prototype
+ * @description Checks whether the specified taxonomy contains
+ *              a particular feature as a member of one of its
+ *              categories or not.
+ * @param {number} taxNum The index of the taxonomy in the taxonomy 
+ *                 array
+ * @param {string} featId The id attribute of the feature.
+ * @returns {Boolean} true if the taxonomy contains the feature; false if
+ *                    the taxonomy does not exist, or does not contain 
+ *                    the feature.
+ */
+hol.VectorLayer.prototype.taxonomyHasFeature = function(taxNum, featId){
+  var i, maxi, j, maxj;
+  try{
+//First we check whether the taxonomy exists.
+    if ((taxNum < 0) || (taxNum >= this.taxonomies.length)){
+      return false;
+    } 
+//Now we figure out if the category is a string or a number.
+    for (i=0, maxi=this.taxonomies[taxNum].categories.length; i<maxi; i++){
+      for (j=0, maxj=this.taxonomies[taxNum].categories[i].features.length; j<maxj; j++){
+        if (this.taxonomies[taxNum].categories[i].features[j].getId() === featId){
+          return true;
+        }
+      }
+      
+    }
+    return false;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for finding an existing splash screen div, or
+ * creating one if one does not exist.
+ *
+ * @function hol.VectorLayer.prototype.getSplashScreen
+ * @memberof hol.VectorLayer.prototype
+ * @description looks for
+ * a user-defined splash screen element, and if there isn't one,
+ * creates it.
+ * @returns {element | null} HTML element with id 'splash'.
+ */
+hol.VectorLayer.prototype.getSplashScreen = function(){
+  var loading, spinner;
+  try{
+    this.splash = document.getElementById('splash');
+    if (this.splash === null){
+      this.splash = document.createElement('div');
+      this.splash.setAttribute('id', 'splash');
+    }
+    loading = document.createElement('div');
+    loading.setAttribute('id', 'holLoadingMessage');
+    loading.appendChild(document.createTextNode('Loading...'));
+    this.splash.appendChild(loading);
+    this.docBody.appendChild(this.splash);
+    spinner = document.createElement('div');
+    spinner.setAttribute('id', 'holSpinner');
+    spinner.setAttribute('class', 'waiting');
+    this.splash.appendChild(spinner);
+    return this.splash;
+  }
+  catch(e){
+    console.error(e.message);
+    return null;
+  }
+};
+
+/**
+ * Function for reconfiguring the splash screen for use as an
+ * information popup box.
+ *
+ * @function hol.VectorLayer.prototype.afterLoading
+ * @memberof hol.VectorLayer.prototype
+ * @description reconfigures
+ * the splash screen so that it can be used as purely an
+ * information element.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.afterLoading = function(){
+  var i, maxi;
+  try{
+    if (this.splash !== null){
+      document.getElementById('holSpinner').style.display = 'none';
+      document.getElementById('holLoadingMessage').style.display = 'none';
+      this.splash.addEventListener('click', function(){this.style.display = 'none';}.bind(this.splash));
+      this.splash.style.display = 'none';
+    }
+    //Now do some sanity checking.
+/*   
+    if (this.features.length < 1){
+      throw new hol.Util.DataNotFoundError('features (locations)', this.featuresUrl);
+    }
+    
+    if (this.taxonomies.length < 1){
+      throw new hol.Util.DataNotFoundError('taxonomies (lists of location categories)', this.featuresUrl);
+    }
+    
+    for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+      if (this.taxonomies[i].categories.length < 1){
+        throw new hol.Util.DataNotFoundError('categories for taxonomy ' + this.taxonomies[i].name, this.featuresUrl);
+      }
+    }
+    */ 
+    
+    this.browserShims();
+    return true;
+  }
+  catch(e){
+    if (e instanceof hol.Util.DataNotFoundError){
+      alert(e.message);
+    }
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function to handle any annoying browser glitches in support for newer 
+ * standards features.
+ *
+ * @function hol.VectorLayer.prototype.browserShims
+ * @memberof hol.VectorLayer.prototype
+ * @description Implements some shims/hacks to work around limitations
+ *              of old browsers. REMOVE AS SOON AS APPROPRIATE.
+ * @returns {Boolean} true (something was needed) or false (nothing was needed).
+ */
+hol.VectorLayer.prototype.browserShims = function(){
+  var rightBox, result = false;
+  try{
+//Safari 9.1 and IE 11 bug with Flex container sizing.
+    rightBox = document.getElementById('holRightBox');
+    if (rightBox.offsetHeight < 20){
+      rightBox.style.height = '100%';
+      result = true;
+    }
+    return result;
+  }
+  catch(e){
+    console.error(e.message);
+    return result;
+  }
+};
+
+/**
+ * Function for zooming the map to a specific coordinate box,
+ * and showing all of the features which appear within that box.
+ *
+ * @function hol.VectorLayer.prototype.zoomToBox
+ * @memberof hol.VectorLayer.prototype
+ * @description Zooms the map
+ *                    to show an area dragged by the user, and
+ *                    shows all the features within that box.
+ * @param   {ol.Extent} the box to zoom to.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
+  var featId, featNum, featNums = [];
+  try{
+    this.source.forEachFeatureInExtent(boxExtent, function(hitFeature){
+      if (ol.extent.containsExtent(boxExtent, hitFeature.getGeometry().getExtent())){
+        featNum = this.features.indexOf(hitFeature);
+        featId = hitFeature.getId();
+        if (this.taxonomyHasFeature(this.currTaxonomy, featId)){
+          this.showHideFeature(true, featNum, -1);
+          featNums.push(featNum);
+        }
+      }
+    }, this);
+    this.centerOnFeatures(featNums, true);
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+
+
+/**
+ * Function for building the HTML toolbar at the top of the
+ * document.
+ *
+ * @function hol.VectorLayer.prototype.buildToolbar
+ * @memberof hol.VectorLayer.prototype
+ * @description creates
+ *         a toolbar at the top of the screen, including the document
+ *         title and info button.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.buildToolbar = function(){
+  var form, i, maxi;
+  try{
+    form = document.createElement('form');
+    form.addEventListener('submit', function(e){e.preventDefault(); return false;});
+    this.toolbar = document.createElement('div');
+    this.toolbar.setAttribute('id', 'holToolbar');
+    form.appendChild(this.toolbar);
+    this.docTitle = document.createElement('span');
+    this.docTitle.setAttribute('class', 'docTitle');
+    this.docTitle.appendChild(document.createTextNode(document.title));
+    this.toolbar.appendChild(this.docTitle);
+    this.iButton = document.createElement('button');
+    this.iButton.appendChild(document.createTextNode('ℹ'));
+    this.iButton.addEventListener('click', function(){
+        if (this.splash.style.display === 'block'){
+          this.splash.style.display = 'none';
+        }
+        else{
+          this.splash.style.display = 'block';
+        }
+        return false;
+      }.bind(this));
+    this.toolbar.appendChild(this.iButton);
+    this.docBody.appendChild(form);
+        
+    if (this.testing){
+      this.addTestingFeatures();
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+  return true;
+};
+
+/**
+ * Function for adding a taxonomy selector to the toolbar .
+ * @function hol.VectorLayer.prototype.buildTaxonomySelector
+ * @memberof hol.VectorLayer.prototype
+ * @description creates a selector element for choosing between
+ *         taxonomies, and attaches it to the toolbar at the top 
+ *         of the screen. Removes an existing selector element
+ *         if one exists before starting.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.buildTaxonomySelector = function(){
+  var i, maxi, opt;
+  try{
+    if (this.taxonomySelector !== null){
+      this.taxonomySelector.parentNode.removeChild(this.taxonomySelector);
+      this.taxonomySelector = null;
+    }
+    maxi = this.taxonomies.length;
+    if (maxi > 1){
+      this.taxonomySelector = document.createElement('select');
+      for (i=0; i<maxi; i++){
+        opt = document.createElement('option');
+        opt.value = i;
+        if (this.currTaxonomy === i){
+          opt.setAttribute('selected', 'selected');
+        }
+        opt.appendChild(document.createTextNode(this.taxonomies[i].name));
+        this.taxonomySelector.appendChild(opt);
+      }
+      this.taxonomySelector.addEventListener('change', this.changeTaxonomy.bind(this, this.taxonomySelector));
+      this.toolbar.insertBefore(this.taxonomySelector, this.iButton);
+    }
+    return true;
+  }
+  catch(e){
+    console.error(e.error);
+    return false;
+  }
+};
+
+/**
+ * Function for switching from one displayed taxonomy to another.
+ *
+ * @function hol.VectorLayer.prototype.changeTaxonomy
+ * @memberof hol.VectorLayer.prototype
+ * @description Typically called by the user choosing a taxonomy from
+ *              a selector at the top of the screen; invokes a rebuild
+ *              of the navigation panel to display the newly-chosen 
+ *              taxonomy.
+ * @param {Element} sender The HTML selector whose change event called
+ *                             the function.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.changeTaxonomy = function(sender){
+  var newTax;
+  try{
+    newTax = sender.selectedIndex;
+    if ((newTax > -1) && (newTax < this.taxonomies.length) && (newTax !== this.currTaxonomy)){
+      this.showHideAllFeatures(null, false);
+      this.currTaxonomy = newTax;
+      this.buildNavPanel();
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+  return true;
+};
+
+/**
+ * Function for building the HTML navigation panel in the
+ * document.
+ *
+ * @function hol.VectorLayer.prototype.buildNavPanel
+ * @memberof hol.VectorLayer.prototype
+ * @description creates
+ *         a navigation panel/menu for all the categories
+ *         and features in the active taxonomy.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.buildNavPanel = function(){
+  var doc = document, form, rightBox, navPanel, navHeader, navSearchButton,
+      chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
+      catTitleSpan, thisCatUl, thisCatFeatures, f, props, thisFeatLi, 
+      thisFeatChk, thisFeatSpan, i, imax, closeBtn;
+  try{
+//Sanity check:
+    if (this.currTaxonomy < 0){
+      throw new Error('No taxonomy to display; current taxonomy set to ' + this.currTaxonomy + '.');
+    }
+
+//If the navPanel has already been created, we just have to empty the 
+//categories and re-create them..
+    catUl = doc.getElementById('holCategories');
+    if (catUl !== null){
+      while (catUl.firstChild) {
+        catUl.removeChild(catUl.firstChild);
+      }
+    }
+    else{
+//It's the first run; we have to create the navPanel.
+      form = doc.createElement('form');
+      form.addEventListener('submit', function(e){e.preventDefault(); return false;});
+      rightBox = doc.createElement('div');
+      rightBox.setAttribute('id', 'holRightBox');
+      form.appendChild(rightBox);
+      navPanel = doc.createElement('nav');
+      navPanel.setAttribute('id', 'holNav');
+      navHeader = doc.createElement('h2');
+      navSearchButton = doc.createElement('button');
+      navSearchButton.setAttribute('id', 'btnNavSearch');
+      navSearchButton.appendChild(doc.createTextNode('🔍'));
+      navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
+      navSearchButton.setAttribute('title', 'Search for locations');
+      navHeader.appendChild(navSearchButton);
+      chkShowAll = doc.createElement('input');
+      chkShowAll.setAttribute('type', 'checkbox');
+      chkShowAll.setAttribute('title', 'Show/hide all features');
+      chkShowAll.setAttribute('id', 'chkShowAll');
+      chkShowAll.addEventListener('change', this.showHideAllFeatures.bind(this, chkShowAll, chkShowAll.checked));
+      this.allFeaturesCheckbox = chkShowAll;
+      navHeader.appendChild(chkShowAll);
+      navCaption = doc.createElement('span');
+      navCaption.setAttribute('id', 'navCaption');
+      navCaption.appendChild(doc.createTextNode('Locations by category'));
+      navHeader.appendChild(navCaption);
+      navInput = doc.createElement('input');
+      navInput.setAttribute('type', 'text');
+      navInput.setAttribute('id', 'inpNavSearch');
+      navInput.setAttribute('placeholder', 'Search for locations');
+      navInput.addEventListener('keydown', function(event){if (event.keyCode===13 || event.which===13){this.doLocationSearch(true); event.preventDefault();}}.bind(this), false);
+      this.navInput = navInput;
+      navHeader.appendChild(navInput);
+      navPanel.appendChild(navHeader);
+      catUl = doc.createElement('ul');
+      catUl.setAttribute('id', 'holCategories');
+      navPanel.appendChild(catUl);
+      rightBox.appendChild(navPanel);
+//Now we create a div for displaying descriptive info from the
+//features.
+      this.infoDiv = doc.createElement('div');
+      this.infoDiv.setAttribute('id', 'holInfo');
+      closeBtn = doc.createElement('span');
+      closeBtn.setAttribute('class', 'closeBtn');
+      closeBtn.addEventListener('click', function(){this.parentNode.style.display = 'none';}, false);
+      closeBtn.appendChild(doc.createTextNode('❌'));
+      this.infoDiv.appendChild(closeBtn);
+      this.infoDiv.appendChild(doc.createElement('h2'));
+      this.infoDiv.appendChild(doc.createElement('div'));
+      rightBox.appendChild(this.infoDiv);
+      
+      this.docBody.appendChild(form);
+      this.navPanel = navPanel;
+    }
+
+    cats = this.taxonomies[this.currTaxonomy].categories;
+    catMax = cats.length;
+    for (catNum = 0; catNum < catMax; catNum++){
+      catLi = doc.createElement('li');
+      catLi.setAttribute('id', 'catLi_' + catNum);
+      catLi.style.color = hol.Util.getColorForCategory(catNum);
+      catLi.style.backgroundColor = hol.Util.getColorWithAlpha(catNum, '0.1');
+      catLiChk = doc.createElement('input');
+      catLiChk.setAttribute('type', 'checkbox');
+      catLiChk.setAttribute('data-type', 'category');
+      catLiChk.setAttribute('data-catNum', catNum);
+      catLiChk.addEventListener('change', this.showHideCategory.bind(this, catLiChk, catNum));
+      catLi.appendChild(catLiChk);
+      catTitleSpan = doc.createElement('span');
+      catTitleSpan.appendChild(doc.createTextNode(cats[catNum].name));
+      catLi.appendChild(catTitleSpan);
+      //catTitleSpan.addEventListener('click', function(event){hol.Util.expandCollapseCategory(this); event.stopImmediatePropagation(); event.preventDefault();}, false);
+      catTitleSpan.addEventListener('click', hol.Util.expandCollapseCategory.bind(this, catTitleSpan), false);
+      thisCatUl = doc.createElement('ul');
+      thisCatFeatures = cats[catNum].features;
+      /*for (f=0, fmax=thisCatFeatures.length; f<fmax; f++){
+        props = this.features[f].getProperties();
+        if (props.categories.indexOf(this.categories[catNum].id) > -1){
+          thisCatFeatures.push(this.features[f]);
+        }
+      }*/
+      thisCatFeatures.sort(function(a,b){
+        var aName = a.getProperties().name.toUpperCase();
+        var bName = b.getProperties().name.toUpperCase();
+        if (aName < bName){return -1;}
+        if (aName > bName){return 1;}
+        return 0;
+      });
+      for (i=0, imax=thisCatFeatures.length; i<imax; i++){
+        f = this.features.indexOf(thisCatFeatures[i]);
+        props = thisCatFeatures[i].getProperties();
+        thisFeatLi = doc.createElement('li');
+        thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
+        thisFeatChk = doc.createElement('input');
+        thisFeatChk.setAttribute('type', 'checkbox');
+        thisFeatChk.setAttribute('data-featNum', f);
+        thisFeatChk.setAttribute('data-catNum', catNum);
+        thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
+        thisFeatSpan = doc.createElement('span');
+        thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
+        thisFeatSpan.appendChild(doc.createTextNode(props.name));
+        thisFeatLi.appendChild(thisFeatChk);
+        thisFeatLi.appendChild(thisFeatSpan);
+        thisCatUl.appendChild(thisFeatLi);
+      }
+      catLi.appendChild(thisCatUl);
+      catUl.appendChild(catLi);
+    }
+    
+    this.featureCheckboxes = this.navPanel.querySelectorAll("input[type='checkbox'][data-featNum]");
+    this.categoryCheckboxes = this.navPanel.querySelectorAll("input[type='checkbox'][data-type='category']");
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+  return true;
+};
+
+/**
+ * Function for retrieving the category index from its string identifier.
+ *
+ * @function hol.VectorLayer.getCatNumFromId
+ * @memberof hol.VectorLayer.prototype
+ * @description retrieves the category index
+ *                         number from its string id.
+ * @param {string} catId the string identifier.
+ * @param {number} defVal the value to return if the category id is not found.
+ * @returns {number} the index of the category, or defVal by default if the
+ *                   identifier is not found.
+ */
+hol.VectorLayer.prototype.getCatNumFromId = function(catId, defVal){
+  var i, maxi, result = defVal;
+  try{
+    if ((this.currTaxonomy > -1) && (this.currTaxonomy < this.taxonomies.length)){
+      for (i=0, maxi=this.taxonomies[this.currTaxonomy].categories.length; i<maxi; i++){
+        if (this.taxonomies[this.currTaxonomy].categories[i].id === catId){
+          return i;
+        }
+      }
+    }
+    return result;
+  }
+  catch(e){
+    console.error(e.message);
+    return defVal;
+  }
+};
+
+/**
+ * Function for retrieving the feature index from its string identifier.
+ *
+ * @function hol.VectorLayer.getFeatNumFromId
+ * @memberof hol.VectorLayer.prototype
+ * @description retrieves the feature index
+ *                         number from its string id.
+ * @param {string} featId the string identifier.
+ * @param {number} defVal the value to return if the feature is not
+ *                 found
+ * @returns {number} the index of the feature, or defVal if the
+ *                   identifier is not found.
+ */
+hol.VectorLayer.prototype.getFeatNumFromId = function(featId, defVal){
+  var i, maxi, result = defVal;
+  for (i=0, maxi=this.features.length; i<maxi; i++){
+    if (this.features[i].getId() === featId){
+      result = i;
+    }
+  }
+  return result;
+};
+
+/**
+ * Function for retrieving a workable category id for 
+ * a feature that is to be displayed.
+ *
+ * @function hol.VectorLayer.prototype.getCurrFirstCatNum
+ * @memberof hol.VectorLayer.prototype
+ * @description finds the first category number in the currently-active
+ *              taxonomy which contains the feature with the supplied 
+ *              id. This is used to decide what category to use when 
+ *              displaying a feature.
+ * @param {string} featId   The id of the feature.
+ * @returns {number} the index of the first category containing this 
+ *                   feature, or -1 if it is not found.
+ */
+hol.VectorLayer.prototype.getCurrFirstCatNum = function(featId){
+  var cats, feats, i, imax, j, jmax, result = -1;
+  try{
+    if ((this.currTaxonomy < 0)||(this.currTaxonomy >= this.taxonomies.length)){
+      return -1;
+    }
+    cats = this.taxonomies[this.currTaxonomy].categories;
+    for (i=0, imax=cats.length; i<imax; i++){
+      feats = cats[i].features;
+      for (j=0, jmax=feats.length; j<jmax; j++){
+        if (feats[j].getId() === featId){
+          return i;
+        }
+      }
+    }
+    return result;
+  }
+  catch(e){
+    console.error(e.message);
+    return -1;
+  }
+};
+
+/**
+ * Function for hiding/showing a single feature on the map.
+ *
+ * @function hol.VectorLayer.prototype.showHideFeature
+ * @memberof hol.VectorLayer.prototype
+ * @description turns
+ *                         a feature on or off on the layer,
+ *                         by assigning a style based on
+ *                         a provided category, or failing
+ *                         that, the first category the feature
+ *                         belongs to.
+ * @param {Boolean} show   Whether to show or hide the feature.
+ * @param {number} featNum The number of the feature in the layer array.
+ * @param {number} catNum  The category number (or -1 for no category).
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
+  var thisFeature, featId, i, maxi;
+  try{
+    if ((featNum < 0) || (featNum >= this.features.length)){return false;}
+
+//First we determine an appropriate category for the feature, either
+//the one passed into the function, or the first one in the feature's
+//own array.
+    thisFeature = this.features[featNum];
+    featId = thisFeature.getId();
+    
+//Now we check that it's in the current taxonomy. If not, we don't show it.
+    if (this.taxonomyHasFeature(this.currTaxonomy, featId) === false){
+      return false;
+    }
+    
+    if (catNum < 0){
+      catNum = this.getCurrFirstCatNum(featId);
+    }
+//Now we show or hide the feature.
+    this.featureDisplayStatus = hol.NAV_SHOWHIDING_FEATURES;
+    if (show === true){
+      thisFeature.setStyle(hol.Util.getCategoryStyle(catNum));
+      thisFeature.setProperties({"showing": true, "showingCat": catNum});
+    }
+    else{
+      if (thisFeature.getProperties().selected){this.deselectFeature();}
+      thisFeature.setStyle(hol.Util.hiddenStyle);
+      thisFeature.setProperties({"showing": false, "showingCat": -1});
+    }
+//Next, we set the status of all the checkboxes associated with this
+//feature.
+    this.featureDisplayStatus = hol.NAV_HARMONIZING_FEATURE_CHECKBOXES;
+    for (i=0, maxi=this.featureCheckboxes.length; i<maxi; i++){
+      if (this.featureCheckboxes[i].getAttribute('data-featNum') === featNum.toString()){
+        this.featureCheckboxes[i].checked = show;
+      }
+    }
+//Finally we need to harmonize the status of the category checkboxes.
+    this.featureDisplayStatus = hol.NAV_HARMONIZING_CATEGORY_CHECKBOXES;
+    this.harmonizeCategoryCheckboxes();
+
+//We're done
+    this.featureDisplayStatus = hol.NAV_IDLE;
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for showing/hiding all features on the layer.
+ *
+ * @function hol.VectorLayer.prototype.showHideAllFeatures
+ * @memberof hol.VectorLayer.prototype
+ * @description toggles display of all features which are part of
+ *              the currently-selected taxonomy.
+ * @param   {Element} sender The DOM element which initated the action.
+ * @param   {Boolean} show Whether to show or hide features.
+ * @returns {number} the number of features whose state is changed
+ *                          by the operation.
+ */
+hol.VectorLayer.prototype.showHideAllFeatures = function(sender, show){
+  var i, maxi, j, maxj, showVal, currTaxCats, feats;
+  if (sender === null){
+    showVal = show;
+  }
+  else{
+    showVal = sender.checked;
+  }
+  var featuresChanged = 0;
+
+//If hiding, we just hide everything.
+  if (showVal === false){
+    for (i=0, maxi=this.features.length; i<maxi; i++){
+      if (this.features[i].getProperties().showing !== showVal){
+        this.showHideFeature(showVal, i, -1);
+        featuresChanged++;
+      }
+    }
+  }
+//Otherwise we show only the features for the currently-selected
+//taxonomy.
+  else{
+    currTaxCats = this.taxonomies[this.currTaxonomy].categories;
+    for (i=0, maxi=currTaxCats.length; i<maxi; i++){
+      feats = currTaxCats[i].features;
+      for (j=0, maxj=feats.length; j<maxj; j++){
+        if (feats[j].getProperties().showing === false){
+          this.showHideFeature(true, this.features.indexOf(feats[j]), -1);
+        }
+      }
+    }
+  }
+
+  return featuresChanged;
+};
+
+/**
+ * Function for hiding/showing features on the map controlled by
+ *              the navigation panel.
+ *
+ * @function hol.VectorLayer.prototype.showHideFeatureFromNav
+ * @memberof hol.VectorLayer.prototype
+ * @description is called
+ *             from the navigation panel, and hides
+ *             or shows a specific feature on the map using
+ *             a style based on a specific category.
+ * @param {element} sender HTML element from which the function was called.
+ * @param {number}  featNum Index of the feature to be shown or hidden in
+ *                          the feature array.
+ * @param {number}  catNum The number of the category whose style is to
+ *                         be used for display, or -1 if the category is
+ *                         to be taken from the feature itself.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+ 
+hol.VectorLayer.prototype.showHideFeatureFromNav = function(sender, featNum, catNum){
+//If a change has resulted from an action happening in code rather
+//than a user interaction, then do nothing.
+  var success = false;
+  if (this.featureDisplayStatus !== hol.NAV_IDLE){return success;}
+
+  success = this.showHideFeature(sender.checked, featNum, catNum);
+
+  if (sender.checked){
+    success = success && this.setSelectedFeature(featNum, false);
+    this.centerOnFeatures([featNum], true);
+  }
+  return success;
+};
+
+/**
+ * Function for selecting and centring a feature on the map controlled by
+ *              the navigation panel.
+ *
+ * @function hol.VectorLayer.prototype.selectFeatureFromNav
+ * @memberof hol.VectorLayer.prototype
+ * @description is called
+ *             from the navigation panel, and shows, selects and centres
+ *             a specific feature on the map using
+ *             a style based on a specific category.
+ * @param {number}  featNum Index of the feature to be shown or hidden in
+ *                          the feature array.
+ * @param {number}  catNum The number of the category whose style is to
+ *                         be used for display, or -1 if the category is
+ *                         to be taken from the feature itself.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+ 
+hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
+  var success = false;
+  if (this.featureDisplayStatus !== hol.NAV_IDLE){return success;}
+
+  success = this.showHideFeature(true, featNum, catNum);
+
+  success = success && this.setSelectedFeature(featNum, false);
+  this.centerOnFeatures([featNum], true);
+  return success;
+};
+
+/**
+ * Function for harmonizing the status of category checkboxes
+ * after operations which have changed the status of their
+ * subsidiary feature checkboxes.
+ *
+ * @function hol.VectorLayer.prototype.harmonizeCategoryCheckboxes
+ * @memberof hol.VectorLayer.prototype
+ * @description goes through
+ *                         all the checkboxes for categories, and
+ *                         sets their status to checked, indeterminate
+ *                         or unchecked based on the status of their
+ *                         subsidiary checkboxes.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.harmonizeCategoryCheckboxes = function(){
+//Variables for tracking what we need to know for the
+//all-controlling checkbox chkShowAll.
+  var allChecked = true;
+  var allUnchecked = true;
+  var allIndeterminate = false;
+  var i, maxi, j, maxj, hasChecked, hasUnchecked, childInputs;
+  try{
+    for (i=0, maxi=this.categoryCheckboxes.length; i<maxi; i++){
+      hasChecked = false;
+      hasUnchecked = false;
+      childInputs = this.categoryCheckboxes[i].parentNode.querySelectorAll("input[data-featNum]");
+      for (j=0, maxj=childInputs.length; j<maxj; j++){
+        if (childInputs[j].checked){hasChecked = true;}
+        if (childInputs[j].checked === false){hasUnchecked = true;}
+      }
+      if (hasChecked && hasUnchecked){
+        this.categoryCheckboxes[i].indeterminate = true;
+        allIndeterminate = true;
+        allChecked = false;
+        allUnchecked = false;
+      }
+      else{
+        this.categoryCheckboxes[i].indeterminate = false;
+        if (hasChecked){
+          this.categoryCheckboxes[i].checked = true;
+          allUnchecked = false;
+        }
+        else{
+          this.categoryCheckboxes[i].checked = false;
+          allChecked = false;
+        }
+      }
+    }
+    this.allFeaturesCheckbox.checked = (allChecked === true) && (allUnchecked === false);
+    this.allFeaturesCheckbox.indeterminate = allIndeterminate;
+    return true;
+  }
+    catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for hiding/showing a complete category of
+ * features on the map.
+ *
+ * @function hol.VectorLayer.prototype.showHideCategory
+ * @memberof hol.VectorLayer.prototype
+ * @description hides
+ *             or shows all the features belonging to a
+ *             specific category on the map using
+ *             a style based on the category.
+ * @param   {element} sender HTML element which called the function.
+ * @param   {number}  catNum index of the category to be shown
+ *                    or hidden.
+ * @param   {Boolean} show  (optional) If the sender is not specified
+ *                    then whether to show or hide can be specified
+ *                    in this optional parameter.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
+  var featNum, featNums = [], show, childInputs, i, maxi;
+  if (this.featureDisplayStatus != hol.NAV_IDLE){return false;}
+
+  this.featureDisplayStatus = hol.NAV_SHOWHIDING_CATEGORY;
+  show = sender.checked;
+  try{
+    childInputs = sender.parentNode.querySelectorAll("input[data-featNum]");
+    for (i=0, maxi=childInputs.length; i<maxi; i++){
+      featNum = childInputs[i].getAttribute('data-featNum');
+      this.showHideFeature(show, featNum, catNum);
+      featNums.push(featNum);
+    }
+    this.centerOnFeatures(featNums, true);
+    this.featureDisplayStatus = hol.NAV_IDLE;
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for centring the map on a selection of multiple
+ * features.
+ * @function hol.VectorLayer.prototype.centerOnFeatures
+ * @memberof hol.VectorLayer.prototype
+ * @description 
+ *              centres the map on a set of features which 
+ *              are specified as an array of feature numbers.
+ * @param   {number[]} featNums array of feature numbers.
+ * @param   {Boolean} useCurrZoom Whether to change the current zoom level or not.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
+  var i, imax, pan, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  var view = this.map.getView();
+  try{
+    for (i=0, imax=featNums.length; i<imax; i++){
+      geoms.push(this.features[featNums[i]].getGeometry());
+    }
+    if (geoms.length > 0){
+      geomCol = new ol.geom.GeometryCollection();
+      geomCol.setGeometries(geoms);
+      extent = geomCol.getExtent();
+//Now we need to allow for the fact that a big block of the map
+//is invisible under the navigation, info and doc panels.
+      if (this.docDisplayDiv.style.display === 'block'){
+        leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
+      }
+      rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
+      opts = {padding: [0, rightMargin, 0, leftMargin]};
+      if (useCurrZoom === true){
+        opts.maxZoom = this.map.getView().getZoom();
+      }
+      pan = ol.animation.pan({
+          duration: 1000,
+          source: /** @type {ol.Coordinate} */ (view.getCenter())
+        });
+      this.map.beforeRender(pan);
+      view.fit(extent, this.map.getSize(), opts);
+    }
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for finding the smallest feature at a specific
+ *                      pixel on the map.
+ *
+ * @function hol.VectorLayer.prototype.selectFeatureFromPixel
+ * @memberof hol.VectorLayer.prototype
+ * @description detects
+ *                         all features that overlap a specific
+ *                         pixel and returns the smallest of them.
+ * @param {ol.pixel} pixel The pixel in question.
+ * @returns {number} the index of a feature if one is found, or -1.
+ */
+hol.VectorLayer.prototype.selectFeatureFromPixel = function(pixel){
+  var featNum;
+  var hitFeature = null;
+  var fSize = -1;
+  this.map.forEachFeatureAtPixel(pixel, function(feature, layer){
+    var thisSize;
+    var geom = feature.getGeometry();
+    var geomType = geom.getType();
+    var showing = feature.getProperties().showing;
+    if (showing){
+      if (geomType === 'LineString' || geomType === 'MultiLineString' || geomType === 'Point' || geomType === 'MultiPoint'){
+        hitFeature = feature;
+        fSize = 0;
+      } else if (geomType === 'Polygon'||geomType === 'MultiPolygon'||geomType === 'GeometryCollection'){
+        thisSize = hol.Util.getSize(geom.getExtent());
+        if ((thisSize < fSize) || (fSize < 0)){
+          hitFeature = feature;
+          fSize = thisSize;
+        }
+      }
+    }
+  });
+  if (hitFeature !== null){
+    featNum = this.features.indexOf(hitFeature);
+    if (hitFeature.getProperties().showing === false){
+      this.showHideFeature(true, featNum, hitFeature.getProperties().showingCat);
+    }
+    this.setSelectedFeature(featNum, true);
+  }
+};
+
+/**
+ * Function for selecting a specific feature and displaying info
+ *                        about it.
+ *
+ * @function hol.VectorLayer.prototype.setSelectedFeature
+ * @memberof hol.VectorLayer.prototype
+ * @description deselects
+ *                         any feature currently selected, and
+ *                         selects the one passed (by index) to the
+ *                         function
+ * @param {number} featNum The index of the feature to select.
+ * @param {Boolean} jumpInNav Whether or not to highlight/select the 
+ *                         corresponding item in the navigation panel.
+ *                         If the action is triggered from the panel,
+ *                         it would be undesirable to make it leap 
+ *                         around.
+ * @returns {number} the index of a feature if one is selected, or -1.
+ */
+hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
+  var currFeat, props, p, showDoc, targetCat, catLi, featLi;
+//First deselect any existing selection.
+  try{
+    this.deselectFeature();
+//Next, select this feature.
+    this.selectedFeature = featNum;
+    currFeat = this.features[featNum];
+    props = currFeat.getProperties();
+    currFeat.setStyle(hol.Util.getSelectedStyle());
+    currFeat.setProperties({"selected": true});
+    this.infoDiv.querySelector('h2').innerHTML = props.name;
+    this.infoDiv.querySelector('div').innerHTML = props.desc;
+    if (props.links.length > 0){
+      p = document.createElement('p');
+      showDoc = document.createElement('span');
+      showDoc.setAttribute('class', 'holShowDoc');
+      showDoc.addEventListener('click', this.showDocument.bind(this, props.links[0])); 
+      showDoc.appendChild(document.createTextNode('Read more...'));
+      p.appendChild(showDoc);
+      this.infoDiv.querySelector('div').appendChild(p);
+    }
+    this.infoDiv.style.display = 'block';
+//Now highlight and if necessary show the appropriate entry in the navigation panel.
+//First find the appropriate category: either the one it was shown with, or the first
+//in its list.
+    targetCat = currFeat.getProperties().showingCat;
+    if (targetCat < 0){
+      targetCat = this.getCatNumFromId(currFeat.getProperties().categories[0]);
+    }
+//Next, make sure that category is expanded in the navigation panel.
+    catLi = document.getElementById('catLi_' + targetCat);
+    if (!catLi.classList.contains('expanded')){catLi.classList.add('expanded');}
+//Now we have to find the feature item in that category.
+    featLi = catLi.querySelector('li#featLi_' + targetCat + '_' + featNum);
+    if (!featLi.classList.contains('selected')){
+      featLi.classList.add('selected');
+      this.selectedFeatureNav = featLi;
+      if (jumpInNav === true){
+        featLi.scrollIntoView(true);
+      }
+    }
+    return featNum;
+  }
+  catch(e){
+    console.error(e.message);
+    return -1;
+  }
+};
+
+/**
+ * Function for deselecting the currently-selected feature if there
+ *                          is one.
+ *
+ * @function hol.VectorLayer.prototype.deselectFeature
+ * @memberof hol.VectorLayer.prototype
+ * @description deselects
+ *                         any feature currently selected.
+ * @returns {number} the index of the deselected feature if one
+ *                   is found, or -1.
+ */
+hol.VectorLayer.prototype.deselectFeature = function(){
+//First deselect any existing selection.
+  var currSel = this.selectedFeature;
+  var currFeatLi, currSelFeat;
+  if (currSel > -1){
+//Re-show the previously-selected feature using the category under which
+//it was last shown, if it was shown.
+    currSelFeat = this.features[currSel];
+    if (currSelFeat.getProperties().showing){
+      this.showHideFeature(true, currSel, currSelFeat.getProperties().showingCat);
+    }
+    else{
+      currSelFeat.setStyle(hol.Util.getHiddenStyle());
+    }
+    currSelFeat.setProperties({"selected": false});
+    this.selectedFeature = -1;
+    this.infoDiv.style.display = 'none';
+  }
+  currFeatLi = this.selectedFeatureNav;
+  if (currFeatLi !== null){
+    currFeatLi.classList.remove('selected');
+    this.selectedFeatureNav = null;
+  }
+  return currSel;
+};
+
+/**
+ * Function for parsing the search component of the URL string
+ *              and showing/selecting features found there.
+ *
+ * @function hol.VectorLayer.prototype.parseSearch
+ * @memberof hol.VectorLayer.prototype
+ * @description Parses the
+ *              search component of the window URL and attempts
+ *              to act on any information found there by selecting
+ *              and showing features.
+ * @returns {number} true if any features or categories were shown,
+ *              false if not.
+ */
+hol.VectorLayer.prototype.parseSearch = function(){
+  var i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, docPath;
+  var result = 0;
+  
+//First deselect any existing selection.
+  this.deselectFeature();
+
+//Now hide any features currently showing.
+  this.showHideAllFeatures(null, false);
+  
+//Hide the document display box.
+  this.docDisplayDiv.style.display = 'none';
+  this.docDisplayFrame.src = '';
+
+  try{
+//First parse for a document to display.
+    docPath = hol.Util.getQueryParam('docPath');
+    if (docPath.length > 0){
+      this.showDocument(docPath);
+    }
+  
+//Now parse the URL for category ids.
+    catIds = hol.Util.getQueryParam('catIds');
+    if (catIds.length > 0){
+      arrCatIds = catIds.split(';');
+      for (i=0, maxi=arrCatIds.length; i<maxi; i++){
+
+//For each category id found, check whether it's part of the currently-displayed
+//taxonomy.
+        if (this.taxonomyHasCategory(this.currTaxonomy, arrCatIds[i])){
+//Now look for a corresponding
+//category number.
+          catNum = this.getCatNumFromId(arrCatIds[i], -1);
+//If a cat number is found, show all items in that category.
+          if (catNum > -1){
+//We simply check the appropriate checkbox.
+            catChk = document.querySelector('input[data-catNum="' + catNum + '"]');
+            if (catChk !== null){
+              catChk.checked = true;
+              catChk.dispatchEvent(new Event('change', { 'bubbles': true }));
+              result++;
+            }
+          }
+        }
+      }
+    }
+
+//Now parse the search string for individual features.
+    featIds = hol.Util.getQueryParam('featIds');
+    if (featIds.length > 0){
+      arrFeatIds = featIds.split(';');
+//For each feature id, check for a feature index number.
+      for (i=0, maxi=arrFeatIds.length; i<maxi; i++){
+        featNum = this.getFeatNumFromId(arrFeatIds[i], -1);
+        catNum = this.getCurrFirstCatNum(arrFeatIds[i]);
+//Check whether it's included in the currently-selected taxonomy.
+        if (catNum > -1){
+//If an index is found, show that feature and select it.
+          if (featNum > -1){
+            this.showHideFeature(true, featNum, catNum);
+            this.setSelectedFeature(featNum, true);
+            result++;
+          }
+        }
+      }
+    }
+//If more than one feature is specified, then deselect the selected one (which would be the last).
+    if (result > 1){this.deselectFeature();}
+    return result;
+  }
+  catch(e){
+    console.error(e.message);
+    return 0;
+  }
+};
+
+/**
+ * Function for showing/hiding the search box in the navigation panel.
+ *
+ * @function hol.VectorLayer.prototype.showHideMapSearch
+ * @memberof hol.VectorLayer.prototype
+ * @description Hides or shows
+ *                         the search box for the navigation panel.
+ * @param {element(button)} sender the button element clicked to trigger
+ *                          the action.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.showHideMapSearch = function(sender){
+  var caption, input;
+  try{
+    //alert(sender.innerHTML);
+//Always start by resetting the visibility of everything.
+    this.doLocationSearch(false);
+    caption = document.getElementById('navCaption');
+    input = document.getElementById('inpNavSearch');
+    if (caption.style.display === 'none'){
+      sender.classList.remove('pressed');
+      caption.style.display = '';
+      input.style.display = 'none';
+    }
+    else{
+      sender.classList.add('pressed');
+      caption.style.display = 'none';
+      input.style.display = 'inline-block';
+      input.focus();
+    }
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for searching locations in the navigation panel.
+ *
+ * @function hol.VectorLayer.prototype.doLocationSearch
+ * @memberof hol.VectorLayer.prototype
+ * @description Searches the
+ *                         list of locations in the location panel
+ *                         and hides those which are not found.
+ * @param {Boolean} doSearch Whether to search or to re-hide the search features.
+ * @returns {number} the number of search hits found.
+ */
+hol.VectorLayer.prototype.doLocationSearch = function(doSearch){
+  var i, j, maxi, maxj, strSearch, hits, allHits, nameRe, descendants, allDescendants, items;
+  try{
+    strSearch = this.navInput.value;
+    allHits = 0;
+    nameRe = new RegExp(strSearch, 'i');
+    if ((doSearch === false)||(strSearch.length === 0)){
+      allDescendants = this.navPanel.getElementsByTagName('*');
+      for (i=0, maxi=allDescendants.length; i<maxi; i++){
+        allDescendants[i].classList.remove('hidden');
+        allDescendants[i].classList.remove('headless');
+        allDescendants[i].classList.remove('expanded');
+      }
+    }
+    else{
+      items = this.navPanel.getElementsByTagName('li');
+      for (i=0, maxi=items.length; i<maxi; i++){
+        if (items[i].parentNode.id === 'holCategories'){
+  //This is a category container. Hide its category info and
+  //show its child ul.
+          items[i].getElementsByTagName('input')[0].classList.add('hidden');
+          items[i].getElementsByTagName('span')[0].classList.add('hidden');
+
+          hits = 0;
+          descendants = items[i].getElementsByTagName('li');
+          for (j=0, maxj=descendants.length; j<maxj; j++){
+            if (descendants[j].textContent.match(nameRe)){
+              descendants[j].classList.remove('hidden');
+              hits++;
+            }
+            else{
+              descendants[j].classList.add('hidden');
+            }
+          }
+          if ((hits > 0)&&(items[i].getElementsByTagName('ul').length > 0)){
+            allHits += hits;
+            items[i].classList.add('headless');
+            items[i].classList.remove('hidden');
+          }
+          else{
+            items[i].classList.add('hidden');
+          }
+        }
+      }
+    }
+    return allHits;
+  }
+  catch(e){
+    console.error(e.message);
+    return 0;
+  }
+};
+
+/**
+ * @function hol.VectorLayer.prototype.showDocument
+ * @memberof hol.VectorLayer.prototype
+ * @description Shows an HTML
+ *                          file linked from a popup description.
+ * @param {string} docPath The path to the document to be displayed.
+ *                          This is prefixed with the linkPrefix 
+ *                          property (which by default is an empty 
+ *                          string) to enable simpler configuration
+ *                          if these resources are all coming from 
+ *                          the same source.
+ * @returns {boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.showDocument = function(docPath){
+  try{
+    this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
+    this.docDisplayDiv.style.display = 'block';
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+

@@ -1,0 +1,421 @@
+/**
+ * These are styles that go along with ../js/hcmc_ol.js, the library which 
+ * provides basic category-based feature display on a vector layer for 
+ * OpenLayers 3.
+ */
+ 
+html, body{
+ box-sizing: border-box;
+}
+ 
+body{
+  margin: 0;
+  padding: 0;
+  font-family: verdana, sans-serif;
+}
+
+#map{
+  height: calc(100% - 4rem);
+  position: fixed;
+  top: 4rem;
+  /*width: calc(100% - 20rem);*/
+  width: 100%;
+}
+ 
+div#holToolbar{
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid gray;
+  height: 4rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #c0c0c0;
+  vertical-align: middle;
+}
+
+span.docTitle{
+  display: block;
+  vertical-align: middle;
+  align-self: center;
+  margin: 0;
+  font-size: 300%;
+  padding: 0.25rem;
+  text-shadow: 0.05rem 0.05rem 0.05rem rgba(0,0,0, 0.8);
+}
+
+div#holToolbar>button, div#holToolbar>select{
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0.25rem;
+  min-width: 2rem;
+  height: 100%;
+  align-self: flex-end;
+  flex: 0;
+}
+
+div#holToolbar>select{
+  flex-basis: 18rem;
+}
+
+div#holToolbar>button{
+  flex-basis: 2rem;
+}
+
+ul.holMenu{
+  flex: 3;
+  /*max-width: 30rem;*/
+  list-style-type: none;
+  margin-right: auto;
+  display: flex;
+}
+
+ul.holMenu>li{
+  margin: 0;
+  padding: 0.25rem;
+  min-width: 4rem;
+  cursor: pointer;
+  align-self: center;
+}
+
+ul.holMenu>li:hover{
+  background-color: #e0e0e0;
+}
+
+ul.holMenu>li:hover>ul{
+  visibility: visible;
+  opacity: 1;
+}
+
+ul.holMenu>li>ul{
+  position: absolute;
+  list-style-type: none;
+  margin: 0.25rem 0 0 0;
+  padding: 0;
+  max-width: 15rem;
+  background-color: #e0e0e0;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+ul.holMenu>li>ul li{
+  padding: 0.25rem;
+  margin: 0;
+  background-color: #e0e0e0;
+  border: solid 1pt #909090;
+}
+
+ul.holMenu>li>ul li:hover{
+  background-color: #f0f0f0;
+}
+
+ul.holMenu>li>ul>li>ul{
+  list-style-type: none;
+  margin: 0.25rem 0 0 0;
+  padding: 0;
+  max-width: 10rem;
+  background-color: #e0e0e0;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
+ul.holMenu>li>ul>li:hover>ul{
+  visibility: visible;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+input#fileInput{
+  display: none;
+}
+
+
+button.pressed{
+  background-color: #909090;
+  border-style: inset;
+}
+
+div#holRightBox{
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-height: calc(100% - 4rem);
+  background-color: rgba(255,255,255,0);
+}
+
+nav#holNav{
+  border: solid 1pt black;
+  background-color: #c0c0c0;
+  flex: 1;
+  flex-shrink: 1;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: auto;
+}
+
+div#holInfo{
+  display: none;
+  padding: 0.25rem;
+  overflow: auto;  
+  opacity: 0.8;
+  margin: 0;
+  flex: 3;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 0 1px 1px 1px;
+  background-color: #ffffff;
+}
+
+nav#holNav h2{
+  font-size: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  margin: 0;
+}
+
+nav#holNav h2 input#chkShowAll{
+  display: inline-block;
+  float: left;
+}
+
+nav#holNav h2 button, nav#holNav h2 button.pressed{
+  display: inline-block;
+  float: right;
+  width: 1.5rem;
+  text-align: center;
+}
+
+nav#holNav h2 input{
+  display: none;
+}
+
+nav#holNav ul{
+  list-style-type: none;
+  padding: 0.1rem;
+  margin: 0;
+}
+
+nav#holNav>ul>li{
+  padding: 0.5rem 0.25rem;
+}
+
+nav#holNav>ul>li>input{
+  float: right;
+}
+
+nav#holNav li{
+  border-top: 1px solid black;
+  vertical-align: middle;
+}
+
+nav#holNav li:first-child, nav#holNav>ul>li.headless li{
+  border-top: none;
+}
+
+nav#holNav>ul>li>ul{
+  display: none;
+  font-size: 90%;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+nav#holNav>ul>li>ul>li{
+  margin: 0.3rem 0.2rem 0.3rem 2rem;
+  text-indent: -2rem;
+  padding-top: 0;
+  vertical-align: middle;
+  
+}
+
+nav#holNav>ul>li>ul>li.selected span{
+  outline: solid 2px white;
+  /*border-top-style: none;*/
+  /*background-color: white;*/
+}
+
+nav#holNav>ul>li>ul>li>span{
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+  padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+  cursor: pointer;
+}
+
+nav#holNav .hidden{
+  display: none;
+}
+
+nav#holNav>ul>li>span{
+  cursor: pointer;
+}
+
+nav#holNav>ul>li>span:before{
+  content: "\25B6 \00A0";
+}
+
+
+nav#holNav>ul>li.expanded>span:before{
+  content: "\25BC \00A0";
+}
+
+nav#holNav>ul>li.headless:before{
+  content: "";
+}
+
+nav#holNav>ul>li.expanded ul, nav#holNav>ul>li.headless ul{
+  display: block;
+}
+
+div#holDocDisplay{
+  display: none;
+  position: fixed;
+  padding: 0.25rem;
+  overflow: auto;  
+  opacity: 0.8;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+div#holDocDisplay{
+  left: 0;
+  height: calc(100% - 9rem);
+  width: calc(50% - 20rem);
+  min-width: 15rem;
+  border: solid 1px black;
+  background-color: #ffffff;
+  top: 9rem;
+  resize: both;
+}
+
+div#holDocDisplay iframe#holDocDisplayFrame{
+  width: 100%;
+  height: calc(100% - 2rem);
+  border-style: none;
+}
+
+div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn{
+  display: block;
+  position: fixed;
+  padding: 0.2rem;
+  cursor: pointer;
+  background-color: #c0c0c0;
+}
+
+div#holInfo span.closeBtn:hover, div#holDocDisplay span.closeBtn:hover{
+  color: #c0c0c0;
+  background-color: #000000;
+}
+
+div#holInfo h2{
+  font-size: 100%;
+  text-align: center;
+  margin: 0 1.5rem 0.5rem 1.5rem;
+}
+
+div#holInfo div{
+  font-size: 80%;
+  padding: 0.5rem;
+}
+
+span.holShowDoc{
+  cursor: pointer;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+/* Splash screen EITHER created by user OR generated by my 
+   code if not there. */
+div#splash{
+  position: absolute;
+  background-color: #ffffff;
+  color: #606060;
+  text-align: center;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  padding: 1rem;
+  border: solid 1pt black;
+  border-radius: 0.5rem;
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0, 0.8);
+}
+
+div#holLoadingMessage{
+  padding: 1rem;
+}
+
+/* Functionality for "loading" animation, from GN. */
+div.waiting{
+    min-width: 15rem;
+    min-height: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding:.3rem 1.4rem .2rem 1.8rem;
+    text-align: center;
+    margin-bottom:.5ex;
+    color: #fff;
+    text-shadow:1px 1px 1px rgba(0,0,0, 0.8);
+    background-image:linear-gradient(90deg, rgba(100,100,100, .15) 25%, transparent 25%, transparent 50%, rgba(100,100,100, .15) 50%, rgba(100,100,100, .15) 75%, transparent 75%, transparent);
+    background-color:rgb(200,200,200) !important;
+    z-index:1;
+    background-size:40px 40px;
+    animation:move 2s linear infinite;
+    overflow:hidden;
+}
+@keyframes move {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+} 
+
+/* div in which documents retrieved by AJAX for display in the page 
+   have their contents stored. */
+div#retrievedDocs{
+  display: none;
+}
+
+div#holTextEditor{
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 8rem;
+  background-color: rgba(64, 64, 64, 0.7);
+  border: solid 1px black;
+  z-index: 2000;
+}
+
+div#holTextEditor textarea{
+  width: 100%;
+  height: calc(100% - 4rem);
+}
+
+div#holTextEditor button{
+  float: right;  
+}
+
+textarea#holCoordsBox{
+  position: absolute;
+  bottom: 0.1rem;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  height: 8rem;
+  display: none;
+}

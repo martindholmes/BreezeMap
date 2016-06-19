@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>BreezeMap Project ODD</title>
+           <author>Martin Holmes</author>
+         </titleStmt>
+         <publicationStmt>
+           <publisher>Unviversity of Victoria Humanities Computing and Media Centre</publisher>
+           <pubPlace>Victoria, BC, Canada</pubPlace>
+           <availability>
+             <licence target="https://opensource.org/licenses/MIT">All code will be hosted on GitHub and released under an MIT license.</licence>
+             <licence target="http://creativecommons.org/licenses/by/4.0/">Documentation will be released under Creative Commons Attribution 4.0 International.</licence>
+           </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Born digital.</p>
+         </sourceDesc>
+      </fileDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <schemaSpec ident="breezemap">
+           <moduleRef key="core" include="date desc choice abbr expan foreign gloss graphic head item list note p ptr q ref relatedItem term title"/>
+           <moduleRef key="header" include="availability catDesc catRef category classDecl encodingDesc fileDesc licence listPrefixDef prefixDef profileDesc projectDesc publicationStmt sourceDesc taxonomy teiHeader titleStmt"/>
+           <moduleRef key="textstructure" include="TEI body div text"/>
+           <moduleRef key="tei"/>
+           <moduleRef key="namesdates" include="district forename geo listOrg listPerson listPlace location org orgName persName person place placeName region settlement surname terrain"/>
+           
+           <classRef key="att.global.linking"/>
+           
+           <classSpec type="atts" module="tei" ident="att.global" mode="change">
+             <attList>
+               <attDef ident="xml:base" mode="delete"/>
+               <attDef ident="xml:space" mode="delete"/>
+             </attList>
+           </classSpec>
+           
+           <classSpec type="atts" module="tei" ident="att.global.responsibility" mode="delete"/>
+           <classSpec type="atts" module="tei" ident="att.ranging" mode="delete"/>
+           <classSpec type="atts" module="tei" ident="att.editLike" mode="delete"/>
+           <classSpec type="atts" module="tei" ident="att.dimensions" mode="delete"/>
+           <classSpec type="atts" module="tei" ident="att.global.facs" mode="delete"/>
+           <classSpec type="atts" module="tei" ident="att.global.analytic" mode="delete"/>
+           
+           <classSpec type="atts" module="tei" ident="att.global.linking" mode="change">
+             <attList>
+               <attDef ident="synch" mode="delete"/>
+               <attDef ident="sameAs" mode="delete"/>
+               <attDef ident="copyOf" mode="delete"/>
+               <attDef ident="next" mode="delete"/>
+               <attDef ident="prev" mode="delete"/>
+               <attDef ident="exclude" mode="delete"/>
+               <attDef ident="select" mode="delete"/>
+             </attList>
+           </classSpec>
+           
+           <classSpec type="atts" module="tei" ident="att.global.rendition" mode="change">
+             <attList>
+               <attDef ident="rend" mode="delete"/>
+             </attList>
+           </classSpec>
+           
+           <elementSpec ident="location" mode="change">
+             <content>
+               <elementRef key="geo" minOccurs="1" maxOccurs="unbounded"/>
+             </content>
+             <attList>
+               <attDef ident="type" mode="change" usage="req">
+                 <valList mode="add" type="closed">
+                   <valItem ident="Point">
+                     <gloss>A single point</gloss>
+                     <desc>A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</desc>
+                   </valItem>
+                   <valItem ident="MultiPoint">
+                     <gloss>Multiple points</gloss>
+                     <desc>Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, 
+                       the points separated by commas inside another set of square brackets: 
+                       [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]]
+                       NOTE: This looks the same as a LineString, but is interpreted as discrete points.</desc>
+                   </valItem>
+                   <valItem ident="LineString">
+                     <gloss>A line spanning multiple points</gloss>
+                     <desc>Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, 
+                       the points separated by commas inside another set of square brackets: 
+                       [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]]
+                       NOTE: This looks the same as a MultiPoint, but is interpreted as a line rather than discrete points.</desc>
+                   </valItem>
+                   <valItem ident="MultiLineString">
+                     <gloss>Multiple lines, each spanning multiple points</gloss>
+                     <desc>Multiple instances of LineString, each consisting of a sequence of points separated by 
+                       commas inside square brackets, with
+                       the LineStrings themselves contained in square brackets and comma-separated:
+                       [[[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]], [[ -121.972189,49.094992,0 ], [ -121.971931,49.093138,0 ],[ -121.970215,49.092463,0 ]]]
+                       NOTE: This looks the same as a MultiPolygon, but shapes are not closed.</desc>
+                   </valItem>
+                   <valItem ident="Polygon">
+                     <gloss>A polygon or "linear ring"</gloss>
+                     <desc>A Polygon typically consists of a "linear ring" of coordinates: a series of points in square brackets, comma-separated and enclosed 
+                     in square brackets. There is a third set of brackets around the outside, making three levels. If the polygon is a donut, then an 
+                     additional polygon constituting the empty area inside is added inside the outer square brackets. In a linear ring, the first and 
+                     last coordinates must be the same:
+                     [[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]]</desc>
+                   </valItem>
+                   <valItem ident="MultiPolygon">
+                     <gloss>Multiple polygons or "linear rings"</gloss>
+                     <desc>A MultiPolygon contains several polygon coordinate sets inside an outer (fourth level) set of square brackets:
+                       [[[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]], [[[ -121.961117,49.092688,0 ], [ -121.940603,49.080659,0 ], [ -121.940432,49.092913,0 ], [ -121.961288,49.093194,0 ], [ -121.961117,49.092688,0 ]]]]</desc>
+                   </valItem>
+                   <valItem ident="GeometryCollection">
+                     <gloss>Collection of multiple geometries</gloss>
+                     <desc>A Geometry Collection consists of multiple geo elements, each of which corresponds 
+                     to one of the existing geometries in other attribute values.</desc>
+                   </valItem>
+                 </valList>
+               </attDef>
+             </attList>
+           </elementSpec>
+           
+           <elementSpec ident="geo" mode="change">
+             <attList>
+               <attDef ident="n" mode="change" usage="opt">
+                 <valList mode="add" type="closed">
+                   <valItem ident="Point">
+                     <gloss>A single point</gloss>
+                     <desc>A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</desc>
+                   </valItem>
+                   <valItem ident="MultiPoint">
+                     <gloss>Multiple points</gloss>
+                     <desc>Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, 
+                       the points separated by commas inside another set of square brackets: 
+                       [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]]
+                       NOTE: This looks the same as a LineString, but is interpreted as discrete points.</desc>
+                   </valItem>
+                   <valItem ident="LineString">
+                     <gloss>A line spanning multiple points</gloss>
+                     <desc>Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, 
+                       the points separated by commas inside another set of square brackets: 
+                       [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]]
+                       NOTE: This looks the same as a MultiPoint, but is interpreted as a line rather than discrete points.</desc>
+                   </valItem>
+                   <valItem ident="MultiLineString">
+                     <gloss>Multiple lines, each spanning multiple points</gloss>
+                     <desc>Multiple instances of LineString, each consisting of a sequence of points separated by 
+                       commas inside square brackets, with
+                       the LineStrings themselves contained in square brackets and comma-separated:
+                       [[[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]], [[ -121.972189,49.094992,0 ], [ -121.971931,49.093138,0 ],[ -121.970215,49.092463,0 ]]]
+                       NOTE: This looks the same as a MultiPolygon, but shapes are not closed.</desc>
+                   </valItem>
+                   <valItem ident="Polygon">
+                     <gloss>A polygon or "linear ring"</gloss>
+                     <desc>A Polygon typically consists of a "linear ring" of coordinates: a series of points in square brackets, comma-separated and enclosed 
+                       in square brackets. There is a third set of brackets around the outside, making three levels. If the polygon is a donut, then an 
+                       additional polygon constituting the empty area inside is added inside the outer square brackets. In a linear ring, the first and 
+                       last coordinates must be the same:
+                       [[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]]</desc>
+                   </valItem>
+                   <valItem ident="MultiPolygon">
+                     <gloss>Multiple polygons or "linear rings"</gloss>
+                     <desc>A MultiPolygon contains several polygon coordinate sets inside an outer (fourth level) set of square brackets:
+                       [[[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]], [[[ -121.961117,49.092688,0 ], [ -121.940603,49.080659,0 ], [ -121.940432,49.092913,0 ], [ -121.961288,49.093194,0 ], [ -121.961117,49.092688,0 ]]]]</desc>
+                   </valItem>
+                 </valList>
+               </attDef>
+             </attList>
+           </elementSpec>
+           
+           <elementSpec ident="classDecl" mode="change">
+             <content>
+               <elementRef key="taxonomy" minOccurs="1" maxOccurs="unbounded"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="taxonomy" mode="change">
+             <content>
+               <elementRef key="category" minOccurs="1" maxOccurs="unbounded"/>
+             </content>
+             <attList>
+               <attDef ident="n" mode="change" usage="req">
+                 <gloss>A name or caption for this taxonomy</gloss>
+                 <desc>Each taxonomy in your header must have a caption designated
+                       in its @n attribute. This allows the map interface to
+                       provide users with a choice of different sets of categories
+                       to display in the even that you have multiple embedded 
+                       taxonomies.
+                 </desc>
+               </attDef>
+             </attList>
+           </elementSpec>
+           
+           <elementSpec ident="encodingDesc" mode="change">
+             <content>
+               <elementRef key="classDecl"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="teiHeader" mode="change">
+             <content>
+               <elementRef key="fileDesc"/>
+               <elementRef key="encodingDesc"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="body" mode="change">
+             <content>
+               <elementRef key="head"/>
+               <elementRef key="div"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="div" mode="change">
+             <content>
+               <elementRef key="listPlace"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="listPlace" mode="change">
+             <content>
+               <elementRef key="place" minOccurs="1" maxOccurs="unbounded"/>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="place" mode="change">
+             <content>
+               <sequence>
+                <elementRef key="placeName" minOccurs="1" maxOccurs="unbounded"/>
+                <elementRef key="desc"/>
+                <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
+                <elementRef key="location"/>
+               </sequence>
+             </content>
+             <attList>
+               <attDef ident="xml:id" mode="change" usage="req"/>
+               <attDef ident="corresp" mode="change" usage="req"/>
+             </attList>
+           </elementSpec>
+           
+           <elementSpec ident="desc" mode="change">
+             <content>
+               <alternate>
+                 <macroRef key="macro.phraseSeq"/>
+                 <elementRef key="list"/>
+               </alternate>
+             </content>
+           </elementSpec>
+           
+           <elementSpec ident="item" mode="change">
+             <content>
+               <alternate>
+                 <elementRef key="ptr"/>
+                 <elementRef key="graphic"/>
+               </alternate>
+             </content>
+           </elementSpec>
+           
+      </schemaSpec>
+      </body>
+  </text>
+</TEI>
