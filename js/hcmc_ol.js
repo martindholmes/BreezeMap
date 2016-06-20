@@ -2289,6 +2289,41 @@ hol.VectorLayer.prototype.selectFeatureFromPixel = function(pixel){
 };
 
 /**
+ * Function for selecting a feature on the map based on its 
+ *          id. This is most likely to be used as part of 
+ *          the hol: linking protocol whereby a user can point
+ *          to the id of a specific feature in a text or description.
+ *
+ * @function hol.VectorLayer.prototype.selectFeatureFromId
+ * @memberof hol.VectorLayer.prototype
+ * @description selects a feature on the map based on its 
+ *          id. 
+ * @param {String} featId The id attribute of the target feature.
+ * @returns {number} the index of a feature if one is found, or -1.
+ */
+hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
+  var featNum = -1, catNum = -1;
+  try{
+    featNum = this.getFeatNumFromId(featId, -1);
+    if (featNum > -1){
+      catNum = this.getCurrFirstCatNum(featId);
+//Check whether it's included in the currently-selected taxonomy.
+      if (catNum > -1){
+//If an index is found, show that feature and select it.
+        this.showHideFeature(true, featNum, catNum);
+        this.setSelectedFeature(featNum, true);
+        this.centerOnFeatures([featNum], true);
+      }
+    }
+    return featNum;
+  }
+  catch(e){
+    console.error(e.message);
+    return -1;
+  }
+};
+
+/**
  * Function for selecting a specific feature and displaying info
  *                        about it.
  *
