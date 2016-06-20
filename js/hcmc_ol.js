@@ -1694,7 +1694,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
   var doc = document, form, rightBox, navPanel, navHeader, navSearchButton,
       chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
       catTitleSpan, thisCatUl, thisCatFeatures, f, props, thisFeatLi, 
-      thisFeatChk, thisFeatSpan, i, imax, closeBtn;
+      thisFeatChk, thisFeatSpan, i, maxi, closeBtn;
   try{
 //Sanity check:
     if (this.currTaxonomy < 0){
@@ -1798,7 +1798,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
         if (aName > bName){return 1;}
         return 0;
       });
-      for (i=0, imax=thisCatFeatures.length; i<imax; i++){
+      for (i=0, maxi=thisCatFeatures.length; i<maxi; i++){
         f = this.features.indexOf(thisCatFeatures[i]);
         props = thisCatFeatures[i].getProperties();
         thisFeatLi = doc.createElement('li');
@@ -1897,13 +1897,13 @@ hol.VectorLayer.prototype.getFeatNumFromId = function(featId, defVal){
  *                   feature, or -1 if it is not found.
  */
 hol.VectorLayer.prototype.getCurrFirstCatNum = function(featId){
-  var cats, feats, i, imax, j, jmax, result = -1;
+  var cats, feats, i, maxi, j, jmax, result = -1;
   try{
     if ((this.currTaxonomy < 0)||(this.currTaxonomy >= this.taxonomies.length)){
       return -1;
     }
     cats = this.taxonomies[this.currTaxonomy].categories;
-    for (i=0, imax=cats.length; i<imax; i++){
+    for (i=0, maxi=cats.length; i<maxi; i++){
       feats = cats[i].features;
       for (j=0, jmax=feats.length; j<jmax; j++){
         if (feats[j].getId() === featId){
@@ -2210,10 +2210,10 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var i, imax, pan, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  var i, maxi, pan, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
   var view = this.map.getView();
   try{
-    for (i=0, imax=featNums.length; i<imax; i++){
+    for (i=0, maxi=featNums.length; i<maxi; i++){
       geoms.push(this.features[featNums[i]].getGeometry());
     }
     if (geoms.length > 0){
@@ -2354,6 +2354,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     currFeat.setProperties({"selected": true});
     this.infoDiv.querySelector('h2').innerHTML = props.name;
     this.infoDiv.querySelector('div').innerHTML = props.desc;
+    this.rewriteHolLinks(this.infoDiv);
     if (props.links.length > 0){
       p = document.createElement('p');
       showDoc = document.createElement('span');
@@ -2636,6 +2637,39 @@ hol.VectorLayer.prototype.showDocument = function(docPath){
   try{
     this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
     this.docDisplayDiv.style.display = 'block';
+    window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * @function hol.VectorLayer.prototype.rewriteHolLinks
+ * @memberof hol.VectorLayer.prototype
+ * @description Rewrites links written with the hol: private URI 
+ *              protocol so that they make a JS call to this object.
+ * @param {element} the element containing the HTML within which this
+ *                  operation should be done.
+ * @returns {boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.rewriteHolLinks = function(el){
+  var links, elMatch, i, maxi, link, featId;
+  try{
+    if (el == null){return false;}
+console.log('Found an element.');
+    elMatch = 'a[href^=hol\\3A]';
+    links = el.querySelectorAll(elMatch);
+console.log('Found ' + links.length + ' links.');
+    for (i=0, maxi=links.length; i<maxi; i++){
+      link = links[i];
+      featId = link.getAttribute('href').replace(/^hol:/, '');
+      link.setAttribute('href', 'javascript:void(0)');
+      link.classList.add('holFeatureLink');
+      link.addEventListener('click', function(){this.selectFeatureFromId(featId);}.bind(this), false)
+    }
     return true;
   }
   catch(e){

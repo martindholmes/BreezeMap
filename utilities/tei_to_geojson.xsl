@@ -64,6 +64,7 @@
 <!--  GET ALL THE PROPERTIES HERE.        -->
           
           <xsl:text>        "name": "</xsl:text><xsl:value-of select="hcmc:escapeForJSON($thisPlace/placeName)"/><xsl:text>", &#x0a;</xsl:text>
+          
           <xsl:text>        "desc": "</xsl:text><xsl:value-of select="hcmc:escapeForJSON($thisPlace/desc[1])"/><xsl:text>", &#x0a;</xsl:text>
           <xsl:text>        "links": [</xsl:text>
           <xsl:for-each select="$thisPlace/desc[2]/list/item/ptr">
@@ -113,6 +114,10 @@
   
   <xsl:template match="title[@level='a'] | q" mode="serializedXhtml">
     &lt;q&gt;<xsl:apply-templates mode="#current"/>&lt;/q&gt;
+  </xsl:template>
+  
+  <xsl:template match="ref[@target]" mode="serializedXhtml">
+    &lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;
   </xsl:template>
     
 </xsl:stylesheet>

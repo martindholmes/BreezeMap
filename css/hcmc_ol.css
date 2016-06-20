@@ -419,3 +419,9 @@ textarea#holCoordsBox{
   height: 8rem;
   display: none;
 }
+
+a.holFeatureLink{
+  cursor: pointer;
+  color: #0000ff;
+  text-decoration: underline;
+}
