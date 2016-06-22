@@ -2637,6 +2637,7 @@ hol.VectorLayer.prototype.showDocument = function(docPath){
   try{
     this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
     this.docDisplayDiv.style.display = 'block';
+//TODO: MAKE THIS AN EVENT LISTENER!
     window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
     return true;
   }
@@ -2668,7 +2669,7 @@ console.log('Found ' + links.length + ' links.');
       featId = link.getAttribute('href').replace(/^hol:/, '');
       link.setAttribute('href', 'javascript:void(0)');
       link.classList.add('holFeatureLink');
-      link.addEventListener('click', function(){this.selectFeatureFromId(featId);}.bind(this), false)
+      link.addEventListener('click', function(featId){this.selectFeatureFromId(featId);}.bind(this, featId), false);
     }
     return true;
   }
