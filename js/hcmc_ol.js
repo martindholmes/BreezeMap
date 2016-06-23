@@ -1154,7 +1154,7 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
     this.setMapBounds(geom.getExtent());
     this.showCoords(geom.clone().transform('EPSG:3857', 'EPSG:4326'));
     this.drawingFeatures.clear();
-    this.features[0].setGeometry(geom);
+    this.baseFeature.setGeometry(geom);
     tmpFeat.setGeometry(null);
     
     return true;
