@@ -35,7 +35,18 @@
       <xsl:result-document href="{$outputPath}" format="json">
         <xsl:text>{ "type": "FeatureCollection",</xsl:text>
         <xsl:text>&#x0a;  "features": [&#x0a;</xsl:text>
+        
         <xsl:variable name="places" select="//text/body/descendant::place[location]"/>
+        
+<!-- Now we do the default base feature which constitutes the map, and which is never shown. -->
+        <xsl:if test="$places[@xml:id='holMap']">
+          <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>
+          <xsl:text>      "id": "map", &#x0a;</xsl:text>
+          <xsl:text>      "geometry": {&#x0a;</xsl:text>
+          <xsl:text>        "type": "Polygon", &#x0a;</xsl:text>
+          <xsl:text>        "coordinates": </xsl:text><xsl:text>[]</xsl:text>
+          <xsl:text>&#x0a;          }</xsl:text><xsl:if test="$places[@xml:id != 'holMap']"><xsl:text>, </xsl:text>
+        </xsl:if>
         <xsl:for-each select="$places">
           <xsl:variable name="thisPlace" select="."/>
           <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>

@@ -119,7 +119,7 @@
   <pattern>
     <rule context="tei:place">
       <let name="catIds" value="for $c in tokenize(@corresp, '(^|\s+)#') return if (string-length(normalize-space($c)) gt 0) then normalize-space($c) else ()"/>
-      <let name="catsExist" value="for $c in $catIds return if (ancestor::tei:TEI/descendant::tei:category[@xml:id = $c]) then true() else false()"/>
+      <let name="catsExist" value="for $c in $catIds return if (ancestor::tei:TEI/descendant::tei:category[@xml:id = $c] or ancestor::tei:TEI/descendant::tei:classDecl[@xml:id = $c]) then true() else false()"/>
       <assert test="not(false() = $catsExist)">
         Each value in @corresp must point to the @xml:id attribute of a category element in the teiHeader. The following values do not:
         <xsl:value-of select="string-join((for $c in $catIds return if (not(ancestor::tei:TEI/descendant::tei:category[@xml:id = $c])) then concat('#', $c) else()), ', ')"/>

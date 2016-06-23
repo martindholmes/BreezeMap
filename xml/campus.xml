@@ -14,7 +14,7 @@
             <sourceDesc><p>Born digital file for testing purposes.</p></sourceDesc>
         </fileDesc>
         <encodingDesc>
-            <classDecl>
+            <classDecl xml:id="holTaxonomies">
                 <taxonomy xml:id="bldg" n="Buildings">
                     <category xml:id="bldgTeaching">
                         <gloss>Teaching</gloss>
@@ -45,9 +45,17 @@
     </teiHeader>
     <text>
         <body>
-            <head></head>
+            <head>UVic Campus</head>
             <div>
                 <listPlace>
+<!--       This is a special feature which defines the map bounds and title.             -->
+                    <place xml:id="holMap" corresp="#holTaxonomies">
+                        <placeName>UVic Campus</placeName>
+                        <desc></desc>
+                        <location type="Polygon"> <geo>[[[-123.312773,48.465214],[-123.31582,48.463869],[-123.313138,48.463421],[-123.312773,48.465214]]]</geo>
+                        </location>
+                    </place>
+                    
                     <place xml:id="bldgClearihue" corresp="#bldgTeaching">
                         <placeName>Clearihue Building</placeName>
                         <desc>The oldest building on campus...</desc>

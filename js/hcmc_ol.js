@@ -810,6 +810,18 @@ hol.VectorLayer.prototype.setupUpload = function(){
 hol.VectorLayer.prototype.setupFeatureEditing = function(){ 
   var li, menu, item, types, simpleTypes, i, maxi, j, maxj, submenu, subitem;
   try{
+//Set up the setup menu.
+    li = document.createElement('li');
+    li.appendChild(document.createTextNode('Setup'));
+    menu = document.createElement('ul');
+    li.appendChild(menu);
+    item = document.createElement('li');
+    item.appendChild(document.createTextNode('Map area'));
+    menu.appendChild(item);
+    item.addEventListener('click', this.drawMapBounds.bind(this), false);
+    this.menu.appendChild(li);
+
+//Now the main feature-drawing menu.
     types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
     simpleTypes = ['Point', 'LineString', 'Polygon'];
     li = document.createElement('li');
@@ -870,6 +882,54 @@ hol.VectorLayer.prototype.setupTaxonomyEditing = function(){
   try{
     
     return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for allowing the user to define the main map bounds.
+ * 
+ * @function hol.VectorLayer.prototype.drawMapBounds 
+ * @memberof hol.VectorLayer.prototype
+ * @description Initiates a drawing action the user to draw a 
+ *              rectangular box which delineates the starting 
+ *              boundary of their map.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+
+hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
+  var geometryFunction;
+  try{
+    this.drawingFeatures.clear();
+    if (this.draw !== null){
+      this.map.removeInteraction(this.draw);      
+    } 
+    if (this.modify !== null){
+      this.map.removeInteraction(this.modify);
+    }
+    geometryFunction = function(coordinates, geometry) {
+      if (!geometry) {
+        geometry = new ol.geom.Polygon(null);
+      }
+      var start = coordinates[0];
+      var end = coordinates[1];
+      geometry.setCoordinates([
+        [start, [start[0], end[1]], end, [end[0], start[1]], start]
+      ]);
+      return geometry;
+    };
+    this.draw = new ol.interaction.Draw({
+      features: this.drawingFeatures,
+      type: 'LineString',
+      maxPoints: 2,
+      geometryFunction: geometryFunction
+    });
+    this.map.addInteraction(this.draw);
+    this.coordsBox.style.display = 'block';
+    this.draw.on('drawend', function(evt){this.drawMapBoundsEnd(evt);}.bind(this));
   }
   catch(e){
     console.error(e.message);
@@ -981,90 +1041,131 @@ hol.VectorLayer.prototype.drawStart = function(){
 hol.VectorLayer.prototype.drawEnd = function(evt){
   var geojson = new ol.format.GeoJSON({});
   var tmpFeat, i, maxi, j, maxj, tmpGeom, polys, arrGeoms;
-  if (this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
-    switch (this.currDrawGeometry){
-      case 'MultiPoint':
-        tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
-        tmpGeom = tmpFeat.getGeometry();
-        for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-//console.log('adding point # ' + i);
-          tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-        }
-//The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
-        if (typeof evt.feature !== 'undefined'){
-          tmpGeom.appendPoint(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-        }
-        this.showCoords(tmpFeat.getGeometry());
-        break;
-      case 'MultiLineString':
-        tmpFeat = new ol.Feature({geometry: new ol.geom.MultiLineString([])});
-        tmpGeom = tmpFeat.getGeometry();
-        for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-          tmpGeom.appendLineString(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-        }
-        if (typeof evt.feature !== 'undefined'){
-          tmpGeom.appendLineString(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-        }
-        this.showCoords(tmpFeat.getGeometry());
-        break;
-      case 'MultiPolygon':
-        maxi = this.drawingFeatures.getLength();
-        if (maxi > 0){
-          tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPolygon([])});
+  try{
+    if (this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
+      switch (this.currDrawGeometry){
+        case 'MultiPoint':
+          tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
           tmpGeom = tmpFeat.getGeometry();
-          for (i=0; i<maxi; i++){
-            polys = this.drawingFeatures.item(i).getGeometry().getPolygons();
-            for (j=0, maxj = polys.length; j<maxj; j++){
-              tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
-            }
+          for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
+  //console.log('adding point # ' + i);
+            tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          }
+  //The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
+          if (typeof evt.feature !== 'undefined'){
+            tmpGeom.appendPoint(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          }
+          this.showCoords(tmpFeat.getGeometry());
+          break;
+        case 'MultiLineString':
+          tmpFeat = new ol.Feature({geometry: new ol.geom.MultiLineString([])});
+          tmpGeom = tmpFeat.getGeometry();
+          for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
+            tmpGeom.appendLineString(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
           }
           if (typeof evt.feature !== 'undefined'){
-            polys = evt.feature.getGeometry().getPolygons();
-            for (j=0, maxj = polys.length; j<maxj; j++){
-              tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
-            }
+            tmpGeom.appendLineString(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
           }
-          this.showCoords(tmpGeom);
-        }
-        break;
-      default:
-//This must be a multi-geometry. Very gnarly indeed. 
-//Go through all features on the drawing layer and build something...
-//Now if we actually have multiple geometries...
-        maxi = this.drawingFeatures.getLength();
-        if (maxi > 0){
-        
-//Create an array to hold the geometries:
-          arrGeoms = [];
+          this.showCoords(tmpFeat.getGeometry());
+          break;
+        case 'MultiPolygon':
+          maxi = this.drawingFeatures.getLength();
+          if (maxi > 0){
+            tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPolygon([])});
+            tmpGeom = tmpFeat.getGeometry();
+            for (i=0; i<maxi; i++){
+              polys = this.drawingFeatures.item(i).getGeometry().getPolygons();
+              for (j=0, maxj = polys.length; j<maxj; j++){
+                tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+              }
+            }
+            if (typeof evt.feature !== 'undefined'){
+              polys = evt.feature.getGeometry().getPolygons();
+              for (j=0, maxj = polys.length; j<maxj; j++){
+                tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+              }
+            }
+            this.showCoords(tmpGeom);
+          }
+          break;
+        default:
+  //This must be a multi-geometry. Very gnarly indeed. 
+  //Go through all features on the drawing layer and build something...
+  //Now if we actually have multiple geometries...
+          maxi = this.drawingFeatures.getLength();
+          if (maxi > 0){
           
-//Now go through all the features on the layer.
-          for (i=0; i<maxi; i++){
-            arrGeoms.push(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
-                      }
-//Add the feature from this drawing event.
-          if (typeof evt.feature !== 'undefined'){
-            arrGeoms.push(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+  //Create an array to hold the geometries:
+            arrGeoms = [];
+            
+  //Now go through all the features on the layer.
+            for (i=0; i<maxi; i++){
+              arrGeoms.push(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+                        }
+  //Add the feature from this drawing event.
+            if (typeof evt.feature !== 'undefined'){
+              arrGeoms.push(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            }
+  //Create a new GeometryCollection with the array.
+            tmpGeom = new ol.geom.GeometryCollection(arrGeoms);
+            this.showCoords(tmpGeom);
           }
-//Create a new GeometryCollection with the array.
-          tmpGeom = new ol.geom.GeometryCollection(arrGeoms);
-          this.showCoords(tmpGeom);
-        }
-        break;
-    }
-  }
-  else{
-    if (typeof evt.feature !== 'undefined'){
-      tmpFeat = evt.feature;
-      this.showCoords(tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          break;
+      }
     }
     else{
-//This must be the end of a modify operation, in which case we just write the feature from the drawing layer.
-      this.showCoords(this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+      if (typeof evt.feature !== 'undefined'){
+        tmpFeat = evt.feature;
+        this.showCoords(tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+      }
+      else{
+  //This must be the end of a modify operation, in which case we just write the feature from the drawing layer.
+        this.showCoords(this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+      }
     }
+    //return true;
   }
-  return true;
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
 };
 
+/**
+ * Function to handle the end process after defining the map rectangle bounds.
+ * 
+ * @function hol.VectorLayer.prototype.drawMapBoundsEnd 
+ * @memberof hol.VectorLayer.prototype
+ * @description Handles the end of a drawing operation which produces a rectangle
+ *                      defining the user's preferred map bounds.
+ * @param   {ol.interaction.DrawEvent} evt The event emitted by the 
+ *                        ol.interaction.Draw instance that has completed.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
+  var geojson = new ol.format.GeoJSON({});
+  var tmpFeat, geom;
+  try{
+    if (typeof evt.feature !== 'undefined'){
+      tmpFeat = evt.feature;
+    }
+    else{
+      tmpFeat = this.drawingFeatures.item(0);
+    }
+    geom = tmpFeat.getGeometry();
+    this.setMapBounds(geom.getExtent());
+    this.showCoords(geom);
+    this.drawingFeatures.clear();
+    tmpFeat.setGeometry(null);
+    
+    return true;
+  }
+    catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+  
 /**
  * Function for writing out the coordinates of drawn geometries.
  * Note that this is currently an ad-hoc rendering intended for
@@ -2237,6 +2338,36 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       this.map.beforeRender(pan);
       view.fit(extent, this.map.getSize(), opts);
     }
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for navigating the map to a specified extent. Used when 
+ *          defining a map boundary rectangle, and later when using
+ *          that rectangle when initializing.
+ * @function hol.VectorLayer.prototype.setMapBounds
+ * @memberof hol.VectorLayer.prototype
+ * @description Navigates the map to a specified extent. Used when 
+ *           the user defines a map boundary startup setting, and 
+ *           then when the map is first loaded, initializing it at
+ *           that setting.
+ * @param   {ol.Extent} extent The extent to navigate the map to.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.setMapBounds = function(extent){
+  var pan;
+  try{
+    pan = ol.animation.pan({
+        duration: 1000,
+        source: /** @type {ol.Coordinate} */ (view.getCenter())
+      });
+    this.map.beforeRender(pan);
+    view.fit(extent, this.map.getSize());
     return true;
   }
   catch(e){
