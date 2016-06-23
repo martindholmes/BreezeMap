@@ -52,7 +52,7 @@
                     <place xml:id="holMap" corresp="#holTaxonomies">
                         <placeName>UVic Campus</placeName>
                         <desc></desc>
-                        <location type="Polygon"> <geo>[[[-123.312773,48.465214],[-123.31582,48.463869],[-123.313138,48.463421],[-123.312773,48.465214]]]</geo>
+                        <location type="Polygon"> <geo>[[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]</geo>
                         </location>
                     </place>
                     

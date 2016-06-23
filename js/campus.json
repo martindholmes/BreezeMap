@@ -1,6 +1,25 @@
 { "type": "FeatureCollection",
   "features": [
   { "type": "Feature",
+      "id": "holMap", 
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]
+      }, 
+      "properties": {
+        "name": "holMap",
+        "taxonomies": [
+          {"id": "bldg",
+          "name": "Buildings",
+           "pos": 1,
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgSports", "name": "Sports facilities", "pos": 3},{"id": "bldgFood", "name": "Food", "pos": 4},{"id": "bldgResearch", "name": "Research", "pos": 5}]},
+          {"id": "pkng",
+          "name": "Parking lots",
+           "pos": 2,
+           "categories": [{"id": "pkngCovered", "name": "Covered", "pos": 1},{"id": "pkngOutdoor", "name": "Outdoor", "pos": 2}]}]
+      }
+    },
+    { "type": "Feature",
       "id": "bldgClearihue", 
       "geometry": {
         "type": "Polygon", 

@@ -38,16 +38,40 @@
         
         <xsl:variable name="places" select="//text/body/descendant::place[location]"/>
         
-<!-- Now we do the default base feature which constitutes the map, and which is never shown. -->
-        <xsl:if test="$places[@xml:id='holMap']">
+<!-- Now we do the default base feature which constitutes the map, and which is never shown.
+     It includes a complete copy of the taxonomies, as well as the coordinates of the map
+     starting position. -->
+        <!--<xsl:if test="$places[@xml:id='holMap']">-->
           <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>
-          <xsl:text>      "id": "map", &#x0a;</xsl:text>
+          <xsl:text>      "id": "holMap", &#x0a;</xsl:text>
           <xsl:text>      "geometry": {&#x0a;</xsl:text>
           <xsl:text>        "type": "Polygon", &#x0a;</xsl:text>
-          <xsl:text>        "coordinates": </xsl:text><xsl:text>[]</xsl:text>
-          <xsl:text>&#x0a;          }</xsl:text><xsl:if test="$places[@xml:id != 'holMap']"><xsl:text>, </xsl:text>
-        </xsl:if>
-        <xsl:for-each select="$places">
+        <xsl:text>        "coordinates": </xsl:text><xsl:value-of select="if ($places[@xml:id='holMap']/location/geo) then $places[@xml:id='holMap']/location/geo else '[]'"/>
+          <xsl:text>&#x0a;      }, &#x0a;      "properties": {&#x0a;</xsl:text>
+          <xsl:text>        "name": "holMap",&#x0a;</xsl:text>
+          <xsl:text>        "taxonomies": [</xsl:text>
+          <xsl:for-each select="$root//taxonomy">
+            <xsl:text>&#x0a;          {"id": "</xsl:text><xsl:value-of select="@xml:id"/><xsl:text>",</xsl:text>
+            <xsl:text>&#x0a;          "name": "</xsl:text><xsl:value-of select="@n"/><xsl:text>",</xsl:text>
+            <xsl:text>&#x0a;           "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/><xsl:text>,</xsl:text>
+            <xsl:text>&#x0a;           "categories": [</xsl:text>
+            <xsl:for-each select="child::category">
+              <xsl:text>{"id": </xsl:text><xsl:value-of select="concat($quot, @xml:id, $quot)"/>
+              <xsl:text>, "name": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(gloss), $quot)"/>
+              <xsl:text>, "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::category) + 1"/><xsl:text>}</xsl:text>
+              <xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
+            </xsl:for-each>
+            <xsl:text>]}</xsl:text><xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
+          </xsl:for-each>
+          <xsl:text>]</xsl:text>
+          <xsl:text>&#x0a;      }</xsl:text>
+          <xsl:text>&#x0a;    }</xsl:text>
+          <xsl:if test="position() lt last()"><xsl:text>,&#x0a;  </xsl:text></xsl:if>
+        
+          <xsl:if test="$places[@xml:id != 'holMap']"><xsl:text>,&#x0a;  </xsl:text></xsl:if>
+        <!--</xsl:if>-->
+          
+        <xsl:for-each select="$places[@xml:id != 'holMap']">
           <xsl:variable name="thisPlace" select="."/>
           <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>
           <xsl:text>      "id": "</xsl:text><xsl:value-of select="$thisPlace/@xml:id"/><xsl:text>", &#x0a;</xsl:text>

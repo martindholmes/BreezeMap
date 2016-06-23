@@ -641,6 +641,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.source = null;                        //Will point to the ol.source.Vector.
     this.taxonomiesLoaded = false;             //Need to know when the taxonomies have been constructed.
     this.features = [];                        //This is set to point to the features of the source after loading.
+    this.baseFeature = null;                   //Will hold a pointer to the base map feature which is never shown but 
+                                               //carries the complete set of taxonomies and other map-wide properties.
     this.taxonomies = [];                      //Holds the reconstructed taxonomy/category sets after loading.
     this.currTaxonomy = -1;                    //Holds the index of the taxonomy currently being displayed in the 
                                                //navigation panel.
@@ -1154,8 +1156,9 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
     }
     geom = tmpFeat.getGeometry();
     this.setMapBounds(geom.getExtent());
-    this.showCoords(geom);
+    this.showCoords(geom.clone().transform('EPSG:3857', 'EPSG:4326'));
     this.drawingFeatures.clear();
+    this.features[0].setGeometry(geom);
     tmpFeat.setGeometry(null);
     
     return true;
@@ -1281,7 +1284,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
         this.features = this.source.getFeatures();
         
 //Now we need to set some additional properties on the features.
-        for (i=0, maxi= this.features.length; i<maxi; i++){
+        for (i = 0, maxi = this.features.length; i<maxi; i++){
           this.features[i].setProperties({"showing": false, "selected": false}, true);
         }
     
@@ -1290,6 +1293,22 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
 //(returning the number of taxonomies created), we can move on.
 
         if (this.readTaxonomies() > 0){
+        
+//Check the status of the first feature; if its id is not holMap, then 
+//create one and insert it, then copy the taxonomies into it.
+          this.baseFeature = this.source.getFeatureById('holMap');
+          if (this.baseFeature === null){
+  console.log('Creating a holMap feature...');
+            this.baseFeature = new ol.Feature();
+            this.baseFeature.setId('holMap');
+            this.baseFeature.setProperties({"taxonomies": JSON.toString(this.taxonomies)}, true);
+            this.features.unshift(baseFeature);
+          }
+  //Otherwise, we set the map to the bounds of the first feature.
+          else{
+  console.log('Setting initial map bounds...');
+            this.setMapBounds(this.baseFeature.getGeometry().getExtent());
+          }
         
 //Now we want to discover whether there's a preferred 
 //taxonomy to display, based on the URI query string.
@@ -1376,6 +1395,10 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
   var i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
   catName, catPos, catId, foundTax, foundCat;
   
+//We read the taxonomies based on finding them in the features,
+//just in case a subset of features has been separated from the
+//base feature which includes all the taxonomies.
+  
 //Function for filtering taxonomy and category arrays by name.
   var hasName = function hasName(element, index, array){
     return element.name === this;
@@ -1392,7 +1415,6 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
           taxId = props.taxonomies[j].id;
   //If this is the first time we're encountering this taxonomy, add it
   //to the array.
-          //foundTax = this.taxonomies.filter(function(item) {return item.name === taxName;});
           foundTax = this.taxonomies.filter(hasName, taxName);
   
           if (foundTax.length < 1){
@@ -1408,7 +1430,9 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
               foundTax[0].categories.push({name: catName, pos: catPos, id: catId, features: []});
               foundCat[0] = foundTax[0].categories[foundTax[0].categories.length-1];
             }
-            foundCat[0].features.push(this.features[i]);
+            if (this.features[i].getId() !== 'holMap'){
+              foundCat[0].features.push(this.features[i]);
+            }
           }
         }
       }
@@ -1911,7 +1935,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
         thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
         thisFeatSpan = doc.createElement('span');
         thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
-        thisFeatSpan.appendChild(doc.createTextNode(props.name));
+        thisFeatSpan.appendChild(doc.createTextNode(props.name || 'unnamed feature'));
         thisFeatLi.appendChild(thisFeatChk);
         thisFeatLi.appendChild(thisFeatSpan);
         thisCatUl.appendChild(thisFeatLi);
@@ -2360,13 +2384,14 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.setMapBounds = function(extent){
-  var pan;
+  var pan, maxZoom, view = this.map.getView();
   try{
     pan = ol.animation.pan({
         duration: 1000,
         source: /** @type {ol.Coordinate} */ (view.getCenter())
       });
     this.map.beforeRender(pan);
+    
     view.fit(extent, this.map.getSize());
     return true;
   }
