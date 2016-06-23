@@ -293,7 +293,7 @@ hol.Util.getDrawingStyle = function(){
         color: '#ffcc33'
       })
     })
-  })
+  });
 };
 
 /**
@@ -610,7 +610,7 @@ hol.Util.getQueryParam = function(param) {
  *
  */
 hol.VectorLayer = function (olMap, featuresUrl, options){
-  var listenerKey, closeBtn, showTax, form, btn;
+  var closeBtn;
   try{
 //First process the options object.
     if (options === undefined){
@@ -738,7 +738,6 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.setupEditingMenu = function(){ 
-  var nav, input, btn;
   try{
     this.menu = document.createElement('ul');
     this.menu.setAttribute('class', 'holMenu');
@@ -958,8 +957,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
       //this.coordsBox.value = '';
       return true;
     }
-    if (((drawingType !== this.currDrawGeometry)&&(!drawingType.match(/^GeometryCollection:/)))
-    ||((!this.currDrawGeometry.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
+    if (((drawingType !== this.currDrawGeometry)&&(!drawingType.match(/^GeometryCollection:/)))||((!this.currDrawGeometry.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
       this.drawingFeatures.clear();
       this.currDrawGeometry = '';
     }
@@ -1041,7 +1039,6 @@ hol.VectorLayer.prototype.drawStart = function(){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.drawEnd = function(evt){
-  var geojson = new ol.format.GeoJSON({});
   var tmpFeat, i, maxi, j, maxj, tmpGeom, polys, arrGeoms;
   try{
     if (this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
@@ -1145,7 +1142,6 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
-  var geojson = new ol.format.GeoJSON({});
   var tmpFeat, geom;
   try{
     if (typeof evt.feature !== 'undefined'){
@@ -1232,7 +1228,7 @@ hol.VectorLayer.prototype.showCoords = function(geom){
  */
 hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){ 
 //Vars
-  var feats, listenerKey, showTax;
+  var listenerKey, showTax;
 
   try{
 //Clear existing features on the map, along with taxonomies.
@@ -1302,7 +1298,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
             this.baseFeature = new ol.Feature();
             this.baseFeature.setId('holMap');
             this.baseFeature.setProperties({"taxonomies": JSON.toString(this.taxonomies)}, true);
-            this.features.unshift(baseFeature);
+            this.features.unshift(this.baseFeature);
           }
   //Otherwise, we set the map to the bounds of the first feature.
           else{
@@ -1587,8 +1583,8 @@ hol.VectorLayer.prototype.getSplashScreen = function(){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.afterLoading = function(){
-  var i, maxi;
-  try{
+/*  var i, maxi;
+*/  try{
     if (this.splash !== null){
       document.getElementById('holSpinner').style.display = 'none';
       document.getElementById('holLoadingMessage').style.display = 'none';
@@ -1698,7 +1694,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.buildToolbar = function(){
-  var form, i, maxi;
+  var form;
   try{
     form = document.createElement('form');
     form.addEventListener('submit', function(e){e.preventDefault(); return false;});
@@ -2384,7 +2380,7 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.setMapBounds = function(extent){
-  var pan, maxZoom, view = this.map.getView();
+  var pan, view = this.map.getView();
   try{
     pan = ol.animation.pan({
         duration: 1000,
