@@ -677,6 +677,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docDisplayFrame.setAttribute('id', 'holDocDisplayFrame');
     this.docDisplayDiv.appendChild(this.docDisplayFrame);
     this.docBody.appendChild(this.docDisplayDiv);
+    
+//Add an event listener to fix hol: links whenever a document is loaded.
+    this.docDisplayFrame.addEventListener('load', function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), false);
 
 //Now we create a box-dragging feature.
     this.dragBox = new ol.interaction.DragBox({
@@ -2790,7 +2793,7 @@ hol.VectorLayer.prototype.showDocument = function(docPath){
     this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
     this.docDisplayDiv.style.display = 'block';
 //TODO: MAKE THIS AN EVENT LISTENER!
-    window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
+    //window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
     return true;
   }
   catch(e){
