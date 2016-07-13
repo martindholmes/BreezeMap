@@ -15,9 +15,9 @@ body{
 }
 
 #map{
-  height: calc(100% - 4rem);
+  height: calc(100% - 3rem);
   position: fixed;
-  top: 4rem;
+  top: 3rem;
   /*width: calc(100% - 20rem);*/
   width: 100%;
 }
@@ -28,7 +28,7 @@ div#holToolbar{
   margin: 0;
   padding: 0;
   border-bottom: 1px solid gray;
-  height: 4rem;
+  height: 3rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -41,9 +41,10 @@ span.docTitle{
   vertical-align: middle;
   align-self: center;
   margin: 0;
-  font-size: 300%;
+  /*font-size: 300%;*/
+  font-size: 2vw;
   padding: 0.25rem;
-  text-shadow: 0.05rem 0.05rem 0.05rem rgba(0,0,0, 0.8);
+  text-shadow: 0.05rem 0.05rem 0.05rem rgba(0,0,0, 0.2);
 }
 
 div#holToolbar>button, div#holToolbar>select{
@@ -75,7 +76,7 @@ ul.holMenu{
 ul.holMenu>li{
   margin: 0;
   padding: 0.25rem;
-  min-width: 4rem;
+  min-width: 3rem;
   cursor: pointer;
   align-self: center;
 }
@@ -143,7 +144,7 @@ button.pressed{
 
 div#holRightBox{
   position: fixed;
-  top: 4rem;
+  top: 3rem;
   right: 0;
   padding: 0;
   border: 0;
@@ -152,7 +153,7 @@ div#holRightBox{
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  max-height: calc(100% - 4rem);
+  max-height: calc(100% - 3rem);
   background-color: rgba(255,255,255,0);
 }
 
@@ -267,11 +268,18 @@ nav#holNav>ul>li>span{
 
 nav#holNav>ul>li>span:before{
   content: "\25B6 \00A0";
+  font-family: monospace;
+  font-size: 90%;
+  position: relative;
+  top: -0.2em;
 }
 
 
 nav#holNav>ul>li.expanded>span:before{
   content: "\25BC \00A0";
+  font-family: monospace;
+  font-size: 90%;
+  top: -0.2em;
 }
 
 nav#holNav>ul>li.headless:before{
@@ -287,7 +295,7 @@ div#holDocDisplay{
   position: fixed;
   padding: 0.25rem;
   overflow: auto;  
-  opacity: 0.8;
+  opacity: 1;
   margin: 0;
   box-sizing: border-box;
 }
@@ -352,7 +360,7 @@ div#splash{
   padding: 1rem;
   border: solid 1pt black;
   border-radius: 0.5rem;
-  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0, 0.8);
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0, 0.2);
 }
 
 div#holLoadingMessage{
@@ -365,7 +373,7 @@ div.waiting{
     min-height: 2rem;
     margin-left: auto;
     margin-right: auto;
-    padding:.3rem 1.4rem .2rem 1.8rem;
+    padding:.3rem 1.3rem .2rem 1.8rem;
     text-align: center;
     margin-bottom:.5ex;
     color: #fff;
@@ -403,7 +411,7 @@ div#holTextEditor{
 
 div#holTextEditor textarea{
   width: 100%;
-  height: calc(100% - 4rem);
+  height: calc(100% - 3rem);
 }
 
 div#holTextEditor button{

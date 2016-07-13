@@ -630,6 +630,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
 
     this.map = olMap;
     this.featuresUrl = featuresUrl || '';
+    this.startupDoc = options.startupDoc || '';
     this.draw = null;                          //Will point to drawing interaction if invoked.
     this.modify = null;                        //Will point to modify interaction if invoked.
     this.currDrawGeometry = '';                //Will hold e.g. 'Point', 'GeometryCollection'.
@@ -2616,6 +2617,11 @@ hol.VectorLayer.prototype.parseSearch = function(){
     docPath = hol.Util.getQueryParam('docPath');
     if (docPath.length > 0){
       this.showDocument(docPath);
+    }
+    else{
+      if (this.startupDoc.length > 0){
+        this.showDocument(this.startupDoc);
+      }
     }
   
 //Now parse the URL for category ids.
