@@ -787,6 +787,7 @@ hol.VectorLayer.prototype.setupUpload = function(){
       var reader = new FileReader();
       reader.onload = (function(hol) { return function(e) {
         if (input.files[0].type.match('xml')){
+//NOTE: THIS DOESN'T WORK AND WILL PROBABLY NEVER WORK.
           hol.teiToGeoJSON(e.target.result, 'js/tei_to_geojson_xslt1.xsl');
         }
         else{
@@ -794,7 +795,8 @@ hol.VectorLayer.prototype.setupUpload = function(){
         }
         
       }; })(this);
-          console.log('Loading ' + input.files[0].type);
+          console.log('Loading ' + input.files[0].name + ' as ' + input.files[0].type);
+          this.geojsonFileName = input.files[0].name;
           reader.readAsDataURL(input.files[0]);
       }.bind(this), false);
     itemDown = document.createElement('li');
@@ -1371,15 +1373,15 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.downloadGeoJSON = function(){
-  var el, fname, geojson, mapjson, tmpArr;
+  var el, fname, geojson, mapjson, outFeats;
   try{
-    fname = 'map.json';
     geojson = new ol.format.GeoJSON();
-    mapjson = geojson.writeFeatures(this.source.getFeatures(), {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6});
-    
+    outFeats = [this.baseFeature];
+    outFeats = outFeats.concat(this.source.getFeatures());
+    mapjson = geojson.writeFeatures(outFeats, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6});
     el = document.createElement('a');
     el.setAttribute('href', 'data:application/geo+json;charset=utf-8,' + encodeURIComponent(mapjson));
-    el.setAttribute('download', fname);
+    el.setAttribute('download', this.geojsonFileName);
     el.style.display = 'none';
     this.docBody.appendChild(el);
     el.click();
