@@ -631,6 +631,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.map = olMap;
     this.featuresUrl = featuresUrl || '';
     this.startupDoc = options.startupDoc || '';
+    this.geojsonFileName = '';                 //Will contain a filename for data download if needed.
     this.draw = null;                          //Will point to drawing interaction if invoked.
     this.modify = null;                        //Will point to modify interaction if invoked.
     this.currDrawGeometry = '';                //Will hold e.g. 'Point', 'GeometryCollection'.
@@ -722,6 +723,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
 //Now start loading vector data.
     if (this.featuresUrl !== ''){
       this.loadGeoJSONFromString(this.featuresUrl);
+      this.geojsonFileName = this.featuresUrl.split(/(\\|\/)/).pop();
     }
 
   }
@@ -765,7 +767,7 @@ hol.VectorLayer.prototype.setupEditingMenu = function(){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.setupUpload = function(){
-  var input, fileMenu, ul, item;
+  var input, fileMenu, ul, itemUp, itemDown;
   try{
     input = document.createElement('input');
     input.setAttribute('type', 'file');
@@ -776,11 +778,11 @@ hol.VectorLayer.prototype.setupUpload = function(){
     fileMenu.appendChild(document.createTextNode('File'));
     ul = document.createElement('ul');
     fileMenu.appendChild(ul);
-    item = document.createElement('li');
-    item.appendChild(document.createTextNode('Load file...'));
-    ul.appendChild(item);
+    itemUp = document.createElement('li');
+    itemUp.appendChild(document.createTextNode('Load file...'));
+    ul.appendChild(itemUp);
     this.menu.appendChild(fileMenu);
-    item.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
+    itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
     input.addEventListener('change', function(){
       var reader = new FileReader();
       reader.onload = (function(hol) { return function(e) {
@@ -795,6 +797,10 @@ hol.VectorLayer.prototype.setupUpload = function(){
           console.log('Loading ' + input.files[0].type);
           reader.readAsDataURL(input.files[0]);
       }.bind(this), false);
+    itemDown = document.createElement('li');
+    itemDown.appendChild(document.createTextNode('Save...'));
+    ul.appendChild(itemDown);
+    itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false);
     return true;
   }
   catch(e){
@@ -1345,6 +1351,39 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
 
     
 //Success.
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+/**
+ * Function for providing a download of the map data in GeoJSON
+ * format.
+ * 
+ * @function hol.VectorLayer.prototype.downloadGeoJSON 
+ * @memberof hol.VectorLayer.prototype
+ * @description Provides the current state of the map taxonomies, categories
+ *              and features in the form of a GeoJSON file for download.
+ * @param   {String} filename The suggested filename. Optional.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.downloadGeoJSON = function(){
+  var el, fname, geojson, mapjson, tmpArr;
+  try{
+    fname = 'map.json';
+    geojson = new ol.format.GeoJSON();
+    mapjson = geojson.writeFeatures(this.source.getFeatures(), {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6});
+    
+    el = document.createElement('a');
+    el.setAttribute('href', 'data:application/geo+json;charset=utf-8,' + encodeURIComponent(mapjson));
+    el.setAttribute('download', fname);
+    el.style.display = 'none';
+    this.docBody.appendChild(el);
+    el.click();
+    this.docBody.removeChild(el);
     return true;
   }
   catch(e){
