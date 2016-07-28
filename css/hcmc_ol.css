@@ -3,7 +3,13 @@
  * provides basic category-based feature display on a vector layer for 
  * OpenLayers 3.
  */
- 
+
+@font-face{
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.woff2') format('woff2'), url('fonts/fontawesome-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 html, body{
  box-sizing: border-box;
 }
@@ -11,7 +17,7 @@ html, body{
 body{
   margin: 0;
   padding: 0;
-  font-family: verdana, sans-serif;
+  font-family: 'Open Sans', verdana, sans-serif;
 }
 
 #map{
@@ -22,6 +28,31 @@ body{
   width: 100%;
 }
  
+
+
+span.docTitle{
+  display: block;
+  /*font-size: 300%;*/
+  font-size: 1.3rem;
+  padding: 0.25rem;
+  margin: 0 0 0 2rem;
+  color: rgb(57,70,78);
+  align-self: center;
+}
+
+
+
+div#holToolbar>select{
+  flex-basis: 18rem;
+}
+
+div#holToolbar>button{
+  flex-basis: 2rem;
+}
+form{
+  margin: 0;
+  padding: 0;
+}
 div#holToolbar{
   display: flex;
   flex-direction: row;
@@ -32,57 +63,33 @@ div#holToolbar{
   top: 0;
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
-  vertical-align: middle;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.175);
 }
-
-span.docTitle{
-  display: block;
-  vertical-align: middle;
-  align-self: center;
-  margin: 0;
-  /*font-size: 300%;*/
-  font-size: 2vw;
-  padding: 0.25rem;
-  text-shadow: 0.05rem 0.05rem 0.05rem rgba(0,0,0, 0.2);
-}
-
-div#holToolbar>button, div#holToolbar>select{
-  margin-right: 0;
-  margin-left: auto;
-  padding: 0.25rem;
-  min-width: 2rem;
-  height: 100%;
-  align-self: flex-end;
-  flex: 0;
-}
-
-div#holToolbar>select{
-  flex-basis: 18rem;
-}
-
-div#holToolbar>button{
-  flex-basis: 2rem;
-}
-
 ul.holMenu{
-  flex: 3;
   /*max-width: 30rem;*/
   list-style-type: none;
   margin-right: auto;
   display: flex;
+  flex-direction: row;
+  height: 100%;/*fill container height*/
+  margin: 0 0 0 3rem;
+  padding: 0;
+
 }
 
 ul.holMenu>li{
   margin: 0;
-  padding: 0.25rem;
-  min-width: 3rem;
+  padding: 0 .75rem;
   cursor: pointer;
-  align-self: center;
+  
+  display: flex;
+  align-items: center;
+  color: rgb(57,70,78);
 }
 
+
 ul.holMenu>li:hover{
-  background-color: #e0e0e0;
+  background-color: rgb(240,240,240);
 }
 
 ul.holMenu>li:hover>ul{
@@ -93,25 +100,33 @@ ul.holMenu>li:hover>ul{
 ul.holMenu>li>ul{
   position: absolute;
   list-style-type: none;
-  margin: 0.25rem 0 0 0;
+  margin: 0.25rem 0 0 -.75rem;
   padding: 0;
   max-width: 15rem;
-  background-color: #e0e0e0;
-  opacity: 0;
+  background-color: rgba(255, 255, 255, 1);
   visibility: hidden;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.175);
+  border: 1px solid rgba(240,240,240);
+  min-width: 150px;
+  /*display: flex;
+  flex-direction: column;*/
+  top: 42px;/*align flush with menu bar at top*/
 }
 
 ul.holMenu>li>ul li{
-  padding: 0.25rem;
+  padding: 0.4rem 1.25rem .4rem 1.25rem;
   margin: 0;
-  background-color: #e0e0e0;
-  border: solid 1pt #909090;
+  font-family: "Helvetica Neue", Verdana, sans-serif;
+  color: rgb(57,70,78);
+  font-size: .9rem;
 }
 
 ul.holMenu>li>ul li:hover{
-  background-color: #f0f0f0;
+  background-color: rgb(240,240,240);
+}
+ul.holMenu>li>ul>li>a:link,
+ul.holMenu>li>ul>li>a:visted{
+
 }
 
 ul.holMenu>li>ul>li>ul{
@@ -119,18 +134,37 @@ ul.holMenu>li>ul>li>ul{
   margin: 0.25rem 0 0 0;
   padding: 0;
   max-width: 10rem;
-  background-color: #e0e0e0;
+  background-color: rgb(255,255,255);
   opacity: 0;
   visibility: hidden;
   display: none;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.175);
 }
 
 ul.holMenu>li>ul>li:hover>ul{
   visibility: visible;
   opacity: 1;
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  position: absolute;
+  left: 180px;
+  margin-top: -6px;/*align ul to left*/
+  min-width: 150px;
 }
+
+/*select dropdown at top of menu nav bar*/
+ div#holToolbar>select{
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0.25rem;
+  min-width: 2rem;
+  height: 100%;
+  align-self: flex-end;
+}
+div#holToolbar>button{
+
+}
+
+
 
 input#fileInput{
   display: none;
