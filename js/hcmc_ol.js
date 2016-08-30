@@ -846,7 +846,6 @@ hol.VectorLayer.prototype.setupFeatureEditing = function(){
       item.appendChild(document.createTextNode(types[i]));
       menu.appendChild(item);
       if (types[i] === 'GeometryCollection'){
-        item.appendChild(document.createTextNode('\u23F5'));
         item.setAttribute('class', 'hasSubmenu');
         submenu = document.createElement('ul');
         for (j=0, maxj=simpleTypes.length; j<maxj; j++){
