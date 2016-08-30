@@ -1786,7 +1786,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.buildTaxonomySelector = function(){
-  var i, maxi, opt;
+  var i, maxi, opt, wrapper;
   try{
     if (this.taxonomySelector !== null){
       this.taxonomySelector.parentNode.removeChild(this.taxonomySelector);
@@ -1805,7 +1805,9 @@ hol.VectorLayer.prototype.buildTaxonomySelector = function(){
         this.taxonomySelector.appendChild(opt);
       }
       this.taxonomySelector.addEventListener('change', this.changeTaxonomy.bind(this, this.taxonomySelector));
-      this.toolbar.insertBefore(this.taxonomySelector, this.iButton);
+      wrapper = document.createElement('span');
+      wrapper.appendChild(this.taxonomySelector);
+      this.toolbar.insertBefore(wrapper, this.iButton);
     }
     return true;
   }
