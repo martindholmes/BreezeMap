@@ -5,8 +5,8 @@
  */
 
 @font-face{
-  font-family: 'FontAwesome';
-  src: url('fonts/fontawesome-webfont.woff2') format('woff2'), url('fonts/fontawesome-webfont.woff') format('woff');
+  font-family: 'ui-font';
+  src: url('http://hcmc.uvic.ca/fonts/ui-font/font/ui.woff2') format('woff2'), url('http://hcmc.uvic.ca/fonts/ui-font/font/ui.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -29,7 +29,6 @@ body{
 }
  
 
-
 span.docTitle{
   display: block;
   /*font-size: 300%;*/
@@ -39,15 +38,9 @@ span.docTitle{
   color: rgb(57,70,78);
   align-self: center;
 }
-
-
-
-div#holToolbar>select{
-  flex-basis: 18rem;
-}
-
 div#holToolbar>button{
   flex-basis: 2rem;
+  font-family: ui-font;
 }
 form{
   margin: 0;
@@ -80,18 +73,25 @@ ul.holMenu{
 ul.holMenu>li{
   margin: 0;
   padding: 0 .75rem;
-  cursor: pointer;
-  
+  cursor: pointer; 
   display: flex;
   align-items: center;
   color: rgb(57,70,78);
 }
-
-
 ul.holMenu>li:hover{
   background-color: rgb(240,240,240);
 }
 
+/*slide out menu for Geometry Collection trigger item*/
+ul.holMenu>li:last-of-type>ul>li.hasSubmenu::after{
+  font-family: 'ui-font';
+  content: "\23f5";/*right caret*/ 
+  font-size: 1rem;
+  vertical-align: middle;
+  position: absolute;
+  right: .4rem;
+  padding-top: .1rem;
+}
 ul.holMenu>li:hover>ul{
   visibility: visible;
   opacity: 1;
@@ -107,7 +107,7 @@ ul.holMenu>li>ul{
   visibility: hidden;
   box-shadow: 0px 3px 3px rgba(0,0,0,0.175);
   border: 1px solid rgba(240,240,240);
-  min-width: 150px;
+  min-width: 170px;
   /*display: flex;
   flex-direction: column;*/
   top: 42px;/*align flush with menu bar at top*/
@@ -140,28 +140,56 @@ ul.holMenu>li>ul>li>ul{
   display: none;
   box-shadow: 3px 3px 3px rgba(0,0,0,0.175);
 }
-
+/*slide out menu*/
 ul.holMenu>li>ul>li:hover>ul{
   visibility: visible;
   opacity: 1;
   display: inline-block;
   position: absolute;
-  left: 180px;
+  left: 170px;
   margin-top: -6px;/*align ul to left*/
   min-width: 150px;
 }
+div#holToolbar>span:nth-of-type(2){
+  margin-left: auto;
+  margin-right: 1rem;
+  position: relative;
+  align-self: center;
+}
 
 /*select dropdown at top of menu nav bar*/
- div#holToolbar>select{
-  margin-right: 0;
-  margin-left: auto;
-  padding: 0.25rem;
-  min-width: 2rem;
-  height: 100%;
-  align-self: flex-end;
+div#holToolbar>span>select{
+  padding: 5px 8px;
+  border-radius: 3px;
+  border: 1px solid rgb(204,204,204);
+  overflow: hidden;
+  background-color: rgb(255,255,255);
+  
+  appearance: none;
+  font-size: .9rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: rgb(57,70,78);
+  flex-basis: 16.9rem;
 }
+div#holToolbar>span>select::after{
+  font-family: 'ui-font';
+  content: "\f103";/*down caret*/
+  position: absolute;
+  top: 0;
+  left: -5px;
+}
+/*info 'i' Button*/
 div#holToolbar>button{
-
+  background-color: rgba(245,245,245, .4);
+  border: 1px solid rgb(204,204,204);
+  border-radius: 3px;
+  align-self: center;
+  font-size: 1rem;
+  padding: 5px 8px;
+  color: rgb(57,70,78);
+  margin-right: .5rem;
+  box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
 }
 
 
@@ -181,7 +209,7 @@ button.pressed{
 div#holRightBox{
   position: fixed;
   top: 4rem;
-  right: 1em;
+  right: .5rem;
   padding: 0;
   border: 0;
   margin: 0;
@@ -193,7 +221,6 @@ div#holRightBox{
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 2px 10px rgba(0, 0, 0, 0.5);
   background-color: rgb(250, 250, 250);
   border-radius: 5px;
-
 }
 
 nav#holNav{
@@ -205,7 +232,8 @@ nav#holNav{
   margin: 0;
   box-sizing: border-box;
   height: auto;
-  
+  justify-content: center;
+  align-items: center;
 }
 /*popup box that appear under menu when item is selected*/
 div#holInfo{
@@ -218,6 +246,7 @@ div#holInfo{
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 0 0 5px 5px;
+  color: rgb(57,70,78);
 }
 
 nav#holNav h2{
@@ -225,6 +254,8 @@ nav#holNav h2{
   text-align: center;
   padding: 0.5rem;
   margin: 0;
+  color: rgb(57,70,78);
+  height: 2rem;
 }
 
 nav#holNav h2 input#chkShowAll{
@@ -232,13 +263,47 @@ nav#holNav h2 input#chkShowAll{
   float: left;
 }
 
-nav#holNav h2 button, nav#holNav h2 button.pressed{
+
+/*search button on top of right menu*/
+button#btnNavSearch{
+  float: right;
+  display: inline-block;
+  font-family: ui-font;
+  background-color: rgba(245,245,245, .4);
+  border: 1px solid rgb(204,204,204);
+  border-radius: 3px;
+  font-size: 1rem;
+  padding: 5px 8px;
+  text-align: center;
+  color: rgb(57,70,78);
+  box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
+}
+/*active state for button*/
+ button#btnNavSearch.pressed{
   display: inline-block;
   float: right;
-  width: 1.5rem;
   text-align: center;
+  box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+  color: rgb(150,150,150);
 }
+h2 input#inpNavSearch{
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+/*text field for search*/
+input#inpNavSearch{
+  padding: 5px 8px;
+  border-radius: 3px;
+  font-size: 1rem;
+  border: solid 1px #ccc;
+  box-shadow: inset 1px 1px 2px 0 #707070;
+  transition: box-shadow 0.5s;
+}
+input#inpNavSearch:focus{
+    box-shadow: inset 0 0 5px rgba(0,0,0,.1);
 
+}
 nav#holNav h2 input{
   display: none;
 }
@@ -246,20 +311,81 @@ nav#holNav h2 input{
 nav#holNav ul{
   list-style-type: none;
   padding: 0.1rem;
-  margin: 0;
+  margin: .5rem;
+  color: rgb(57,70,78);
 }
 
 nav#holNav>ul>li{
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.5rem;
+  margin-top: .2rem;
+  margin-left: .2rem;
+  margin-right: .2rem;
+  vertical-align: middle;
+  border-radius: 3px;
+  transition: background-color .2s ease;
+}
+/*List of pre-created colours used below to get a hover effect*/
+/*
+(0, 0, 0)
+(85, 0, 0)
+(0, 85, 0)
+(0, 0, 85)
+(85, 85, 0)
+(85, 0, 85)
+(0, 85, 85)
+(150, 0, 0)
+(0, 130, 0)
+(0, 0, 150)
+*/
+ul#holCategories>li:nth-of-type(1):hover{
+  background-color: rgba(0,0,0,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(2):hover{
+  background-color: rgba(85,0,0,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(3):hover{
+  background-color: rgba(0,85,0,.2)!important;  
+}
+
+ul#holCategories>li:nth-of-type(4):hover{
+  background-color: rgba(0,0,82,.2)!important;
+} 
+
+ul#holCategories>li:nth-of-type(5):hover{
+  background-color: rgba(85,85,0,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(6):hover{
+  background-color: rgba(85,0,85,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(7):hover{
+  background-color: rgba(0,85,85,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(8):hover{
+  background-color: rgba(150,0,0,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(9):hover{
+  background-color: rgba(0,130,0,.2)!important;
+}
+
+ul#holCategories>li:nth-of-type(10):hover{
+  background-color: rgba(0,0,150,.2)!important;
+}
+
+
+
+/*last list item gets a bottom margin*/
+ul#holCategories>li:last-of-type{
+  margin-bottom: .2rem;
 }
 
 nav#holNav>ul>li>input{
   float: right;
-}
-
-nav#holNav li{
-  border-top: 1px solid black;
-  vertical-align: middle;
 }
 
 nav#holNav li:first-child, nav#holNav>ul>li.headless li{
@@ -269,16 +395,32 @@ nav#holNav li:first-child, nav#holNav>ul>li.headless li{
 nav#holNav>ul>li>ul{
   display: none;
   font-size: 90%;
-  margin-left: 0.5rem;
   margin-top: 0.5rem;
 }
 
 nav#holNav>ul>li>ul>li{
-  margin: 0.3rem 0.2rem 0.3rem 2rem;
-  text-indent: -2rem;
-  padding-top: 0;
+  margin-left: .25rem;
+  margin-right: .25rem;
+  margin-bottom: .33rem;
+  margin-top: .33rem;
+  padding: .2rem;
   vertical-align: middle;
-  
+  border-bottom: 1px solid #b1b1b1;
+  transition: background-color .2s ease, border .2s ease
+}
+/*hover effect for sub menu item in categories*/
+
+ul#holCategories>li>ul>li:hover{
+  background-color: rgba(240,240,240,.8);
+  border-bottom: 1px solid rgba(240,240,240,.8);
+  border-radius: 3px;
+}
+nav#holNav>ul>li>ul>li:last-of-type{
+  border-bottom: 0;
+}
+
+nav#holNav>ul>li>ul>li>input{
+  float: left;
 }
 
 nav#holNav>ul>li>ul>li.selected span{
@@ -290,8 +432,9 @@ nav#holNav>ul>li>ul>li.selected span{
 nav#holNav>ul>li>ul>li>span{
   margin-top: 0;
   margin-bottom: 0.2rem;
-  padding: 0.1rem 0.5rem 0.1rem 0.5rem;
+  padding: 0 2rem;
   cursor: pointer;
+  display: block;
 }
 
 nav#holNav .hidden{
@@ -301,21 +444,21 @@ nav#holNav .hidden{
 nav#holNav>ul>li>span{
   cursor: pointer;
 }
-
+/*menu not expanded with right pointed caret*/
 nav#holNav>ul>li>span:before{
-  content: "\25B6 \00A0";
-  font-family: monospace;
-  font-size: 90%;
+  content: "\23f5";/*caret right*/
+  font-family: ui-font;
+  font-size: 100%;
   position: relative;
-  top: -0.2em;
+  width: .9rem;
+  display: inline-block;/*allow width and height to be specified on pseudo element*/
+  padding-left: .25rem;
 }
 
-
+/*expanded menu with down pointing caret*/
 nav#holNav>ul>li.expanded>span:before{
-  content: "\25BC \00A0";
-  font-family: monospace;
-  font-size: 90%;
-  top: -0.2em;
+  content: "\23f7";/*caret down*/
+  font-family: ui-font;
 }
 
 nav#holNav>ul>li.headless:before{
@@ -358,7 +501,9 @@ div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn{
   position: fixed;
   padding: 0.2rem;
   cursor: pointer;
-  background-color: #c0c0c0;
+  /*background-color: #c0c0c0;*/
+  font-family: ui-font;
+  color: rgb(57,70,78);
 }
 
 div#holInfo span.closeBtn:hover, div#holDocDisplay span.closeBtn:hover{
@@ -394,9 +539,8 @@ div#splash{
   left: 30%;
   right: 30%;
   padding: 1rem;
-  border: solid 1pt black;
   border-radius: 0.5rem;
-  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0 1px 1px rgba(255, 255, 255, 0.1), 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 div#holLoadingMessage{
