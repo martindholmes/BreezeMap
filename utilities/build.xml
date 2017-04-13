@@ -26,8 +26,10 @@
         <echo message="Deleting old stuff."/>
         <delete dir="${proj.dir}/kml"/>
         <mkdir dir="${proj.dir}/kml"/>
-        <delete dir="${proj.dir}/ol3"/>
-        <mkdir dir="${proj.dir}/ol3"/>
+<!--    Don't mess with OL till we've updated to
+        version 4. -->
+        <!--<delete dir="${proj.dir}/ol3"/>
+        <mkdir dir="${proj.dir}/ol3"/>-->
     </target>
   
   <target name="teiToGeoJSON">
@@ -111,8 +113,10 @@
     <target name="doAll">
       <antcall target="cleanup"/>
       <antcall target="teiToGeoJSON"/>
-      <antcall target="getOL3"/>
-      <antcall target="minify"/>
+<!-- Don't download OL version until we have 
+     updated for version 4. -->
+      <!--<antcall target="getOL3"/>
+      <antcall target="minify"/>-->
     </target>
     
 </project>
