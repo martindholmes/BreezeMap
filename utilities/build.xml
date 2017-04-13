@@ -38,6 +38,11 @@
       <arg value="-xsl:tei_to_geojson.xsl"/> 
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
+      <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+          <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
+          <arg value="-xsl:tei_to_geojson.xsl"/> 
+          <arg value="--suppressXsltNamespaceCheck:on"/>
+      </java>
   </target>
     
     <target name="getOL3">

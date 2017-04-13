@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta charset="UTF-8"/>
+      <title>UVic Campus</title>
+        <link rel="stylesheet" href="ol3/ol.css" type="text/css"/>
+        <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
+      
+<!--   NOTE: We're using the debug version of OL for testing purposes.   -->
+        <script src="ol3/ol-debug.js" type="text/ecmascript"></script>
+        <script src="js/hcmc_ol.js" type="text/ecmascript"></script>
+      <style type="text/css">
+<!--        
+        #opacitySlider{
+          position: absolute;
+          top: 5em;
+          left: 3em;
+          z-index: 100;
+          display: block;
+          background-color: rgba(0, 60, 136, 0.5);
+          color: #ffffff;
+        }
+        #opacitySlider:hover{
+          background-color: rgba(0, 60, 136, 0.7);
+        }
+        .ol-rotate {
+          left: 0.5em;
+          top: 6em;
+          transition: opacity 0.25s linear 0s, visibility 0s linear 0s;
+          width: 1.375em;
+        }
+        -->
+      </style>
+    </head>
+    <body>
+      
+        <div id="map" class="map"></div>
+      <form>
+      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="0.6" />
+      </form>
+       
+       <div id="splash">
+         <p>Welcome to the TEI 2017 UVic Campus Map. </p>
+       </div>
+      
+      <script type="text/ecmascript">
+      <!-- 
+      /* Initial setup of the map with default controls using Tileset created by HCMC from 
+         Open Street Maps dataset. */
+         
+      //Globals...
+      var mapCentre = [-123.312214, 48.463199];
+      var view = null, myLayers = [], layerXYZ = null, featureJSONFile = 'js/tei2017.json', holLayer = null;
+         
+      function initCampusMap(){
+      
+        //Create a view centred on our area.
+        view = new ol.View({
+          projection: 'EPSG:3857',
+          /*center:  [-13726849,6184454],*/
+          center: ol.proj.fromLonLat(mapCentre),
+          maxZoom: 22,
+          numZoomLevels: 21,
+          zoom: 17
+        });
+        
+        //Create a tile layer using our own built OSM tileset.
+        layerXYZ = new ol.layer.Tile({
+          source: new ol.source.XYZ({
+            url: 'http://hcmc.uvic.ca/people/greg/mapnik/osm/tiles/{z}/{x}/{y}.png',
+            /*crossOrigin: 'anonymous',*/
+            numZoomLevels: 21,
+            maxZoom: 22
+          })/*,
+          extent: [corner1[0], corner1[1], corner2[0], corner2[1]]*/
+        });
+        
+        myLayers.push(layerXYZ);
+        
+        //Create a map using our new layer.
+        map = new ol.Map({
+          layers: myLayers,
+          renderer: 'canvas',
+          target: 'map',
+          interactions: ol.interaction.defaults().extend([
+             	    new ol.interaction.DragRotateAndZoom()
+             	  ]),
+          view: view
+        });
+      
+//Set up the opacity control
+        document.getElementById('opacitySlider').onchange = function(){layerXYZ.setOpacity(this.value);};
+        document.getElementById('opacitySlider').onchange();
+  
+//Now let's create a hol vector layer for all our features.
+        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
+                                                              allowFeatureEditing: true,
+                                                              allowUpload: true});
+      }
+      
+      window.addEventListener('load', function (event){initCampusMap();});
+      
+    -->
+    </script>
+      
+       
+    </body>
+</html>
