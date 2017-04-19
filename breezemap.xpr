@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="17.1">
+<project version="19.0">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="17.1" xml:space="preserve">
-                <map>
+            <serialized version="19.0" xml:space="preserve">
+                <serializableOrderedMap>
                     <entry>
                         <String>scenario.associations</String>
                         <scenarioAssociation-array>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>xml/tei2017.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>BreezeMap TEI to GeoJSON (XSLT2)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
                                     <String>xml/campus.xml</String>
@@ -160,6 +175,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
@@ -178,6 +196,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </antParameter>
@@ -200,6 +221,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
@@ -218,6 +242,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </antParameter>
@@ -240,6 +267,9 @@
                                             <field name="possibleValues">
                                                 <null/>
                                             </field>
+                                            <field name="possibleValuesDescriptions">
+                                                <null/>
+                                            </field>
                                         </antParameter>
                                         <antParameter>
                                             <field name="name">
@@ -258,6 +288,9 @@
                                                 <Integer>5</Integer>
                                             </field>
                                             <field name="possibleValues">
+                                                <null/>
+                                            </field>
+                                            <field name="possibleValuesDescriptions">
                                                 <null/>
                                             </field>
                                         </antParameter>
@@ -385,7 +418,7 @@
                             </antScenario>
                         </scenario-array>
                     </entry>
-                </map>
+                </serializableOrderedMap>
             </serialized>
         </options>
     </meta>
