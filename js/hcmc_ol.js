@@ -349,7 +349,7 @@ hol.Util.getSelectedStyle = function(){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
-    var catNum = this.getProperties().showingCat;
+    var catNum = feature.getProperties().showingCat;
     var catCol = hol.Util.getColorForCategory(catNum);
     return [
       new ol.style.Style({
@@ -394,8 +394,8 @@ hol.Util.getSelectedStyle = function(){
          font: '1em sans-serif',
          fill: new ol.style.Fill({color: catCol}),
          stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', outlineWidth: 3}),
-         text: this.getProperties().name
-       }),
+         text: feature.getProperties().name
+}),
        zIndex: newZ
      })
     ];
@@ -420,7 +420,7 @@ hol.Util.getCategoryStyle = function(catNum){
   
   return function(feature, resolution){
     var lineWidth = 2;
-    var geomType = this.getGeometry().getType();
+    var geomType = feature.getGeometry().getType();
     if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
       lineWidth = 5;
     }
@@ -2393,16 +2393,18 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
         leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
       }
       rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
-      opts = {padding: [0, rightMargin, 0, leftMargin]};
+      opts = {padding: [0, rightMargin, 0, leftMargin],
+              duration: 1000  
+             };
       if (useCurrZoom === true){
         opts.maxZoom = this.map.getView().getZoom();
       }
-      pan = ol.animation.pan({
-          duration: 1000,
-          source: /** @type {ol.Coordinate} */ (view.getCenter())
-        });
-      this.map.beforeRender(pan);
-      view.fit(extent, this.map.getSize(), opts);
+      //pan = ol.animation.pan({
+      //    duration: 1000,
+      //    source: /** @type {ol.Coordinate} */ (view.getCenter())
+      //  });
+      //this.map.beforeRender(pan);
+      view.fit(extent, /* this.map.getSize(),*/ opts);
     }
     return true;
   }
@@ -2427,14 +2429,18 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
  */
 hol.VectorLayer.prototype.setMapBounds = function(extent){
   var pan, view = this.map.getView();
+  var opts = {
+              duration: 1000  
+             };
+
   try{
-    pan = ol.animation.pan({
-        duration: 1000,
-        source: /** @type {ol.Coordinate} */ (view.getCenter())
-      });
-    this.map.beforeRender(pan);
+    //pan = ol.animation.pan({
+    //    duration: 1000,
+    //    source: /** @type {ol.Coordinate} */ (view.getCenter())
+    //  });
+    //this.map.beforeRender(pan);
     
-    view.fit(extent, this.map.getSize());
+    view.fit(extent, /*  this.map.getSize()*/ opts);
     return true;
   }
   catch(e){

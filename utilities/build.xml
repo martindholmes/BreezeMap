@@ -47,14 +47,24 @@
       </java>
   </target>
     
-    <target name="getOL3">
+    <target name="getOL">
         <echo message="${echo.separator}"/>
-        <echo message="Downloading the latest stable release of OpenLayers 3."/>
+        <echo message="Downloading the latest stable release of OpenLayers."/>
 <!--  First get the JSON file with the latest release data in it.     -->
-        <get src="https://api.github.com/repos/openlayers/ol3/releases/latest"
-            verbose="on" usetimestamp="true" dest="${proj.dir}/js/ol3latest.json"/>
+        <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest"
+            verbose="on" usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
         <script language="javascript">
             <![CDATA[
+        //Originally written for Rhino; requires compatibility
+        //shim to work on Nashorn. The alternative to importClass
+        //for Nashorn would be something like:
+        // var File = Java.type('java.io.File');
+        //or we could use:
+        // var imports = new JavaImporter(java.io.File, java.io.FileReader...);
+        // with (imports){ [do stuff]}
+        if (typeof importClass != "function") {
+            load("nashorn:mozilla_compat.js");
+        }
         importClass(java.io.File);
         importClass(java.io.FileReader);
         importClass(java.io.BufferedReader);
@@ -69,7 +79,7 @@
         
         doEcho("Parsing properties from JSON file...");
         
-        var filePath = project.getProperty("proj.dir") + "/js/ol3latest.json";
+        var filePath = project.getProperty("proj.dir") + "/js/ol_latest.json";
         var file = new File(filePath);
         fr = new FileReader(file);
         br = new BufferedReader(fr);
@@ -83,15 +93,15 @@
         
         // Set each property in the project environment.
         doEcho("Zipfile location is " + struct['assets'][0]['browser_download_url']);
-        project.setProperty("ol3zip", struct['assets'][0]['browser_download_url']);
+        project.setProperty("olzip", struct['assets'][0]['browser_download_url']);
        
         ]]>
         </script>
-        <echo message="Downloading zip file from ${ol3zip}..."/>
-        <get src="${ol3zip}"
-            verbose="on" usetimestamp="true" dest="${proj.dir}/ol3/ol3latest.zip"/>
+        <echo message="Downloading zip file from ${olzip}..."/>
+        <get src="${olzip}"
+            verbose="on" usetimestamp="true" dest="${proj.dir}/ol/ol_latest.zip"/>
         <echo message="Unzipping the files..."/>
-        <unzip src="${proj.dir}/ol3/ol3latest.zip" dest="${proj.dir}/ol3">
+        <unzip src="${proj.dir}/ol/ol_latest.zip" dest="${proj.dir}/ol">
             <patternset>
                 <include name="**/*.*"/>
             </patternset>
@@ -113,10 +123,8 @@
     <target name="doAll">
       <antcall target="cleanup"/>
       <antcall target="teiToGeoJSON"/>
-<!-- Don't download OL version until we have 
-     updated for version 4. -->
-      <!--<antcall target="getOL3"/>
-      <antcall target="minify"/>-->
+      <antcall target="getOL"/>
+      <antcall target="minify"/>
     </target>
     
 </project>
