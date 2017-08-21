@@ -1,10 +1,10 @@
 # BreezeMap
-BreezeMap is a project to create a simple user interface for interactive map editing based on OpenLayers 3.
+BreezeMap is a project to create a simple user interface for interactive map editing based on OpenLayers.
 
 ##Research Challenge 
 The Geohumanist wishing to annotate historical maps, identify toponyms, or plot humanist data on maps currently must choose between highly sophisticated and powerful but proprietary tools (like ArcGIS) or simple tools unsuitable for complex research questions (like Google MyMaps). Our community needs a tool enabling a researcher without GIS expertise or coding skills to create a map with a rich range of feature types (from points to multi-geometries), create useful taxonomies for categorizing these features, link features to external open-data authorities, present the results in a user-friendly rich interface, and store the data in formats suitable for interchange. 
 BreezeMap: The Tool
-We are developing a tool tentatively called BreezeMap.* This tool is built on the OpenLayers 3 framework and the Open Street Maps tileset (although allowing the use of any other suitable tile source, such as those created by the Pelagios project). BreezeMap will allow researchers to draw features on a map; annotate them; and categorize them according to multiple new or pre-existing taxonomies. The tool is designed to be simple to learn, yet powerful in its functions. 
+We are developing a tool tentatively called BreezeMap.* This tool is built on the OpenLayers framework and the Open Street Maps tileset (although allowing the use of any other suitable tile source, such as those created by the Pelagios project). BreezeMap will allow researchers to draw features on a map; annotate them; and categorize them according to multiple new or pre-existing taxonomies. The tool is designed to be simple to learn, yet powerful in its functions. 
 
 ##Plan
 The project will take place in three phases, each with a useful deliverable product:
