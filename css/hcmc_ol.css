@@ -164,6 +164,7 @@ div#holToolbar>span:nth-of-type(2)::after{
   right: 10px;
   top: 8px;
   font-size: .9rem;
+  pointer-events: none;
 }
 
 /*select dropdown at top of menu nav bar*/
