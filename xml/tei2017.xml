@@ -11,7 +11,9 @@
             <publicationStmt>
                 <p>Humanities Computing and Media Centre, University of Victoria.</p>
             </publicationStmt>
-            <sourceDesc><p>Born digital file for TEI 2017 conference.</p></sourceDesc>
+            <sourceDesc>
+                <p>Born digital file for TEI 2017 conference.</p>
+            </sourceDesc>
         </fileDesc>
         <encodingDesc>
             <classDecl xml:id="holTaxonomies">
@@ -25,6 +27,12 @@
                     <category xml:id="confTrans">
                         <gloss>Transportation</gloss>
                     </category>
+                    <category xml:id="confAccom">
+                        <gloss>Accomodation</gloss>
+                    </category>
+                    <category xml:id="confSvc">
+                        <gloss>Services</gloss>
+                    </category>
                 </taxonomy>
             </classDecl>
         </encodingDesc>
@@ -34,14 +42,15 @@
             <head>UVic Campus</head>
             <div>
                 <listPlace>
-<!--       This is a special feature which defines the map bounds and title.             -->
+                    <!--       This is a special feature which defines the map bounds and title.             -->
                     <place xml:id="holMap" corresp="#holTaxonomies">
                         <placeName>UVic Campus</placeName>
-                        <desc></desc>
-                        <location type="Polygon"> <geo>[[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]</geo>
+                        <desc/>
+                        <location type="Polygon">
+                            <geo>[[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]</geo>
                         </location>
                     </place>
-                    
+
                     <place xml:id="bldgClearihueLabs" corresp="#confVenue">
                         <placeName>Clearihue Building Labs (Workshops)</placeName>
                         <desc>Computer labs in the Clearihue building where the workshops will be held.</desc>
@@ -52,46 +61,117 @@
                                 </item>
                             </list>
                         </desc>
-                        <location type="Polygon"> <geo>[[[-123.310511,48.464044],[-123.310492,48.463911],[-123.310052,48.463945],[-123.310076,48.464075],[-123.310511,48.464044]]]</geo>
+                        <location type="Polygon">
+                            <geo>[[[-123.310511,48.464044],[-123.310492,48.463911],[-123.310052,48.463945],[-123.310076,48.464075],[-123.310511,48.464044]]]</geo>
                         </location>
                     </place>
                     <place xml:id="bldgUniversityCentre" corresp="#confFood">
                         <placeName>University Centre</placeName>
-                        <desc>The University's central administrative building includes 
-                            the <ref target="https://www.uvic.ca/services/food/where/mysticmarket/">Mystic Market</ref>,
-                        which has a range of food options.</desc>
+                        <desc>The University's central administrative building includes the <ref
+                                target="https://www.uvic.ca/services/food/where/mysticmarket/">Mystic Market</ref>, which has a range of food
+                            options.</desc>
                         <desc>
                             <list>
-                                <item><ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/></item>
+                                <item>
+                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/>
+                                </item>
                             </list>
                         </desc>
-                        <location type="Polygon"> <geo>[[[-123.311871,48.465594],[-123.311901,48.465575],[-123.311894,48.465545],[-123.311922,48.46553],[-123.311921,48.465501],[-123.31196,48.465459],[-123.311952,48.465391],[-123.311974,48.465372],[-123.311966,48.465325],[-123.312004,48.465298],[-123.311972,48.465072],[-123.312007,48.465043],[-123.312268,48.465019],[-123.312217,48.464711],[-123.311913,48.464739],[-123.311909,48.464706],[-123.311777,48.464642],[-123.311508,48.464659],[-123.311406,48.464743],[-123.311406,48.464772],[-123.311379,48.464799],[-123.311233,48.464812],[-123.311185,48.464788],[-123.311105,48.464794],[-123.311097,48.464742],[-123.310922,48.464755],[-123.310932,48.464808],[-123.310502,48.46484],[-123.310556,48.465151],[-123.311093,48.465111],[-123.311238,48.464996],[-123.311472,48.465129],[-123.311506,48.465334],[-123.311529,48.465347],[-123.311535,48.465384],[-123.31159,48.465415],[-123.311594,48.465462],[-123.311667,48.465511],[-123.311675,48.465543],[-123.311712,48.46556],[-123.311718,48.46559],[-123.311749,48.465603],[-123.311871,48.465594]]]</geo>
+                        <location type="Polygon">
+                            <geo>[[[-123.311871,48.465594],[-123.311901,48.465575],[-123.311894,48.465545],[-123.311922,48.46553],[-123.311921,48.465501],[-123.31196,48.465459],[-123.311952,48.465391],[-123.311974,48.465372],[-123.311966,48.465325],[-123.312004,48.465298],[-123.311972,48.465072],[-123.312007,48.465043],[-123.312268,48.465019],[-123.312217,48.464711],[-123.311913,48.464739],[-123.311909,48.464706],[-123.311777,48.464642],[-123.311508,48.464659],[-123.311406,48.464743],[-123.311406,48.464772],[-123.311379,48.464799],[-123.311233,48.464812],[-123.311185,48.464788],[-123.311105,48.464794],[-123.311097,48.464742],[-123.310922,48.464755],[-123.310932,48.464808],[-123.310502,48.46484],[-123.310556,48.465151],[-123.311093,48.465111],[-123.311238,48.464996],[-123.311472,48.465129],[-123.311506,48.465334],[-123.311529,48.465347],[-123.311535,48.465384],[-123.31159,48.465415],[-123.311594,48.465462],[-123.311667,48.465511],[-123.311675,48.465543],[-123.311712,48.46556],[-123.311718,48.46559],[-123.311749,48.465603],[-123.311871,48.465594]]]</geo>
                         </location>
                     </place>
                     <place xml:id="bldgUniversityClub" corresp="#confVenue #confFood">
                         <placeName>University Club (Sessions)</placeName>
-                        <desc>The main conference venue, the University Club; 
-                            when lunch is provided, it will be here.</desc>
-                        <location type="Polygon"> <geo>[[[-123.317856,48.464162],[-123.31784,48.46405],[-123.317882,48.464047],[-123.317842,48.463793],[-123.31762,48.46381],[-123.317607,48.463731],[-123.317274,48.463754],[-123.317325,48.464081],[-123.31766,48.464059],[-123.31768,48.464192],[-123.317742,48.464187],[-123.31774,48.464169],[-123.317856,48.464162]]]</geo>
+                        <desc>The main conference venue, the University Club; when lunch is provided, it will be here.</desc>
+                        <location type="Polygon">
+                            <geo>[[[-123.317856,48.464162],[-123.31784,48.46405],[-123.317882,48.464047],[-123.317842,48.463793],[-123.31762,48.46381],[-123.317607,48.463731],[-123.317274,48.463754],[-123.317325,48.464081],[-123.31766,48.464059],[-123.31768,48.464192],[-123.317742,48.464187],[-123.31774,48.464169],[-123.317856,48.464162]]]</geo>
                         </location>
                     </place>
                     <place xml:id="bldgMearns" corresp="#confVenue">
                         <placeName>McPherson Library / Mearns Centre for Learning</placeName>
-                        <desc>The main UVic library is the home of HCMC, and will be the 
-                        location for the poster session.</desc>
+                        <desc>The main UVic library is the home of HCMC, and will be the location for the poster session.</desc>
                         <location type="Polygon">
                             <geo>[[[-123.3099761,48.4637042],[-123.3097029,48.4637241],[-123.3097042,48.4637317],[-123.3096533,48.4637356],[-123.3095982,48.4637399],[-123.3095967,48.4637318],[-123.3093749,48.4637479],[-123.3093776,48.4637672],[-123.3093394,48.4637695],[-123.3092627,48.4637742],[-123.3092602,48.4637562],[-123.3090896,48.4637686],[-123.3090783,48.4637002],[-123.3087307,48.4637254],[-123.3087343,48.4637486],[-123.3087129,48.4637501],[-123.3086477,48.4637545],[-123.3086396,48.4637019],[-123.3086831,48.463699],[-123.3086532,48.4635175],[-123.3087109,48.4635134],[-123.3087002,48.4634488],[-123.3089805,48.4634284],[-123.3089765,48.4634093],[-123.3090229,48.4634052],[-123.3089802,48.4631469],[-123.309151,48.4631345],[-123.3091472,48.4631147],[-123.3092062,48.4631097],[-123.3092586,48.4631053],[-123.3092626,48.4631263],[-123.3094857,48.4631101],[-123.309484,48.4631008],[-123.309536,48.4630966],[-123.3095848,48.4630926],[-123.3095867,48.4631028],[-123.3098734,48.463082],[-123.3099538,48.463554],[-123.3099761,48.4637042]]]</geo>
                         </location>
                     </place>
                     <place xml:id="busStation" corresp="#confTrans">
                         <placeName>Bus Terminal</placeName>
-                        <desc>All buses between the campus and the rest of
-                        the city leave from the bus terminal.</desc>
+                        <desc>All buses between the campus and the rest of the city leave from the bus terminal.</desc>
                         <location type="Polygon">
                             <geo>[[[-123.308372,48.466507],[-123.308495,48.466549],[-123.308727,48.466549],[-123.309518,48.465949],[-123.309545,48.465857],[-123.309481,48.46572],[-123.309412,48.465657],[-123.309166,48.465504],[-123.308844,48.465756],[-123.308667,48.465664],[-123.308543,48.465667],[-123.308474,48.465703],[-123.308098,48.466027],[-123.308082,48.466108],[-123.308136,48.466187],[-123.308217,48.466269],[-123.308105,48.466369],[-123.308372,48.466507]]]</geo>
                         </location>
                     </place>
-                    
+                    <place xml:id="bldgMarriott" corresp="#confAccom">
+                        <placeName>Victoria Marriott Inner Harbour</placeName>
+                        <desc>...</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="http://www.marriottvictoria.com/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Polygon">
+                            <geo>[[[-123.364973,48.421547],[-123.36451,48.421764],[-123.364491,48.42175],[-123.364419,48.421787],[-123.364392,48.421764],[-123.364354,48.421781],[-123.364316,48.421747],[-123.364289,48.421759],[-123.364273,48.421742],[-123.364257,48.42175],[-123.36423,48.421724],[-123.364215,48.421731],[-123.364192,48.42171],[-123.364173,48.421721],[-123.364023,48.42158],[-123.364128,48.421532],[-123.364184,48.421586],[-123.364281,48.421544],[-123.364395,48.42165],[-123.364534,48.421587],[-123.364518,48.421573],[-123.364456,48.421599],[-123.364349,48.421504],[-123.364549,48.4214],[-123.364605,48.421371],[-123.364706,48.421343],[-123.364741,48.421327],[-123.364772,48.421351],[-123.36488,48.421302],[-123.364991,48.421404],[-123.364884,48.421456],[-123.364973,48.421547]]]</geo>
+                        </location>
+                    </place>
+                    <place xml:id="bldgParkside" corresp="#confAccom">
+                        <placeName>The Parkside Hotel &amp; Spa</placeName>
+                        <desc>...</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="http://www.parksidevictoria.com/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Polygon">
+                            <geo>[[[-123.362664,48.420778],[-123.36293,48.420879],[-123.36295,48.420846],[-123.362993,48.420861],[-123.363052,48.420782],[-123.363088,48.420797],[-123.363139,48.420728],[-123.363103,48.420715],[-123.363297,48.420485],[-123.363257,48.420472],[-123.363301,48.420423],[-123.363266,48.420409],[-123.363289,48.420399],[-123.363241,48.420379],[-123.363275,48.42033],[-123.363226,48.420311],[-123.363245,48.420293],[-123.363142,48.420255],[-123.363119,48.42028],[-123.36308,48.42027],[-123.362955,48.420137],[-123.362973,48.420117],[-123.362756,48.420019],[-123.362519,48.420249],[-123.362747,48.420353],[-123.362774,48.420326],[-123.362947,48.420471],[-123.362935,48.420492],[-123.363,48.420516],[-123.362804,48.420724],[-123.36273,48.420705],[-123.362664,48.420778]]]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confSvc" xml:id="bldgBkStore">
+                        <placeName>UVic Bookstore</placeName>
+                        <desc>...</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://www.uvicbookstore.ca/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Polygon">
+                            <geo>[[[-123.309634,48.46645],[-123.309832,48.466286],[-123.309875,48.466309],[-123.310159,48.466073],[-123.309757,48.465856],[-123.309494,48.466083],[-123.309575,48.466128],[-123.30936,48.466311],[-123.309634,48.46645]]]</geo>
+                        </location>
+                    </place>
+                    <place xml:id="bldgUVicPharm" corresp="#confSvc">
+                        <placeName>UVic Campus Pharmacy</placeName>
+                        <desc>Locally owned compounding pharmacy and post office. Closed weekends.</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="http://www.heartpharmacy.com/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.308224,48.46566]</geo>
+                        </location>
+                    </place>
+                    <place xml:id="bldgCadBayPharm" corresp="#confSvc">
+                        <placeName>Cadboro Bay Pharmacy</placeName>
+                        <desc>Locally owned compounding pharmacy and post office. Open weekends.</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="http://www.heartpharmacy.com/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.297994,48.461418]</geo>
+                        </location>
+                    </place>
                 </listPlace>
             </div>
         </body>

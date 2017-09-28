@@ -39,7 +39,7 @@
       
         <div id="map" class="map"></div>
       <form>
-      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="0.6" />
+      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="1" />
       </form>
        
        <div id="splash">
@@ -75,10 +75,18 @@
             numZoomLevels: 21,
             maxZoom: 22
           })/*,
-          extent: [corner1[0], corner1[1], corner2[0], corner2[1]]*/
+          extent: [-123.31817,48.465918,-123.304737,48.46081]*/
         });
         
-        myLayers.push(layerXYZ);
+        //OSM
+        var layerOSM = new ol.layer.Tile({
+          source: new ol.source.OSM({
+            numZoomLevels: 20,
+            maxZoom: 19
+          })
+        });
+        
+        myLayers.push(layerOSM, layerXYZ);
         
         //Create a map using our new layer.
         map = new ol.Map({

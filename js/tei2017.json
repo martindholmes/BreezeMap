@@ -12,7 +12,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confFood", "name": "Food", "pos": 2},{"id": "confTrans", "name": "Transportation", "pos": 3}]}]
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confFood", "name": "Food", "pos": 2},{"id": "confTrans", "name": "Transportation", "pos": 3},{"id": "confAccom", "name": "Accomodation", "pos": 4},{"id": "confSvc", "name": "Services", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -98,6 +98,91 @@
           "name": "Conference Locations",
            "pos": 1,
            "categories": [{"id": "confTrans", "name": "Transportation", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgMarriott", 
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[-123.364973,48.421547],[-123.36451,48.421764],[-123.364491,48.42175],[-123.364419,48.421787],[-123.364392,48.421764],[-123.364354,48.421781],[-123.364316,48.421747],[-123.364289,48.421759],[-123.364273,48.421742],[-123.364257,48.42175],[-123.36423,48.421724],[-123.364215,48.421731],[-123.364192,48.42171],[-123.364173,48.421721],[-123.364023,48.42158],[-123.364128,48.421532],[-123.364184,48.421586],[-123.364281,48.421544],[-123.364395,48.42165],[-123.364534,48.421587],[-123.364518,48.421573],[-123.364456,48.421599],[-123.364349,48.421504],[-123.364549,48.4214],[-123.364605,48.421371],[-123.364706,48.421343],[-123.364741,48.421327],[-123.364772,48.421351],[-123.36488,48.421302],[-123.364991,48.421404],[-123.364884,48.421456],[-123.364973,48.421547]]]
+      }, 
+      "properties": {
+        "name": "Victoria Marriott Inner Harbour", 
+        "desc": "...", 
+        "links": ["http://www.marriottvictoria.com/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgParkside", 
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[-123.362664,48.420778],[-123.36293,48.420879],[-123.36295,48.420846],[-123.362993,48.420861],[-123.363052,48.420782],[-123.363088,48.420797],[-123.363139,48.420728],[-123.363103,48.420715],[-123.363297,48.420485],[-123.363257,48.420472],[-123.363301,48.420423],[-123.363266,48.420409],[-123.363289,48.420399],[-123.363241,48.420379],[-123.363275,48.42033],[-123.363226,48.420311],[-123.363245,48.420293],[-123.363142,48.420255],[-123.363119,48.42028],[-123.36308,48.42027],[-123.362955,48.420137],[-123.362973,48.420117],[-123.362756,48.420019],[-123.362519,48.420249],[-123.362747,48.420353],[-123.362774,48.420326],[-123.362947,48.420471],[-123.362935,48.420492],[-123.363,48.420516],[-123.362804,48.420724],[-123.36273,48.420705],[-123.362664,48.420778]]]
+      }, 
+      "properties": {
+        "name": "The Parkside Hotel & Spa", 
+        "desc": "...", 
+        "links": ["http://www.parksidevictoria.com/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgBkStore", 
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[-123.309634,48.46645],[-123.309832,48.466286],[-123.309875,48.466309],[-123.310159,48.466073],[-123.309757,48.465856],[-123.309494,48.466083],[-123.309575,48.466128],[-123.30936,48.466311],[-123.309634,48.46645]]]
+      }, 
+      "properties": {
+        "name": "UVic Bookstore", 
+        "desc": "...", 
+        "links": ["https://www.uvicbookstore.ca/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgUVicPharm", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.308224,48.46566]
+      }, 
+      "properties": {
+        "name": "UVic Campus Pharmacy", 
+        "desc": "Locally owned compounding pharmacy and post office. Closed weekends.", 
+        "links": ["http://www.heartpharmacy.com/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgCadBayPharm", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.297994,48.461418]
+      }, 
+      "properties": {
+        "name": "Cadboro Bay Pharmacy", 
+        "desc": "Locally owned compounding pharmacy and post office. Open weekends.", 
+        "links": ["http://www.heartpharmacy.com/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
       }
     }
   ]
