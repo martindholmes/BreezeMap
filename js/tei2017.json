@@ -33,6 +33,23 @@
       }
     },
     { "type": "Feature",
+      "id": "roomUrbanBallroom", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.36307,48.420412]
+      }, 
+      "properties": {
+        "name": "Urban Ballroom, Parkside Hotel", 
+        "desc": "The Parkside Hotel's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1}]}]
+      }
+    },
+    { "type": "Feature",
       "id": "bldgUniversityCentre", 
       "geometry": {
         "type": "Polygon", 
@@ -74,7 +91,7 @@
       }, 
       "properties": {
         "name": "McPherson Library / Mearns Centre for Learning", 
-        "desc": "The main UVic library is the home of HCMC, and will be the location for the poster session.", 
+        "desc": "The main UVic library is the home of HCMC, and will host the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php#uvicSpecial\">Tour of UVic Special Collections</a> .", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -108,7 +125,7 @@
       }, 
       "properties": {
         "name": "Victoria Marriott Inner Harbour", 
-        "desc": "...", 
+        "desc": "The Marriott is located at 728 Humboldt St, Victoria, BC V8W 3Z5. Phone: (250) 480-3800. Conference rates are available before 2017-10-20. See the <a href=\"http://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information.", 
         "links": ["http://www.marriottvictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
@@ -125,7 +142,7 @@
       }, 
       "properties": {
         "name": "The Parkside Hotel & Spa", 
-        "desc": "...", 
+        "desc": "The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200. Conference rates are available before 2017-10-05. See the <a href=\"http://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information. The Parkside's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
         "links": ["http://www.parksidevictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
@@ -142,7 +159,7 @@
       }, 
       "properties": {
         "name": "UVic Bookstore", 
-        "desc": "...", 
+        "desc": "The UVic Bookstore carries a wide range of goods in addition to books, including merchandise, computing equipment, and gift cards. It also houses the Finnerty Express Cafe.", 
         "links": ["https://www.uvicbookstore.ca/"], 
         "taxonomies": [
           {"id": "conf",
