@@ -58,6 +58,9 @@
             <xsl:for-each select="child::category">
               <xsl:text>{"id": </xsl:text><xsl:value-of select="concat($quot, @xml:id, $quot)"/>
               <xsl:text>, "name": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(gloss), $quot)"/>
+              <xsl:if test="desc">
+                <xsl:text>, "desc": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(desc), $quot)"/>
+              </xsl:if>
               <xsl:text>, "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::category) + 1"/><xsl:text>}</xsl:text>
               <xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
             </xsl:for-each>
@@ -121,6 +124,9 @@
               <xsl:for-each select="$thisTaxCatsForThisFeat">
                 <xsl:text>{"id": </xsl:text><xsl:value-of select="concat($quot, @xml:id, $quot)"/>
                 <xsl:text>, "name": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(gloss), $quot)"/>
+                <xsl:if test="desc">
+                  <xsl:text>, "desc": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(desc), $quot)"/>
+                </xsl:if>
                 <xsl:text>, "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::category) + 1"/><xsl:text>}</xsl:text>
                 <xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
               </xsl:for-each>

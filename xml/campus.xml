@@ -18,26 +18,33 @@
                 <taxonomy xml:id="bldg" n="Buildings">
                     <category xml:id="bldgTeaching">
                         <gloss>Teaching</gloss>
+                        <desc>Buildings with classrooms.</desc>
                     </category>
                     <category xml:id="bldgAdmin">
                         <gloss>Administrative</gloss>
+                        <desc>Buildings with administrative offices.</desc>
                     </category>
                     <category xml:id="bldgSports">
                         <gloss>Sports facilities</gloss>
+                        <desc>Buildings with gyms, swimming pools and other sports services.</desc>
                     </category>
                     <category xml:id="bldgFood">
                         <gloss>Food</gloss>
+                        <desc>Buildings with food outlets, cafes, restaurants and so on.</desc>
                     </category>
                     <category xml:id="bldgResearch">
                         <gloss>Research</gloss>
+                        <desc>Buildings containing research facilities.</desc>
                     </category>
                 </taxonomy>
                 <taxonomy xml:id="pkng" n="Parking lots">
                     <category xml:id="pkngCovered">
                         <gloss>Covered</gloss>
+                        <desc>Covered parking facilities.</desc>
                     </category>
                     <category xml:id="pkngOutdoor">
                         <gloss>Outdoor</gloss>
+                        <desc>Outdoor parking lots.</desc>
                     </category>
                 </taxonomy>
             </classDecl>

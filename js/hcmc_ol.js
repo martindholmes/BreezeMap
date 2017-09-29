@@ -470,19 +470,30 @@ hol.Util.getSize = function(extent){
  * @function hol.Util.expandCollapseCategory
  * @memberof hol.Util
  * @description expands or
- *                        contracts a category in the
- *                        navigation panel.
+ *              contracts a category in the
+ *              navigation panel.
  * @param {object} sender The HTML element from which the
  *                        call originates.
  */
-hol.Util.expandCollapseCategory=function(sender){
-  var p = sender.parentNode;
+hol.Util.expandCollapseCategory=function(sender, catNum){
+  var p = sender.parentNode, cat = null;
+  console.log(catNum);
   if (p.classList.contains('headless')){return;}
   if(p.classList.contains('expanded')){
     p.classList.remove('expanded');
   }
   else{
     p.classList.add('expanded');
+    if (catNum > -1){
+        cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+        if (cat.desc.length > 0){
+            this.deselectFeature();
+            this.infoDiv.querySelector('h2').innerHTML = cat.name;
+            this.infoDiv.querySelector('div').innerHTML = cat.desc;
+            this.rewriteHolLinks(this.infoDiv);
+            this.infoDiv.style.display = 'block';
+        }
+    }
   }
 };
 
@@ -1433,7 +1444,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
  */
 hol.VectorLayer.prototype.readTaxonomies = function(){
   var i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
-  catName, catPos, catId, foundTax, foundCat;
+  catName, catDesc, catPos, catId, foundTax, foundCat;
   
 //We read the taxonomies based on finding them in the features,
 //just in case a subset of features has been separated from the
@@ -1463,11 +1474,12 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
           }
           for (k=0, maxk=props.taxonomies[j].categories.length; k<maxk; k++){
             catName = props.taxonomies[j].categories[k].name;
+            catDesc = props.taxonomies[j].categories[k].desc;
             catPos = props.taxonomies[j].categories[k].pos;
             catId = props.taxonomies[j].categories[k].id;
             foundCat = foundTax[0].categories.filter(hasName, catName);
             if (foundCat.length < 1){
-              foundTax[0].categories.push({name: catName, pos: catPos, id: catId, features: []});
+              foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, features: []});
               foundCat[0] = foundTax[0].categories[foundTax[0].categories.length-1];
             }
             if (this.features[i].getId() !== 'holMap'){
@@ -1948,8 +1960,8 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       catTitleSpan = doc.createElement('span');
       catTitleSpan.appendChild(doc.createTextNode(cats[catNum].name));
       catLi.appendChild(catTitleSpan);
-      //catTitleSpan.addEventListener('click', function(event){hol.Util.expandCollapseCategory(this); event.stopImmediatePropagation(); event.preventDefault();}, false);
-      catTitleSpan.addEventListener('click', hol.Util.expandCollapseCategory.bind(this, catTitleSpan), false);
+      //catTitleSpan.addEventListener('click', hol.Util.expandCollapseCategory.bind(this, catTitleSpan), false);
+      catTitleSpan.addEventListener('click', hol.Util.expandCollapseCategory.bind(this, catTitleSpan, catNum), false);
       thisCatUl = doc.createElement('ul');
       thisCatFeatures = cats[catNum].features;
       /*for (f=0, fmax=thisCatFeatures.length; f<fmax; f++){

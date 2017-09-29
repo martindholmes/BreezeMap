@@ -12,11 +12,11 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgSports", "name": "Sports facilities", "pos": 3},{"id": "bldgFood", "name": "Food", "pos": 4},{"id": "bldgResearch", "name": "Research", "pos": 5}]},
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2},{"id": "bldgSports", "name": "Sports facilities", "desc": "Buildings with gyms, swimming pools and other sports services.", "pos": 3},{"id": "bldgFood", "name": "Food", "desc": "Buildings with food outlets, cafes, restaurants and so on.", "pos": 4},{"id": "bldgResearch", "name": "Research", "desc": "Buildings containing research facilities.", "pos": 5}]},
           {"id": "pkng",
           "name": "Parking lots",
            "pos": 2,
-           "categories": [{"id": "pkngCovered", "name": "Covered", "pos": 1},{"id": "pkngOutdoor", "name": "Outdoor", "pos": 2}]}]
+           "categories": [{"id": "pkngCovered", "name": "Covered", "desc": "Covered parking facilities.", "pos": 1},{"id": "pkngOutdoor", "name": "Outdoor", "desc": "Outdoor parking lots.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -33,7 +33,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -50,7 +50,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -67,7 +67,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -84,7 +84,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgFood", "name": "Food", "pos": 4}]}]
+           "categories": [{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2},{"id": "bldgFood", "name": "Food", "desc": "Buildings with food outlets, cafes, restaurants and so on.", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -101,7 +101,7 @@
           {"id": "pkng",
           "name": "Parking lots",
            "pos": 2,
-           "categories": [{"id": "pkngOutdoor", "name": "Outdoor", "pos": 2}]}]
+           "categories": [{"id": "pkngOutdoor", "name": "Outdoor", "desc": "Outdoor parking lots.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -118,7 +118,7 @@
           {"id": "pkng",
           "name": "Parking lots",
            "pos": 2,
-           "categories": [{"id": "pkngCovered", "name": "Covered", "pos": 1}]}]
+           "categories": [{"id": "pkngCovered", "name": "Covered", "desc": "Covered parking facilities.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -135,7 +135,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -152,7 +152,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -169,7 +169,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -186,7 +186,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgResearch", "name": "Research", "pos": 5}]}]
+           "categories": [{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2},{"id": "bldgResearch", "name": "Research", "desc": "Buildings containing research facilities.", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -203,7 +203,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgResearch", "name": "Research", "pos": 5}]}]
+           "categories": [{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2},{"id": "bldgResearch", "name": "Research", "desc": "Buildings containing research facilities.", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -220,7 +220,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgAdmin", "name": "Administrative", "pos": 2},{"id": "bldgResearch", "name": "Research", "pos": 5}]}]
+           "categories": [{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2},{"id": "bldgResearch", "name": "Research", "desc": "Buildings containing research facilities.", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -237,7 +237,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -254,7 +254,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -271,7 +271,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -288,7 +288,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -305,7 +305,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -322,7 +322,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -339,7 +339,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -356,7 +356,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgTeaching", "name": "Teaching", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "pos": 2}]}]
+           "categories": [{"id": "bldgTeaching", "name": "Teaching", "desc": "Buildings with classrooms.", "pos": 1},{"id": "bldgAdmin", "name": "Administrative", "desc": "Buildings with administrative offices.", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -373,7 +373,7 @@
           {"id": "bldg",
           "name": "Buildings",
            "pos": 1,
-           "categories": [{"id": "bldgSports", "name": "Sports facilities", "pos": 3}]}]
+           "categories": [{"id": "bldgSports", "name": "Sports facilities", "desc": "Buildings with gyms, swimming pools and other sports services.", "pos": 3}]}]
       }
     }
   ]
