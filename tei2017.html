@@ -38,7 +38,7 @@
       
         <div id="map" class="map"></div>
       <form>
-      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="1" />
+      <input style="display: none;" class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="1" />
       </form>
        
        <div id="splash">
@@ -46,7 +46,7 @@
        </div>
       
       <script type="text/ecmascript">
-      <!-- 
+       
       /* Initial setup of the map with default controls using Tileset created by HCMC from 
          Open Street Maps dataset. */
          
@@ -73,8 +73,8 @@
             /*crossOrigin: 'anonymous',*/
             numZoomLevels: 21,
             maxZoom: 22
-          }),
-          extent: [-123.32127,48.469219,-123.303375,48.456014]
+          })/*,
+          extent: [-123.32127,48.469219,-123.303375,48.456014]*/
         });
         
         //OSM
@@ -85,7 +85,21 @@
           })
         });
         
-        myLayers.push(layerOSM, layerXYZ);
+        //BC
+        //Create a tile layer using this: http://maps.gov.bc.ca/arcserver/rest/services/Province/web_mercator_cache/MapServer
+        layerBC = new ol.layer.Tile({
+          source: new ol.source.XYZ({
+            url: 'http://maps.gov.bc.ca/arcgis/rest/services/province/web_mercator_cache/MapServer/tile/{z}/{y}/{x}',
+            numZoomLevels: 18,
+            maxZoom: 17
+          })
+        });
+        
+        myLayers.push(layerOSM);
+        myLayers.push(layerXYZ);
+        
+        layerXYZ.setExtent(ol.proj.transformExtent([-123.32127,48.469219,-123.303375,48.456014], 'EPSG:4326', 'EPSG:3857'));
+        
         
         //Create a map using our new layer.
         map = new ol.Map({
@@ -110,7 +124,7 @@
       
       window.addEventListener('load', function (event){initCampusMap();});
       
-    -->
+    
     </script>
       
        

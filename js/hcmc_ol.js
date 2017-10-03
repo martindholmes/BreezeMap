@@ -486,7 +486,7 @@ hol.Util.expandCollapseCategory=function(sender, catNum){
     p.classList.add('expanded');
     if (catNum > -1){
         cat = this.taxonomies[this.currTaxonomy].categories[catNum];
-        if (cat.desc.length > 0){
+        if ((typeof cat.desc !== 'undefined')&&(cat.desc.length > 0)){
             this.deselectFeature();
             this.infoDiv.querySelector('h2').innerHTML = cat.name;
             this.infoDiv.querySelector('div').innerHTML = cat.desc;
