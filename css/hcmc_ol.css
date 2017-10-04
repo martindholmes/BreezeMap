@@ -540,6 +540,14 @@ div#holInfo div{
   padding: 0.5rem;
 }
 
+div#holInfo img{
+  border: solid 1px gray;
+  max-width: 100%;
+  display: block;
+  margin: 0.2em;
+  text-decoration: none;
+}
+
 span.holShowDoc{
   cursor: pointer;
   font-style: italic;

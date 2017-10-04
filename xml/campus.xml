@@ -81,7 +81,7 @@
                     </place>
                     <place xml:id="bldgElliott" corresp="#bldgTeaching">
                         <placeName>Elliott Building</placeName>
-                        <desc>The Elliott Building...</desc>
+                        <desc>The Elliott Building looks like this: <graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ell.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>

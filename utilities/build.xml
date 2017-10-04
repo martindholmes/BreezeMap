@@ -26,10 +26,9 @@
         <echo message="Deleting old stuff."/>
         <delete dir="${proj.dir}/kml"/>
         <mkdir dir="${proj.dir}/kml"/>
-<!--    Don't mess with OL till we've updated to
-        version 4. -->
-        <!--<delete dir="${proj.dir}/ol3"/>
-        <mkdir dir="${proj.dir}/ol3"/>-->
+<!--    Don't mess with OL for the moment. -->
+        <!--<delete dir="${proj.dir}/ol"/>
+        <mkdir dir="${proj.dir}/ol"/>-->
     </target>
   
   <target name="teiToGeoJSON">

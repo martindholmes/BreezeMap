@@ -44,7 +44,7 @@
       }, 
       "properties": {
         "name": "Elliott Building", 
-        "desc": "The Elliott Building...", 
+        "desc": "The Elliott Building looks like this: <a href=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ell.jpg\" target=\"_blank\"><img src=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ell.jpg\" alt=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ell.jpg\"/></a>", 
         "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/ell.php"], 
         "taxonomies": [
           {"id": "bldg",

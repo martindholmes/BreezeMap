@@ -160,5 +160,9 @@
   <xsl:template match="ref[@target]" mode="serializedXhtml">
     &lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;
   </xsl:template>
+  
+  <xsl:template match="graphic" mode="serializedXhtml">
+    &lt;a href="<xsl:value-of select="@url"/>" target="_blank"&gt;&lt;img src="<xsl:value-of select="@url"/>" alt="<xsl:value-of select="@url"/>"/&gt;&lt;/a&gt;
+  </xsl:template>
     
 </xsl:stylesheet>
