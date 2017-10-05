@@ -1383,7 +1383,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.downloadGeoJSON = function(){
-  var el, fname, geojson, mapjson, outFeats;
+  var el, geojson, mapjson, outFeats;
   try{
     geojson = new ol.format.GeoJSON();
     outFeats = [this.baseFeature];
@@ -2389,7 +2389,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var i, maxi, pan, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  var i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
   var view = this.map.getView();
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
@@ -2411,11 +2411,6 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       if (useCurrZoom === true){
         opts.maxZoom = this.map.getView().getZoom();
       }
-      //pan = ol.animation.pan({
-      //    duration: 1000,
-      //    source: /** @type {ol.Coordinate} */ (view.getCenter())
-      //  });
-      //this.map.beforeRender(pan);
       view.fit(extent, /* this.map.getSize(),*/ opts);
     }
     return true;
