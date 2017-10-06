@@ -21,14 +21,20 @@
                     <category xml:id="confVenue">
                         <gloss>Venue</gloss>
                     </category>
-                    <category xml:id="confFood">
-                        <gloss>Food</gloss>
-                    </category>
                     <category xml:id="confTrans">
                         <gloss>Transportation</gloss>
                     </category>
+                    <category xml:id="confWalkBusToUVClub">
+                        <gloss>Walk from busses to University Club</gloss>
+                    </category>
+                    <category xml:id="confWalkBusToClearihue">
+                        <gloss>Walk from busses to Clearihue Building</gloss>
+                    </category>
                     <category xml:id="confAccom">
                         <gloss>Accomodation</gloss>
+                    </category>
+                    <category xml:id="confFood">
+                        <gloss>Food</gloss>
                     </category>
                     <category xml:id="confSvc">
                         <gloss>Services</gloss>
@@ -50,7 +56,128 @@
                             <geo>[[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]</geo>
                         </location>
                     </place>
-
+                    
+                    <!-- walking directions and waypoints --> 
+                    <place corresp="#confWalkBusToClearihue" xml:id="walkToClearihue">
+                        <placeName>Walking path from busses to Clearihue Building</placeName>
+                        <desc>...</desc>
+                        <location type="LineString">
+                            <geo>[[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133]]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub" xml:id="walkToUVClub">
+                        <placeName>Walking path from busses to University Club</placeName>
+                        <desc>...</desc>
+                        <location type="LineString">
+                            <geo>[[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133],[-123.309902,48.464015],[-123.310024,48.463879],[-123.313399,48.463618],[-123.314855,48.463513],[-123.315465,48.463756],[-123.315704,48.463809],[-123.316102,48.463862],[-123.316277,48.463895],[-123.316188,48.464104],[-123.316317,48.464078],[-123.316482,48.464123],[-123.316789,48.464042],[-123.317296,48.463995]]</geo>
+                        </location>
+                    </place>
+                    <!--<place corresp="#confWalkBusToUVClub" xml:id="walkToUVClubAlt">
+                        <placeName>Walking path from busses to University Club (alternate)</placeName>
+                        <desc>...</desc>
+                        <location type="LineString">
+                            <geo>[[-123.309276,48.46624],[-123.310063,48.465634],[-123.310444,48.46581],[-123.310909,48.465794],[-123.311141,48.465865],[-123.311601,48.465915],[-123.311691,48.46588],[-123.311865,48.465894],[-123.3121,48.465988],[-123.31335,48.465913],[-123.313517,48.465757],[-123.313909,48.465652],[-123.314027,48.465644],[-123.314294,48.46555],[-123.314378,48.465546],[-123.314498,48.465483],[-123.314537,48.46541],[-123.315315,48.464982],[-123.315803,48.464567],[-123.315862,48.464514],[-123.316186,48.464107],[-123.316312,48.464079],[-123.316487,48.464122],[-123.316782,48.464044],[-123.317295,48.463994]]</geo>
+                        </location>
+                    </place>-->
+                    <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayBusToSUB">
+                        <placeName>Waypoint A: bus terminal to SUB</placeName>
+                        <desc><graphic url="./html/images/busTerminalToSUB.png"/></desc>
+                        <location type="Point">
+                            <geo>[-123.309273,48.466244]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayPathFromSUB">
+                        <placeName>Waypoint B: path beside SUB</placeName>
+                        <desc><graphic url="./html/images/pathFromSUB.png"/></desc>
+                        <location type="Point">
+                            <geo>[-123.308957,48.46576]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToClearihue #confWalkBusToUVClub" xml:id="wayFriendPole">
+                        <placeName>Waypoint C: Empowerment totem pole</placeName>
+                        <desc>Contemporary Coast Salish housepost<graphic url="http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
+                        <location type="Point">
+                            <geo>[-123.309012,48.465366]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayStudentUnion">
+                        <placeName>Waypoint D: Student Union Building</placeName>
+                        <desc><graphic url="http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.308866,48.465173]</geo>
+                        </location>
+                    </place>     
+                    <place corresp="#confWalkBusToClearihue #confWalkBusToUVClub" xml:id="wayRainbowXing">
+                        <placeName>Waypoint E: Rainbow Crossing</placeName>
+                        <desc>A distinctive crosswalk, painted in rainbow colours.<graphic url="https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg"/></desc>
+                        <location type="Point">
+                            <geo>[-123.308977,48.46487]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToClearihue #confWalkBusToUVClub" xml:id="wayClockTower">
+                        <placeName>Waypoint F: Clearihue clock tower</placeName>
+                        <desc>A highly visible landmark, but do not rely on its time-keeping abililty.<graphic url="https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg"/></desc>
+                        <location type="Point">
+                            <geo>[-123.309661,48.464081]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub" xml:id="wayPetchFountain">
+                        <placeName>Waypoint G: Howard Petch Fountain</placeName>
+                        <desc><graphic url="https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg"/></desc>
+                        <location type="Point">
+                            <geo>[-123.310555,48.463565]</geo>
+                        </location>
+                    </place>              
+                    <place xml:id="wayFirstPeople" corresp="#confWalkBusToUVClub">
+                        <placeName>Waypoint H: First Peoples House</placeName>
+                        <desc><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/></desc>
+                        <desc>                            
+                            <list>
+                                <item>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/fph.php"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.311147,48.463791]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub" xml:id="wayPathDivergeAtSedge">
+                        <placeName>Waypoint I: path toward University Club</placeName>
+                        <desc><graphic url="./html/images/pathDivergeTowardUClub.png"/></desc>
+                        <location type="Point">
+                            <geo>[-123.314854,48.463514]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confWalkBusToUVClub" xml:id="wayPathToUClub">
+                        <placeName>Waypoint J: forest path to University Club</placeName>
+                        <desc><graphic url="./html/images/pathToUClub.png"/></desc>
+                        <location type="Point">
+                            <geo>[-123.316276,48.463895]</geo>
+                        </location>
+                    </place>
+                    <place xml:id="wayUniversityClub" corresp="#confWalkBusToUVClub">
+                        <placeName>Waypoint K: University Club</placeName>
+                        <desc><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></desc>
+                        <desc>
+                            <list>
+                                <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.317296,48.463995]</geo>
+                        </location>
+                    </place>
+                    
+                    
+                    <!-- buildings -->
                     <place xml:id="bldgClearihueLabs" corresp="#confVenue">
                         <placeName>Clearihue Building Labs (Workshops)</placeName>
                         <desc>Computer labs in the Clearihue building where the workshops will be held.</desc>
@@ -78,7 +205,7 @@
                     <place xml:id="bldgUniversityCentre" corresp="#confFood">
                         <placeName>University Centre</placeName>
                         <desc>The University's central administrative building includes the <ref
-                                target="https://www.uvic.ca/services/food/where/mysticmarket/">Mystic Market</ref>, which has a range of food
+                            target="https://www.uvic.ca/services/food/where/mysticmarket/">Mystic Market</ref>, which has a range of food
                             options.</desc>
                         <desc>
                             <list>
