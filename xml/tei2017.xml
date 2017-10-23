@@ -58,6 +58,37 @@
                     </place>
                     
                     <!-- walking directions and waypoints --> 
+                    
+                    <place corresp="#confTrans" xml:id="walkHotelsToBus">
+                        <placeName>Walk from downtown hotels to busses</placeName>
+                        <desc>30 minute bus ride (#14 or #15), 500m easy walking.</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="LineString">
+                            <geo>[[-123.364963,48.421313],[-123.36375,48.420508],[-123.363246,48.420836],[-123.363042,48.421057],[-123.362946,48.421306],[-123.362999,48.421897],[-123.362946,48.422217],[-123.36242,48.424246],[-123.36183,48.424182]]</geo>
+                        </location>
+                    </place>
+                    <place corresp="#confTrans" xml:id="no4BusHotels">
+                        <placeName>Bus stop close to downtown hotels</placeName>
+                        <desc>45+ minute bus ride (#4), 100m easy walking.</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100025"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.3641076,48.4218415]</geo>
+                        </location>
+                    </place>
+                    
+                    
                     <place corresp="#confWalkBusToClearihue" xml:id="walkToClearihue">
                         <placeName>Walking path from busses to Clearihue Building</placeName>
                         <desc>...</desc>
@@ -233,7 +264,7 @@
                         </location>
                     </place>
                     <place xml:id="busStation" corresp="#confTrans">
-                        <placeName>Bus Terminal</placeName>
+                        <placeName>UVic Bus Terminal</placeName>
                         <desc>All buses between the campus and the rest of the city leave from the bus terminal.</desc>
                         <location type="Polygon">
                             <geo>[[[-123.308372,48.466507],[-123.308495,48.466549],[-123.308727,48.466549],[-123.309518,48.465949],[-123.309545,48.465857],[-123.309481,48.46572],[-123.309412,48.465657],[-123.309166,48.465504],[-123.308844,48.465756],[-123.308667,48.465664],[-123.308543,48.465667],[-123.308474,48.465703],[-123.308098,48.466027],[-123.308082,48.466108],[-123.308136,48.466187],[-123.308217,48.466269],[-123.308105,48.466369],[-123.308372,48.466507]]]</geo>
