@@ -12,7 +12,262 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confFood", "name": "Food", "pos": 2},{"id": "confTrans", "name": "Transportation", "pos": 3},{"id": "confAccom", "name": "Accomodation", "pos": 4},{"id": "confSvc", "name": "Services", "pos": 5}]}]
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confTrans", "name": "Transportation", "pos": 2},{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4},{"id": "confAccom", "name": "Accomodation", "pos": 5},{"id": "confFood", "name": "Food", "pos": 6},{"id": "confSvc", "name": "Services", "pos": 7}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "walkHotelsToBus", 
+      "geometry": {
+        "type": "LineString", 
+        "coordinates": [[-123.364963,48.421313],[-123.36375,48.420508],[-123.363246,48.420836],[-123.363042,48.421057],[-123.362946,48.421306],[-123.362999,48.421897],[-123.362946,48.422217],[-123.36242,48.424246],[-123.36183,48.424182]]
+      }, 
+      "properties": {
+        "name": "Walk from downtown hotels to busses", 
+        "desc": "30 minute bus ride (#14 or #15), 500m easy walking.", 
+        "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 2}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "no4BusHotels", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.3641076,48.4218415]
+      }, 
+      "properties": {
+        "name": "Bus stop close to downtown hotels", 
+        "desc": "45+ minute bus ride (#4), 100m easy walking.", 
+        "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100025"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 2}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "walkToClearihue", 
+      "geometry": {
+        "type": "LineString", 
+        "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133]]
+      }, 
+      "properties": {
+        "name": "Walking path from busses to Clearihue Building", 
+        "desc": "...", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "walkToUVClub", 
+      "geometry": {
+        "type": "LineString", 
+        "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133],[-123.309902,48.464015],[-123.310024,48.463879],[-123.313399,48.463618],[-123.314855,48.463513],[-123.315465,48.463756],[-123.315704,48.463809],[-123.316102,48.463862],[-123.316277,48.463895],[-123.316188,48.464104],[-123.316317,48.464078],[-123.316482,48.464123],[-123.316789,48.464042],[-123.317296,48.463995]]
+      }, 
+      "properties": {
+        "name": "Walking path from busses to University Club", 
+        "desc": "...", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayBusToSUB", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.309273,48.466244]
+      }, 
+      "properties": {
+        "name": "Waypoint A: bus terminal to SUB", 
+        "desc": "<a href=\"./html/images/busTerminalToSUB.png\" target=\"_blank\"><img src=\"./html/images/busTerminalToSUB.png\" alt=\"./html/images/busTerminalToSUB.png\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayPathFromSUB", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.308957,48.46576]
+      }, 
+      "properties": {
+        "name": "Waypoint B: path beside SUB", 
+        "desc": "<a href=\"./html/images/pathFromSUB.png\" target=\"_blank\"><img src=\"./html/images/pathFromSUB.png\" alt=\"./html/images/pathFromSUB.png\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayFriendPole", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.309012,48.465366]
+      }, 
+      "properties": {
+        "name": "Waypoint C: Empowerment totem pole", 
+        "desc": "Contemporary Coast Salish housepost <a href=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayStudentUnion", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.308866,48.465173]
+      }, 
+      "properties": {
+        "name": "Waypoint D: Student Union Building", 
+        "desc": "<a href=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayRainbowXing", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.308977,48.46487]
+      }, 
+      "properties": {
+        "name": "Waypoint E: Rainbow Crossing", 
+        "desc": "A distinctive crosswalk, painted in rainbow colours. <a href=\"https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\" target=\"_blank\"><img src=\"https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\" alt=\"https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayClockTower", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.309661,48.464081]
+      }, 
+      "properties": {
+        "name": "Waypoint F: Clearihue clock tower", 
+        "desc": "A highly visible landmark, but do not rely on its time-keeping abililty. <a href=\"https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg\" target=\"_blank\"><img src=\"https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg\" alt=\"https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayPetchFountain", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.310555,48.463565]
+      }, 
+      "properties": {
+        "name": "Waypoint G: Howard Petch Fountain", 
+        "desc": "<a href=\"https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg\" target=\"_blank\"><img src=\"https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg\" alt=\"https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayFirstPeople", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.311147,48.463791]
+      }, 
+      "properties": {
+        "name": "Waypoint H: First Peoples House", 
+        "desc": "<a href=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\" target=\"_blank\"><img src=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\" alt=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\"/></a>", 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fph.php"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayPathDivergeAtSedge", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.314854,48.463514]
+      }, 
+      "properties": {
+        "name": "Waypoint I: path toward University Club", 
+        "desc": "<a href=\"./html/images/pathDivergeTowardUClub.png\" target=\"_blank\"><img src=\"./html/images/pathDivergeTowardUClub.png\" alt=\"./html/images/pathDivergeTowardUClub.png\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayPathToUClub", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.316276,48.463895]
+      }, 
+      "properties": {
+        "name": "Waypoint J: forest path to University Club", 
+        "desc": "<a href=\"./html/images/pathToUClub.png\" target=\"_blank\"><img src=\"./html/images/pathToUClub.png\" alt=\"./html/images/pathToUClub.png\"/></a>", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "wayUniversityClub", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.317296,48.463995]
+      }, 
+      "properties": {
+        "name": "Waypoint K: University Club", 
+        "desc": "<a href=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg\" target=\"_blank\"><img src=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg\" alt=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg\"/></a>", 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -63,7 +318,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confFood", "name": "Food", "pos": 2}]}]
+           "categories": [{"id": "confFood", "name": "Food", "pos": 6}]}]
       }
     },
     { "type": "Feature",
@@ -80,7 +335,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confFood", "name": "Food", "pos": 2}]}]
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confFood", "name": "Food", "pos": 6}]}]
       }
     },
     { "type": "Feature",
@@ -107,14 +362,14 @@
         "coordinates": [[[-123.308372,48.466507],[-123.308495,48.466549],[-123.308727,48.466549],[-123.309518,48.465949],[-123.309545,48.465857],[-123.309481,48.46572],[-123.309412,48.465657],[-123.309166,48.465504],[-123.308844,48.465756],[-123.308667,48.465664],[-123.308543,48.465667],[-123.308474,48.465703],[-123.308098,48.466027],[-123.308082,48.466108],[-123.308136,48.466187],[-123.308217,48.466269],[-123.308105,48.466369],[-123.308372,48.466507]]]
       }, 
       "properties": {
-        "name": "Bus Terminal", 
+        "name": "UVic Bus Terminal", 
         "desc": "All buses between the campus and the rest of the city leave from the bus terminal.", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 3}]}]
+           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -131,7 +386,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 4}]}]
+           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -148,7 +403,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 4}]}]
+           "categories": [{"id": "confAccom", "name": "Accomodation", "pos": 5}]}]
       }
     },
     { "type": "Feature",
@@ -165,7 +420,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 7}]}]
       }
     },
     { "type": "Feature",
@@ -182,7 +437,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 7}]}]
       }
     },
     { "type": "Feature",
@@ -199,7 +454,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confSvc", "name": "Services", "pos": 5}]}]
+           "categories": [{"id": "confSvc", "name": "Services", "pos": 7}]}]
       }
     }
   ]
