@@ -679,6 +679,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                //the selected feature.
     this.docTitle = null;                      //Will contain a pointer to the title span on the left of the toolbar.
     this.menu = null;                          //Will contain a pointer to menu-like controls for editing etc. 
+    this.geolocation = null;                   //May be used for geolocation of a moving user on the map.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -2909,21 +2910,27 @@ console.log('Found ' + links.length + ' links.');
  * @description Uses the HTML5 Geolocation API to locate the user on the
  *              map at their current position.
  * @returns {boolean} true (success) or false (failure).
- * NOTE: This is not working yet. Not sure why.
+ * NOTE: The OL wrapper is not working, so this will be implemented with
+ *       standard navigator.geolocation functionality.
  */
 hol.VectorLayer.prototype.youAreHere = function(){
-  var geolocation, pos="Position unknown";
   try{
-    geolocation = new ol.Geolocation({
+    this.geolocation = new ol.Geolocation({
         projection: this.map.getView().getProjection()
     });
-    geolocation.on('error', function(error) {
+    this.geolocation.on('error', function(error) {
       console.log(error.message);
       //alert(error.message);
     });
-    pos = geolocation.getPosition() || pos;
-    window.console.log(pos);
-    //alert(pos);
+    this.geolocation.on('change', function() {
+        pos = this.geolocation.getPosition();
+        window.console.log(pos);
+    }.bind(this));
+    
+    window.setTimeout(navigator.geolocation.getCurrentPosition(function(position) {
+        window.console.log(position.coords);
+        //alert(position.coords.latitude.toString() + ',' + position.coords.longitude.toString());
+    }), 5000);
     return true;
   }
   catch(e){
