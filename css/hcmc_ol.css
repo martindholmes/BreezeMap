@@ -517,9 +517,9 @@ div#holDocDisplay iframe#holDocDisplayFrame{
 div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn{
   display: block;
   position: fixed;
-  padding: 0.2rem;
+  padding: 0.3rem;
   cursor: pointer;
-  /*background-color: #c0c0c0;*/
+  background-color: #c0c0c0;
   font-family: ui-font;
   color: rgb(57,70,78);
 }
