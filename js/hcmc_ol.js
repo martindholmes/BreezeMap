@@ -2649,6 +2649,7 @@ hol.VectorLayer.prototype.deselectFeature = function(){
  */
 hol.VectorLayer.prototype.parseSearch = function(){
   var result, i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, arrFeatNums, docPath, currLoc;
+  result = 0;
   
 //First deselect any existing selection.
   this.deselectFeature();
@@ -2911,7 +2912,7 @@ console.log('Found ' + links.length + ' links.');
  * NOTE: This is not working yet. Not sure why.
  */
 hol.VectorLayer.prototype.youAreHere = function(){
-  var geolocation = null, pos="position unknown";
+  var geolocation, pos="Position unknown";
   try{
     geolocation = new ol.Geolocation({
         projection: this.map.getView().getProjection()
