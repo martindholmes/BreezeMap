@@ -294,9 +294,26 @@
         "coordinates": [-123.36307,48.420412]
       }, 
       "properties": {
-        "name": "Urban Ballroom, Parkside Hotel", 
+        "name": "Urban Ballroom, Parkside Hotel (Conference Dinner)", 
         "desc": "The Parkside Hotel's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
         "links": [], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "bldgMuseum", 
+      "geometry": {
+        "type": "Polygon", 
+        "coordinates": [[[-123.367251,48.420258],[-123.367187,48.419825],[-123.367223,48.419821],[-123.367206,48.419708],[-123.367168,48.419711],[-123.367153,48.419607],[-123.367193,48.419604],[-123.367125,48.419143],[-123.367767,48.419101],[-123.367788,48.419246],[-123.367834,48.419271],[-123.367843,48.419346],[-123.367878,48.419345],[-123.367881,48.419373],[-123.368199,48.419352],[-123.368211,48.419444],[-123.368257,48.419441],[-123.368259,48.419448],[-123.368624,48.419421],[-123.368663,48.419686],[-123.368688,48.419687],[-123.368691,48.419733],[-123.368666,48.419794],[-123.368643,48.419805],[-123.368682,48.420044],[-123.368171,48.420082],[-123.368158,48.420009],[-123.368118,48.420012],[-123.36812,48.420025],[-123.3681,48.420025],[-123.368131,48.420203],[-123.367924,48.420217],[-123.36792,48.420185],[-123.36777,48.420195],[-123.367772,48.420206],[-123.367613,48.420214],[-123.367615,48.420232],[-123.367251,48.420258]]]
+      }, 
+      "properties": {
+        "name": "Royal BC Museum and Provincial Archives", 
+        "desc": "There will be a tour of the RBC Museum and the BC Provincial Archives on the morning of Thursday November 16.", 
+        "links": ["https://royalbcmuseum.bc.ca/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",

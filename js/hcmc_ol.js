@@ -2654,7 +2654,7 @@ hol.VectorLayer.prototype.deselectFeature = function(){
  *              false if not.
  */
 hol.VectorLayer.prototype.parseSearch = function(){
-  var i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, docPath;
+  var i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, arrFeatNums, docPath, currLoc;
   var result = 0;
   
 //First deselect any existing selection.
@@ -2708,6 +2708,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
 //Now parse the search string for individual features.
     featIds = hol.Util.getQueryParam('featIds');
     if (featIds.length > 0){
+      arrFeatNums = [];
       arrFeatIds = featIds.split(';');
 //For each feature id, check for a feature index number.
       for (i=0, maxi=arrFeatIds.length; i<maxi; i++){
@@ -2720,12 +2721,25 @@ hol.VectorLayer.prototype.parseSearch = function(){
             this.showHideFeature(true, featNum, catNum);
             this.setSelectedFeature(featNum, true);
             result++;
+            arrFeatNums.push(featNum);
           }
         }
       }
     }
 //If more than one feature is specified, then deselect the selected one (which would be the last).
     if (result > 1){this.deselectFeature();}
+    
+//Now we should zoom to the highlighted features. 
+    if (result > 0){
+        this.centerOnFeatures(arrFeatNums, false);
+    }
+    
+//Now check for the current location feature.
+    currLoc = hol.Util.getQueryParam('currLoc');
+    if (currLoc != ''){
+      this.youAreHere();
+    }
+    
     return result;
   }
   catch(e){
@@ -2894,4 +2908,33 @@ console.log('Found ' + links.length + ' links.');
     return false;
   }
 };
+
+/**
+ * @function hol.VectorLayer.prototype.youAreHere
+ * @memberof hol.VectorLayer.prototype
+ * @description Uses the HTML5 Geolocation API to locate the user on the
+ *              map at their current position.
+ * @returns {boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.youAreHere = function(){
+  var geolocation = null, pos="position unknown";
+  try{
+    geolocation = new ol.Geolocation({
+        projection: this.map.getView().getProjection()
+    });
+    geolocation.on('error', function(error) {
+      console.log(error.message);
+      alert(error.message);
+    });
+    pos = geolocation.getPosition() || pos;
+    window.console.log(pos);
+    alert(pos);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
 

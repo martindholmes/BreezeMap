@@ -4,7 +4,7 @@
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-      <title>TEI 2017: UVic Campus Map</title>
+      <title>TEI 2017: UVic Campus and Downtown Map</title>
         <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
@@ -44,7 +44,8 @@
       </form>
        
        <div id="splash">
-         <p>Welcome to the <a href="http://hcmc.uvic.ca/tei2017/">TEI 2017</a> UVic Campus Map. </p>
+         <p>Welcome to the <a href="http://hcmc.uvic.ca/tei2017/">TEI 2017</a> UVic Campus and Downtown Map, created with
+           <a href="https://github.com/martindholmes/BreezeMap">BreezeMap</a>. </p>
        </div>
       
       <script type="text/ecmascript">
@@ -71,7 +72,7 @@
         //Create a tile layer using our own built OSM tileset.
         layerXYZ = new ol.layer.Tile({
           source: new ol.source.XYZ({
-            url: 'http://hcmc.uvic.ca/people/greg/mapnik/osm/tiles/{z}/{x}/{y}.png',
+            url: 'https://hcmc.uvic.ca/people/greg/mapnik/osm/tiles/{z}/{x}/{y}.png',
             /*crossOrigin: 'anonymous',*/
             numZoomLevels: 21,
             maxZoom: 22
@@ -91,7 +92,7 @@
         //Create a tile layer using this: http://maps.gov.bc.ca/arcserver/rest/services/Province/web_mercator_cache/MapServer
         layerBC = new ol.layer.Tile({
           source: new ol.source.XYZ({
-            url: 'http://maps.gov.bc.ca/arcgis/rest/services/province/web_mercator_cache/MapServer/tile/{z}/{y}/{x}',
+            url: 'https://maps.gov.bc.ca/arcgis/rest/services/province/web_mercator_cache/MapServer/tile/{z}/{y}/{x}',
             numZoomLevels: 18,
             maxZoom: 17
           })
@@ -119,9 +120,9 @@
         document.getElementById('opacitySlider').onchange();
   
 //Now let's create a hol vector layer for all our features.
-        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
-                                                              allowFeatureEditing: true,
-                                                              allowUpload: true});
+        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: false, 
+                                                              allowFeatureEditing: false,
+                                                              allowUpload: false});
       }
       
       window.addEventListener('load', function (event){initCampusMap();});

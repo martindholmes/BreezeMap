@@ -6,7 +6,7 @@
 
 @font-face{
   font-family: 'ui-font';
-  src: url('http://hcmc.uvic.ca/fonts/ui-font/font/ui.woff2') format('woff2'), url('http://hcmc.uvic.ca/fonts/ui-font/font/ui.woff') format('woff');
+  src: url('https://hcmc.uvic.ca/fonts/ui-font/font/ui.woff2') format('woff2'), url('https://hcmc.uvic.ca/fonts/ui-font/font/ui.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
