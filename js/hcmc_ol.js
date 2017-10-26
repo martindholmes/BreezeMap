@@ -228,8 +228,9 @@ hol.Util.getTranslucentColorForCategory = function(catNum){
  * @return {number[]} Array of two integers for x and y.
  */
 hol.Util.getCenter = function(extent){
-  var x = extent[0] + (extent[2] - extent[0]);
-  var y = extent[1] + (extent[3] - extent[1]);
+  var x, y;
+  x = extent[0] + (extent[2] - extent[0]);
+  y = extent[1] + (extent[3] - extent[1]);
   return [x,y];
 };
 
@@ -349,8 +350,9 @@ hol.Util.getSelectedStyle = function(){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
-    var catNum = feature.getProperties().showingCat;
-    var catCol = hol.Util.getColorForCategory(catNum);
+    var catNum, catCol;
+    catNum = feature.getProperties().showingCat;
+    catCol = hol.Util.getColorForCategory(catNum);
     return [
       new ol.style.Style({
           image: new ol.style.Icon({
@@ -415,12 +417,14 @@ hol.Util.getSelectedStyle = function(){
  * @returns {function} ol.FeatureStyleFunction
  */
 hol.Util.getCategoryStyle = function(catNum){
-  var col = hol.Util.getColorForCategory(catNum);
-  var transCol = hol.Util.getColorWithAlpha(catNum, '0.2');
+  var col, transCol;
+  col = hol.Util.getColorForCategory(catNum);
+  transCol = hol.Util.getColorWithAlpha(catNum, '0.2');
   
   return function(feature, resolution){
-    var lineWidth = 2;
-    var geomType = feature.getGeometry().getType();
+    var lineWidth, geomType;
+    lineWidth = 2;
+    geomType = feature.getGeometry().getType();
     if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
       lineWidth = 5;
     }
@@ -459,8 +463,9 @@ hol.Util.getCategoryStyle = function(catNum){
 *  @returns {number} The width * height of the extent.
 * */
 hol.Util.getSize = function(extent){
-  var w = extent[2] - extent[0];
-  var h = extent[3] - extent[1];
+  var w, h;
+  w = extent[2] - extent[0];
+  h = extent[3] - extent[1];
   return (w * h);
 };
 
@@ -924,7 +929,7 @@ hol.VectorLayer.prototype.setupTaxonomyEditing = function(){
  */
 
 hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
-  var geometryFunction;
+  var geometryFunction, start, end;
   try{
     this.drawingFeatures.clear();
     if (this.draw !== null){
@@ -937,8 +942,8 @@ hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
       if (!geometry) {
         geometry = new ol.geom.Polygon(null);
       }
-      var start = coordinates[0];
-      var end = coordinates[1];
+      start = coordinates[0];
+      end = coordinates[1];
       geometry.setCoordinates([
         [start, [start[0], end[1]], end, [end[0], start[1]], start]
       ]);
@@ -1250,7 +1255,7 @@ hol.VectorLayer.prototype.showCoords = function(geom){
  */
 hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){ 
 //Vars
-  var listenerKey, showTax;
+  var listenerKey, showTax, showTaxInt;
 
   try{
 //Clear existing features on the map, along with taxonomies.
@@ -1336,7 +1341,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
           showTax = hol.Util.getQueryParam('taxonomy');
           if (showTax.length > 0){
 //It may be a name or an index number.
-            var showTaxInt = parseInt(showTax);
+            showTaxInt = parseInt(showTax);
             if ((Number.isInteger(showTaxInt))&&(showTaxInt < this.taxonomies.length)){
               this.currTaxonomy = showTaxInt;
             }
@@ -1443,7 +1448,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
  * @returns {number} Total number of taxonomies constructed.
  */
 hol.VectorLayer.prototype.readTaxonomies = function(){
-  var i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
+  var hasName, i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
   catName, catDesc, catPos, catId, foundTax, foundCat;
   
 //We read the taxonomies based on finding them in the features,
@@ -1451,7 +1456,7 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
 //base feature which includes all the taxonomies.
   
 //Function for filtering taxonomy and category arrays by name.
-  var hasName = function hasName(element, index, array){
+  hasName = function(element, index, array){
     return element.name === this;
   };
   
@@ -1971,8 +1976,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
         }
       }*/
       thisCatFeatures.sort(function(a,b){
-        var aName = a.getProperties().name.toUpperCase();
-        var bName = b.getProperties().name.toUpperCase();
+        var aName = a.getProperties().name.toUpperCase(), bName = b.getProperties().name.toUpperCase();
         if (aName < bName){return -1;}
         if (aName > bName){return 1;}
         return 0;
@@ -2179,14 +2183,14 @@ hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
  *                          by the operation.
  */
 hol.VectorLayer.prototype.showHideAllFeatures = function(sender, show){
-  var i, maxi, j, maxj, showVal, currTaxCats, feats;
+  var i, maxi, j, maxj, showVal, currTaxCats, feats, featuresChanged;
   if (sender === null){
     showVal = show;
   }
   else{
     showVal = sender.checked;
   }
-  var featuresChanged = 0;
+  featuresChanged = 0;
 
 //If hiding, we just hide everything.
   if (showVal === false){
@@ -2294,10 +2298,7 @@ hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
 hol.VectorLayer.prototype.harmonizeCategoryCheckboxes = function(){
 //Variables for tracking what we need to know for the
 //all-controlling checkbox chkShowAll.
-  var allChecked = true;
-  var allUnchecked = true;
-  var allIndeterminate = false;
-  var i, maxi, j, maxj, hasChecked, hasUnchecked, childInputs;
+  var allChecked = true, allUnchecked = true, allIndeterminate = false, i, maxi, j, maxj, hasChecked, hasUnchecked, childInputs;
   try{
     for (i=0, maxi=this.categoryCheckboxes.length; i<maxi; i++){
       hasChecked = false;
@@ -2389,8 +2390,8 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
-  var view = this.map.getView();
+  var view, i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  view = this.map.getView();
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
       geoms.push(this.features[featNums[i]].getGeometry());
@@ -2435,19 +2436,14 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.setMapBounds = function(extent){
-  var pan, view = this.map.getView();
-  var opts = {
+  var view, opts;
+  view = this.map.getView();
+  opts = {
               duration: 1000  
              };
 
   try{
-    //pan = ol.animation.pan({
-    //    duration: 1000,
-    //    source: /** @type {ol.Coordinate} */ (view.getCenter())
-    //  });
-    //this.map.beforeRender(pan);
-    
-    view.fit(extent, /*  this.map.getSize()*/ opts);
+    view.fit(extent, opts);
     return true;
   }
   catch(e){
@@ -2469,14 +2465,12 @@ hol.VectorLayer.prototype.setMapBounds = function(extent){
  * @returns {number} the index of a feature if one is found, or -1.
  */
 hol.VectorLayer.prototype.selectFeatureFromPixel = function(pixel){
-  var featNum;
-  var hitFeature = null;
-  var fSize = -1;
+  var featNum, hitFeature = null, fSize = -1;
   this.map.forEachFeatureAtPixel(pixel, function(feature, layer){
-    var thisSize;
-    var geom = feature.getGeometry();
-    var geomType = geom.getType();
-    var showing = feature.getProperties().showing;
+    var thisSize, geom, geomType, showing;
+    geom = feature.getGeometry();
+    geomType = geom.getType();
+    showing = feature.getProperties().showing;
     if (showing){
       if (geomType === 'LineString' || geomType === 'MultiLineString' || geomType === 'Point' || geomType === 'MultiPoint'){
         hitFeature = feature;
@@ -2616,8 +2610,8 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
  */
 hol.VectorLayer.prototype.deselectFeature = function(){
 //First deselect any existing selection.
-  var currSel = this.selectedFeature;
-  var currFeatLi, currSelFeat;
+  var currSel, currFeatLi, currSelFeat;
+  currSel = this.selectedFeature;
   if (currSel > -1){
 //Re-show the previously-selected feature using the category under which
 //it was last shown, if it was shown.
@@ -2654,8 +2648,7 @@ hol.VectorLayer.prototype.deselectFeature = function(){
  *              false if not.
  */
 hol.VectorLayer.prototype.parseSearch = function(){
-  var i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, arrFeatNums, docPath, currLoc;
-  var result = 0;
+  var result, i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, arrFeatNums, docPath, currLoc;
   
 //First deselect any existing selection.
   this.deselectFeature();
@@ -2915,6 +2908,7 @@ console.log('Found ' + links.length + ' links.');
  * @description Uses the HTML5 Geolocation API to locate the user on the
  *              map at their current position.
  * @returns {boolean} true (success) or false (failure).
+ * NOTE: This is not working yet. Not sure why.
  */
 hol.VectorLayer.prototype.youAreHere = function(){
   var geolocation = null, pos="position unknown";
@@ -2924,11 +2918,11 @@ hol.VectorLayer.prototype.youAreHere = function(){
     });
     geolocation.on('error', function(error) {
       console.log(error.message);
-      alert(error.message);
+      //alert(error.message);
     });
     pos = geolocation.getPosition() || pos;
     window.console.log(pos);
-    alert(pos);
+    //alert(pos);
     return true;
   }
   catch(e){
