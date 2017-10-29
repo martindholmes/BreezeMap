@@ -640,6 +640,12 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
         
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
                                                 //To be set by the host application if required.
+                                                
+    this.trackUserLocation = options.trackUserLocation || false;             
+                                               //Whether or not geolocation tracking should be turned on
+    this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
+    
+    this.userPositionMarker = null;            //Pointer to a feature used as a position marker for user tracking.
     
     this.docBody = document.getElementsByTagName('body')[0];//Stash a convenient ref to the body
                                                             //of the host document.
@@ -679,7 +685,6 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                //the selected feature.
     this.docTitle = null;                      //Will contain a pointer to the title span on the left of the toolbar.
     this.menu = null;                          //Will contain a pointer to menu-like controls for editing etc. 
-    this.geolocation = null;                   //May be used for geolocation of a moving user on the map.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -2732,7 +2737,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
 //Now check for the current location feature.
     currLoc = hol.Util.getQueryParam('currLoc');
     if (currLoc != ''){
-      this.youAreHere();
+      this.toggleTracking(true);
     }
     
     return result;
@@ -2905,32 +2910,25 @@ console.log('Found ' + links.length + ' links.');
 };
 
 /**
- * @function hol.VectorLayer.prototype.youAreHere
+ * @function hol.VectorLayer.prototype.toggleTracking
  * @memberof hol.VectorLayer.prototype
- * @description Uses the HTML5 Geolocation API to locate the user on the
- *              map at their current position.
+ * @description Uses the HTML5 Geolocation API to turn on or off tracking of 
+ *              the user's current location on the map.
  * @returns {boolean} true (success) or false (failure).
  * NOTE: The OL wrapper is not working, so this will be implemented with
  *       standard navigator.geolocation functionality.
  */
-hol.VectorLayer.prototype.youAreHere = function(){
+hol.VectorLayer.prototype.toggleTracking = function(track){
   try{
-    this.geolocation = new ol.Geolocation({
-        projection: this.map.getView().getProjection()
-    });
-    this.geolocation.on('error', function(error) {
-      console.log(error.message);
-      //alert(error.message);
-    });
-    this.geolocation.on('change', function() {
-        pos = this.geolocation.getPosition();
-        window.console.log(pos);
-    }.bind(this));
-    
-    window.setTimeout(navigator.geolocation.getCurrentPosition(function(position) {
-        window.console.log(position.coords);
-        //alert(position.coords.latitude.toString() + ',' + position.coords.longitude.toString());
-    }), 5000);
+    //First clear any existing position watcher.
+    if (this.geolocationId !== -1){
+      navigator.geolocation.clearWatch(this.geolocationId);
+      this.geolocationId = -1;
+    }
+    if (track === true){
+      console.log('Turning on user location tracking.');
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this));
+    }
     return true;
   }
   catch(e){
@@ -2938,5 +2936,31 @@ hol.VectorLayer.prototype.youAreHere = function(){
     return false;
   }
 };
+
+/**
+ * @function hol.VectorLayer.prototype.trackPosition
+ * @memberof hol.VectorLayer.prototype
+ * @description Callback function called by the geolocation API when the user's
+ *              position changes. Used to update their position on the map.
+ * @returns {boolean} true (success) or false (failure).
+ * NOTE: The OL wrapper is not working, so this will be implemented with
+ *       standard navigator.geolocation functionality.
+ */
+hol.VectorLayer.prototype.trackPosition = function(position){
+  try{
+    if (this.userPositionMarker === null){
+      //Create a new user position marker and put it on the map.
+    }
+    else{
+      //Update the position of the existing user pos marker.
+    }
+    console.log(position.coords.latitude + ', ' + position.coords.longitude);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+}
 
 
