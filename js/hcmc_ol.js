@@ -397,7 +397,7 @@ hol.Util.getSelectedStyle = function(){
          fill: new ol.style.Fill({color: catCol}),
          stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', outlineWidth: 3}),
          text: feature.getProperties().name
-}),
+       }),
        zIndex: newZ
      })
     ];
@@ -2943,18 +2943,46 @@ hol.VectorLayer.prototype.toggleTracking = function(track){
  * @description Callback function called by the geolocation API when the user's
  *              position changes. Used to update their position on the map.
  * @returns {boolean} true (success) or false (failure).
- * NOTE: The OL wrapper is not working, so this will be implemented with
- *       standard navigator.geolocation functionality.
  */
 hol.VectorLayer.prototype.trackPosition = function(position){
+  var coords, view, extent, rightMargin, leftMargin = 0, opts;
   try{
+    view = this.map.getView();
+    coords = ol.proj.transform([position.coords.longitude, position.coords.latitude], 'EPSG:4326', 'EPSG:3857');
     if (this.userPositionMarker === null){
       //Create a new user position marker and put it on the map.
+      this.userPositionMarker = new ol.Feature();
+//NOTE: Abstract this style and move it.
+      this.userPositionMarker.setStyle(new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 12,
+          fill: new ol.style.Fill({
+            color: '#f00'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#ff0',
+            width: 6          })
+        })
+      }));
+      this.source.addFeature(this.userPositionMarker);
     }
-    else{
-      //Update the position of the existing user pos marker.
-    }
+    
+    this.userPositionMarker.setGeometry(coords ? new ol.geom.Point(coords) : null);
     console.log(position.coords.latitude + ', ' + position.coords.longitude);
+    //Centre on the new position.
+    extent = this.userPositionMarker.getGeometry().getExtent();
+//Now we need to allow for the fact that a big block of the map
+//is invisible under the navigation, info and doc panels.
+    if (this.docDisplayDiv.style.display === 'block'){
+      leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
+    }
+    rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
+    opts = {padding: [0, rightMargin, 0, leftMargin],
+            duration: 1000  
+           };
+    opts.maxZoom = this.map.getView().getZoom();
+    view.fit(extent, /* this.map.getSize(),*/ opts);
+    
     return true;
   }
   catch(e){
