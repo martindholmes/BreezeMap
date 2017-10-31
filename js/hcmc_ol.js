@@ -361,16 +361,6 @@ hol.Util.getSelectedStyle = function(){
           anchor: [0.5,1],
           color: 'rgba(255,0,255,1)'
         }),
-        /*image: new ol.style.Circle({
-          fill: new ol.style.Fill({
-            color: 'rgba(255,255,255,0)'
-          }),
-          stroke: new ol.style.Stroke({
-            color: 'rgba(255,0,255,0.6)',
-            width: 8
-          }),
-          radius: 10
-        }),*/
         stroke: new ol.style.Stroke({
           color: 'rgba(255,0,255,0.6)',
           width: 8
@@ -378,16 +368,6 @@ hol.Util.getSelectedStyle = function(){
         zIndex: newZ
       }),
       new ol.style.Style({
-       /*image: new ol.style.Circle({
-         fill: new ol.style.Fill({
-           color: 'rgba(255,255,255,0)'
-         }),
-         stroke: new ol.style.Stroke({
-           color: '#ffffff',
-           width: 3
-         }),
-         radius: 10
-       }),*/
        stroke: new ol.style.Stroke({
          color: '#ffffff',
          width: 3
@@ -395,7 +375,7 @@ hol.Util.getSelectedStyle = function(){
        text: new ol.style.Text({
          font: '1em sans-serif',
          fill: new ol.style.Fill({color: catCol}),
-         stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', outlineWidth: 3}),
+         stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', width: 3}),
          text: feature.getProperties().name
        }),
        zIndex: newZ
@@ -403,6 +383,44 @@ hol.Util.getSelectedStyle = function(){
     ];
   };
 };
+
+
+/**
+ * A function in the hol.Util namespace which returns
+ * an ol.style.Style object which renders a feature 
+ * intended to be used to track the user's location 
+ * on the map.
+ * @function hol.Util.getUserLocationStyle
+ * @memberof hol.Util
+ * @description returns default style for a feature 
+ *                      which tracks the user's location
+ *                      on the map.
+ * @returns {function} ol.FeatureStyleFunction
+ */
+hol.Util.getUserLocationStyle = function(){ 
+  return function(feature, resolution){
+    return [new ol.style.Style({
+      /*image: new ol.style.Circle({
+        radius: 12,
+        fill: new ol.style.Fill({
+            color: '#f00'
+        }),
+        stroke: new ol.style.Stroke({
+          color: '#ff0',
+          width: 6
+        })
+      }),*/
+      text: new ol.style.Text({
+        font: '5em sans-serif',
+        fill: new ol.style.Fill({color: '#f00'}),
+        stroke: new ol.style.Stroke({color: '#ff0', width: 10}),
+        text: '⌖',
+        textBaseline: 'bottom'
+      })
+    })]
+  };
+};
+ 
 
 /**
  * A function in the hol.Util namespace which returns
@@ -1791,6 +1809,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     if (this.allowUserTracking === true){
       this.userTrackButton = document.createElement('button');
       this.userTrackButton.appendChild(document.createTextNode('⌖'));
+      this.userTrackButton.setAttribute('title', 'Toggle tracking of my location on the map.');
       this.userTrackButton.addEventListener('click', function(){
         this.toggleTracking();
         return false;
@@ -2974,19 +2993,8 @@ hol.VectorLayer.prototype.trackPosition = function(position){
     if (this.userPositionMarker === null){
       //Create a new user position marker and put it on the map.
       this.userPositionMarker = new ol.Feature();
-//NOTE: Abstract this style and move it.
-      this.userPositionMarker.setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 12,
-          fill: new ol.style.Fill({
-            color: '#f00'
-          }),
-          stroke: new ol.style.Stroke({
-            color: '#ff0',
-            width: 6
-          })
-        })
-      }));
+      
+      this.userPositionMarker.setStyle(hol.Util.getUserLocationStyle());
       this.source.addFeature(this.userPositionMarker);
     }
     
