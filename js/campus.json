@@ -32,7 +32,7 @@
       "properties": {
         "name": "Clearihue Building", 
         "desc": "The oldest building on campus...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/cle.php", "html/welcome.html"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php", "html/welcome.html"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -49,7 +49,7 @@
       "properties": {
         "name": "Fraser Building", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/fra.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fra.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -66,7 +66,7 @@
       "properties": {
         "name": "Michael Williams Building", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/mwb.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/mwb.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -83,7 +83,7 @@
       "properties": {
         "name": "Continuing Studies Building", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/cst.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cst.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -100,7 +100,7 @@
       "properties": {
         "name": "McKinnon Building", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/mck.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/mck.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -117,7 +117,7 @@
       "properties": {
         "name": "Centre for Athletics, Recreation and Special Abilities", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/carsa.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/carsa.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -134,7 +134,7 @@
       "properties": {
         "name": "Interfaith Chapel", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/cha.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cha.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -151,7 +151,7 @@
       "properties": {
         "name": "Elliott Building", 
         "desc": "The Elliott Building...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/ell.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/ell.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -202,7 +202,7 @@
       "properties": {
         "name": "University Centre", 
         "desc": "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -542,7 +542,7 @@
       "properties": {
         "name": "Business and Economics Building", 
         "desc": "The Business and Social Sciences faculties live in the BEC building.", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/bec.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/bec.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -576,7 +576,7 @@
       "properties": {
         "name": "Sedgewick Building: A Wing", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -593,7 +593,7 @@
       "properties": {
         "name": "Sedgewick Building: Vanderkerkhove B Wing", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -610,7 +610,7 @@
       "properties": {
         "name": "Sedgewick Building: C Wing", 
         "desc": "...", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -1034,7 +1034,7 @@
       }, 
       "properties": {
         "name": "Student Union Building", 
-        "desc": "<a href=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "bldg",
@@ -1051,7 +1051,7 @@
       }, 
       "properties": {
         "name": "Waypoint D: Student Union Building", 
-        "desc": "<a href=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "transp",
@@ -1476,7 +1476,7 @@
       }, 
       "properties": {
         "name": "Waypoint C: Empowerment totem pole", 
-        "desc": "Contemporary Coast Salish housepost <a href=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
+        "desc": "Contemporary Coast Salish housepost <a href=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",

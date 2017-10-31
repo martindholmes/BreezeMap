@@ -3022,7 +3022,7 @@ hol.VectorLayer.prototype.trackPosition = function(position){
     if (this.docDisplayDiv.style.display === 'block'){
       leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
     }
-    rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
+    rightMargin = this.navPanel.parentNode.classList.contains('hidden')? 0 : parseInt(window.getComputedStyle(this.navPanel).width);
     opts = {padding: [0, rightMargin, 0, leftMargin],
             duration: 1000  
            };

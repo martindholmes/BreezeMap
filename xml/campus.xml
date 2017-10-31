@@ -89,7 +89,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
                                 </item>
                                 <item>
                                     <ptr target="html/welcome.html"/>
@@ -105,7 +105,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/fra.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/fra.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -119,7 +119,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/mwb.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/mwb.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -133,7 +133,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/cst.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cst.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -147,7 +147,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/mck.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/mck.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -161,7 +161,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/carsa.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/carsa.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -175,7 +175,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/cha.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cha.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -189,7 +189,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/ell.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ell.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -230,7 +230,7 @@
                         the Senate Chambers along with food services and the Farquhar Auditorium.</desc>
                         <desc>
                             <list>
-                                <item><ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/></item>
+                                <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/></item>
                             </list>
                         </desc>
                         <location type="Polygon"> <geo>[[[-123.311871,48.465594],[-123.311901,48.465575],[-123.311894,48.465545],[-123.311922,48.46553],[-123.311921,48.465501],[-123.31196,48.465459],[-123.311952,48.465391],[-123.311974,48.465372],[-123.311966,48.465325],[-123.312004,48.465298],[-123.311972,48.465072],[-123.312007,48.465043],[-123.312268,48.465019],[-123.312217,48.464711],[-123.311913,48.464739],[-123.311909,48.464706],[-123.311777,48.464642],[-123.311508,48.464659],[-123.311406,48.464743],[-123.311406,48.464772],[-123.311379,48.464799],[-123.311233,48.464812],[-123.311185,48.464788],[-123.311105,48.464794],[-123.311097,48.464742],[-123.310922,48.464755],[-123.310932,48.464808],[-123.310502,48.46484],[-123.310556,48.465151],[-123.311093,48.465111],[-123.311238,48.464996],[-123.311472,48.465129],[-123.311506,48.465334],[-123.311529,48.465347],[-123.311535,48.465384],[-123.31159,48.465415],[-123.311594,48.465462],[-123.311667,48.465511],[-123.311675,48.465543],[-123.311712,48.46556],[-123.311718,48.46559],[-123.311749,48.465603],[-123.311871,48.465594]]]</geo>
@@ -379,7 +379,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/bec.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/bec.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -401,7 +401,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -417,7 +417,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -433,7 +433,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/sed.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -712,7 +712,7 @@
                     </place>
                     <place corresp="#bldgAdmin" xml:id="bldgStudentUnion">
                         <placeName>Student Union Building</placeName>
-                        <desc><graphic url="http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
+                        <desc><graphic url="https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>
@@ -726,7 +726,7 @@
                     </place>
                     <place corresp="#transpWalkBusToUVClub #transpWalkBusToClearihue" xml:id="wayStudentUnion">
                         <placeName>Waypoint D: Student Union Building</placeName>
-                        <desc><graphic url="http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
+                        <desc><graphic url="https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>
@@ -1063,7 +1063,7 @@
                     </place>
                     <place corresp="#transpWalkBusToClearihue #transpWalkBusToUVClub" xml:id="wayFriendPole">
                         <placeName>Waypoint C: Empowerment totem pole</placeName>
-                        <desc>Contemporary Coast Salish housepost<graphic url="http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
+                        <desc>Contemporary Coast Salish housepost<graphic url="https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.309012,48.465366]</geo>
                         </location>
