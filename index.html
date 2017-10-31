@@ -96,7 +96,8 @@
 //Now let's create a hol vector layer for all our features.
         holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
                                                               allowFeatureEditing: true,
-                                                              allowUpload: true});
+                                                              allowUpload: true,
+                                                              allowUserTracking: true});
       }
       
       window.addEventListener('load', function (event){initCampusMap();});

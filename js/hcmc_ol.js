@@ -642,7 +642,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                 //To be set by the host application if required.
                                                 
     this.trackUserLocation = options.trackUserLocation || false;             
-                                               //Whether or not geolocation tracking should be turned on
+                                               //Whether or not geolocation tracking should be turned on automatically
+    this.allowUserTracking = options.allowUserTracking || false;
+                                               //Whether a button is provided for users to turn on tracking.
     this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
     
     this.userPositionMarker = null;            //Pointer to a feature used as a position marker for user tracking.
@@ -674,6 +676,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.featureDisplayStatus = hol.NAV_IDLE;  //Makes sure we don't try to do two things at the same time.
     this.toolbar = null;                       //Pointer to the toolbar after we have created it.
     this.iButton = null;                       //Pointer to Information button after we have created it.
+    this.userTrackButton = null;               //Pointer to user location tracking button if it is created.
     this.taxonomySelector = null;              //Pointer to the taxonomy selector on the toolbar.
     this.navPanel = null;                      //Pointer to the navPanel after we have created it.
     this.navInput = null;                      //Pointer to the nav search input box after we've created it.
@@ -1784,6 +1787,16 @@ hol.VectorLayer.prototype.buildToolbar = function(){
         return false;
       }.bind(this));
     this.toolbar.appendChild(this.iButton);
+    
+    if (this.allowUserTracking === true){
+      this.userTrackButton = document.createElement('button');
+      this.userTrackButton.appendChild(document.createTextNode('⌖'));
+      this.userTrackButton.addEventListener('click', function(){
+        this.toggleTracking();
+        return false;
+      }.bind(this));
+    }
+    this.toolbar.appendChild(this.userTrackButton);
     this.docBody.appendChild(form);
         
     if (this.testing){
@@ -2918,16 +2931,25 @@ console.log('Found ' + links.length + ' links.');
  * NOTE: The OL wrapper is not working, so this will be implemented with
  *       standard navigator.geolocation functionality.
  */
-hol.VectorLayer.prototype.toggleTracking = function(track){
+hol.VectorLayer.prototype.toggleTracking = function(){
   try{
-    //First clear any existing position watcher.
-    if (this.geolocationId !== -1){
-      navigator.geolocation.clearWatch(this.geolocationId);
-      this.geolocationId = -1;
-    }
+    var track = (this.geolocationId === -1);
+
     if (track === true){
       console.log('Turning on user location tracking.');
       this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this));
+    }
+    else{
+      if (this.userPositionMarker !== null){
+        //Delete the position marker
+        this.source.removeFeature(this.userPositionMarker);
+        //Clear the position watcher
+        navigator.geolocation.clearWatch(this.geolocationId);
+        
+        
+        this.userPositionMarker = null;
+        this.geolocationId = -1;
+      }
     }
     return true;
   }
@@ -2961,7 +2983,8 @@ hol.VectorLayer.prototype.trackPosition = function(position){
           }),
           stroke: new ol.style.Stroke({
             color: '#ff0',
-            width: 6          })
+            width: 6
+          })
         })
       }));
       this.source.addFeature(this.userPositionMarker);
