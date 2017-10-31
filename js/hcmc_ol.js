@@ -667,8 +667,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
     this.userPositionMarker = null;            //Pointer to a feature used as a position marker for user tracking.
     
-    this.docBody = document.getElementsByTagName('body')[0];//Stash a convenient ref to the body
-                                                            //of the host document.
+    this.docBody = document.getElementsByTagName('body')[0];
+                                               //Stash a convenient ref to the body of the host document.
 
     this.map = olMap;
     this.featuresUrl = featuresUrl || '';
@@ -695,6 +695,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.toolbar = null;                       //Pointer to the toolbar after we have created it.
     this.iButton = null;                       //Pointer to Information button after we have created it.
     this.userTrackButton = null;               //Pointer to user location tracking button if it is created.
+    this.mobileMenuToggleButton = null;        //Pointer to button which toggles the menu display in mobile view.
     this.taxonomySelector = null;              //Pointer to the taxonomy selector on the toolbar.
     this.navPanel = null;                      //Pointer to the navPanel after we have created it.
     this.navInput = null;                      //Pointer to the nav search input box after we've created it.
@@ -1814,8 +1815,15 @@ hol.VectorLayer.prototype.buildToolbar = function(){
         this.toggleTracking();
         return false;
       }.bind(this));
+      this.toolbar.appendChild(this.userTrackButton);
     }
-    this.toolbar.appendChild(this.userTrackButton);
+    
+    this.mobileMenuToggleButton = document.createElement('button');
+    this.mobileMenuToggleButton.appendChild(document.createTextNode('≡'));
+    this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
+    this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden')});
+    this.toolbar.appendChild(this.mobileMenuToggleButton);
+    
     this.docBody.appendChild(form);
         
     if (this.testing){
@@ -1913,7 +1921,7 @@ hol.VectorLayer.prototype.changeTaxonomy = function(sender){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.buildNavPanel = function(){
-  var doc = document, form, rightBox, navPanel, navHeader, navSearchButton,
+  var doc = document, form, rightBox, navPanel, navCloseDiv, navHeader, navSearchButton,
       chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
       catTitleSpan, thisCatUl, thisCatFeatures, f, props, thisFeatLi, 
       thisFeatChk, thisFeatSpan, i, maxi, closeBtn;
@@ -1938,6 +1946,11 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       rightBox = doc.createElement('div');
       rightBox.setAttribute('id', 'holRightBox');
       form.appendChild(rightBox);
+      navCloseDiv = document.createElement('div');
+      navCloseDiv.setAttribute('id', 'navCloseDiv');
+      navCloseDiv.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden')});
+      navCloseDiv.appendChild(document.createTextNode('×'));
+      rightBox.appendChild(navCloseDiv);
       navPanel = doc.createElement('nav');
       navPanel.setAttribute('id', 'holNav');
       navHeader = doc.createElement('h2');
