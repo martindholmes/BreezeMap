@@ -208,6 +208,11 @@ div#holToolbar>button{
   box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
 }
 
+div#holToolbar>button.on{
+  background-color: #ff0;
+  color: #f00;
+}
+
 div#holToolbar>button:active{
     box-shadow: inset 0 0 5px rgba(0,0,0,.1);
 }

@@ -2946,8 +2946,8 @@ console.log('Found ' + links.length + ' links.');
  * @memberof hol.VectorLayer.prototype
  * @description Uses the HTML5 Geolocation API to turn on or off tracking of 
  *              the user's current location on the map.
- * @returns {boolean} true (success) or false (failure).
- * NOTE: The OL wrapper is not working, so this will be implemented with
+ * @returns {boolean} true (turned on tracking) or false (turned off tracking).
+ * NOTE: The OL wrapper is not working, so this is implemented with
  *       standard navigator.geolocation functionality.
  */
 hol.VectorLayer.prototype.toggleTracking = function(){
@@ -2957,6 +2957,7 @@ hol.VectorLayer.prototype.toggleTracking = function(){
     if (track === true){
       console.log('Turning on user location tracking.');
       this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this));
+      this.userTrackButton.classList.add('on');
     }
     else{
       if (this.userPositionMarker !== null){
@@ -2968,9 +2969,10 @@ hol.VectorLayer.prototype.toggleTracking = function(){
         
         this.userPositionMarker = null;
         this.geolocationId = -1;
+        this.userTrackButton.classList.remove('on');
       }
     }
-    return true;
+    return (this.geolocationId !== -1);
   }
   catch(e){
     console.error(e.message);
