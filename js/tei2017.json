@@ -159,7 +159,7 @@
       }, 
       "properties": {
         "name": "Waypoint D: Student Union Building", 
-        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-sub.jpg\" target=\"_blank\"><img src=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-sub.jpg\" alt=\"https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-sub.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "conf",
