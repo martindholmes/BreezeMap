@@ -162,7 +162,17 @@
   </xsl:template>
   
   <xsl:template match="graphic" mode="serializedXhtml">
-    &lt;a href="<xsl:value-of select="@url"/>" target="_blank"&gt;&lt;img src="<xsl:value-of select="@url"/>" alt="<xsl:value-of select="@url"/>"/&gt;&lt;/a&gt;
+    &lt;a href="<xsl:apply-templates select="@url"/>" target="_blank"&gt;&lt;img src="<xsl:apply-templates select="@url"/>" alt="<xsl:value-of select="@url"/>"/&gt;&lt;/a&gt;
+  </xsl:template>
+  
+<!-- This handles the fact that the XML files are in a subfolder, but the 
+     HTML will be in the root. -->
+  <xsl:template match="graphic/@url" mode="serializedXhtml">
+    <xsl:choose>
+      <xsl:when test="matches(., '^\s*../images')"><xsl:value-of select="replace(., '^\s*\.\./', '')"/></xsl:when>
+      <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+    </xsl:choose>
+     
   </xsl:template>
     
 </xsl:stylesheet>

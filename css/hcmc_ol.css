@@ -255,6 +255,11 @@ div#holRightBox.hidden{
   right: -20rem;
 }
 
+div#holRightBox.hidden div#holInfo{
+  margin-left: -20rem;
+  margin-right: 20rem;
+}
+
 div#navCloseDiv{
   padding: 0.5em;
   text-align: right;

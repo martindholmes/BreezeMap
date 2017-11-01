@@ -186,7 +186,6 @@ hol.Util.tenTranslucentColors = [];
   }
 });
 
-
 /**
 * @description Set of distinct colours, with an alpha setting of 0.6. Initially set to
 * the hol.Util.tenTranslucentColors, but can be overridden by the end user.
@@ -400,6 +399,11 @@ hol.Util.getSelectedStyle = function(){
 hol.Util.getUserLocationStyle = function(){ 
   return function(feature, resolution){
     return [new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'js/userLocation.png',
+          imgSize: [30,30],
+          anchor: [0.5,0.5]
+        })
       /*image: new ol.style.Circle({
         radius: 12,
         fill: new ol.style.Fill({
@@ -409,14 +413,14 @@ hol.Util.getUserLocationStyle = function(){
           color: '#ff0',
           width: 6
         })
-      }),*/
+      }),
       text: new ol.style.Text({
         font: '5em sans-serif',
         fill: new ol.style.Fill({color: '#f00'}),
         stroke: new ol.style.Stroke({color: '#ff0', width: 10}),
         text: '⌖',
         textBaseline: 'bottom'
-      })
+      })*/
     })]
   };
 };
@@ -500,7 +504,6 @@ hol.Util.getSize = function(extent){
  */
 hol.Util.expandCollapseCategory=function(sender, catNum){
   var p = sender.parentNode, cat = null;
-  console.log(catNum);
   if (p.classList.contains('headless')){return;}
   if(p.classList.contains('expanded')){
     p.classList.remove('expanded');
@@ -670,9 +673,10 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docBody = document.getElementsByTagName('body')[0];
                                                //Stash a convenient ref to the body of the host document.
 
-    this.map = olMap;
-    this.featuresUrl = featuresUrl || '';
-    this.startupDoc = options.startupDoc || '';
+    this.map = olMap;                          //The OpenLayers map object.
+    this.view = this.map.getView();            //Pointer to the ol.View.
+    this.featuresUrl = featuresUrl || '';      //URL of the JSON file containing all the features.
+    this.startupDoc = options.startupDoc || '';//If there is an initial document to show in the left panel.
     this.geojsonFileName = '';                 //Will contain a filename for data download if needed.
     this.draw = null;                          //Will point to drawing interaction if invoked.
     this.modify = null;                        //Will point to modify interaction if invoked.
@@ -789,9 +793,12 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
  */
 hol.VectorLayer.prototype.setupEditingMenu = function(){ 
   try{
-    this.menu = document.createElement('ul');
-    this.menu.setAttribute('class', 'holMenu');
-    this.toolbar.insertBefore(this.menu, this.iButton);
+    if (this.menu === null){
+      this.menu = document.createElement('ul');
+      this.menu.setAttribute('class', 'holMenu');
+      this.toolbar.insertBefore(this.menu, this.iButton);
+    }
+    
     return true;
   }
   catch(e){
@@ -825,6 +832,7 @@ hol.VectorLayer.prototype.setupUpload = function(){
     itemUp = document.createElement('li');
     itemUp.appendChild(document.createTextNode('Load file...'));
     ul.appendChild(itemUp);
+    if (this.menu === null){this.setupEditingMenu();}
     this.menu.appendChild(fileMenu);
     itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
     input.addEventListener('change', function(){
@@ -876,6 +884,7 @@ hol.VectorLayer.prototype.setupFeatureEditing = function(){
     item.appendChild(document.createTextNode('Map area'));
     menu.appendChild(item);
     item.addEventListener('click', this.drawMapBounds.bind(this), false);
+    if (this.menu === null){this.setupEditingMenu();}
     this.menu.appendChild(li);
 
 //Now the main feature-drawing menu.
@@ -1102,7 +1111,6 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
           tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
           tmpGeom = tmpFeat.getGeometry();
           for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-  //console.log('adding point # ' + i);
             tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
           }
   //The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
@@ -1299,7 +1307,9 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
     this.taxonomiesLoaded = false;
     
     if (this.taxonomySelector !== null){
-      this.taxonomySelector.parentNode.removeChild(this.taxonomySelector);
+      
+    //Remove the wrapper span if removing the taxonomy selector.
+      this.taxonomySelector.parentNode.parentNode.removeChild(this.taxonomySelector.parentNode);
       this.taxonomySelector = null;
     }
 
@@ -1357,7 +1367,6 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
           }
   //Otherwise, we set the map to the bounds of the first feature.
           else{
-  console.log('Setting initial map bounds...');
             this.setMapBounds(this.baseFeature.getGeometry().getExtent());
           }
         
@@ -1851,7 +1860,8 @@ hol.VectorLayer.prototype.buildTaxonomySelector = function(){
   var i, maxi, opt, wrapper;
   try{
     if (this.taxonomySelector !== null){
-      this.taxonomySelector.parentNode.removeChild(this.taxonomySelector);
+    //Remove the wrapper span if removing the taxonomy selector.
+      this.taxonomySelector.parentNode.parentNode.removeChild(this.taxonomySelector.parentNode);
       this.taxonomySelector = null;
     }
     maxi = this.taxonomies.length;
@@ -2441,8 +2451,8 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var view, i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
-  view = this.map.getView();
+  var i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
       geoms.push(this.features[featNums[i]].getGeometry());
@@ -2461,9 +2471,9 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
               duration: 1000  
              };
       if (useCurrZoom === true){
-        opts.maxZoom = this.map.getView().getZoom();
+        opts.maxZoom = this.view.getZoom();
       }
-      view.fit(extent, /* this.map.getSize(),*/ opts);
+      this.view.fit(extent, /* this.map.getSize(),*/ opts);
     }
     return true;
   }
@@ -2487,14 +2497,13 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.setMapBounds = function(extent){
-  var view, opts;
-  view = this.map.getView();
+  var opts;
   opts = {
               duration: 1000  
              };
 
   try{
-    view.fit(extent, opts);
+    this.view.fit(extent, opts);
     return true;
   }
   catch(e){
@@ -2699,7 +2708,8 @@ hol.VectorLayer.prototype.deselectFeature = function(){
  *              false if not.
  */
 hol.VectorLayer.prototype.parseSearch = function(){
-  var result, i, maxi, catIds, arrCatIds, catChk, catNum, featIds, arrFeatIds, featNum, arrFeatNums, docPath, currLoc;
+  var result, i, maxi, catIds, arrCatIds, catChk, catNum, featIds, 
+      arrFeatIds, featNum, arrFeatNums, docPath, currLoc, editing;
   result = 0;
   
 //First deselect any existing selection.
@@ -2777,6 +2787,12 @@ hol.VectorLayer.prototype.parseSearch = function(){
 //Now we should zoom to the highlighted features. 
     if (result > 0){
         this.centerOnFeatures(arrFeatNums, false);
+    }
+    
+//Now check whether we want to allow feature editing.
+    editing = hol.Util.getQueryParam('editing');
+    if (editing.length > 0){
+      this.setupFeatureEditing();
     }
     
 //Now check for the current location feature.
@@ -2935,10 +2951,8 @@ hol.VectorLayer.prototype.rewriteHolLinks = function(el){
   var links, elMatch, i, maxi, link, featId;
   try{
     if (el == null){return false;}
-console.log('Found an element.');
     elMatch = 'a[href^=hol\\3A]';
     links = el.querySelectorAll(elMatch);
-console.log('Found ' + links.length + ' links.');
     for (i=0, maxi=links.length; i<maxi; i++){
       link = links[i];
       featId = link.getAttribute('href').replace(/^hol:/, '');
@@ -2968,7 +2982,6 @@ hol.VectorLayer.prototype.toggleTracking = function(){
     var track = (this.geolocationId === -1);
 
     if ((track === true)&&('geolocation' in navigator)){
-      console.log('Turning on user location tracking.');
       this.userTrackButton.classList.add('on');
       this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert('Sorry, your browser does not support geolocation tracking.'); this.userTrackButton.classList.remove('on');}.bind(this), {enableHighAccuracy: true});
     }
@@ -3001,9 +3014,8 @@ hol.VectorLayer.prototype.toggleTracking = function(){
  * @returns {boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.trackPosition = function(position){
-  var coords, view, extent, rightMargin, leftMargin = 0, opts;
+  var coords, extent, rightMargin, leftMargin = 0, opts;
   try{
-    view = this.map.getView();
     coords = ol.proj.transform([position.coords.longitude, position.coords.latitude], 'EPSG:4326', 'EPSG:3857');
     if (this.userPositionMarker === null){
       //Create a new user position marker and put it on the map.
@@ -3014,7 +3026,6 @@ hol.VectorLayer.prototype.trackPosition = function(position){
     }
     
     this.userPositionMarker.setGeometry(coords ? new ol.geom.Point(coords) : null);
-    console.log(position.coords.latitude + ', ' + position.coords.longitude);
     //Centre on the new position.
     extent = this.userPositionMarker.getGeometry().getExtent();
 //Now we need to allow for the fact that a big block of the map
@@ -3026,8 +3037,8 @@ hol.VectorLayer.prototype.trackPosition = function(position){
     opts = {padding: [0, rightMargin, 0, leftMargin],
             duration: 1000  
            };
-    opts.maxZoom = this.map.getView().getZoom();
-    view.fit(extent, /* this.map.getSize(),*/ opts);
+    opts.maxZoom = this.view.getZoom();
+    this.view.fit(extent, /* this.map.getSize(),*/ opts);
     
     return true;
   }
