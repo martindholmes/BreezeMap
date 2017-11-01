@@ -195,7 +195,7 @@ div#holToolbar>span>select::after{
   top: 0;
   left: -5px;
 }
-/*info 'i' Button*/
+/*info 'i' Button etc. */
 div#holToolbar>button{
   background-color: rgba(245,245,245, .4);
   border: 1px solid rgb(204,204,204);
@@ -214,7 +214,11 @@ div#holToolbar>button.on{
 }
 
 div#holToolbar button#mobileMenuToggle{
-  //display: none;
+  display: none;
+}
+
+div#holToolbar button#mobileMenuToggle.menuHidden{
+  display: inline-block;
 }
 
 div#holToolbar>button:active{
@@ -264,7 +268,6 @@ div#navCloseDiv{
   padding: 0.5em;
   text-align: right;
   cursor: pointer;
-  display: none;
 }
 
 nav#holNav{
@@ -300,18 +303,25 @@ nav#holNav h2{
   margin: 0;
   color: rgb(57,70,78);
   height: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 nav#holNav h2 input#chkShowAll{
-  display: inline-block;
-  float: left;
+  display: block;
+  flex: initial;
+}
+
+nav#holNav h2 span#navCaption{
+  display: block;
+  flex: auto;
 }
 
 
 /*search button on top of right menu*/
 button#btnNavSearch{
-  float: right;
-  display: inline-block;
+  display: block;
   font-family: ui-font;
   background-color: rgba(245,245,245, .4);
   border: 1px solid rgb(204,204,204);
@@ -321,11 +331,11 @@ button#btnNavSearch{
   text-align: center;
   color: rgb(57,70,78);
   box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
+  flex: initial;
 }
 /*active state for button*/
  button#btnNavSearch.pressed{
-  display: inline-block;
-  float: right;
+  display: block;
   text-align: center;
   box-shadow: inset 0 0 5px rgba(0,0,0,.2);
   color: rgb(150,150,150);
@@ -334,6 +344,8 @@ h2 input#inpNavSearch{
   appearance: none;
   box-shadow: none;
   border-radius: none;
+  max-width: 14rem;
+  flex: auto;
 }
 /*text field for search*/
 input#inpNavSearch{
@@ -540,7 +552,7 @@ div#holDocDisplay iframe#holDocDisplayFrame{
   border-style: none;
 }
 
-div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn{
+div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn, div#navCloseDiv span.closeBtn{
   display: inline-block;
   position: relative;
   padding: 0.3rem;

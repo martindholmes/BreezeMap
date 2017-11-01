@@ -39,9 +39,26 @@
         "coordinates": [-123.3641076,48.4218415]
       }, 
       "properties": {
-        "name": "Bus stop close to downtown hotels", 
+        "name": "#4 Bus stop close to downtown hotels", 
         "desc": "45+ minute bus ride (#4), 100m easy walking.", 
         "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100025"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 2}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "no1415BusHotels", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.36183,48.424182]
+      }, 
+      "properties": {
+        "name": "Bus stop for #14 and #15", 
+        "desc": "30 minute bus ride (#14 or #15).", 
+        "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",

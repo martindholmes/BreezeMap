@@ -732,7 +732,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docBody.appendChild(this.docDisplayDiv);
     
 //Add an event listener to fix hol: links whenever a document is loaded.
-    this.docDisplayFrame.addEventListener('load', function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), false);
+    this.docDisplayFrame.addEventListener('load', function(){try{this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}catch(e){}}.bind(this), false);
 
 //Now we create a box-dragging feature.
     this.dragBox = new ol.interaction.DragBox({
@@ -1837,7 +1837,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     this.mobileMenuToggleButton = document.createElement('button');
     this.mobileMenuToggleButton.appendChild(document.createTextNode('≡'));
     this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
-    this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden')});
+    this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden');this.classList.toggle('menuHidden');});
     this.toolbar.appendChild(this.mobileMenuToggleButton);
     
     this.docBody.appendChild(form);
@@ -1965,18 +1965,15 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       form.appendChild(rightBox);
       navCloseDiv = document.createElement('div');
       navCloseDiv.setAttribute('id', 'navCloseDiv');
-      navCloseDiv.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden')});
-      navCloseDiv.appendChild(document.createTextNode('×'));
+      closeBtn = doc.createElement('span');
+      closeBtn.setAttribute('class', 'closeBtn');
+      closeBtn.appendChild(doc.createTextNode('❌'));
+      closeBtn.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden'); this.mobileMenuToggleButton.classList.toggle('menuHidden');}.bind(this));
+      navCloseDiv.appendChild(closeBtn);
       rightBox.appendChild(navCloseDiv);
       navPanel = doc.createElement('nav');
       navPanel.setAttribute('id', 'holNav');
       navHeader = doc.createElement('h2');
-      navSearchButton = doc.createElement('button');
-      navSearchButton.setAttribute('id', 'btnNavSearch');
-      navSearchButton.appendChild(doc.createTextNode('🔍'));
-      navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
-      navSearchButton.setAttribute('title', 'Search for locations');
-      navHeader.appendChild(navSearchButton);
       chkShowAll = doc.createElement('input');
       chkShowAll.setAttribute('type', 'checkbox');
       chkShowAll.setAttribute('title', 'Show/hide all features');
@@ -1984,6 +1981,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       chkShowAll.addEventListener('change', this.showHideAllFeatures.bind(this, chkShowAll, chkShowAll.checked));
       this.allFeaturesCheckbox = chkShowAll;
       navHeader.appendChild(chkShowAll);
+      
       navCaption = doc.createElement('span');
       navCaption.setAttribute('id', 'navCaption');
       navCaption.appendChild(doc.createTextNode('Locations by category'));
@@ -1995,6 +1993,15 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navInput.addEventListener('keydown', function(event){if (event.keyCode===13 || event.which===13){this.doLocationSearch(true); event.preventDefault();}}.bind(this), false);
       this.navInput = navInput;
       navHeader.appendChild(navInput);
+      
+      navSearchButton = doc.createElement('button');
+      navSearchButton.setAttribute('id', 'btnNavSearch');
+      navSearchButton.appendChild(doc.createTextNode('🔍'));
+      navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
+      navSearchButton.setAttribute('title', 'Search for locations');
+      navHeader.appendChild(navSearchButton);
+      
+      
       navPanel.appendChild(navHeader);
       catUl = doc.createElement('ul');
       catUl.setAttribute('id', 'holCategories');
@@ -2850,7 +2857,7 @@ hol.VectorLayer.prototype.showHideMapSearch = function(sender){
     else{
       sender.classList.add('pressed');
       caption.style.display = 'none';
-      input.style.display = 'inline-block';
+      input.style.display = 'block';
       input.focus();
     }
     return true;

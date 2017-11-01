@@ -74,7 +74,7 @@
                         </location>
                     </place>
                     <place corresp="#confTrans" xml:id="no4BusHotels">
-                        <placeName>Bus stop close to downtown hotels</placeName>
+                        <placeName>#4 Bus stop close to downtown hotels</placeName>
                         <desc>45+ minute bus ride (#4), 100m easy walking.</desc>
                         <desc>
                             <list>
@@ -87,6 +87,22 @@
                             <geo>[-123.3641076,48.4218415]</geo>
                         </location>
                     </place>
+                  
+                  <place corresp="#confTrans" xml:id="no1415BusHotels">
+                    <placeName>Bus stop for #14 and #15</placeName>
+                    <desc>30 minute bus ride (#14 or #15).</desc>
+                    <desc>
+                      <list>
+                        <item>
+                          <ptr target="https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"/>
+                        </item>
+                      </list>
+                    </desc>
+                    <location type="Point">
+                      <geo>[-123.36183,48.424182]</geo>
+                    </location>
+                  </place>
+                  
                     
                     
                     <place corresp="#confWalkBusToClearihue" xml:id="walkToClearihue">
