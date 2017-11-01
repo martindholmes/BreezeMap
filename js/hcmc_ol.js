@@ -795,7 +795,7 @@ hol.VectorLayer.prototype.setupEditingMenu = function(){
     if (this.menu === null){
       this.menu = document.createElement('ul');
       this.menu.setAttribute('class', 'holMenu');
-      this.toolbar.insertBefore(this.menu, this.iButton);
+      this.toolbar.insertBefore(this.menu, this.docTitle.nextSibling);
     }
     return true;
   }
@@ -1799,7 +1799,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.buildToolbar = function(){
-  var form;
+  var form, div;
   try{
     form = document.createElement('form');
     form.addEventListener('submit', function(e){e.preventDefault(); return false;});
@@ -1810,6 +1810,9 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     this.docTitle.setAttribute('class', 'docTitle');
     this.docTitle.appendChild(document.createTextNode(document.title));
     this.toolbar.appendChild(this.docTitle);
+    div = document.createElement('div');
+    div.setAttribute('class', 'toolbarSpacer');
+    this.toolbar.appendChild(div);
     this.iButton = document.createElement('button');
     this.iButton.appendChild(document.createTextNode('ℹ'));
     this.iButton.addEventListener('click', function(){
@@ -1885,6 +1888,7 @@ hol.VectorLayer.prototype.buildTaxonomySelector = function(){
       }
       this.taxonomySelector.addEventListener('change', this.changeTaxonomy.bind(this, this.taxonomySelector));
       wrapper = document.createElement('span');
+      wrapper.setAttribute('class', 'taxonomySelector');
       wrapper.appendChild(this.taxonomySelector);
       this.toolbar.insertBefore(wrapper, this.iButton);
     }

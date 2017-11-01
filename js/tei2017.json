@@ -142,7 +142,7 @@
       }, 
       "properties": {
         "name": "Waypoint C: Empowerment totem pole", 
-        "desc": "Contemporary Coast Salish housepost <a href=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
+        "desc": "Contemporary Coast Salish housepost <a href=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",

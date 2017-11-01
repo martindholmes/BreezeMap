@@ -142,7 +142,7 @@
                     </place>
                     <place corresp="#confWalkBusToClearihue #confWalkBusToUVClub" xml:id="wayFriendPole">
                         <placeName>Waypoint C: Empowerment totem pole</placeName>
-                        <desc>Contemporary Coast Salish housepost<graphic url="https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
+                        <desc>Contemporary Coast Salish housepost<graphic url="http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.309012,48.465366]</geo>
                         </location>
