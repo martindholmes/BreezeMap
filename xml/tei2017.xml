@@ -6,7 +6,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title><ref target="http://hcmc.uvic.ca/tei2017/">TEI 2017</ref>: UVic Campus and Downtown Map</title>
+                <title><ref target="https://hcmc.uvic.ca/tei2017/">TEI 2017</ref>: UVic Campus and Downtown Map</title>
             </titleStmt>
             <publicationStmt>
                 <p>Humanities Computing and Media Centre, University of Victoria.</p>
@@ -126,14 +126,14 @@
                     </place>
                     <place corresp="#confWalkBusToClearihue #confWalkBusToUVClub" xml:id="wayFriendPole">
                         <placeName>Waypoint C: Empowerment totem pole</placeName>
-                        <desc>Contemporary Coast Salish housepost<graphic url="http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
+                        <desc>Contemporary Coast Salish housepost<graphic url="https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.309012,48.465366]</geo>
                         </location>
                     </place>
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayStudentUnion">
                         <placeName>Waypoint D: Student Union Building</placeName>
-                        <desc><graphic url="http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
+                        <desc><graphic url="https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>
@@ -215,7 +215,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -226,8 +226,8 @@
                     
                     <place xml:id="roomUrbanBallroom" corresp="#confVenue">
                         <placeName>Urban Ballroom, Parkside Hotel (Conference Dinner)</placeName>
-                        <desc>The Parkside Hotel's <ref target="http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
-                            is the venue for the <ref target="http://hcmc.uvic.ca/tei2017/activities.php">Conference Banquet</ref>.</desc>
+                        <desc>The Parkside Hotel's <ref target="https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
+                            is the venue for the <ref target="https://hcmc.uvic.ca/tei2017/activities.php">Conference Banquet</ref>.</desc>
                         <location type="Point">
                             <geo>[-123.36307,48.420412]</geo>
                         </location>
@@ -254,7 +254,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/>
                                 </item>
                             </list>
                         </desc>
@@ -271,7 +271,7 @@
                     </place>
                     <place xml:id="bldgMearns" corresp="#confVenue">
                         <placeName>McPherson Library / Mearns Centre for Learning</placeName>
-                        <desc>The main UVic library is the home of HCMC, and will host the <ref target="http://hcmc.uvic.ca/tei2017/activities.php#uvicSpecial">Tour of UVic Special Collections</ref>.</desc>
+                        <desc>The main UVic library is the home of HCMC, and will host the <ref target="https://hcmc.uvic.ca/tei2017/activities.php#uvicSpecial">Tour of UVic Special Collections</ref>.</desc>
                         <location type="Polygon">
                             <geo>[[[-123.3099761,48.4637042],[-123.3097029,48.4637241],[-123.3097042,48.4637317],[-123.3096533,48.4637356],[-123.3095982,48.4637399],[-123.3095967,48.4637318],[-123.3093749,48.4637479],[-123.3093776,48.4637672],[-123.3093394,48.4637695],[-123.3092627,48.4637742],[-123.3092602,48.4637562],[-123.3090896,48.4637686],[-123.3090783,48.4637002],[-123.3087307,48.4637254],[-123.3087343,48.4637486],[-123.3087129,48.4637501],[-123.3086477,48.4637545],[-123.3086396,48.4637019],[-123.3086831,48.463699],[-123.3086532,48.4635175],[-123.3087109,48.4635134],[-123.3087002,48.4634488],[-123.3089805,48.4634284],[-123.3089765,48.4634093],[-123.3090229,48.4634052],[-123.3089802,48.4631469],[-123.309151,48.4631345],[-123.3091472,48.4631147],[-123.3092062,48.4631097],[-123.3092586,48.4631053],[-123.3092626,48.4631263],[-123.3094857,48.4631101],[-123.309484,48.4631008],[-123.309536,48.4630966],[-123.3095848,48.4630926],[-123.3095867,48.4631028],[-123.3098734,48.463082],[-123.3099538,48.463554],[-123.3099761,48.4637042]]]</geo>
                         </location>
@@ -287,13 +287,13 @@
                         <placeName>Victoria Marriott Inner Harbour</placeName>
                         <desc>The Marriott is located at 728 Humboldt St, Victoria, BC V8W 3Z5. Phone: (250) 480-3800. 
                             Conference rates are available before 2017-10-20. See the 
-                            <ref target="http://hcmc.uvic.ca/tei2017/accommodation.php">Accommodation page</ref> for
+                            <ref target="https://hcmc.uvic.ca/tei2017/accommodation.php">Accommodation page</ref> for
                             more information.
                         </desc>
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.marriottvictoria.com/"/>
+                                    <ptr target="https://www.marriottvictoria.com/"/>
                                 </item>
                             </list>
                         </desc>
@@ -305,13 +305,13 @@
                         <placeName>The Parkside Hotel &amp; Spa</placeName>
                         <desc>The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200.
                             Conference rates are available before 2017-10-05. See the 
-                            <ref target="http://hcmc.uvic.ca/tei2017/accommodation.php">Accommodation page</ref> for
-                            more information. The Parkside's <ref target="http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
-                            is the venue for the <ref target="http://hcmc.uvic.ca/tei2017/activities.php">Conference Banquet</ref>.</desc>
+                            <ref target="https://hcmc.uvic.ca/tei2017/accommodation.php">Accommodation page</ref> for
+                            more information. The Parkside's <ref target="https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
+                            is the venue for the <ref target="https://hcmc.uvic.ca/tei2017/activities.php">Conference Banquet</ref>.</desc>
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.parksidevictoria.com/"/>
+                                    <ptr target="https://www.parksidevictoria.com/"/>
                                 </item>
                             </list>
                         </desc>
@@ -341,7 +341,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.heartpharmacy.com/"/>
+                                    <ptr target="https://www.heartpharmacy.com/"/>
                                 </item>
                             </list>
                         </desc>
@@ -355,7 +355,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="http://www.heartpharmacy.com/"/>
+                                    <ptr target="https://www.heartpharmacy.com/"/>
                                 </item>
                             </list>
                         </desc>

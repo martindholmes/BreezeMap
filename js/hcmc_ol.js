@@ -656,7 +656,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
 //Setting for testing new features.
     this.testing = options.testing || false;
     this.allowUpload = options.allowUpload || false;
-    this.allowFeatureEditing = options.allowFeatureEditing || false;
+    this.allowDrawing = options.allowDrawing || false;
     this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
         
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
@@ -710,7 +710,10 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.selectedFeatureNav = null;            //Will contain a pointer to the navigation panel list item for
                                                //the selected feature.
     this.docTitle = null;                      //Will contain a pointer to the title span on the left of the toolbar.
-    this.menu = null;                          //Will contain a pointer to menu-like controls for editing etc. 
+    this.menu = null;                          //Will contain a pointer to menu-like controls for editing etc.
+    this.fileMenu = null;                      //Will contain a pointer to file upload/download control menu.
+    this.setupMenu = null;                     //Will contain a pointer to map setup menu.
+    this.drawMenu = null;                      //Will contain a pointer to the drawing menu.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -753,16 +756,12 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
 //Now various extra optional features.
     
-    if (this.allowUpload || this.allowFeatureEditing || this.allowTaxonomyEditing){
-      this.setupEditingMenu();
-    }
-    
     if (this.allowUpload === true){
       this.setupUpload();
     }
   
-    if (this.allowFeatureEditing === true){
-      this.setupFeatureEditing();
+    if (this.allowDrawing === true){
+      this.setupDrawing();
     }
     if (this.allowTaxonomyEditing === true){
       this.setupTaxonomyEditing();
@@ -798,7 +797,6 @@ hol.VectorLayer.prototype.setupEditingMenu = function(){
       this.menu.setAttribute('class', 'holMenu');
       this.toolbar.insertBefore(this.menu, this.iButton);
     }
-    
     return true;
   }
   catch(e){
@@ -818,43 +816,46 @@ hol.VectorLayer.prototype.setupEditingMenu = function(){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.setupUpload = function(){
-  var input, fileMenu, ul, itemUp, itemDown;
+  var input, ul, itemUp, itemDown;
   try{
-    input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('id', 'fileInput');
-    input.setAttribute('accept', 'application/vnd.geo+json,application/json');
-    this.toolbar.appendChild(input);
-    fileMenu = document.createElement('li');
-    fileMenu.appendChild(document.createTextNode('File'));
-    ul = document.createElement('ul');
-    fileMenu.appendChild(ul);
-    itemUp = document.createElement('li');
-    itemUp.appendChild(document.createTextNode('Load file...'));
-    ul.appendChild(itemUp);
-    if (this.menu === null){this.setupEditingMenu();}
-    this.menu.appendChild(fileMenu);
-    itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
-    input.addEventListener('change', function(){
-      var reader = new FileReader();
-      reader.onload = (function(hol) { return function(e) {
-        if (input.files[0].type.match('xml')){
-//NOTE: THIS DOESN'T WORK AND WILL PROBABLY NEVER WORK.
-          hol.teiToGeoJSON(e.target.result, 'js/tei_to_geojson_xslt1.xsl');
-        }
-        else{
-          hol.loadGeoJSONFromString(e.target.result);
-        }
-        
-      }; })(this);
-          console.log('Loading ' + input.files[0].name + ' as ' + input.files[0].type);
-          this.geojsonFileName = input.files[0].name;
-          reader.readAsDataURL(input.files[0]);
-      }.bind(this), false);
-    itemDown = document.createElement('li');
-    itemDown.appendChild(document.createTextNode('Save...'));
-    ul.appendChild(itemDown);
-    itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false);
+    if (this.fileMenu === null){
+      if (this.menu === null){this.setupEditingMenu();}
+      input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('id', 'fileInput');
+      input.setAttribute('accept', 'application/vnd.geo+json,application/json');
+      this.toolbar.appendChild(input);
+      this.fileMenu = document.createElement('li');
+      this.fileMenu.appendChild(document.createTextNode('File'));
+      ul = document.createElement('ul');
+      this.fileMenu.appendChild(ul);
+      itemUp = document.createElement('li');
+      itemUp.appendChild(document.createTextNode('Load file...'));
+      ul.appendChild(itemUp);
+      this.menu.appendChild(this.fileMenu);
+      itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
+      input.addEventListener('change', function(){
+        var reader = new FileReader();
+        reader.onload = (function(hol) { return function(e) {
+          if (input.files[0].type.match('xml')){
+  //NOTE: THIS DOESN'T WORK AND WILL PROBABLY NEVER WORK.
+            hol.teiToGeoJSON(e.target.result, 'js/tei_to_geojson_xslt1.xsl');
+          }
+          else{
+            hol.loadGeoJSONFromString(e.target.result);
+          }
+          
+        }; })(this);
+            console.log('Loading ' + input.files[0].name + ' as ' + input.files[0].type);
+            this.geojsonFileName = input.files[0].name;
+            reader.readAsDataURL(input.files[0]);
+        }.bind(this), false);
+      itemDown = document.createElement('li');
+      itemDown.appendChild(document.createTextNode('Save...'));
+      ul.appendChild(itemDown);
+      itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false); 
+    }
+    
     return true;
   }
   catch(e){
@@ -872,59 +873,65 @@ hol.VectorLayer.prototype.setupUpload = function(){
  *              to create new features and edit existing ones.
  * @returns {Boolean} true (success) or false (failure).
  */
-hol.VectorLayer.prototype.setupFeatureEditing = function(){ 
-  var li, menu, item, types, simpleTypes, i, maxi, j, maxj, submenu, subitem;
+hol.VectorLayer.prototype.setupDrawing = function(){ 
+  var menu, item, types, simpleTypes, i, maxi, j, maxj, submenu, subitem;
   try{
-//Set up the setup menu.
-    li = document.createElement('li');
-    li.appendChild(document.createTextNode('Setup'));
-    menu = document.createElement('ul');
-    li.appendChild(menu);
-    item = document.createElement('li');
-    item.appendChild(document.createTextNode('Map area'));
-    menu.appendChild(item);
-    item.addEventListener('click', this.drawMapBounds.bind(this), false);
     if (this.menu === null){this.setupEditingMenu();}
-    this.menu.appendChild(li);
+//Set up the setup menu.
+    if (this.setupMenu === null){
+      this.setupMenu = document.createElement('li');
+      this.setupMenu.appendChild(document.createTextNode('Setup'));
+      menu = document.createElement('ul');
+      this.setupMenu.appendChild(menu);
+      item = document.createElement('li');
+      item.appendChild(document.createTextNode('Map area'));
+      menu.appendChild(item);
+      item.addEventListener('click', this.drawMapBounds.bind(this), false);
+      this.menu.appendChild(this.setupMenu);
+    }
+    
 
 //Now the main feature-drawing menu.
-    types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
-    simpleTypes = ['Point', 'LineString', 'Polygon'];
-    li = document.createElement('li');
-    li.appendChild(document.createTextNode('Draw'));
-    menu = document.createElement('ul');
-    li.appendChild(menu);
-    for (i=0, maxi = types.length; i< maxi; i++){
-      item = document.createElement('li');
-      item.appendChild(document.createTextNode(types[i]));
-      menu.appendChild(item);
-      if (types[i] === 'GeometryCollection'){
-        item.setAttribute('class', 'hasSubmenu');
-        submenu = document.createElement('ul');
-        for (j=0, maxj=simpleTypes.length; j<maxj; j++){
-          subitem = document.createElement('li');
-          subitem.appendChild(document.createTextNode(simpleTypes[j]));
-          subitem.addEventListener('click', this.addDrawInteraction.bind(this, (types[i]+':'+simpleTypes[j])), false);
-          submenu.appendChild(subitem);
+    if (this.drawMenu === null){
+      types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
+      simpleTypes = ['Point', 'LineString', 'Polygon'];
+      this.drawMenu = document.createElement('li');
+      this.drawMenu.appendChild(document.createTextNode('Draw'));
+      menu = document.createElement('ul');
+      this.drawMenu.appendChild(menu);
+      for (i=0, maxi = types.length; i< maxi; i++){
+        item = document.createElement('li');
+        item.appendChild(document.createTextNode(types[i]));
+        menu.appendChild(item);
+        if (types[i] === 'GeometryCollection'){
+          item.setAttribute('class', 'hasSubmenu');
+          submenu = document.createElement('ul');
+          for (j=0, maxj=simpleTypes.length; j<maxj; j++){
+            subitem = document.createElement('li');
+            subitem.appendChild(document.createTextNode(simpleTypes[j]));
+            subitem.addEventListener('click', this.addDrawInteraction.bind(this, (types[i]+':'+simpleTypes[j])), false);
+            submenu.appendChild(subitem);
+          }
+          item.appendChild(submenu);
         }
-        item.appendChild(submenu);
+        else{
+          item.addEventListener('click', this.addDrawInteraction.bind(this, types[i]), false);
+        }
       }
-      else{
-        item.addEventListener('click', this.addDrawInteraction.bind(this, types[i]), false);
-      }
+      this.menu.appendChild(this.drawMenu);
+      this.drawingFeatures = new ol.Collection();
+      this.featureOverlay = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: this.drawingFeatures
+        }),
+        style: hol.Util.getDrawingStyle()
+      });
+      this.featureOverlay.setMap(this.map);
+      this.coordsBox = document.createElement('textarea');
+      this.coordsBox.setAttribute('id', 'holCoordsBox');
+      this.docBody.appendChild(this.coordsBox);
     }
-    this.menu.appendChild(li);
-    this.drawingFeatures = new ol.Collection();
-    this.featureOverlay = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        features: this.drawingFeatures
-      }),
-      style: hol.Util.getDrawingStyle()
-    });
-    this.featureOverlay.setMap(this.map);
-    this.coordsBox = document.createElement('textarea');
-    this.coordsBox.setAttribute('id', 'holCoordsBox');
-    this.docBody.appendChild(this.coordsBox);
+    
     return true;
   }
   catch(e){
@@ -2709,7 +2716,8 @@ hol.VectorLayer.prototype.deselectFeature = function(){
  */
 hol.VectorLayer.prototype.parseSearch = function(){
   var result, i, maxi, catIds, arrCatIds, catChk, catNum, featIds, 
-      arrFeatIds, featNum, arrFeatNums, docPath, currLoc, editing;
+      arrFeatIds, featNum, arrFeatNums, docPath, currLoc, drawing,
+      upload;
   result = 0;
   
 //First deselect any existing selection.
@@ -2790,9 +2798,15 @@ hol.VectorLayer.prototype.parseSearch = function(){
     }
     
 //Now check whether we want to allow feature editing.
-    editing = hol.Util.getQueryParam('editing');
-    if (editing.length > 0){
-      this.setupFeatureEditing();
+    drawing = hol.Util.getQueryParam('drawing');
+    if (drawing.length > 0){
+      this.setupDrawing();
+    }
+    
+//Now check whether we want to allow JSON file upload.
+    upload = hol.Util.getQueryParam('upload');
+    if (upload.length > 0){
+      this.setupUpload();
     }
     
 //Now check for the current location feature.

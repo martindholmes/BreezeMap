@@ -125,7 +125,7 @@
       }, 
       "properties": {
         "name": "Waypoint C: Empowerment totem pole", 
-        "desc": "Contemporary Coast Salish housepost <a href=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"http://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
+        "desc": "Contemporary Coast Salish housepost <a href=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -142,7 +142,7 @@
       }, 
       "properties": {
         "name": "Waypoint D: Student Union Building", 
-        "desc": "<a href=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"http://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "conf",
@@ -279,7 +279,7 @@
       "properties": {
         "name": "Clearihue Building Labs (Workshops)", 
         "desc": "Computer labs in the Clearihue building where the workshops will be held.", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -295,7 +295,7 @@
       }, 
       "properties": {
         "name": "Urban Ballroom, Parkside Hotel (Conference Dinner)", 
-        "desc": "The Parkside Hotel's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
+        "desc": "The Parkside Hotel's <a href=\"https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"https://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -330,7 +330,7 @@
       "properties": {
         "name": "University Centre", 
         "desc": "The University's central administrative building includes the <a href=\"https://www.uvic.ca/services/food/where/mysticmarket/\">Mystic Market</a> , which has a range of food options.", 
-        "links": ["http://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -363,7 +363,7 @@
       }, 
       "properties": {
         "name": "McPherson Library / Mearns Centre for Learning", 
-        "desc": "The main UVic library is the home of HCMC, and will host the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php#uvicSpecial\">Tour of UVic Special Collections</a> .", 
+        "desc": "The main UVic library is the home of HCMC, and will host the <a href=\"https://hcmc.uvic.ca/tei2017/activities.php#uvicSpecial\">Tour of UVic Special Collections</a> .", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -397,8 +397,8 @@
       }, 
       "properties": {
         "name": "Victoria Marriott Inner Harbour", 
-        "desc": "The Marriott is located at 728 Humboldt St, Victoria, BC V8W 3Z5. Phone: (250) 480-3800. Conference rates are available before 2017-10-20. See the <a href=\"http://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information.", 
-        "links": ["http://www.marriottvictoria.com/"], 
+        "desc": "The Marriott is located at 728 Humboldt St, Victoria, BC V8W 3Z5. Phone: (250) 480-3800. Conference rates are available before 2017-10-20. See the <a href=\"https://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information.", 
+        "links": ["https://www.marriottvictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -414,8 +414,8 @@
       }, 
       "properties": {
         "name": "The Parkside Hotel & Spa", 
-        "desc": "The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200. Conference rates are available before 2017-10-05. See the <a href=\"http://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information. The Parkside's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"http://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
-        "links": ["http://www.parksidevictoria.com/"], 
+        "desc": "The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200. Conference rates are available before 2017-10-05. See the <a href=\"https://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information. The Parkside's <a href=\"https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"https://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
+        "links": ["https://www.parksidevictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -449,7 +449,7 @@
       "properties": {
         "name": "UVic Campus Pharmacy", 
         "desc": "Locally owned compounding pharmacy and post office. Closed weekends.", 
-        "links": ["http://www.heartpharmacy.com/"], 
+        "links": ["https://www.heartpharmacy.com/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -466,7 +466,7 @@
       "properties": {
         "name": "Cadboro Bay Pharmacy", 
         "desc": "Locally owned compounding pharmacy and post office. Open weekends.", 
-        "links": ["http://www.heartpharmacy.com/"], 
+        "links": ["https://www.heartpharmacy.com/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
