@@ -1807,7 +1807,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
       }.bind(this));
     this.toolbar.appendChild(this.iButton);
     
-    if (this.allowUserTracking === true){
+    if ((this.allowUserTracking === true)&&('geolocation' in navigator)){
       this.userTrackButton = document.createElement('button');
       this.userTrackButton.appendChild(document.createTextNode('⌖'));
       this.userTrackButton.setAttribute('title', 'Toggle tracking of my location on the map.');
@@ -2967,10 +2967,10 @@ hol.VectorLayer.prototype.toggleTracking = function(){
   try{
     var track = (this.geolocationId === -1);
 
-    if (track === true){
+    if ((track === true)&&('geolocation' in navigator)){
       console.log('Turning on user location tracking.');
-      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this));
       this.userTrackButton.classList.add('on');
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert('Sorry, your browser does not support geolocation tracking.'); this.userTrackButton.classList.remove('on');}.bind(this), {enableHighAccuracy: true});
     }
     else{
       if (this.userPositionMarker !== null){

@@ -91,7 +91,7 @@
       }, 
       "properties": {
         "name": "Waypoint A: bus terminal to SUB", 
-        "desc": "<a href=\"./html/images/busTerminalToSUB.png\" target=\"_blank\"><img src=\"./html/images/busTerminalToSUB.png\" alt=\"./html/images/busTerminalToSUB.png\"/></a>", 
+        "desc": "", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -108,7 +108,7 @@
       }, 
       "properties": {
         "name": "Waypoint B: path beside SUB", 
-        "desc": "<a href=\"./html/images/pathFromSUB.png\" target=\"_blank\"><img src=\"./html/images/pathFromSUB.png\" alt=\"./html/images/pathFromSUB.png\"/></a>", 
+        "desc": "", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -227,7 +227,7 @@
       }, 
       "properties": {
         "name": "Waypoint I: path toward University Club", 
-        "desc": "<a href=\"./html/images/pathDivergeTowardUClub.png\" target=\"_blank\"><img src=\"./html/images/pathDivergeTowardUClub.png\" alt=\"./html/images/pathDivergeTowardUClub.png\"/></a>", 
+        "desc": "", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -244,7 +244,7 @@
       }, 
       "properties": {
         "name": "Waypoint J: forest path to University Club", 
-        "desc": "<a href=\"./html/images/pathToUClub.png\" target=\"_blank\"><img src=\"./html/images/pathToUClub.png\" alt=\"./html/images/pathToUClub.png\"/></a>", 
+        "desc": "", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",

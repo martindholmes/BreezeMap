@@ -112,14 +112,14 @@
                     </place>-->
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayBusToSUB">
                         <placeName>Waypoint A: bus terminal to SUB</placeName>
-                        <desc><graphic url="./html/images/busTerminalToSUB.png"/></desc>
+                        <desc><!--<graphic url="./html/images/busTerminalToSUB.png"/>--></desc>
                         <location type="Point">
                             <geo>[-123.309273,48.466244]</geo>
                         </location>
                     </place>
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayPathFromSUB">
                         <placeName>Waypoint B: path beside SUB</placeName>
-                        <desc><graphic url="./html/images/pathFromSUB.png"/></desc>
+                        <desc><!--<graphic url="./html/images/pathFromSUB.png"/>--></desc>
                         <location type="Point">
                             <geo>[-123.308957,48.46576]</geo>
                         </location>
@@ -182,14 +182,14 @@
                     </place>
                     <place corresp="#confWalkBusToUVClub" xml:id="wayPathDivergeAtSedge">
                         <placeName>Waypoint I: path toward University Club</placeName>
-                        <desc><graphic url="./html/images/pathDivergeTowardUClub.png"/></desc>
+                        <desc><!--<graphic url="./html/images/pathDivergeTowardUClub.png"/>--></desc>
                         <location type="Point">
                             <geo>[-123.314854,48.463514]</geo>
                         </location>
                     </place>
                     <place corresp="#confWalkBusToUVClub" xml:id="wayPathToUClub">
                         <placeName>Waypoint J: forest path to University Club</placeName>
-                        <desc><graphic url="./html/images/pathToUClub.png"/></desc>
+                        <desc><!--<graphic url="./html/images/pathToUClub.png"/>--></desc>
                         <location type="Point">
                             <geo>[-123.316276,48.463895]</geo>
                         </location>
