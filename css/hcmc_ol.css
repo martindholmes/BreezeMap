@@ -547,7 +547,8 @@ div#holDocDisplay{
   opacity: 1;
   margin: 0;
   box-sizing: border-box;
-  left: -50%;
+  /*left: -50%;*/
+  width: calc((50% - 20rem) * -1);
   height: calc(100% - 9rem);
   width: calc(50% - 20rem);
   min-width: 15rem;

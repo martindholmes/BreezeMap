@@ -12,7 +12,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confTrans", "name": "Transportation", "pos": 2},{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4},{"id": "confAccom", "name": "Accomodation", "pos": 5},{"id": "confFood", "name": "Food", "pos": 6},{"id": "confSvc", "name": "Services", "pos": 7}]}]
+           "categories": [{"id": "confVenue", "name": "Venue", "pos": 1},{"id": "confTrans", "name": "Transportation", "pos": 2},{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4},{"id": "confAccom", "name": "Accomodation", "pos": 5},{"id": "confFood", "name": "Food", "pos": 6},{"id": "confSvc", "name": "Services", "pos": 7}]}]
       }
     },
     { "type": "Feature",
@@ -22,7 +22,7 @@
         "coordinates": [[-123.364963,48.421313],[-123.36375,48.420508],[-123.363246,48.420836],[-123.363042,48.421057],[-123.362946,48.421306],[-123.362999,48.421897],[-123.362946,48.422217],[-123.36242,48.424246],[-123.36183,48.424182]]
       }, 
       "properties": {
-        "name": "Walk from downtown hotels to busses", 
+        "name": "Walk from downtown hotels to buses", 
         "desc": "30 minute bus ride (#14 or #15), 500m easy walking.", 
         "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"], 
         "taxonomies": [
@@ -73,14 +73,14 @@
         "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133]]
       }, 
       "properties": {
-        "name": "Walking path from busses to Clearihue Building", 
+        "name": "Walking path from buses to Clearihue Building", 
         "desc": "...", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -90,14 +90,14 @@
         "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133],[-123.309902,48.464015],[-123.310024,48.463879],[-123.313399,48.463618],[-123.314855,48.463513],[-123.315465,48.463756],[-123.315704,48.463809],[-123.316102,48.463862],[-123.316277,48.463895],[-123.316188,48.464104],[-123.316317,48.464078],[-123.316482,48.464123],[-123.316789,48.464042],[-123.317296,48.463995]]
       }, 
       "properties": {
-        "name": "Walking path from busses to University Club", 
+        "name": "Walking path from buses to University Club", 
         "desc": "...", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -114,7 +114,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -131,7 +131,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -148,7 +148,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -165,7 +165,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -182,7 +182,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -199,7 +199,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 4}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3},{"id": "confWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 4}]}]
       }
     },
     { "type": "Feature",
@@ -216,7 +216,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -233,7 +233,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -250,7 +250,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -267,7 +267,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -284,7 +284,7 @@
           {"id": "conf",
           "name": "Conference Locations",
            "pos": 1,
-           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 3}]}]
+           "categories": [{"id": "confWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 3}]}]
       }
     },
     { "type": "Feature",

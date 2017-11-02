@@ -20,7 +20,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1},{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1},{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -190,7 +190,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -921,7 +921,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -1057,7 +1057,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1074,7 +1074,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1091,7 +1091,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1108,7 +1108,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1125,7 +1125,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1142,7 +1142,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1159,7 +1159,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1176,7 +1176,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1193,7 +1193,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1210,7 +1210,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1227,7 +1227,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1244,7 +1244,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1261,7 +1261,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1278,7 +1278,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1295,7 +1295,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1312,7 +1312,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1329,7 +1329,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1346,7 +1346,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1363,7 +1363,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1380,7 +1380,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1397,7 +1397,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1414,7 +1414,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Busses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1}]}]
       }
     },
     { "type": "Feature",
@@ -1424,14 +1424,14 @@
         "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133]]
       }, 
       "properties": {
-        "name": "Walking path from busses to Clearihue Building", 
+        "name": "Walking path from buses to Clearihue Building", 
         "desc": "...", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1441,14 +1441,14 @@
         "coordinates": [[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133],[-123.309902,48.464015],[-123.310024,48.463879],[-123.313399,48.463618],[-123.314855,48.463513],[-123.315465,48.463756],[-123.315704,48.463809],[-123.316102,48.463862],[-123.316277,48.463895],[-123.316188,48.464104],[-123.316317,48.464078],[-123.316482,48.464123],[-123.316789,48.464042],[-123.317296,48.463995]]
       }, 
       "properties": {
-        "name": "Walking path from busses to University Club", 
+        "name": "Walking path from buses to University Club", 
         "desc": "...", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -1465,7 +1465,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -1482,7 +1482,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1499,7 +1499,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1516,7 +1516,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1533,7 +1533,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -1550,7 +1550,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1567,7 +1567,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from busses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -1584,7 +1584,7 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from busses to University Club", "pos": 2}]}]
+           "categories": [{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2}]}]
       }
     }
   ]
