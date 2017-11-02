@@ -3008,7 +3008,7 @@ hol.VectorLayer.prototype.toggleTracking = function(){
 
     if ((track === true)&&('geolocation' in navigator)){
       this.userTrackButton.classList.add('on');
-      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert('Sorry, your browser does not support geolocation tracking.'); this.userTrackButton.classList.remove('on');}.bind(this), {enableHighAccuracy: true});
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert('Sorry, your browser does not support geolocation tracking.'); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
     }
     else{
       if (this.userPositionMarker !== null){
