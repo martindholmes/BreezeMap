@@ -724,7 +724,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     closeBtn = document.createElement('span');
     closeBtn.setAttribute('class', 'closeBtn');
     closeBtn.appendChild(document.createTextNode('❌'));
-    closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
+    //closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
+    closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = '-50%'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     this.docDisplayDiv.appendChild(closeBtn);
     this.docDisplayFrame = document.createElement('iframe');
     this.docDisplayFrame.setAttribute('id', 'holDocDisplayFrame');
@@ -2481,7 +2482,8 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       extent = geomCol.getExtent();
 //Now we need to allow for the fact that a big block of the map
 //is invisible under the navigation, info and doc panels.
-      if (this.docDisplayDiv.style.display === 'block'){
+      //if (this.docDisplayDiv.style.display === 'block'){
+      if (parseInt(window.getComputedStyle(this.docDisplayDiv).left) > -1){
         leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
       }
       rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
@@ -2738,7 +2740,8 @@ hol.VectorLayer.prototype.parseSearch = function(){
   this.showHideAllFeatures(null, false);
   
 //Hide the document display box.
-  this.docDisplayDiv.style.display = 'none';
+  //this.docDisplayDiv.style.display = 'none';
+  this.docDisplayDiv.style.left = '-50%';
   this.docDisplayFrame.src = '';
 
   try{
@@ -2952,7 +2955,8 @@ hol.VectorLayer.prototype.doLocationSearch = function(doSearch){
 hol.VectorLayer.prototype.showDocument = function(docPath){
   try{
     this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
-    this.docDisplayDiv.style.display = 'block';
+    //this.docDisplayDiv.style.display = 'block';
+    this.docDisplayDiv.style.left = '0';
 //TODO: MAKE THIS AN EVENT LISTENER!
     //window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
     return true;
@@ -3055,7 +3059,7 @@ hol.VectorLayer.prototype.trackPosition = function(position){
     extent = this.userPositionMarker.getGeometry().getExtent();
 //Now we need to allow for the fact that a big block of the map
 //is invisible under the navigation, info and doc panels.
-    if (this.docDisplayDiv.style.display === 'block'){
+    if (parseInt(window.getComputedStyle(this.docDisplayDiv).left) > -1){
       leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
     }
     rightMargin = this.navPanel.parentNode.classList.contains('hidden')? 0 : parseInt(window.getComputedStyle(this.navPanel).width);

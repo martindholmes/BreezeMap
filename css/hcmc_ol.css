@@ -540,17 +540,14 @@ nav#holNav>ul>li.expanded ul, nav#holNav>ul>li.headless ul{
 }
 
 div#holDocDisplay{
-  display: none;
+  /*display: none;*/
   position: fixed;
   padding: 0.25rem;
   overflow: auto;  
   opacity: 1;
   margin: 0;
   box-sizing: border-box;
-}
-
-div#holDocDisplay{
-  left: 0;
+  left: -50%;
   height: calc(100% - 9rem);
   width: calc(50% - 20rem);
   min-width: 15rem;
@@ -558,6 +555,11 @@ div#holDocDisplay{
   background-color: #ffffff;
   top: 9rem;
   resize: both;
+  transition: 1s ease-in-out;
+}
+
+div#holDocDisplay{
+
 }
 
 div#holDocDisplay iframe#holDocDisplayFrame{
