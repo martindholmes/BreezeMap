@@ -61,16 +61,12 @@
                     
                     <place corresp="#confTrans" xml:id="walkHotelsToBus">
                         <placeName>Walk from downtown hotels to buses</placeName>
-                        <desc>30 minute bus ride (#14 or #15), 500m easy walking.</desc>
-                        <desc>
-                            <list>
-                                <item>
-                                    <ptr target="https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"/>
-                                </item>
-                            </list>
-                        </desc>
-                        <location type="LineString">
-                            <geo>[[-123.364963,48.421313],[-123.36375,48.420508],[-123.363246,48.420836],[-123.363042,48.421057],[-123.362946,48.421306],[-123.362999,48.421897],[-123.362946,48.422217],[-123.36242,48.424246],[-123.36183,48.424182]]</geo>
+                        <desc>Directions to bus stops heading for UVic.</desc>
+                        <location type="GeometryCollection">
+                            <geo n="LineString">[[-123.364943,48.421303],[-123.363784,48.420527],[-123.363741,48.420499],[-123.363269,48.420819],[-123.363033,48.421025],[-123.362926,48.421296],[-123.36299,48.421944],[-123.362969,48.4222],[-123.362433,48.424229],[-123.361832,48.42418]]</geo>
+                            <geo n="LineString">[[-123.363119,48.420114],[-123.363734,48.420494]]</geo>
+                            <geo n="LineString">[[-123.363042,48.421085],[-123.363258,48.421208]]</geo>
+                            <geo n="LineString">[[-123.363045,48.4212],[-123.36356,48.421499],[-123.36393,48.421798],[-123.364059,48.421866]]</geo>
                         </location>
                     </place>
                     <place corresp="#confTrans" xml:id="no4BusHotels">
@@ -109,7 +105,7 @@
                   
                   <place corresp="#confTrans" xml:id="no1415BusHotels">
                     <placeName>Bus stop for #11, #14 and #15</placeName>
-                    <desc>30+ minute bus ride (#11, #14 or #15). Recommended: get there
+                    <desc>30+ minute bus ride (#11, #14 or #15). 500m easy walking. Recommended: get there
                         before 8:00am any day. (On Monday we 
                         will be providing a bus directly from the hotels.)</desc>
                     <desc>
