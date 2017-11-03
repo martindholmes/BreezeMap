@@ -75,7 +75,9 @@
                     </place>
                     <place corresp="#confTrans" xml:id="no4BusHotels">
                         <placeName>#4 Bus stop close to downtown hotels</placeName>
-                        <desc>45+ minute bus ride (#4), 100m easy walking.</desc>
+                        <desc>45+ minute bus ride (#4), 100m easy walking. Recommended:
+                            8:05am Saturday, 8:23am Sunday, 7:35am weekday. (On Monday we 
+                            will be providing a bus directly from the hotels.)</desc>
                         <desc>
                             <list>
                                 <item>
@@ -88,9 +90,28 @@
                         </location>
                     </place>
                   
+                    <place corresp="#confTrans" xml:id="no7BusHotels">
+                        <placeName>#7 Bus stop close to downtown hotels</placeName>
+                        <desc>31+ minute bus ride (#7), 100m easy walking. Recommended:
+                        Saturday 8:01am, Sunday 8:14am, weekday 7:57am. (On Monday we 
+                        will be providing a bus directly from the hotels.)</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100024"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-123.363312,48.421172]</geo>
+                        </location>
+                    </place>
+                  
                   <place corresp="#confTrans" xml:id="no1415BusHotels">
-                    <placeName>Bus stop for #14 and #15</placeName>
-                    <desc>30 minute bus ride (#14 or #15).</desc>
+                    <placeName>Bus stop for #11, #14 and #15</placeName>
+                    <desc>30+ minute bus ride (#11, #14 or #15). Recommended: get there
+                        before 8:00am any day. (On Monday we 
+                        will be providing a bus directly from the hotels.)</desc>
                     <desc>
                       <list>
                         <item>
@@ -128,7 +149,7 @@
                     </place>-->
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayBusToSUB">
                         <placeName>Waypoint A: bus terminal to SUB</placeName>
-                        <desc><!--<graphic url="./html/images/busTerminalToSUB.png"/>--></desc>
+                        <desc><graphic url="../images/subBusTerminal.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.309273,48.466244]</geo>
                         </location>
@@ -149,7 +170,7 @@
                     </place>
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayStudentUnion">
                         <placeName>Waypoint D: Student Union Building</placeName>
-                      <desc><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-sub.jpg"/></desc>
+                        <desc><graphic url="../images/subBld.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>
@@ -212,7 +233,7 @@
                     </place>
                     <place xml:id="wayUniversityClub" corresp="#confWalkBusToUVClub">
                         <placeName>Waypoint K: University Club</placeName>
-                        <desc><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></desc>
+                        <desc><graphic url="../images/universityClubBldg.jpg"/></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>

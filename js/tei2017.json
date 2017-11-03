@@ -40,8 +40,25 @@
       }, 
       "properties": {
         "name": "#4 Bus stop close to downtown hotels", 
-        "desc": "45+ minute bus ride (#4), 100m easy walking.", 
+        "desc": "45+ minute bus ride (#4), 100m easy walking. Recommended: 8:05am Saturday, 8:23am Sunday, 7:35am weekday. (On Monday we will be providing a bus directly from the hotels.)", 
         "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100025"], 
+        "taxonomies": [
+          {"id": "conf",
+          "name": "Conference Locations",
+           "pos": 1,
+           "categories": [{"id": "confTrans", "name": "Transportation", "pos": 2}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "no7BusHotels", 
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-123.363312,48.421172]
+      }, 
+      "properties": {
+        "name": "#7 Bus stop close to downtown hotels", 
+        "desc": "31+ minute bus ride (#7), 100m easy walking. Recommended: Saturday 8:01am, Sunday 8:14am, weekday 7:57am. (On Monday we will be providing a bus directly from the hotels.)", 
+        "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100024"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -56,8 +73,8 @@
         "coordinates": [-123.36183,48.424182]
       }, 
       "properties": {
-        "name": "Bus stop for #14 and #15", 
-        "desc": "30 minute bus ride (#14 or #15).", 
+        "name": "Bus stop for #11, #14 and #15", 
+        "desc": "30+ minute bus ride (#11, #14 or #15). Recommended: get there before 8:00am any day. (On Monday we will be providing a bus directly from the hotels.)", 
         "links": ["https://bctransit.com/victoria/schedules-and-maps/next-departures?stopId=100033"], 
         "taxonomies": [
           {"id": "conf",
