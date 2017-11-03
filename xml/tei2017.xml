@@ -45,15 +45,15 @@
     </teiHeader>
     <text>
         <body>
-            <head>UVic Campus</head>
+            <head>UVic Campus and Downtown</head>
             <div>
                 <listPlace>
                     <!--       This is a special feature which defines the map bounds and title.             -->
                     <place xml:id="holMap" corresp="#holTaxonomies">
-                        <placeName>UVic Campus</placeName>
+                        <placeName>UVic Campus and Downtown</placeName>
                         <desc/>
                         <location type="Polygon">
-                            <geo>[[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]</geo>
+                            <geo>[[[-123.373144,48.416696],[-123.373144,48.468039],[-123.304781,48.468039],[-123.304781,48.416696],[-123.373144,48.416696]]]</geo>
                         </location>
                     </place>
                     
@@ -326,7 +326,7 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="https://www.marriottvictoria.com/"/>
+                                    <ptr target="http://www.marriottvictoria.com/"/>
                                 </item>
                             </list>
                         </desc>
@@ -339,7 +339,7 @@
                         <desc>The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200.
                             Conference rates are available before 2017-10-05. See the 
                             <ref target="https://hcmc.uvic.ca/tei2017/accommodation.php">Accommodation page</ref> for
-                            more information. The Parkside's <ref target="https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
+                            more information. The Parkside's <ref target="http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm">Urban Ballroom</ref>
                             is the venue for the <ref target="https://hcmc.uvic.ca/tei2017/activities.php">Conference Banquet</ref>.</desc>
                         <desc>
                             <list>

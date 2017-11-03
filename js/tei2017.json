@@ -4,7 +4,7 @@
       "id": "holMap", 
       "geometry": {
         "type": "Polygon", 
-        "coordinates": [[[-123.31817,48.465918],[-123.31817,48.46081],[-123.304737,48.46081],[-123.304737,48.465918],[-123.31817,48.465918]]]
+        "coordinates": [[[-123.373144,48.416696],[-123.373144,48.468039],[-123.304781,48.468039],[-123.304781,48.416696],[-123.373144,48.416696]]]
       }, 
       "properties": {
         "name": "holMap",
@@ -449,7 +449,7 @@
       "properties": {
         "name": "Victoria Marriott Inner Harbour", 
         "desc": "The Marriott is located at 728 Humboldt St, Victoria, BC V8W 3Z5. Phone: (250) 480-3800. Conference rates are available before 2017-10-20. See the <a href=\"https://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information.", 
-        "links": ["https://www.marriottvictoria.com/"], 
+        "links": ["http://www.marriottvictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
@@ -465,7 +465,7 @@
       }, 
       "properties": {
         "name": "The Parkside Hotel & Spa", 
-        "desc": "The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200. Conference rates are available before 2017-10-05. See the <a href=\"https://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information. The Parkside's <a href=\"https://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"https://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
+        "desc": "The Parkside Hotel is located at 810 Humboldt St, Victoria, BC V8V 5B1. Phone: (250) 940-1200. Conference rates are available before 2017-10-05. See the <a href=\"https://hcmc.uvic.ca/tei2017/accommodation.php\">Accommodation page</a> for more information. The Parkside's <a href=\"http://www.parksidevictoria.com/weddings-1/urban-ballroom.htm\">Urban Ballroom</a> is the venue for the <a href=\"https://hcmc.uvic.ca/tei2017/activities.php\">Conference Banquet</a> .", 
         "links": ["https://www.parksidevictoria.com/"], 
         "taxonomies": [
           {"id": "conf",
