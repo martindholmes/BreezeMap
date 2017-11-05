@@ -142,7 +142,7 @@
       }, 
       "properties": {
         "name": "Waypoint A: bus terminal to SUB", 
-        "desc": "<a href=\"../images/subBusTerminal.jpg\" target=\"_blank\"><img src=\"../images/subBusTerminal.jpg\" alt=\"../images/subBusTerminal.jpg\"/></a>", 
+        "desc": "<a href=\"images/subBusTerminal.jpg\" target=\"_blank\"><img src=\"images/subBusTerminal.jpg\" alt=\"images/subBusTerminal.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -193,7 +193,7 @@
       }, 
       "properties": {
         "name": "Waypoint D: Student Union Building", 
-        "desc": "<a href=\"../images/subBld.jpg\" target=\"_blank\"><img src=\"../images/subBld.jpg\" alt=\"../images/subBld.jpg\"/></a>", 
+        "desc": "<a href=\"images/subBld.jpg\" target=\"_blank\"><img src=\"images/subBld.jpg\" alt=\"images/subBld.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "conf",
@@ -312,7 +312,7 @@
       }, 
       "properties": {
         "name": "Waypoint K: University Club", 
-        "desc": "<a href=\"../images/universityClubBldg.jpg\" target=\"_blank\"><img src=\"../images/universityClubBldg.jpg\" alt=\"../images/universityClubBldg.jpg\"/></a>", 
+        "desc": "<a href=\"images/universityClubBldg.jpg\" target=\"_blank\"><img src=\"images/universityClubBldg.jpg\" alt=\"images/universityClubBldg.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"], 
         "taxonomies": [
           {"id": "conf",

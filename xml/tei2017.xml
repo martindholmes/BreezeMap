@@ -145,7 +145,7 @@
                     </place>-->
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayBusToSUB">
                         <placeName>Waypoint A: bus terminal to SUB</placeName>
-                        <desc><graphic url="../images/subBusTerminal.jpg"/></desc>
+                        <desc><graphic url="images/subBusTerminal.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.309273,48.466244]</geo>
                         </location>
@@ -166,7 +166,7 @@
                     </place>
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayStudentUnion">
                         <placeName>Waypoint D: Student Union Building</placeName>
-                        <desc><graphic url="../images/subBld.jpg"/></desc>
+                        <desc><graphic url="images/subBld.jpg"/></desc>
                         <desc>
                             <list>
                                 <item>
@@ -229,7 +229,7 @@
                     </place>
                     <place xml:id="wayUniversityClub" corresp="#confWalkBusToUVClub">
                         <placeName>Waypoint K: University Club</placeName>
-                        <desc><graphic url="../images/universityClubBldg.jpg"/></desc>
+                        <desc><graphic url="images/universityClubBldg.jpg"/></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>

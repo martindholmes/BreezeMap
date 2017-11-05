@@ -39,11 +39,11 @@
       <arg value="-xsl:tei_to_geojson.xsl"/> 
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-      <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
-          <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
-          <arg value="-xsl:tei_to_geojson.xsl"/> 
-          <arg value="--suppressXsltNamespaceCheck:on"/>
-      </java>
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+        <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
+        <arg value="-xsl:tei_to_geojson.xsl"/> 
+        <arg value="--suppressXsltNamespaceCheck:on"/>
+    </java>
   </target>
     
     <target name="getOL">
@@ -119,11 +119,30 @@
     </java>
   </target>
     
-    <target name="doAll">
-      <antcall target="cleanup"/>
-      <antcall target="teiToGeoJSON"/>
-      <antcall target="getOL"/>
-      <antcall target="minify"/>
-    </target>
-    
+  <target name="createTestSite">
+    <echo message="${echo.separator}"/>
+    <echo message="Creating test site."/>
+    <delete dir="${proj.dir}/test"/>
+    <mkdir dir="${proj.dir}/test"/>
+    <mkdir dir="${proj.dir}/test/js"/>
+    <copy todir="${proj.dir}/test">
+      <fileset dir="${proj.dir}" includes="fonts/*.*"/>
+      <fileset dir="${proj.dir}" includes="css/*.css"/>
+      <fileset dir="${proj.dir}" includes="ol/*.*"/>
+      <fileset dir="${proj.dir}/xml" includes="images/*.*" />
+      <fileset dir="${proj.dir}" includes="*.html"/>
+    </copy>
+    <copy todir="${proj.dir}/test/js">
+      <fileset dir="${proj.dir}/js" includes="*.*" excludes="ol_latest.json"/>
+    </copy>
+  </target>
+  
+  <target name="doAll">
+    <antcall target="cleanup"/>
+    <antcall target="teiToGeoJSON"/>
+    <antcall target="getOL"/>
+    <antcall target="minify"/>
+    <antcall target="createTestSite"/>
+  </target>
+  
 </project>

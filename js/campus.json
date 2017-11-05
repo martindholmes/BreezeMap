@@ -32,7 +32,7 @@
       "properties": {
         "name": "Clearihue Building", 
         "desc": "The oldest building on campus...", 
-        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php", "html/welcome.html"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",

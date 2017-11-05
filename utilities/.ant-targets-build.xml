@@ -1,5 +1,6 @@
 cleanup
+createTestSite
 doAll
-getOL3
+getOL
 minify
 teiToGeoJSON
