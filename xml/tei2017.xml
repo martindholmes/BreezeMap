@@ -152,7 +152,7 @@
                     </place>
                     <place corresp="#confWalkBusToUVClub #confWalkBusToClearihue" xml:id="wayPathFromSUB">
                         <placeName>Waypoint B: path beside SUB</placeName>
-                        <desc><!--<graphic url="./html/images/pathFromSUB.png"/>--></desc>
+                        <desc><graphic url="images/pathBySub.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.308957,48.46576]</geo>
                         </location>
@@ -215,21 +215,21 @@
                     </place>
                     <place corresp="#confWalkBusToUVClub" xml:id="wayPathDivergeAtSedge">
                         <placeName>Waypoint I: path toward University Club</placeName>
-                        <desc><!--<graphic url="./html/images/pathDivergeTowardUClub.png"/>--></desc>
+                        <desc>Fork to the right and walk into the trees. <graphic url="images/pathForkToUClub.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.314854,48.463514]</geo>
                         </location>
                     </place>
                     <place corresp="#confWalkBusToUVClub" xml:id="wayPathToUClub">
                         <placeName>Waypoint J: forest path to University Club</placeName>
-                        <desc><!--<graphic url="./html/images/pathToUClub.png"/>--></desc>
+                        <desc>Cross the ringroad at the crossing and then follow the path down. <graphic url="images/pathDownToUClub.jpg"/></desc>
                         <location type="Point">
                             <geo>[-123.316276,48.463895]</geo>
                         </location>
                     </place>
                     <place xml:id="wayUniversityClub" corresp="#confWalkBusToUVClub">
                         <placeName>Waypoint K: University Club</placeName>
-                        <desc><graphic url="images/universityClubBldg.jpg"/></desc>
+                        <desc><graphic url="images/universityClubBld.jpg"/></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>
@@ -297,7 +297,12 @@
                     </place>
                     <place xml:id="bldgUniversityClub" corresp="#confVenue #confFood">
                         <placeName>University Club (Sessions)</placeName>
-                        <desc>The main conference venue, the University Club; when lunch is provided, it will be here.</desc>
+                        <desc>The main conference venue, the University Club; when lunch is provided, it will be here.<graphic url="images/universityClubBld.jpg"/></desc>
+                        <desc>
+                            <list>
+                                <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>
+                            </list>
+                        </desc>
                         <location type="Polygon">
                             <geo>[[[-123.317856,48.464162],[-123.31784,48.46405],[-123.317882,48.464047],[-123.317842,48.463793],[-123.31762,48.46381],[-123.317607,48.463731],[-123.317274,48.463754],[-123.317325,48.464081],[-123.31766,48.464059],[-123.31768,48.464192],[-123.317742,48.464187],[-123.31774,48.464169],[-123.317856,48.464162]]]</geo>
                         </location>

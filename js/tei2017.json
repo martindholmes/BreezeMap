@@ -159,7 +159,7 @@
       }, 
       "properties": {
         "name": "Waypoint B: path beside SUB", 
-        "desc": "", 
+        "desc": "<a href=\"images/pathBySub.jpg\" target=\"_blank\"><img src=\"images/pathBySub.jpg\" alt=\"images/pathBySub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -278,7 +278,7 @@
       }, 
       "properties": {
         "name": "Waypoint I: path toward University Club", 
-        "desc": "", 
+        "desc": "Fork to the right and walk into the trees. <a href=\"images/pathForkToUClub.jpg\" target=\"_blank\"><img src=\"images/pathForkToUClub.jpg\" alt=\"images/pathForkToUClub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -295,7 +295,7 @@
       }, 
       "properties": {
         "name": "Waypoint J: forest path to University Club", 
-        "desc": "", 
+        "desc": "Cross the ringroad at the crossing and then follow the path down. <a href=\"images/pathDownToUClub.jpg\" target=\"_blank\"><img src=\"images/pathDownToUClub.jpg\" alt=\"images/pathDownToUClub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "conf",
@@ -312,7 +312,7 @@
       }, 
       "properties": {
         "name": "Waypoint K: University Club", 
-        "desc": "<a href=\"images/universityClubBldg.jpg\" target=\"_blank\"><img src=\"images/universityClubBldg.jpg\" alt=\"images/universityClubBldg.jpg\"/></a>", 
+        "desc": "<a href=\"images/universityClubBld.jpg\" target=\"_blank\"><img src=\"images/universityClubBld.jpg\" alt=\"images/universityClubBld.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"], 
         "taxonomies": [
           {"id": "conf",
@@ -397,8 +397,8 @@
       }, 
       "properties": {
         "name": "University Club (Sessions)", 
-        "desc": "The main conference venue, the University Club; when lunch is provided, it will be here.", 
-        "links": [], 
+        "desc": "The main conference venue, the University Club; when lunch is provided, it will be here. <a href=\"images/universityClubBld.jpg\" target=\"_blank\"><img src=\"images/universityClubBld.jpg\" alt=\"images/universityClubBld.jpg\"/></a>", 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"], 
         "taxonomies": [
           {"id": "conf",
           "name": "Conference Locations",
