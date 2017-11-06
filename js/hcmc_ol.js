@@ -2955,7 +2955,6 @@ hol.VectorLayer.prototype.doLocationSearch = function(doSearch){
 hol.VectorLayer.prototype.showDocument = function(docPath){
   try{
     this.docDisplayFrame.setAttribute('src', this.linkPrefix + docPath);
-    //this.docDisplayDiv.style.display = 'block';
     this.docDisplayDiv.style.left = '0';
 //TODO: MAKE THIS AN EVENT LISTENER!
     //window.setTimeout(function(){this.rewriteHolLinks(this.docDisplayFrame.contentDocument.getElementsByTagName('body')[0]);}.bind(this), 100);
