@@ -31,7 +31,8 @@ body{
 
 span.docTitle{
   display: block;
-  font-size: 1.3rem;
+  /*font-size: 1.3rem;*/
+  font-size: 3vw;
   padding: 0.25rem;
   margin: 0 0 0 2rem;
   color: rgb(57,70,78);
@@ -548,9 +549,10 @@ div#holDocDisplay{
   margin: 0;
   box-sizing: border-box;
   /*left: -50%;*/
-  width: calc((50% - 20rem) * -1);
+  left: -21rem;
   height: calc(100% - 9rem);
   width: calc(50% - 20rem);
+  max-width: 20rem;
   min-width: 15rem;
   border: 0;
   background-color: #ffffff;

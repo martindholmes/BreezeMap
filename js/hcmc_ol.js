@@ -725,7 +725,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     closeBtn.setAttribute('class', 'closeBtn');
     closeBtn.appendChild(document.createTextNode('❌'));
     //closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
-    closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = 'calc((50% - 20rem) * -1)'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
+    closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = '-21rem'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     this.docDisplayDiv.appendChild(closeBtn);
     this.docDisplayFrame = document.createElement('iframe');
     this.docDisplayFrame.setAttribute('id', 'holDocDisplayFrame');
@@ -2741,7 +2741,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
   
 //Hide the document display box.
   //this.docDisplayDiv.style.display = 'none';
-  this.docDisplayDiv.style.left = 'calc((50% - 20rem) * -1)';
+  this.docDisplayDiv.style.left = '-21rem';
   this.docDisplayFrame.src = '';
 
   try{
