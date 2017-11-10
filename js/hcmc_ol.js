@@ -658,6 +658,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUpload = options.allowUpload || false;
     this.allowDrawing = options.allowDrawing || false;
     this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
+    this.allFeaturesTaxonomy = options.allFeaturesTaxonomy || false;
+                                                //If multiple taxonomies are being used, and this is true, then 
+                                                //generate an additional taxonomy which combines everything.
         
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
                                                 //To be set by the host application if required.
@@ -1494,7 +1497,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
  */
 hol.VectorLayer.prototype.readTaxonomies = function(){
   var hasName, i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
-  catName, catDesc, catPos, catId, foundTax, foundCat;
+  catName, catDesc, catPos, catId, foundTax, foundCat, maxPos = 0;
   
 //We read the taxonomies based on finding them in the features,
 //just in case a subset of features has been separated from the
@@ -1513,6 +1516,7 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
         for (j=0, maxj=props.taxonomies.length; j<maxj; j++){
           taxName = props.taxonomies[j].name;
           taxPos = props.taxonomies[j].pos;
+          maxPos = Math.max((maxPos, taxPos));
           taxId = props.taxonomies[j].id;
   //If this is the first time we're encountering this taxonomy, add it
   //to the array.
@@ -1553,6 +1557,21 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
         if (a.pos > b.pos){return 1;}
         return 0;
       });
+    }
+    
+//If there's more than one taxonomy, and the option has been set to 
+//create a final combined taxonomy, do so.
+    if ((this.taxonomies.length > 1) && (this.allFeaturesTaxonomy)){
+      taxName = 'All';
+      taxPos = maxPos + 1;
+      taxId = 'holAllTaxonomies';
+      this.taxonomies.push({name: taxName, pos: taxPos, id: taxId, categories: []});
+      foundTax[0] = this.taxonomies[this.taxonomies.length-1];
+      for (i=0, maxi=this.taxonomies.length-1; i<maxi; i++){
+        for (j=0, maxj=this.taxonomies[i].categories.length; j<maxi; j++){
+          foundTax[0].categories.push(this.taxonomies[i].categories[j]);
+        }
+      }
     }
     
     this.taxonomiesLoaded = true;

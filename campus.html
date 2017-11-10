@@ -98,7 +98,8 @@
         holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
                                                               allowDrawing: true,
                                                               allowUpload: true,
-                                                              allowUserTracking: true});
+                                                              allowUserTracking: true,
+                                                              allFeaturesTaxonomy: true});
       }
       
       window.addEventListener('load', function (event){initCampusMap();});
