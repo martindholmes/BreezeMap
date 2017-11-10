@@ -726,7 +726,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docDisplayDiv.setAttribute('id', 'holDocDisplay');
     closeBtn = document.createElement('span');
     closeBtn.setAttribute('class', 'closeBtn');
-    closeBtn.appendChild(document.createTextNode('🗙'));
+    closeBtn.appendChild(document.createTextNode('×'));
     //closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = '-21rem'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     this.docDisplayDiv.appendChild(closeBtn);
@@ -1991,7 +1991,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navCloseDiv.setAttribute('id', 'navCloseDiv');
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
-      closeBtn.appendChild(doc.createTextNode('🗙'));
+      closeBtn.appendChild(doc.createTextNode('×'));
       closeBtn.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden'); this.mobileMenuToggleButton.classList.toggle('menuHidden');}.bind(this));
       navCloseDiv.appendChild(closeBtn);
       rightBox.appendChild(navCloseDiv);
@@ -2038,7 +2038,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
       closeBtn.addEventListener('click', function(){this.parentNode.style.display = 'none';}, false);
-      closeBtn.appendChild(doc.createTextNode('🗙'));
+      closeBtn.appendChild(doc.createTextNode('×'));
       this.infoDiv.appendChild(closeBtn);
       this.infoDiv.appendChild(doc.createElement('h2'));
       this.infoDiv.appendChild(doc.createElement('div'));
