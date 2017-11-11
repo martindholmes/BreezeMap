@@ -1,59 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="doAll" name="stolo">
-    
-    <!-- 
+<project basedir="." default="doAll" name="BreezeMap" xmlns:if="ant:if" xmlns:unless="ant:unless">
+
+  <!-- 
     This is a general-purpose build file for the BreezeMap project. 
     
-    It will pull down the latest version of OpenLayers from the OL 
-    site and put it into place in the pilot project tree. 
+    It can pull down the latest version of OpenLayers from the OL 
+    site and put it into place in the pilot project tree.
+    
+    It can build the test projects for the developers of BreezeMap.
+    
+    It can build a user's project based on the 
     
     Note: this uses additional jars in the same folder as the build file
-    to enable the use of JavaScript. Call it thus:
+    to enable the use of JavaScript. You may need to call it thus:
     
     ant -lib .
   -->
-    
-    <property name="echo.separator" value="************************************************"/>
-    
-    <!--  We'll use the root directory of the ant file to do all our relative paths. -->
-    <dirname property="antfile.dir" file="${ant.file}"/>
-    <property name="proj.dir" value="${antfile.dir}/../"/> 
-    <property name="abs.proj.dir" location="${proj.dir}"/>
-   
-    
-    <target name="cleanup">
-        <echo message="${echo.separator}"/>
-        <echo message="Deleting old stuff."/>
-        <delete dir="${proj.dir}/kml"/>
-        <mkdir dir="${proj.dir}/kml"/>
-<!--    Don't mess with OL for the moment. -->
-        <!--<delete dir="${proj.dir}/ol"/>
+
+  <!-- Is this being called with the specific name of an XML file? -->
+  <property name="inputXml" value=""/>
+
+
+  <!--  We'll use the root directory of the ant file to do all our relative paths. -->
+  <dirname property="antfile.dir" file="${ant.file}"/>
+  <property name="proj.dir" value="${antfile.dir}/../"/>
+  <property name="abs.proj.dir" location="${proj.dir}"/>
+
+  <condition property="buildingTestsOnly">
+    <equals arg1="" arg2="${inputXml}"/>
+  </condition>
+
+  <condition property="buildingUserFile">
+    <not>
+      <equals arg1="" arg2="${inputXml}"/>
+    </not>
+  </condition>
+
+
+  <property name="abs.inputXml" location="${inputXml}"/>
+
+  <basename property="userBaseName" file="${abs.inputXml}" suffix=".xml"/>
+
+  <property name="userHtmlLocation" value="${proj.dir}/${userBaseName}.html"/>
+
+  <condition property="needUserHtml">
+    <and>
+      <istrue value="${buildingUserFile}"/>
+      <not>
+        <available file="${userHtmlLocation}"/>
+      </not>
+    </and>
+  </condition>
+
+  <property name="echo.separator" value="************************************************"/>
+
+
+
+  <target name="cleanup">
+    <echo message="${echo.separator}"/>
+    <echo message="Deleting old stuff."/>
+    <delete dir="${proj.dir}/kml"/>
+    <mkdir dir="${proj.dir}/kml"/>
+    <!--    Don't mess with OL for the moment. -->
+    <!--<delete dir="${proj.dir}/ol"/>
         <mkdir dir="${proj.dir}/ol"/>-->
-    </target>
-  
+  </target>
+
   <target name="teiToGeoJSON">
     <echo message="${echo.separator}"/>
     <echo message="Converting TEI to GeoJSON."/>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/campus.xml"/>
-      <arg value="-xsl:tei_to_geojson.xsl"/> 
+      <arg value="-xsl:tei_to_geojson.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
-        <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
-        <arg value="-xsl:tei_to_geojson.xsl"/> 
-        <arg value="--suppressXsltNamespaceCheck:on"/>
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
+      <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
+      <arg value="-xsl:tei_to_geojson.xsl"/>
+      <arg value="--suppressXsltNamespaceCheck:on"/>
+    </java>
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingUserFile}">
+      <arg value="-s:${abs.inputXml}"/>
+      <arg value="-xsl:tei_to_geojson.xsl"/>
+      <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
   </target>
-    
-    <target name="getOL">
-        <echo message="${echo.separator}"/>
-        <echo message="Downloading the latest stable release of OpenLayers."/>
-<!--  First get the JSON file with the latest release data in it.     -->
-        <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest"
-            verbose="on" usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
-        <script language="javascript">
-            <![CDATA[
+
+  <target name="getOL" if:true="${buildingTestsOnly}">
+    <echo message="${echo.separator}"/>
+    <echo message="Downloading the latest stable release of OpenLayers."/>
+    <!--  First get the JSON file with the latest release data in it.     -->
+    <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest" verbose="on"
+      usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
+    <script language="javascript">
+      <![CDATA[
         //Originally written for Rhino; requires compatibility
         //shim to work on Nashorn. The alternative to importClass
         //for Nashorn would be something like:
@@ -95,30 +135,29 @@
         project.setProperty("olzip", struct['assets'][0]['browser_download_url']);
        
         ]]>
-        </script>
-        <echo message="Downloading zip file from ${olzip}..."/>
-        <get src="${olzip}"
-            verbose="on" usetimestamp="true" dest="${proj.dir}/ol/ol_latest.zip"/>
-        <echo message="Unzipping the files..."/>
-        <unzip src="${proj.dir}/ol/ol_latest.zip" dest="${proj.dir}/ol">
-            <patternset>
-                <include name="**/*.*"/>
-            </patternset>
-            <mapper type="flatten"/>
-        </unzip>
-    </target>
-  
+    </script>
+    <echo message="Downloading zip file from ${olzip}..."/>
+    <get src="${olzip}" verbose="on" usetimestamp="true" dest="${proj.dir}/ol/ol_latest.zip"/>
+    <echo message="Unzipping the files..."/>
+    <unzip src="${proj.dir}/ol/ol_latest.zip" dest="${proj.dir}/ol">
+      <patternset>
+        <include name="**/*.*"/>
+      </patternset>
+      <mapper type="flatten"/>
+    </unzip>
+  </target>
+
   <target name="minify">
     <echo message="${echo.separator}"/>
     <echo message="Minifying our JavaScript."/>
     <java jar="yuicompressor-2.4.8.jar" fork="true">
-      <arg line="-o ${proj.dir}/js/hcmc_ol.min.js"/> 
+      <arg line="-o ${proj.dir}/js/hcmc_ol.min.js"/>
       <arg line="-v"/>
       <arg line="--charset utf-8"/>
       <arg line="${proj.dir}/js/hcmc_ol.js"/>
     </java>
   </target>
-    
+
   <target name="createTestSite">
     <echo message="${echo.separator}"/>
     <echo message="Creating test site."/>
@@ -129,14 +168,19 @@
       <fileset dir="${proj.dir}" includes="fonts/*.*"/>
       <fileset dir="${proj.dir}" includes="css/*.css"/>
       <fileset dir="${proj.dir}" includes="ol/*.*"/>
-      <fileset dir="${proj.dir}/xml" includes="images/*.*" />
+      <fileset dir="${proj.dir}/xml" includes="images/*.*"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
     </copy>
     <copy todir="${proj.dir}/test/js">
       <fileset dir="${proj.dir}/js" includes="*.*" excludes="ol_latest.json"/>
     </copy>
   </target>
-  
+
+  <target name="createUserHtml" if:true="${needUserHtml}">
+    <echo message="${echo.separator}"/>
+    <echo message="Creating an HTML file for project ${inputXml}."/>
+  </target>
+
   <target name="doAll">
     <antcall target="cleanup"/>
     <antcall target="teiToGeoJSON"/>
@@ -144,5 +188,9 @@
     <antcall target="minify"/>
     <antcall target="createTestSite"/>
   </target>
-  
+
+  <target name="temp">
+
+  </target>
+
 </project>

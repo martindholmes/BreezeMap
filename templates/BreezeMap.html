@@ -3,7 +3,7 @@
   <head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <meta charset="UTF-8"/>
-      <title>BreezeMap</title>
+      <title>[Map Title]</title>
         <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
@@ -17,10 +17,7 @@
     <body>
       
         <div id="map" class="map"></div>
-      <form>
-      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="0.6" />
-      </form>
-       
+
        <div id="splash">
          <p>[Welcome to this map splash screen...]</p>
        </div>
@@ -33,7 +30,7 @@
          
       //Globals...
       var mapCentre = [-123.312214, 48.463199];
-      var view = null, myLayers = [], layerOSM = null, featureJSONFile = 'js/BreezeMapTEI.json', holLayer = null;
+      var view = null, myLayers = [], layerOSM = null, featureJSONFile = 'js/[featureJSONFile].json', holLayer = null;
          
       function initBreezeMap(){
       
@@ -70,6 +67,7 @@
       
   
 //Now let's create a hol vector layer for all our features.
+//You may wish to turn off some of these features for a live map.
         holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
                                                               allowDrawing: true,
                                                               allowUpload: true,
