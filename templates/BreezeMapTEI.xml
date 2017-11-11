@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>[Map title]</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>[Publication information, licensing etc.]</p>
+            </publicationStmt>
+            <sourceDesc><p>[Source Information]</p></sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <!-- Create the taxonomies and categories within which your 
+                 places will be categorized. You need at least one 
+                 taxonomy with at least two categories. -->
+            <classDecl xml:id="holTaxonomies">
+            <!-- The @n attribute on the taxonomy is used as a caption
+                in the map. -->
+                <taxonomy xml:id="exampleTaxonomy" n="Example taxonomy">
+                    <category xml:id="exCatOne">
+                        <!-- The gloss element is used for the caption
+                             of the category in the map.-->
+                        <gloss>Example category 1</gloss>
+                        <!-- The desc element provides additional information. -->
+                        <desc>The first example category for places.</desc>
+                    </category>
+                    <category xml:id="exCatTwo">
+                        <gloss>Example category 2</gloss>
+                        <desc>The second example category for places.</desc>
+                    </category>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <head>UVic Campus</head>
+            <div>
+                <listPlace>
+         <!--       The first place is a special feature which defines the map bounds and title. 
+                    The default is the whole world. -->
+                    <place xml:id="holMap" corresp="#holTaxonomies">
+                        <placeName>[Map title]</placeName>
+                        <desc></desc>
+                        <location type="Polygon"> <geo>[[[-529.39365,83.751289],[-529.39365,-61.28181],[-166.58115,-61.28181],[-166.58115,83.751289],[-529.39365,83.751289]]]</geo>
+                        </location>
+                    </place>
+                    
+                    <!-- All other places are places that appear on the map. This is an example.
+                        The @corresp attribute points to one or more xml:ids of categories in 
+                        the header. If a place is in multiple categories, separate them with 
+                        spaces. The placeName shows up in the location menu; the desc information
+                        shows up in a popup when the place is selected. A second desc element 
+                        can provide a link to an external page or site.
+                        -->
+                    <!--<place xml:id="bldgMyHouse" corresp="#exCatOne #exCatTwo">
+                        <placeName>My House</placeName>
+                        <desc>This is where I live...</desc>
+                        <desc>
+                            <list>
+                                <item>
+                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
+                                </item>
+                            </list>
+                        </desc>
+                        <location type="Point">
+                            <geo>[-468.573338,71.628402]</geo>
+                        </location>
+                    </place>-->
+                    
+                </listPlace>
+            </div>
+        </body>
+    </text>
+</TEI>
