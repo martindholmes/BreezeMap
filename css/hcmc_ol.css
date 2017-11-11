@@ -32,13 +32,24 @@ body{
 span.docTitle{
   display: block;
   /*font-size: 1.3rem;*/
-  font-size: 3vw;
+  font-size: 1rem;
   padding: 0.25rem;
   margin: 0 0 0 2rem;
   color: rgb(57,70,78);
   align-self: center;
   justify-self: flex-start;
 }
+ @media only screen and (min-width: 400px) {
+	span.docTitle {
+		font-size: 1.2rem;
+	}	 
+ }
+  @media only screen and (min-width: 600px) {
+	span.docTitle {
+		font-size: 1.5rem;
+	}	 
+ }
+
 div#holToolbar>button{
   flex-basis: 2rem;
   font-family: ui-font;
@@ -279,9 +290,14 @@ div#holRightBox.hidden div#holInfo{
 }
 
 div#navCloseDiv{
-  padding: 0.5em;
   text-align: right;
   cursor: pointer;
+  background-color: #f2f2f2;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+  font-weight: bold;
+  line-height: 1.6;
+
 }
 
 nav#holNav{
@@ -299,7 +315,7 @@ nav#holNav{
 /*popup box that appear under menu when item is selected*/
 div#holInfo{
   display: none;
-  padding: 0.25rem;
+  padding: 0;
   overflow: auto;  
   margin: 0;
   flex: 3;
@@ -571,13 +587,50 @@ div#holDocDisplay iframe#holDocDisplayFrame{
 }
 
 div#holInfo span.closeBtn, div#holDocDisplay span.closeBtn, div#navCloseDiv span.closeBtn{
-  display: inline-block;
-  position: relative;
-  padding: 0.3rem;
-  cursor: pointer;
-  background-color: #c0c0c0;
-  font-family: ui-font;
-  color: rgb(57,70,78);
+
+	position: relative;
+	cursor: pointer;
+	font-family: ui-font;
+	}
+/*close button on main right menu*/
+div#holInfo span.closeBtn {
+	width: 100%;
+	background-color: rgba(245,245,245, .4);
+	font-size: 2rem;
+	font-weight: bold;
+	padding-left: .5rem;
+	display: block;
+	color: #545454;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);	
+	margin-bottom: 1rem;
+}
+/*close button on menu info*/
+div#navCloseDiv span.closeBtn {
+	background-color: rgba(245,245,245, .4);
+	font-size: 2rem;
+	font-weight: bold;
+	margin-right: .5rem;
+	display: inline-flex;
+	align-items:center;
+	justify-content: center;
+	color: #545454;
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+}
+/*close button  on iframe*/
+div#holDocDisplay span.closeBtn {
+		background-color: rgba(245,245,245, .4);
+	font-size: 2rem;
+	font-weight: bold;
+	margin-right: .5rem;
+	display: inline-flex;
+	align-items:center;
+	justify-content: center;
+	color: #545454;
+	padding-left: 1rem;
+	padding-right: 1rem;
+
 }
 
 div#holInfo span.closeBtn:hover, div#holDocDisplay span.closeBtn:hover, div#navCloseDiv span.closeBtn:hover{
