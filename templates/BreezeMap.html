@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <meta charset="UTF-8"/>
+      <title>BreezeMap</title>
+        <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
+        <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
+      
+<!--   NOTE: We're using the debug version of OL for testing purposes,
+       and the unminimized form of the project JavaScript. Change this
+       for a mature live project. -->
+        <script src="ol/ol-debug.js" type="text/ecmascript"></script>
+        <script src="js/hcmc_ol.js" type="text/ecmascript"></script>
+      
+    </head>
+    <body>
+      
+        <div id="map" class="map"></div>
+      <form>
+      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="0.6" />
+      </form>
+       
+       <div id="splash">
+         <p>[Welcome to this map splash screen...]</p>
+       </div>
+      
+      <script type="text/ecmascript">
+       
+      /* Initial setup of the map with default controls and
+         Open Street Maps tiles. Change these settings as you
+         need to. */
+         
+      //Globals...
+      var mapCentre = [-123.312214, 48.463199];
+      var view = null, myLayers = [], layerOSM = null, featureJSONFile = 'js/BreezeMapTEI.json', holLayer = null;
+         
+      function initBreezeMap(){
+      
+        //Create a view centred on our area.
+        view = new ol.View({
+          projection: 'EPSG:3857',
+          center: ol.proj.fromLonLat(mapCentre),
+          maxZoom: 22,
+          numZoomLevels: 21,
+          zoom: 17
+        });
+        
+        //Create a tile layer using our own built OSM tileset.
+        layerOSM = new ol.layer.Tile({
+          source: new ol.source.OSM({
+            crossOrigin: 'anonymous',
+            numZoomLevels: 21,
+            maxZoom: 22
+          })
+        });
+        
+        myLayers.push(layerOSM);
+        
+        //Create a map using our new layer.
+        map = new ol.Map({
+          layers: myLayers,
+          renderer: 'canvas',
+          target: 'map',
+          interactions: ol.interaction.defaults().extend([
+             	    new ol.interaction.DragRotateAndZoom()
+             	  ]),
+          view: view
+        });
+      
+  
+//Now let's create a hol vector layer for all our features.
+        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
+                                                              allowDrawing: true,
+                                                              allowUpload: true,
+                                                              allowUserTracking: true,
+                                                              allFeaturesTaxonomy: true});
+      }
+      
+      window.addEventListener('load', function (event){initBreezeMap();});
+      
+    
+    </script>
+      
+       
+    </body>
+</html>

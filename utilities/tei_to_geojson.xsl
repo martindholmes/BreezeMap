@@ -25,7 +25,7 @@
     
     <xsl:variable name="root" select="/"/>
     <xsl:variable name="quot">"</xsl:variable>
-    <xsl:variable name="outputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '.json')"/>
+    <xsl:param name="outputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '.json')"/>
     <xsl:variable name="catsOutputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '_categories.json')"/>
 
   
