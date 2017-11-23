@@ -1259,7 +1259,7 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
 hol.VectorLayer.prototype.showCoords = function(geom){
   var strGeoJSON, geoObj, i, maxi, teiLocation, geojson = new ol.format.GeoJSON();
   try{
-    strGeoJSON = geojson.writeGeometry(geom, {decimals: 6});
+    strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
     geoObj = JSON.parse(strGeoJSON);
 //We have to handle the GeometryCollection differently in the TEI.  
     if (geom.getType() === 'GeometryCollection'){
@@ -1441,7 +1441,7 @@ hol.VectorLayer.prototype.downloadGeoJSON = function(){
     geojson = new ol.format.GeoJSON();
     outFeats = [this.baseFeature];
     outFeats = outFeats.concat(this.source.getFeatures());
-    mapjson = geojson.writeFeatures(outFeats, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6});
+    mapjson = geojson.writeFeatures(outFeats, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6, rightHanded: true});
     el = document.createElement('a');
     el.setAttribute('href', 'data:application/geo+json;charset=utf-8,' + encodeURIComponent(mapjson));
     el.setAttribute('download', this.geojsonFileName);
