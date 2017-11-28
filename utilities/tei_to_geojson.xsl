@@ -165,4 +165,8 @@
     &lt;a href="<xsl:apply-templates select="@url" mode="#current"/>" target="_blank"&gt;&lt;img src="<xsl:apply-templates select="@url" mode="#current"/>" alt="<xsl:value-of select="@url"/>"/&gt;&lt;/a&gt;
   </xsl:template>
     
+  <xsl:template match="lb" mode="serializedXhtml">
+    &lt;br/&gt;
+  </xsl:template>
+    
 </xsl:stylesheet>
