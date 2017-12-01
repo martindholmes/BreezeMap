@@ -55,6 +55,29 @@
 var hol = {};
 
 /**
+ * Properties in hol namespace used
+ * for string captions in the code.
+ * I would like to find a more effective
+ * approach to doing this.
+ */
+hol.strCloseX          = '×';
+hol.strFile            = 'File';
+hol.strLoadFile        = 'Load file...';
+hol.strSave            = 'Save...';
+hol.strSetup           = 'Setup...';
+hol.strMapArea         = 'Map area';
+hol.strDraw            = 'Draw';
+hol.strLoad            = 'Load';
+hol.strLoading         = 'Loading...';
+hol.strInfo            = 'ℹ';
+hol.strTrack           = '⌖';
+hol.strMenuToggle      = '≡';
+hol.strLocationsByCat  = 'Locations by category';
+hol.strSearch          = '🔍';
+hol.strReadMore        = 'Read more...';
+
+ 
+/**
  * Constants in hol namespace used
  * for tracking the process of complex
  * interactions between the navigation
@@ -730,7 +753,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docDisplayDiv.setAttribute('id', 'holDocDisplay');
     closeBtn = document.createElement('span');
     closeBtn.setAttribute('class', 'closeBtn');
-    closeBtn.appendChild(document.createTextNode('×'));
+    closeBtn.appendChild(document.createTextNode(hol.strCloseX));
     //closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = '-21rem'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     this.docDisplayDiv.appendChild(closeBtn);
@@ -834,11 +857,11 @@ hol.VectorLayer.prototype.setupUpload = function(){
       input.setAttribute('accept', 'application/vnd.geo+json,application/json');
       this.toolbar.appendChild(input);
       this.fileMenu = document.createElement('li');
-      this.fileMenu.appendChild(document.createTextNode('File'));
+      this.fileMenu.appendChild(document.createTextNode(hol.strFile));
       ul = document.createElement('ul');
       this.fileMenu.appendChild(ul);
       itemUp = document.createElement('li');
-      itemUp.appendChild(document.createTextNode('Load file...'));
+      itemUp.appendChild(document.createTextNode(hol.strLoadFile));
       ul.appendChild(itemUp);
       this.menu.appendChild(this.fileMenu);
       itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
@@ -859,7 +882,7 @@ hol.VectorLayer.prototype.setupUpload = function(){
             reader.readAsDataURL(input.files[0]);
         }.bind(this), false);
       itemDown = document.createElement('li');
-      itemDown.appendChild(document.createTextNode('Save...'));
+      itemDown.appendChild(document.createTextNode(hol.strSave));
       ul.appendChild(itemDown);
       itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false); 
     }
@@ -888,11 +911,11 @@ hol.VectorLayer.prototype.setupDrawing = function(){
 //Set up the setup menu.
     if (this.setupMenu === null){
       this.setupMenu = document.createElement('li');
-      this.setupMenu.appendChild(document.createTextNode('Setup'));
+      this.setupMenu.appendChild(document.createTextNode(hol.strSetup));
       menu = document.createElement('ul');
       this.setupMenu.appendChild(menu);
       item = document.createElement('li');
-      item.appendChild(document.createTextNode('Map area'));
+      item.appendChild(document.createTextNode(hol.strMapArea));
       menu.appendChild(item);
       item.addEventListener('click', this.drawMapBounds.bind(this), false);
       this.menu.appendChild(this.setupMenu);
@@ -904,7 +927,7 @@ hol.VectorLayer.prototype.setupDrawing = function(){
       types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
       simpleTypes = ['Point', 'LineString', 'Polygon'];
       this.drawMenu = document.createElement('li');
-      this.drawMenu.appendChild(document.createTextNode('Draw'));
+      this.drawMenu.appendChild(document.createTextNode(hol.strDraw));
       menu = document.createElement('ul');
       this.drawMenu.appendChild(menu);
       for (i=0, maxi = types.length; i< maxi; i++){
@@ -1480,7 +1503,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
   this.textarea = document.createElement('textarea');
   this.textEditor.appendChild(this.textarea);
   btn = document.createElement('button');
-  btn.appendChild(document.createTextNode('Load'));
+  btn.appendChild(document.createTextNode(hol.strLoad));
   btn.setAttribute('type', 'button');
   this.textEditor.appendChild(btn);
   this.docBody.appendChild(form);*/
@@ -1686,7 +1709,7 @@ hol.VectorLayer.prototype.getSplashScreen = function(){
     }
     loading = document.createElement('div');
     loading.setAttribute('id', 'holLoadingMessage');
-    loading.appendChild(document.createTextNode('Loading...'));
+    loading.appendChild(document.createTextNode(hol.strLoading));
     this.splash.appendChild(loading);
     this.docBody.appendChild(this.splash);
     spinner = document.createElement('div');
@@ -1844,7 +1867,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     div.setAttribute('class', 'toolbarSpacer');
     this.toolbar.appendChild(div);
     this.iButton = document.createElement('button');
-    this.iButton.appendChild(document.createTextNode('ℹ'));
+    this.iButton.appendChild(document.createTextNode(hol.strInfo));
     this.iButton.addEventListener('click', function(){
         if (this.splash.style.display === 'block'){
           this.splash.style.display = 'none';
@@ -1858,7 +1881,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     
     if ((this.allowUserTracking === true)&&('geolocation' in navigator)){
       this.userTrackButton = document.createElement('button');
-      this.userTrackButton.appendChild(document.createTextNode('⌖'));
+      this.userTrackButton.appendChild(document.createTextNode(hol.strTrack));
       this.userTrackButton.setAttribute('title', 'Toggle tracking of my location on the map.');
       this.userTrackButton.addEventListener('click', function(){
         this.toggleTracking();
@@ -1868,7 +1891,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     }
     
     this.mobileMenuToggleButton = document.createElement('button');
-    this.mobileMenuToggleButton.appendChild(document.createTextNode('≡'));
+    this.mobileMenuToggleButton.appendChild(document.createTextNode(hol.strMenuToggle));
     this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
     this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden');this.classList.toggle('menuHidden');});
     this.toolbar.appendChild(this.mobileMenuToggleButton);
@@ -2001,7 +2024,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navCloseDiv.setAttribute('id', 'navCloseDiv');
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
-      closeBtn.appendChild(doc.createTextNode('×'));
+      closeBtn.appendChild(doc.createTextNode(hol.strCloseX));
       closeBtn.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden'); this.mobileMenuToggleButton.classList.toggle('menuHidden');}.bind(this));
       navCloseDiv.appendChild(closeBtn);
       rightBox.appendChild(navCloseDiv);
@@ -2018,7 +2041,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       
       navCaption = doc.createElement('span');
       navCaption.setAttribute('id', 'navCaption');
-      navCaption.appendChild(doc.createTextNode('Locations by category'));
+      navCaption.appendChild(doc.createTextNode(hol.strLocationsByCat));
       navHeader.appendChild(navCaption);
       navInput = doc.createElement('input');
       navInput.setAttribute('type', 'text');
@@ -2030,7 +2053,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       
       navSearchButton = doc.createElement('button');
       navSearchButton.setAttribute('id', 'btnNavSearch');
-      navSearchButton.appendChild(doc.createTextNode('🔍'));
+      navSearchButton.appendChild(doc.createTextNode(hol.strSearch));
       navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
       navSearchButton.setAttribute('title', 'Search for locations');
       navHeader.appendChild(navSearchButton);
@@ -2048,7 +2071,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
       closeBtn.addEventListener('click', function(){this.parentNode.style.display = 'none';}, false);
-      closeBtn.appendChild(doc.createTextNode('×'));
+      closeBtn.appendChild(doc.createTextNode(hol.strCloseX));
       this.infoDiv.appendChild(closeBtn);
       this.infoDiv.appendChild(doc.createElement('h2'));
       this.infoDiv.appendChild(doc.createElement('div'));
@@ -2674,7 +2697,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
       showDoc = document.createElement('span');
       showDoc.setAttribute('class', 'holShowDoc');
       showDoc.addEventListener('click', this.showDocument.bind(this, props.links[0])); 
-      showDoc.appendChild(document.createTextNode('Read more...'));
+      showDoc.appendChild(document.createTextNode(hol.strReadMore));
       p.appendChild(showDoc);
       this.infoDiv.querySelector('div').appendChild(p);
     }
