@@ -60,23 +60,28 @@ var hol = {};
  * I would like to find a more effective
  * approach to doing this.
  */
-hol.strCloseX          = '×';
-hol.strFile            = 'File';
-hol.strLoadFile        = 'Load file...';
-hol.strSave            = 'Save...';
-hol.strSetup           = 'Setup...';
-hol.strMapArea         = 'Map area';
-hol.strDraw            = 'Draw';
-hol.strLoad            = 'Load';
-hol.strLoading         = 'Loading...';
-hol.strInfo            = 'ℹ';
-hol.strTrack           = '⌖';
-hol.strMenuToggle      = '≡';
-hol.strLocationsByCat  = 'Locations by category';
-hol.strSearch          = '🔍';
-hol.strReadMore        = 'Read more...';
+hol.strCloseX           = '×';
+hol.strFile             = 'File';
+hol.strLoadFile         = 'Load file...';
+hol.strSave             = 'Save...';
+hol.strSetup            = 'Setup...';
+hol.strMapArea          = 'Map area';
+hol.strDraw             = 'Draw';
+hol.strLoad             = 'Load';
+hol.strLoading          = 'Loading...';
+hol.strInfo             = 'ℹ';
+hol.strTrack            = '⌖';
+hol.strMenuToggle       = '≡';
+hol.strLocationsByCat   = 'Locations by category';
+hol.strSearch           = '🔍';
+hol.strReadMore         = 'Read more...';
+hol.strSearchForLocs    = 'Search for locations';
+hol.strUnnamedFeat      = 'unnamed feature';
+hol.strNetworkError     = 'There was a network error.';
+hol.strToggleTracking   = 'Toggle tracking of my location on the map.';
+hol.strShowHideAllFeats = 'Show/hide all features';
 
- 
+
 /**
  * Constants in hol namespace used
  * for tracking the process of complex
@@ -621,7 +626,7 @@ hol.Util.ajaxRetrieve = function(url, responseType) {
     request.onerror = function() {
     // Also deal with the case when the entire request fails to begin with
     // This is probably a network error, so reject the promise with an appropriate message
-        reject(Error('There was a network error.'));
+        reject(Error(hol.strNetworkError));
     };
     // Send the request
     request.send();
@@ -1882,7 +1887,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     if ((this.allowUserTracking === true)&&('geolocation' in navigator)){
       this.userTrackButton = document.createElement('button');
       this.userTrackButton.appendChild(document.createTextNode(hol.strTrack));
-      this.userTrackButton.setAttribute('title', 'Toggle tracking of my location on the map.');
+      this.userTrackButton.setAttribute('title', hol.strToggleTracking);
       this.userTrackButton.addEventListener('click', function(){
         this.toggleTracking();
         return false;
@@ -2033,7 +2038,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navHeader = doc.createElement('h2');
       chkShowAll = doc.createElement('input');
       chkShowAll.setAttribute('type', 'checkbox');
-      chkShowAll.setAttribute('title', 'Show/hide all features');
+      chkShowAll.setAttribute('title', hol.strShowHideAllFeats);
       chkShowAll.setAttribute('id', 'chkShowAll');
       chkShowAll.addEventListener('change', this.showHideAllFeatures.bind(this, chkShowAll, chkShowAll.checked));
       this.allFeaturesCheckbox = chkShowAll;
@@ -2046,7 +2051,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navInput = doc.createElement('input');
       navInput.setAttribute('type', 'text');
       navInput.setAttribute('id', 'inpNavSearch');
-      navInput.setAttribute('placeholder', 'Search for locations');
+      navInput.setAttribute('placeholder', hol.strSearchForLocs);
       navInput.addEventListener('keydown', function(event){if (event.keyCode===13 || event.which===13){this.doLocationSearch(true); event.preventDefault();}}.bind(this), false);
       this.navInput = navInput;
       navHeader.appendChild(navInput);
@@ -2055,7 +2060,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navSearchButton.setAttribute('id', 'btnNavSearch');
       navSearchButton.appendChild(doc.createTextNode(hol.strSearch));
       navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
-      navSearchButton.setAttribute('title', 'Search for locations');
+      navSearchButton.setAttribute('title', hol.strSearchForLocs);
       navHeader.appendChild(navSearchButton);
       
       
@@ -2125,7 +2130,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
         thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
         thisFeatSpan = doc.createElement('span');
         thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
-        thisFeatSpan.appendChild(doc.createTextNode(props.name || 'unnamed feature'));
+        thisFeatSpan.appendChild(doc.createTextNode(props.name || hol.strUnnamedFeat));
         thisFeatLi.appendChild(thisFeatChk);
         thisFeatLi.appendChild(thisFeatSpan);
         thisCatUl.appendChild(thisFeatLi);
