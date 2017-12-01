@@ -12,7 +12,7 @@
 
 /**
  * This file provides functionality built onto
- * the OpenLayers3 API to handle data in various
+ * the OpenLayers3+ API to handle data in various
  * formats (GeoJSON initially, along with some
  * additional custom data relating to the
  * categories of features which cannot straightforwardly
@@ -101,7 +101,7 @@ hol.NAV_HARMONIZING_FEATURE_CHECKBOXES = 2;
 hol.NAV_HARMONIZING_CATEGORY_CHECKBOXES = 3;
 
 /** @constant hol.NAV_SHOWHIDING_CATEGORY 
- *                 A process of showing or hiding 
+ *                     A process of showing or hiding 
  *                     an entire category of features
  *                     is currently in progress.
  *  @type {number}
@@ -665,10 +665,14 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
                                                 //To be set by the host application if required.
                                                 
+    this.onReadyFunction = options.onReadyFunction || null; 
+                                                //A function to be called when the object has been fully constructed.
+                                                
     this.trackUserLocation = options.trackUserLocation || false;             
                                                //Whether or not geolocation tracking should be turned on automatically
     this.allowUserTracking = options.allowUserTracking || false;
                                                //Whether a button is provided for users to turn on tracking.
+                                  
     this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
     
     this.userPositionMarker = null;            //Pointer to a feature used as a position marker for user tracking.
@@ -1339,6 +1343,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
 //It's a URL.
       this.featuresUrl = geojson;
       this.source = new ol.source.Vector({
+        crossOrigin: 'anonymous',
         url: this.featuresUrl,
         format: new ol.format.GeoJSON()
       });
@@ -1734,6 +1739,11 @@ hol.VectorLayer.prototype.afterLoading = function(){
     */ 
     
     this.browserShims();
+    
+    if (this.onReadyFunction !== null){
+      this.onReadyFunction();
+    }
+    
     return true;
   }
   catch(e){
