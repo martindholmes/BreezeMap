@@ -60,27 +60,27 @@ var hol = {};
  * I would like to find a more effective
  * approach to doing this.
  */
-hol.strCloseX           = '×';
-hol.strFile             = 'File';
-hol.strLoadFile         = 'Load file...';
-hol.strSave             = 'Save...';
-hol.strSetup            = 'Setup...';
-hol.strMapArea          = 'Map area';
-hol.strDraw             = 'Draw';
-hol.strLoad             = 'Load';
-hol.strLoading          = 'Loading...';
-hol.strInfo             = 'ℹ';
-hol.strTrack            = '⌖';
-hol.strMenuToggle       = '≡';
-hol.strLocationsByCat   = 'Locations by category';
-hol.strSearch           = '🔍';
-hol.strReadMore         = 'Read more...';
-hol.strSearchForLocs    = 'Search for locations';
-hol.strUnnamedFeat      = 'unnamed feature';
-hol.strNetworkError     = 'There was a network error.';
-hol.strToggleTracking   = 'Toggle tracking of my location on the map.';
-hol.strShowHideAllFeats = 'Show/hide all features';
-
+hol.strCloseX             = '×';
+hol.strFile               = 'File';
+hol.strLoadFile           = 'Load file...';
+hol.strSave               = 'Save...';
+hol.strSetup              = 'Setup...';
+hol.strMapArea            = 'Map area';
+hol.strDraw               = 'Draw';
+hol.strLoad               = 'Load';
+hol.strLoading            = 'Loading...';
+hol.strInfo               = 'ℹ';
+hol.strTrack              = '⌖';
+hol.strMenuToggle         = '≡';
+hol.strLocationsByCat     = 'Locations by category';
+hol.strSearch             = '🔍';
+hol.strReadMore           = 'Read more...';
+hol.strSearchForLocs      = 'Search for locations';
+hol.strUnnamedFeat        = 'unnamed feature';
+hol.strNetworkError       = 'There was a network error.';
+hol.strToggleTracking     = 'Toggle tracking of my location on the map.';
+hol.strShowHideAllFeats   = 'Show/hide all features';
+hol.strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
 
 /**
  * Constants in hol namespace used
@@ -3068,7 +3068,7 @@ hol.VectorLayer.prototype.toggleTracking = function(){
 
     if ((track === true)&&('geolocation' in navigator)){
       this.userTrackButton.classList.add('on');
-      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert('Sorry, your browser does not support geolocation tracking.'); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert(hol.strGeoLocNotSupported); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
     }
     else{
       if (this.userPositionMarker !== null){
