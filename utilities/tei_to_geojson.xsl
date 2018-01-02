@@ -9,12 +9,11 @@
     version="2.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created on:</xd:b> May 20, 2016</xd:p>
+            <xd:p><xd:b>Created on:</xd:b> May 20, 2016; updated into 2018.</xd:p>
             <xd:p><xd:b>Author:</xd:b> mholmes</xd:p>
             <xd:p>The purpose of this stylesheet is to process a single 
             TEI file, conforming to a specific highly-constrained schema,
-            into two JSON files, one for categories and one GeoJSON for
-            features.</xd:p>
+            into a single GeoJSON file.</xd:p>
         </xd:desc>
     </xd:doc>
     
@@ -26,8 +25,6 @@
     <xsl:variable name="root" select="/"/>
     <xsl:variable name="quot">"</xsl:variable>
     <xsl:param name="outputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '.json')"/>
-    <xsl:variable name="catsOutputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '_categories.json')"/>
-
   
     <xsl:template match="/">
 
@@ -44,10 +41,21 @@
         <!--<xsl:if test="$places[@xml:id='holMap']">-->
           <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>
           <xsl:text>      "id": "holMap", &#x0a;</xsl:text>
-          <xsl:text>      "geometry": {&#x0a;</xsl:text>
-          <xsl:text>        "type": "Polygon", &#x0a;</xsl:text>
-        <xsl:text>        "coordinates": </xsl:text><xsl:value-of select="if ($places[@xml:id='holMap']/location/geo) then $places[@xml:id='holMap']/location/geo else '[]'"/>
-          <xsl:text>&#x0a;      }, &#x0a;      "properties": {&#x0a;</xsl:text>
+        
+          <xsl:choose>
+<!--     We still process files of the old markup type, although this 
+         approach to encoding is deprecated. -->
+            <xsl:when test="not($places[@xml:id='holMap']/location[@type='GeoJSON']/geo)">
+              <xsl:text>      "geometry": {&#x0a;</xsl:text>
+              <xsl:text>        "type": "Polygon", &#x0a;</xsl:text>
+              <xsl:text>        "coordinates": </xsl:text><xsl:value-of select="if ($places[@xml:id='holMap']/location/geo) then $places[@xml:id='holMap']/location/geo else '[]'"/>
+              <xsl:text>&#x0a;      }, &#x0a;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$places[@xml:id='holMap']/location[@type='GeoJSON']/geo"/><xsl:text>, </xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:text>"properties": {&#x0a;</xsl:text>
           <xsl:text>        "name": "holMap",&#x0a;</xsl:text>
           <xsl:text>        "taxonomies": [</xsl:text>
           <xsl:for-each select="$root//taxonomy">
@@ -78,27 +86,37 @@
           <xsl:variable name="thisPlace" select="."/>
           <xsl:text>  { "type": "Feature",&#x0a;</xsl:text>
           <xsl:text>      "id": "</xsl:text><xsl:value-of select="$thisPlace/@xml:id"/><xsl:text>", &#x0a;</xsl:text>
-          <xsl:text>      "geometry": {&#x0a;</xsl:text>
-          <xsl:text>        "type": "</xsl:text><xsl:value-of select="location/@type"/><xsl:text>", &#x0a;</xsl:text>
-          
           <xsl:choose>
-            <xsl:when test="location/@type = 'GeometryCollection'">
-              <xsl:text>        "geometries": [&#x0a;</xsl:text>
-                <xsl:for-each select="location/geo">
-                  <xsl:text>          {&#x0a;</xsl:text>
-                  <xsl:text>            "type": "</xsl:text><xsl:value-of select="@n"/><xsl:text>", &#x0a;</xsl:text>
-                  <xsl:text>            "coordinates": </xsl:text><xsl:value-of select="."/>
-                  <xsl:text>&#x0a;          }</xsl:text><xsl:if test="position() lt last()"><xsl:text>, </xsl:text></xsl:if>
-                  <xsl:text>&#x0a;</xsl:text>
-                </xsl:for-each>
-              <xsl:text>        ]</xsl:text>
+            <!--     We still process files of the old markup type, although this 
+           approach to encoding is deprecated. -->
+            <xsl:when test="not($thisPlace/location/@type='GeoJSON')">
+              <xsl:text>      "geometry": {&#x0a;</xsl:text>
+              <xsl:text>        "type": "</xsl:text><xsl:value-of select="location/@type"/><xsl:text>", &#x0a;</xsl:text>
+              
+              <xsl:choose>
+                <xsl:when test="$thisPlace/location/@type = 'GeometryCollection'">
+                  <xsl:text>        "geometries": [&#x0a;</xsl:text>
+                  <xsl:for-each select="$thisPlace/location/geo">
+                    <xsl:text>          {&#x0a;</xsl:text>
+                    <xsl:text>            "type": "</xsl:text><xsl:value-of select="@n"/><xsl:text>", &#x0a;</xsl:text>
+                    <xsl:text>            "coordinates": </xsl:text><xsl:value-of select="."/>
+                    <xsl:text>&#x0a;          }</xsl:text><xsl:if test="position() lt last()"><xsl:text>, </xsl:text></xsl:if>
+                    <xsl:text>&#x0a;</xsl:text>
+                  </xsl:for-each>
+                  <xsl:text>        ]</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>        "coordinates": </xsl:text><xsl:value-of select="$thisPlace/location/geo"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              <xsl:text>&#x0a;      }</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:text>        "coordinates": </xsl:text><xsl:value-of select="location/geo"/>
+              <xsl:value-of select="$thisPlace/location[@type='GeoJSON']/geo"/>
             </xsl:otherwise>
           </xsl:choose>
-          <xsl:text>&#x0a;      }, &#x0a;      "properties": {&#x0a;</xsl:text>
           
+          <xsl:text>,&#x0a;      "properties": {&#x0a;</xsl:text>
 <!--  GET ALL THE PROPERTIES HERE.        -->
           
           <xsl:text>        "name": "</xsl:text><xsl:value-of select="hcmc:escapeForJSON($thisPlace/placeName)"/><xsl:text>", &#x0a;</xsl:text>

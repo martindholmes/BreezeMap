@@ -5,10 +5,10 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2016-06-19T21:48:38Z. .
-TEI Edition: Version 3.0.0. Last updated on
-	29th March 2016, revision 89ba24e
-TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
+Schema generated from ODD source 2018-01-02T22:23:45Z. .
+TEI Edition: Version 3.3.0a. Last updated on
+	15th December 2017, revision 8f36d97
+TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.0a./
   
 --><!--This material is dual-licensed.
 [https://opensource.org/licenses/MIT] All code will be hosted on GitHub and released under an MIT license. [http://creativecommons.org/licenses/by/4.0/] Documentation will be released under Creative Commons Attribution 4.0 International.-->
@@ -201,7 +201,7 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.datable.w3c-att-datable-w3c-when-constraint-1">
+            id="breezemap-att.datable.w3c-att-datable-w3c-when-constraint-rule-1">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -210,7 +210,7 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.datable.w3c-att-datable-w3c-from-constraint-2">
+            id="breezemap-att.datable.w3c-att-datable-w3c-from-constraint-rule-2">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -219,7 +219,7 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.datable.w3c-att-datable-w3c-to-constraint-3">
+            id="breezemap-att.datable.w3c-att-datable-w3c-to-constraint-rule-3">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -243,7 +243,7 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.datable-calendar-calendar-constraint-4">
+            id="breezemap-att.datable-calendar-calendar-constraint-rule-4">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -383,9 +383,25 @@ belongs, but this <sch:name/> element has no textual content.</sch:assert>
          </attribute>
       </optional>
    </define>
+   <define name="att.global.source.attributes">
+      <ref name="att.global.source.attribute.source"/>
+   </define>
+   <define name="att.global.source.attribute.source">
+      <optional>
+         <attribute name="source">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the source from which some aspect of this element is drawn.</a:documentation>
+            <list>
+               <oneOrMore>
+                  <data type="anyURI"/>
+               </oneOrMore>
+            </list>
+         </attribute>
+      </optional>
+   </define>
    <define name="att.global.attributes">
       <ref name="att.global.rendition.attributes"/>
       <ref name="att.global.linking.attributes"/>
+      <ref name="att.global.source.attributes"/>
       <ref name="att.global.attribute.xmlid"/>
       <ref name="att.global.attribute.n"/>
       <ref name="att.global.attribute.xmllang"/>
@@ -582,7 +598,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.typed-subtypeTyped-constraint-5">
+            id="breezemap-att.typed-subtypeTyped-constraint-rule-5">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -610,7 +626,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       </optional>
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-            id="breezemap-att.pointing-targetLang-targetLang-constraint-6">
+            id="breezemap-att.pointing-targetLang-targetLang-constraint-rule-6">
       <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
@@ -1091,23 +1107,23 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
       <choice>
          <ref name="placeName"/>
          <ref name="region"/>
-         <ref name="district"/>
          <ref name="settlement"/>
+         <ref name="district"/>
       </choice>
    </define>
    <define name="model.placeNamePart_alternation">
       <choice>
          <ref name="placeName"/>
          <ref name="region"/>
-         <ref name="district"/>
          <ref name="settlement"/>
+         <ref name="district"/>
       </choice>
    </define>
    <define name="model.placeNamePart_sequence">
       <ref name="placeName"/>
       <ref name="region"/>
-      <ref name="district"/>
       <ref name="settlement"/>
+      <ref name="district"/>
    </define>
    <define name="model.placeNamePart_sequenceOptional">
       <optional>
@@ -1117,10 +1133,10 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <ref name="region"/>
       </optional>
       <optional>
-         <ref name="district"/>
+         <ref name="settlement"/>
       </optional>
       <optional>
-         <ref name="settlement"/>
+         <ref name="district"/>
       </optional>
    </define>
    <define name="model.placeNamePart_sequenceOptionalRepeatable">
@@ -1131,10 +1147,10 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <ref name="region"/>
       </zeroOrMore>
       <zeroOrMore>
-         <ref name="district"/>
+         <ref name="settlement"/>
       </zeroOrMore>
       <zeroOrMore>
-         <ref name="settlement"/>
+         <ref name="district"/>
       </zeroOrMore>
    </define>
    <define name="model.placeNamePart_sequenceRepeatable">
@@ -1145,10 +1161,10 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <ref name="region"/>
       </oneOrMore>
       <oneOrMore>
-         <ref name="district"/>
+         <ref name="settlement"/>
       </oneOrMore>
       <oneOrMore>
-         <ref name="settlement"/>
+         <ref name="district"/>
       </oneOrMore>
    </define>
    <define name="model.placeStateLike">
@@ -1216,6 +1232,7 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
    </define>
    <define name="model.publicationStmtPart.detail">
       <choice>
+         <ref name="model.ptrLike"/>
          <ref name="date"/>
          <ref name="availability"/>
       </choice>
@@ -1431,21 +1448,6 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
    <define name="model.sourceDescPart">
       <notAllowed/>
    </define>
-   <define name="att.source.attributes">
-      <ref name="att.source.attribute.source"/>
-   </define>
-   <define name="att.source.attribute.source">
-      <optional>
-         <attribute name="source">
-            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">provides a pointer to the bibliographical source from which a quotation or citation is drawn.</a:documentation>
-            <list>
-               <oneOrMore>
-                  <data type="anyURI"/>
-               </oneOrMore>
-            </list>
-         </attribute>
-      </optional>
-   </define>
    <define name="model.resourceLike">
       <choice>
          <ref name="text"/>
@@ -1491,19 +1493,17 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(paragraph) marks paragraphs in prose. [3.1. Paragraphs 7.2.5. Speech Contents]</a:documentation>
          <ref name="macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-p-abstractModel-p-constraint-4">
+                  id="breezemap-p-abstractModel-structure-p-constraint-report-4">
             <rule context="tei:p">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                       test="(ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum                |parent::tei:item                |parent::tei:note                |parent::tei:q                |parent::tei:quote                |parent::tei:remarks                |parent::tei:said                |parent::tei:sp                |parent::tei:stage                |parent::tei:cell                |parent::tei:figure)">
-        Abstract model violation: Paragraphs may not contain other paragraphs or ab elements.
+               <report test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum                |parent::tei:item                |parent::tei:note                |parent::tei:q                |parent::tei:quote                |parent::tei:remarks                |parent::tei:said                |parent::tei:sp                |parent::tei:stage                |parent::tei:cell                |parent::tei:figure                )">
+        Abstract model violation: Paragraphs may not occur inside other paragraphs or ab elements.
       </report>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-p-abstractModel-structure-l-constraint-5">
+                  id="breezemap-p-abstractModel-structure-l-constraint-report-5">
             <rule context="tei:p">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                       test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
+               <report test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
         Abstract model violation: Lines may not contain higher-level structural elements such as div, p, or ab.
       </report>
             </rule>
@@ -1529,7 +1529,6 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <ref name="macro.specialPara"/>
          <ref name="att.global.attributes"/>
          <ref name="att.ascribed.attributes"/>
-         <ref name="att.source.attributes"/>
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">may be used to indicate whether the offset passage is spoken or thought, or to characterize it more finely.
@@ -1564,7 +1563,7 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
    </define>
    <define name="desc">
       <element name="desc">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(description) contains a brief description of the object documented by its parent element, including its intended usage, purpose, or application where this is appropriate. [22.4.1. Description of Components]</a:documentation>
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(description) contains a brief description of the object documented by its parent element, typically a documentation element or an entity. [22.4.1. Description of Components]</a:documentation>
          <choice>
             <ref name="macro.phraseSeq"/>
             <ref name="list"/>
@@ -1605,12 +1604,12 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
    <define name="choice">
       <element name="choice">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">groups a number of alternative encodings for the same point in a text. [3.4. Simple Editorial Changes]</a:documentation>
-         <zeroOrMore>
+         <oneOrMore>
             <choice>
                <ref name="model.choicePart"/>
                <ref name="choice"/>
             </choice>
-         </zeroOrMore>
+         </oneOrMore>
          <ref name="att.global.attributes"/>
          <empty/>
       </element>
@@ -1637,7 +1636,6 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(abbreviation) contains an abbreviation of any sort. [3.5.5. Abbreviations and Their Expansions]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <ref name="att.global.attributes"/>
-         <ref name="att.source.attributes"/>
          <ref name="att.typed.attribute.subtype"/>
          <optional>
             <attribute name="type">
@@ -1664,9 +1662,9 @@ Sample values include: 1] suspension; 2] contraction; 3] brevigraph; 4] superscr
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(pointer) defines a pointer to another location. [3.6. Simple Links and Cross-References 16.1. Links]</a:documentation>
          <empty/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-ptr-ptrAtts-constraint-6">
+                  id="breezemap-ptr-ptrAtts-constraint-report-6">
             <rule context="tei:ptr">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0" test="@target and @cRef">Only one of the
+               <report test="@target and @cRef">Only one of the
 attributes @target and @cRef may be supplied on <name/>.</report>
             </rule>
          </pattern>
@@ -1684,9 +1682,9 @@ attributes @target and @cRef may be supplied on <name/>.</report>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(reference) defines a reference to another location, possibly modified by additional text or comment. [3.6. Simple Links and Cross-References 16.1. Links]</a:documentation>
          <ref name="macro.paraContent"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-ref-refAtts-constraint-7">
+                  id="breezemap-ref-refAtts-constraint-report-7">
             <rule context="tei:ref">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0" test="@target and @cRef">Only one of the
+               <report test="@target and @cRef">Only one of the
 	attributes @target' and @cRef' may be supplied on <name/>
                </report>
             </rule>
@@ -1768,9 +1766,8 @@ attributes @target and @cRef may be supplied on <name/>.</report>
       
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-list-gloss-list-must-have-labels-constraint-7">
+                  id="breezemap-list-gloss-list-must-have-labels-constraint-rule-7">
             <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns="http://www.tei-c.org/ns/1.0"
                       context="tei:list[@type='gloss']">
 	              <sch:assert test="tei:label">The content of a "gloss" list should include a sequence of one or more pairs of a label element followed by an item element</sch:assert>
@@ -1831,6 +1828,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
          </zeroOrMore>
          <ref name="att.global.attributes"/>
          <ref name="att.typed.attributes"/>
+         <ref name="att.placement.attributes"/>
          <ref name="att.written.attributes"/>
          <empty/>
       </element>
@@ -1842,7 +1840,6 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
          <ref name="att.global.attributes"/>
          <ref name="att.placement.attributes"/>
          <ref name="att.pointing.attributes"/>
-         <ref name="att.source.attributes"/>
          <ref name="att.typed.attributes"/>
          <ref name="att.written.attributes"/>
          <optional>
@@ -1886,6 +1883,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
          <ref name="att.global.attributes"/>
          <ref name="att.canonical.attributes"/>
          <ref name="att.typed.attribute.subtype"/>
+         <ref name="att.datable.attributes"/>
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">classifies the title according to some convenient typology.
@@ -1937,17 +1935,6 @@ Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] sho
          <ref name="fileDesc"/>
          <ref name="encodingDesc"/>
          <ref name="att.global.attributes"/>
-         <optional>
-            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                       name="type"
-                       a:defaultValue="text">
-               <a:documentation>specifies the kind of document to which the header is attached, for example whether it is a corpus or individual text.
-Sample values include: 1] text; 2] corpus</a:documentation>
-               <data type="token">
-                  <param name="pattern">(\p{L}|\p{N}|\p{P}|\p{S})+</param>
-               </data>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -2040,17 +2027,15 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <ref name="att.global.attributes"/>
          <ref name="att.declarable.attributes"/>
          <optional>
-            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                       name="status"
-                       a:defaultValue="unknown">
-               <a:documentation>supplies a code identifying the current availability of the text.</a:documentation>
+            <attribute name="status">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">supplies a code identifying the current availability of the text.</a:documentation>
                <choice>
                   <value>free</value>
-                  <a:documentation>the text is freely available.</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the text is freely available.</a:documentation>
                   <value>unknown</value>
-                  <a:documentation>the status of the text is unknown.</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the status of the text is unknown.</a:documentation>
                   <value>restricted</value>
-                  <a:documentation>the text is not freely available.</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the text is not freely available.</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -2101,7 +2086,7 @@ Sample values include: 1] text; 2] corpus</a:documentation>
    </define>
    <define name="prefixDef">
       <element name="prefixDef">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(prefixing scheme used in data.pointer values) defines a prefixing scheme used in data.pointer values, showing how abbreviated URIs using the scheme may be expanded into full URIs. [16.2.3. Using Abbreviated Pointers]</a:documentation>
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(prefix definition) defines a prefixing scheme used in data.pointer values, showing how abbreviated URIs using the scheme may be expanded into full URIs. [16.2.3. Using Abbreviated Pointers]</a:documentation>
          <zeroOrMore>
             <ref name="model.pLike"/>
          </zeroOrMore>
@@ -2109,7 +2094,9 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <ref name="att.patternReplacement.attributes"/>
          <attribute name="ident">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">supplies a name which functions as the prefix for an abbreviated pointing scheme such as a private URI scheme. The prefix constitutes the text preceding the first colon.</a:documentation>
-            <data type="Name"/>
+            <data type="token">
+               <param name="pattern">[a-z][a-z0-9\+\.\-]*</param>
+            </data>
          </attribute>
          <empty/>
       </element>
@@ -2148,6 +2135,7 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <ref name="att.global.rendition.attribute.style"/>
          <ref name="att.global.rendition.attribute.rendition"/>
          <ref name="att.global.linking.attribute.corresp"/>
+         <ref name="att.global.source.attribute.source"/>
          <attribute name="n">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A name or caption for this taxonomy) Each taxonomy in your header must have a caption designated in its @n attribute. This allows the map interface to provide users with a choice of different sets of categories to display in the even that you have multiple embedded taxonomies. </a:documentation>
             <data type="string"/>
@@ -2282,18 +2270,17 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(text division) contains a subdivision of the front, body, or back of a text. [4.1. Divisions of the Body]</a:documentation>
          <ref name="listPlace"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-div-abstractModel-structure-l-constraint-9">
+                  id="breezemap-div-abstractModel-structure-l-constraint-report-9">
             <rule context="tei:div">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0" test="ancestor::tei:l">
+               <report test="ancestor::tei:l">
         Abstract model violation: Lines may not contain higher-level structural elements such as div.
       </report>
             </rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-div-abstractModel-structure-p-constraint-10">
+                  id="breezemap-div-abstractModel-structure-p-constraint-report-10">
             <rule context="tei:div">
-               <report xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                       test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
+               <report test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
         Abstract model violation: p and ab may not contain higher-level structural elements such as div.
       </report>
             </rule>
@@ -2612,9 +2599,9 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <empty/>
       </element>
    </define>
-   <define name="district">
-      <element name="district">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of any kind of subdivision of a settlement, such as a parish, ward, or other administrative or geographic unit. [13.2.3. Place Names]</a:documentation>
+   <define name="settlement">
+      <element name="settlement">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <ref name="att.global.attributes"/>
          <ref name="att.naming.attributes"/>
@@ -2623,9 +2610,9 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <empty/>
       </element>
    </define>
-   <define name="settlement">
-      <element name="settlement">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
+   <define name="district">
+      <element name="district">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of any kind of subdivision of a settlement, such as a parish, ward, or other administrative or geographic unit. [13.2.3. Place Names]</a:documentation>
          <ref name="macro.phraseSeq"/>
          <ref name="att.global.attributes"/>
          <ref name="att.naming.attributes"/>
@@ -2638,31 +2625,8 @@ Sample values include: 1] text; 2] corpus</a:documentation>
       <element name="geo">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(geographical coordinates) contains any expression of a set of geographic coordinates, representing a point, line, or area on the surface of the earth in some notation. [13.3.4.1. Varieties of Location]</a:documentation>
          <text/>
-         <ref name="att.global.attribute.xmlid"/>
-         <ref name="att.global.attribute.xmllang"/>
-         <ref name="att.global.rendition.attribute.style"/>
-         <ref name="att.global.rendition.attribute.rendition"/>
-         <ref name="att.global.linking.attribute.corresp"/>
+         <ref name="att.global.attributes"/>
          <ref name="att.declaring.attributes"/>
-         <optional>
-            <attribute name="n">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(number) gives a number (or other label) for an element, which is not necessarily unique within the document.</a:documentation>
-               <choice>
-                  <value>Point</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A single point) A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</a:documentation>
-                  <value>MultiPoint</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple points) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a LineString, but is interpreted as discrete points.</a:documentation>
-                  <value>LineString</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A line spanning multiple points) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a MultiPoint, but is interpreted as a line rather than discrete points.</a:documentation>
-                  <value>MultiLineString</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple lines, each spanning multiple points) Multiple instances of LineString, each consisting of a sequence of points separated by commas inside square brackets, with the LineStrings themselves contained in square brackets and comma-separated: [[[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]], [[ -121.972189,49.094992,0 ], [ -121.971931,49.093138,0 ],[ -121.970215,49.092463,0 ]]] NOTE: This looks the same as a MultiPolygon, but shapes are not closed.</a:documentation>
-                  <value>Polygon</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A polygon or "linear ring") A Polygon typically consists of a "linear ring" of coordinates: a series of points in square brackets, comma-separated and enclosed in square brackets. There is a third set of brackets around the outside, making three levels. If the polygon is a donut, then an additional polygon constituting the empty area inside is added inside the outer square brackets. In a linear ring, the first and last coordinates must be the same: [[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]]</a:documentation>
-                  <value>MultiPolygon</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple polygons or "linear rings") A MultiPolygon contains several polygon coordinate sets inside an outer (fourth level) set of square brackets: [[[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]], [[[ -121.961117,49.092688,0 ], [ -121.940603,49.080659,0 ], [ -121.940432,49.092913,0 ], [ -121.961288,49.093194,0 ], [ -121.961117,49.092688,0 ]]]]</a:documentation>
-               </choice>
-            </attribute>
-         </optional>
          <empty/>
       </element>
    </define>
@@ -2751,20 +2715,22 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <attribute name="type">
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
             <choice>
+               <value>GeoJSON</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A complete GeoJSON geometry object. PREFERRED OPTION) The child geo element contains a complete GeoJSON geometry object conforming with the GeoJSON specification.</a:documentation>
                <value>Point</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A single point) A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A single point. DEPRECATED; use GeoJSON) A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</a:documentation>
                <value>MultiPoint</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple points) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a LineString, but is interpreted as discrete points.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple points. DEPRECATED; use GeoJSON) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a LineString, but is interpreted as discrete points.</a:documentation>
                <value>LineString</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A line spanning multiple points) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a MultiPoint, but is interpreted as a line rather than discrete points.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A line spanning multiple points. DEPRECATED; use GeoJSON) Multiple points, each expressed as two or three comma-separated coordinates inside square brackets, the points separated by commas inside another set of square brackets: [[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]] NOTE: This looks the same as a MultiPoint, but is interpreted as a line rather than discrete points.</a:documentation>
                <value>MultiLineString</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple lines, each spanning multiple points) Multiple instances of LineString, each consisting of a sequence of points separated by commas inside square brackets, with the LineStrings themselves contained in square brackets and comma-separated: [[[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]], [[ -121.972189,49.094992,0 ], [ -121.971931,49.093138,0 ],[ -121.970215,49.092463,0 ]]] NOTE: This looks the same as a MultiPolygon, but shapes are not closed.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple lines, each spanning multiple points. DEPRECATED; use GeoJSON) Multiple instances of LineString, each consisting of a sequence of points separated by commas inside square brackets, with the LineStrings themselves contained in square brackets and comma-separated: [[[ -121.988314,49.050278,0 ], [ -121.962844,49.093422,0 ]], [[ -121.972189,49.094992,0 ], [ -121.971931,49.093138,0 ],[ -121.970215,49.092463,0 ]]] NOTE: This looks the same as a MultiPolygon, but shapes are not closed.</a:documentation>
                <value>Polygon</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A polygon or "linear ring") A Polygon typically consists of a "linear ring" of coordinates: a series of points in square brackets, comma-separated and enclosed in square brackets. There is a third set of brackets around the outside, making three levels. If the polygon is a donut, then an additional polygon constituting the empty area inside is added inside the outer square brackets. In a linear ring, the first and last coordinates must be the same: [[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]]</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(A polygon or "linear ring". DEPRECATED; use GeoJSON) A Polygon typically consists of a "linear ring" of coordinates: a series of points in square brackets, comma-separated and enclosed in square brackets. There is a third set of brackets around the outside, making three levels. If the polygon is a donut, then an additional polygon constituting the empty area inside is added inside the outer square brackets. In a linear ring, the first and last coordinates must be the same: [[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]]</a:documentation>
                <value>MultiPolygon</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple polygons or "linear rings") A MultiPolygon contains several polygon coordinate sets inside an outer (fourth level) set of square brackets: [[[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]], [[[ -121.961117,49.092688,0 ], [ -121.940603,49.080659,0 ], [ -121.940432,49.092913,0 ], [ -121.961288,49.093194,0 ], [ -121.961117,49.092688,0 ]]]]</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Multiple polygons or "linear rings". DEPRECATED; use GeoJSON) A MultiPolygon contains several polygon coordinate sets inside an outer (fourth level) set of square brackets: [[[[ -122.150459,49.078814,0 ], [ -122.160416,49.071054,0 ], [ -122.165909,49.061607,0 ], [ -122.167711,49.05767,0 ], [ -122.167454,49.053845,0 ], [ -122.150459,49.078814,0 ]]], [[[ -121.961117,49.092688,0 ], [ -121.940603,49.080659,0 ], [ -121.940432,49.092913,0 ], [ -121.961288,49.093194,0 ], [ -121.961117,49.092688,0 ]]]]</a:documentation>
                <value>GeometryCollection</value>
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Collection of multiple geometries) A Geometry Collection consists of multiple geo elements, each of which corresponds to one of the existing geometries in other attribute values.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(Collection of multiple geometries. DEPRECATED; use GeoJSON) A Geometry Collection consists of multiple geo elements, each of which corresponds to one of the existing geometries in other attribute values.</a:documentation>
             </choice>
          </attribute>
          <empty/>
@@ -2905,6 +2871,7 @@ Sample values include: 1] text; 2] corpus</a:documentation>
          <ref name="att.global.attribute.xmllang"/>
          <ref name="att.global.rendition.attribute.style"/>
          <ref name="att.global.rendition.attribute.rendition"/>
+         <ref name="att.global.source.attribute.source"/>
          <ref name="att.typed.attributes"/>
          <ref name="att.sortable.attributes"/>
          <attribute name="xml:id">

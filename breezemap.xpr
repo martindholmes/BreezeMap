@@ -365,6 +365,21 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>schemas/breezemap.odd</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>TEI ODD to RelaxNG XML output to same folder</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>xml/tei2017.xml</String>
                                 </field>
                                 <field name="scenarioIds">
@@ -519,7 +534,7 @@
                                                 <String>TEI source file.</String>
                                             </field>
                                             <field name="value">
-                                                <String>file:/home/mholmes/.com.oxygenxml/extensions/v17.1/frameworks/http___www.tei_c.org_release_oxygen_updateSite.oxygen/tei/xml/tei/odd/p5subset.xml</String>
+                                                <String>${frameworkDir(TEI P5)}/xml/tei/odd/p5subset.xml</String>
                                             </field>
                                             <field name="defaultValue">
                                                 <null/>
