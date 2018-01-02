@@ -4,7 +4,7 @@
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-      <title>TEI 2017: UVic Campus and Downtown Map</title>
+      <title>World Map</title>
         <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
@@ -44,7 +44,7 @@
       </form>
        
        <div id="splash">
-         <p>Welcome to the <a href="https://hcmc.uvic.ca/tei2017/">TEI 2017</a> UVic Campus and Downtown Map, created with
+         <p>Welcome to the World Map, created with
            <a href="https://github.com/martindholmes/BreezeMap">BreezeMap</a>. </p>
        </div>
       
@@ -54,10 +54,10 @@
          Open Street Maps dataset. */
          
       //Globals...
-      var mapCentre = [-123.312214, 48.463199];
-      var view = null, myLayers = [], layerXYZ = null, featureJSONFile = 'js/tei2017.json', holLayer = null;
+      var mapCentre = [-35.392728, 48.722176];
+      var view = null, myLayers = [], featureJSONFile = 'js/world.json', holLayer = null;
          
-      function initCampusMap(){
+      function initMap(){
       
         //Create a view centred on our area.
         view = new ol.View({
@@ -69,42 +69,27 @@
           zoom: 17
         });
         
-        //Create a tile layer using our own built OSM tileset.
-        layerXYZ = new ol.layer.Tile({
-          source: new ol.source.XYZ({
-            url: 'https://hcmc.uvic.ca/people/greg/mapnik/osm/tiles/{z}/{x}/{y}.png',
-            /*crossOrigin: 'anonymous',*/
-            numZoomLevels: 21,
-            maxZoom: 22
-          })/*,
-          extent: [-123.32127,48.469219,-123.303375,48.456014]*/
-        });
-        
         //OSM
         var layerOSM = new ol.layer.Tile({
           source: new ol.source.OSM({
             numZoomLevels: 20,
-            maxZoom: 19
+            maxZoom: 20
           })
         });
         
         //BC
         //Create a tile layer using this: http://maps.gov.bc.ca/arcserver/rest/services/Province/web_mercator_cache/MapServer
-        layerBC = new ol.layer.Tile({
+        /*layerBC = new ol.layer.Tile({
           source: new ol.source.XYZ({
             url: 'https://maps.gov.bc.ca/arcgis/rest/services/province/web_mercator_cache/MapServer/tile/{z}/{y}/{x}',
             numZoomLevels: 18,
             maxZoom: 17
           })
-        });
+        });*/
         
-        myLayers.push(layerOSM);
-        myLayers.push(layerXYZ);
+        myLayers.push(layerOSM);        
         
-        layerXYZ.setExtent(ol.proj.transformExtent([-123.32127,48.469219,-123.303375,48.456014], 'EPSG:4326', 'EPSG:3857'));
-        
-        
-        //Create a map using our new layer.
+        //Create a map.
         map = new ol.Map({
           layers: myLayers,
           renderer: 'canvas',
@@ -116,17 +101,17 @@
         });
       
 //Set up the opacity control
-        document.getElementById('opacitySlider').onchange = function(){layerXYZ.setOpacity(this.value);};
+        document.getElementById('opacitySlider').onchange = function(){layerOSM.setOpacity(this.value);};
         document.getElementById('opacitySlider').onchange();
   
 //Now let's create a hol vector layer for all our features.
-        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: false, 
-                                                              allowDrawing: false,
-                                                              allowUpload: false,
+        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
+                                                              allowDrawing: true,
+                                                              allowUpload: true,
                                                               allowUserTracking: true});
       }
       
-      window.addEventListener('load', function (event){initCampusMap();});
+      window.addEventListener('load', function (event){initMap();});
       
     
     </script>

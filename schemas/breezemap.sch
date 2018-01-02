@@ -13,7 +13,7 @@
   
 <!-- Regular expressions for matching GeoJSON coordinate sets. -->
   <!--<xsl:variable name="rePoint">\s*\[\s*\-?[0-9\.]+\s*,\s*[0-9\.]+(\s*-?[0-9\.]+\s*)?\]\s*</xsl:variable>-->
-  <xsl:variable name="rePoint">\s*\[\s*\-?[\d\.]+\s*,\s*[\d\.]+(\s*-?[\d\.]+\s*)?\]\s*</xsl:variable>
+  <xsl:variable name="rePoint">\s*\[\s*\-?[\d\.]+\s*,\s*\-?[\d\.]+(\s*-?[\d\.]+\s*)?\]\s*</xsl:variable>
   <xsl:variable name="reMultiPoint" select="concat('\s*\[', $rePoint, '(\s*,\s*', $rePoint, '\s*)+', '\]')"/>
   <xsl:variable name="reLineString" select="$reMultiPoint"/>
   <xsl:variable name="reLinearRing" select="concat('\s*\[', $rePoint, '(\s*,', $rePoint, ')&#x7b;3,&#x7d;\s*\]\s*')"/>

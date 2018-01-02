@@ -75,7 +75,7 @@
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
-      <arg value="-s:${proj.dir}/xml/tei2017.xml"/>
+      <arg value="-s:${proj.dir}/xml/world.xml"/>
       <arg value="-xsl:tei_to_geojson.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
@@ -167,8 +167,7 @@
     <copy todir="${proj.dir}/test">
       <fileset dir="${proj.dir}" includes="fonts/*.*"/>
       <fileset dir="${proj.dir}" includes="css/*.css"/>
-      <fileset dir="${proj.dir}" includes="ol/*.*"/>
-      <fileset dir="${proj.dir}/xml" includes="images/*.*"/>
+      <fileset dir="${proj.dir}" includes="ol/*.*" excludes="ol/ol_latest.zip"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
     </copy>
     <copy todir="${proj.dir}/test/js">
