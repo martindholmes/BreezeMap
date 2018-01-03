@@ -72,6 +72,7 @@ hol.strLoading            = 'Loading...';
 hol.strInfo               = 'ℹ';
 hol.strTrack              = '⌖';
 hol.strMenuToggle         = '≡';
+hol.strOk                 = '✔';
 hol.strLocationsByCat     = 'Locations by category';
 hol.strSearch             = '🔍';
 hol.strReadMore           = 'Read more...';
@@ -81,6 +82,7 @@ hol.strNetworkError       = 'There was a network error.';
 hol.strToggleTracking     = 'Toggle tracking of my location on the map.';
 hol.strShowHideAllFeats   = 'Show/hide all features';
 hol.strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
+hol.strGetFeatureName     = 'Type a name for your new feature:';
 
 /**
  * Constants in hol namespace used
@@ -718,7 +720,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.currDrawGeometry = '';                //Will hold e.g. 'Point', 'GeometryCollection'.
     this.drawingFeatures = null;               //Will point to an ol.Collection() if invoked.
     this.featureOverlay = null;                //Will carry drawn features if invoked.
-    this.coordsBox = null;                     //Will point to a box containing drawing coords. TEMPORARY.
+    this.coordsBox = null;                     //Will point to a box containing drawing coords.
+    this.acceptCoords = null;                  //Will point to a button to accept drawn coords.
     this.splash = this.getSplashScreen();
         
     this.source = null;                        //Will point to the ol.source.Vector.
@@ -966,6 +969,11 @@ hol.VectorLayer.prototype.setupDrawing = function(){
       this.coordsBox = document.createElement('textarea');
       this.coordsBox.setAttribute('id', 'holCoordsBox');
       this.docBody.appendChild(this.coordsBox);
+      this.acceptCoords = document.createElement('button');
+      this.acceptCoords.setAttribute('id', 'holAcceptCoords');
+      this.acceptCoords.appendChild(document.createTextNode(hol.strOk));
+      this.acceptCoords.addEventListener('click', this.addDrawnFeature.bind(this));
+      this.docBody.appendChild(this.acceptCoords);
     }
     
     return true;
@@ -1312,11 +1320,63 @@ hol.VectorLayer.prototype.showCoords = function(geom){
     teiLocation += '  <geo>"geometry": ' + strGeoJSON + '</geo>\n';
     teiLocation += '</location>';
     this.coordsBox.value = teiLocation;
+    this.acceptCoords.style.display = 'block';
   }
   catch(e){
     console.error(e.message);
     return false;
   }
+};
+
+/**
+ * Function for adding a newly-drawn feature to the nav.
+ * 
+ * @function hol.VectorLayer.prototype.addDrawnFeature 
+ * @memberof hol.VectorLayer.prototype
+ * @description Gets a name from the user for the feature, and 
+ *              then adds it to the navigation box. If there is
+ *              no "Drawn Features" category yet, it creates one.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.addDrawnFeature = function(){
+  var tax, catNum, catPos, cat, featName, featId, feat;
+  tax = this.taxonomies[this.currTaxonomy];
+  
+  //First check whether there's a Drawn Features category.
+  if (!this.taxonomyHasCategory(this.currTaxonomy, 'drawnFeatures')){
+  //If not, create one.
+    catPos = tax.categories.length + 1;
+    tax.categories.push({name: 'Drawn features', desc: 'Features drawn during the current session', pos: catPos, id: 'drawnFeatures', features: []});
+    catNum = tax.categories.length-1;
+    cat = tax.categories[catNum];
+  }
+  else{
+    catNum = this.getCatNumFromId('drawnFeatures', -1);
+    cat = tax.categories[catNum];
+  }
+  
+  //Now ask for a name from the user.
+  featName = window.prompt(hol.strGetFeatureName, '');
+  
+  //Create an id from the name.
+  featId = featName.replace(/[^A-Za-z]/, '');
+  
+  //Make it unique.
+  
+  //Create a new feature.
+  
+  //Add it to the feature set.
+  
+      
+
+  //cat.features.push(feat);
+  
+  //Get its position.
+  
+  //Rebuild the navbar.
+  
+  //Show the new feature.
+  
 };
 
 //This load procedure is a a discrete process
