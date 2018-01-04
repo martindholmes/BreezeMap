@@ -1131,7 +1131,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
  */
 hol.VectorLayer.prototype.drawStart = function(){
   try{
-    if (!this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
+    if (!this.currDrawGeometry.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
       this.drawingFeatures.clear();
     }
     return true;
@@ -1156,8 +1156,23 @@ hol.VectorLayer.prototype.drawStart = function(){
 hol.VectorLayer.prototype.drawEnd = function(evt){
   var tmpFeat, i, maxi, j, maxj, tmpGeom, polys, arrGeoms;
   try{
-    if (this.currDrawGeometry.match(/^((Multi)|(GeometryCollection))/)){
+  //For some feature types, it's not possible to know for sure when drawing is finished.
+    if (this.currDrawGeometry.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
       switch (this.currDrawGeometry){
+      
+      case 'Polygon':
+          tmpFeat = new ol.Feature({geometry: new ol.geom.Polygon([])});
+          tmpGeom = tmpFeat.getGeometry();
+          for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
+            tmpFeat.getGeometry().appendLinearRing(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          }
+  //The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
+          if (typeof evt.feature !== 'undefined'){
+            tmpGeom.appendLinearRing(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+          }
+          this.showCoords(tmpFeat.getGeometry());
+          break;
+      
         case 'MultiPoint':
           tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
           tmpGeom = tmpFeat.getGeometry();
@@ -1297,13 +1312,16 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
  */
  
 hol.VectorLayer.prototype.showCoords = function(geom){
-  var strGeoJSON, teiLocation, geojson = new ol.format.GeoJSON();
+  var strGeoJSON, teiLocation, strFullGeoJSON, geojson = new ol.format.GeoJSON();
   try{
     strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
     teiLocation = '\n<location type="GeoJSON">\n';
     teiLocation += '  <geo>"geometry": ' + strGeoJSON + '</geo>\n';
     teiLocation += '</location>';
-    this.coordsBox.value = teiLocation;
+    
+    strFullGeoJSON = '\n\n{"type": "Feature", "geometry":' + strGeoJSON + ', "properties":{}}';
+    
+    this.coordsBox.value = teiLocation + strFullGeoJSON;
     this.acceptCoords.style.display = 'block';
   }
   catch(e){
