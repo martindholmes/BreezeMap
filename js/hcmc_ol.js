@@ -1297,25 +1297,9 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
  */
  
 hol.VectorLayer.prototype.showCoords = function(geom){
-  var strGeoJSON, geoObj, i, maxi, teiLocation, geojson = new ol.format.GeoJSON();
+  var strGeoJSON, teiLocation, geojson = new ol.format.GeoJSON();
   try{
     strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
-    /*geoObj = JSON.parse(strGeoJSON);
-//We have to handle the GeometryCollection differently in the TEI.  
-    if (geom.getType() === 'GeometryCollection'){
-      teiLocation = 'TEI:\n\n<location type="' + geoObj.type + '">\n';
-      for (i=0, maxi=geoObj.geometries.length; i<maxi; i++){
-        teiLocation += '  <geo n="' + geoObj.geometries[i].type + '">' + JSON.stringify(geoObj.geometries[i].coordinates) + '</geo>\n';
-      }
-      teiLocation += '</location>';
-      this.coordsBox.value = teiLocation + '\n\nGeoJSON:\n\n' + strGeoJSON; 
-    }
-    else{
-      teiLocation = 'TEI:\n\n<location type="' + geoObj.type + '">\n';
-      teiLocation += '  <geo>' + JSON.stringify(geoObj.coordinates) + '</geo>\n';
-      teiLocation += '</location>';
-      this.coordsBox.value = teiLocation + '\n\nGeoJSON:\n\n' + strGeoJSON; 
-    }*/
     teiLocation = '\n<location type="GeoJSON">\n';
     teiLocation += '  <geo>"geometry": ' + strGeoJSON + '</geo>\n';
     teiLocation += '</location>';
