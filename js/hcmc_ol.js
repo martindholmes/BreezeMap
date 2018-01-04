@@ -55,34 +55,37 @@
 var hol = {};
 
 /**
- * Properties in hol namespace used
- * for string captions in the code.
- * I would like to find a more effective
- * approach to doing this.
- */
-hol.strCloseX             = '×';
-hol.strFile               = 'File';
-hol.strLoadFile           = 'Load file...';
-hol.strSave               = 'Save...';
-hol.strSetup              = 'Setup...';
-hol.strMapArea            = 'Map area';
-hol.strDraw               = 'Draw';
-hol.strLoad               = 'Load';
-hol.strLoading            = 'Loading...';
-hol.strInfo               = 'ℹ';
-hol.strTrack              = '⌖';
-hol.strMenuToggle         = '≡';
-hol.strOk                 = '✔';
-hol.strLocationsByCat     = 'Locations by category';
-hol.strSearch             = '🔍';
-hol.strReadMore           = 'Read more...';
-hol.strSearchForLocs      = 'Search for locations';
-hol.strUnnamedFeat        = 'unnamed feature';
-hol.strNetworkError       = 'There was a network error.';
-hol.strToggleTracking     = 'Toggle tracking of my location on the map.';
-hol.strShowHideAllFeats   = 'Show/hide all features';
-hol.strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
-hol.strGetFeatureName     = 'Type a name for your new feature:';
+ * An object in the hol namespace contains
+ * captions organized by language. When ES6
+ * modules are fully supported, this should be
+ * ported to a separate module.
+ * */
+ 
+hol.captions = new Array();
+hol.captions['en'] = {};
+hol.captions['en'].strCloseX             = '×';
+hol.captions['en'].strFile               = 'File';
+hol.captions['en'].strLoadFile           = 'Load file...';
+hol.captions['en'].strSave               = 'Save...';
+hol.captions['en'].strSetup              = 'Setup...';
+hol.captions['en'].strMapArea            = 'Map area';
+hol.captions['en'].strDraw               = 'Draw';
+hol.captions['en'].strLoad               = 'Load';
+hol.captions['en'].strLoading            = 'Loading...';
+hol.captions['en'].strInfo               = 'ℹ';
+hol.captions['en'].strTrack              = '⌖';
+hol.captions['en'].strMenuToggle         = '≡';
+hol.captions['en'].strOk                 = '✔';
+hol.captions['en'].strLocationsByCat     = 'Locations by category';
+hol.captions['en'].strSearch             = '🔍';
+hol.captions['en'].strReadMore           = 'Read more...';
+hol.captions['en'].strSearchForLocs      = 'Search for locations';
+hol.captions['en'].strUnnamedFeat        = 'unnamed feature';
+hol.captions['en'].strNetworkError       = 'There was a network error.';
+hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on the map.';
+hol.captions['en'].strShowHideAllFeats   = 'Show/hide all features';
+hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
+hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
 
 /**
  * Constants in hol namespace used
@@ -628,7 +631,7 @@ hol.Util.ajaxRetrieve = function(url, responseType) {
     request.onerror = function() {
     // Also deal with the case when the entire request fails to begin with
     // This is probably a network error, so reject the promise with an appropriate message
-        reject(Error(hol.strNetworkError));
+        reject(Error(this.captions.strNetworkError));
     };
     // Send the request
     request.send();
@@ -709,6 +712,11 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
     this.docBody = document.getElementsByTagName('body')[0];
                                                //Stash a convenient ref to the body of the host document.
+                                               
+    this.captionLang = document.getElementsByTagName('html')[0].getAttribute('lang') || 'en'; //Document language.
+    this.captions = hol.captions[this.captionLang];
+                                               //Pointer to the caption object we're going to use.
+    
 
     this.map = olMap;                          //The OpenLayers map object.
     this.view = this.map.getView();            //Pointer to the ol.View.
@@ -761,7 +769,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.docDisplayDiv.setAttribute('id', 'holDocDisplay');
     closeBtn = document.createElement('span');
     closeBtn.setAttribute('class', 'closeBtn');
-    closeBtn.appendChild(document.createTextNode(hol.strCloseX));
+    closeBtn.appendChild(document.createTextNode(this.captions.strCloseX));
     //closeBtn.addEventListener('click', function(e){e.target.parentNode.style.display = 'none'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     closeBtn.addEventListener('click', function(e){e.target.parentNode.style.left = '-21rem'; this.docDisplayFrame.setAttribute('src', '');}.bind(this), false);
     this.docDisplayDiv.appendChild(closeBtn);
@@ -865,11 +873,11 @@ hol.VectorLayer.prototype.setupUpload = function(){
       input.setAttribute('accept', 'application/vnd.geo+json,application/json');
       this.toolbar.appendChild(input);
       this.fileMenu = document.createElement('li');
-      this.fileMenu.appendChild(document.createTextNode(hol.strFile));
+      this.fileMenu.appendChild(document.createTextNode(this.captions.strFile));
       ul = document.createElement('ul');
       this.fileMenu.appendChild(ul);
       itemUp = document.createElement('li');
-      itemUp.appendChild(document.createTextNode(hol.strLoadFile));
+      itemUp.appendChild(document.createTextNode(this.captions.strLoadFile));
       ul.appendChild(itemUp);
       this.menu.appendChild(this.fileMenu);
       itemUp.addEventListener('click', function(e){input.click(); e.preventDefault();}, false);
@@ -890,7 +898,7 @@ hol.VectorLayer.prototype.setupUpload = function(){
             reader.readAsDataURL(input.files[0]);
         }.bind(this), false);
       itemDown = document.createElement('li');
-      itemDown.appendChild(document.createTextNode(hol.strSave));
+      itemDown.appendChild(document.createTextNode(this.captions.strSave));
       ul.appendChild(itemDown);
       itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false); 
     }
@@ -919,11 +927,11 @@ hol.VectorLayer.prototype.setupDrawing = function(){
 //Set up the setup menu.
     if (this.setupMenu === null){
       this.setupMenu = document.createElement('li');
-      this.setupMenu.appendChild(document.createTextNode(hol.strSetup));
+      this.setupMenu.appendChild(document.createTextNode(this.captions.strSetup));
       menu = document.createElement('ul');
       this.setupMenu.appendChild(menu);
       item = document.createElement('li');
-      item.appendChild(document.createTextNode(hol.strMapArea));
+      item.appendChild(document.createTextNode(this.captions.strMapArea));
       menu.appendChild(item);
       item.addEventListener('click', this.drawMapBounds.bind(this), false);
       this.menu.appendChild(this.setupMenu);
@@ -935,7 +943,7 @@ hol.VectorLayer.prototype.setupDrawing = function(){
       types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
       simpleTypes = ['Point', 'LineString', 'Polygon'];
       this.drawMenu = document.createElement('li');
-      this.drawMenu.appendChild(document.createTextNode(hol.strDraw));
+      this.drawMenu.appendChild(document.createTextNode(this.captions.strDraw));
       menu = document.createElement('ul');
       this.drawMenu.appendChild(menu);
       for (i=0, maxi = types.length; i< maxi; i++){
@@ -971,7 +979,7 @@ hol.VectorLayer.prototype.setupDrawing = function(){
       this.docBody.appendChild(this.coordsBox);
       this.acceptCoords = document.createElement('button');
       this.acceptCoords.setAttribute('id', 'holAcceptCoords');
-      this.acceptCoords.appendChild(document.createTextNode(hol.strOk));
+      this.acceptCoords.appendChild(document.createTextNode(this.captions.strOk));
       this.acceptCoords.addEventListener('click', this.addDrawnFeature.bind(this));
       this.docBody.appendChild(this.acceptCoords);
     }
@@ -1358,7 +1366,7 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
   }
   
   //Now ask for a name from the user.
-  featName = window.prompt(hol.strGetFeatureName, '');
+  featName = window.prompt(this.captions.strGetFeatureName, '');
   
   //Create an id from the name.
   featId = featName.replace(/[^A-Za-z]/, '');
@@ -1373,12 +1381,15 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
 
   //cat.features.push(feat);
   
-  //Get its position.
+  //Clear the drawing surface.
   
   //Rebuild the navbar.
   
-  //Show the new feature.
+  //Show the new feature by id.
   
+  //Hide the coords box and button.
+  this.acceptCoords.style.display = 'none';
+  this.coordsBox.style.display = 'none';  
 };
 
 //This load procedure is a a discrete process
@@ -1573,7 +1584,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
   this.textarea = document.createElement('textarea');
   this.textEditor.appendChild(this.textarea);
   btn = document.createElement('button');
-  btn.appendChild(document.createTextNode(hol.strLoad));
+  btn.appendChild(document.createTextNode(this.captions.strLoad));
   btn.setAttribute('type', 'button');
   this.textEditor.appendChild(btn);
   this.docBody.appendChild(form);*/
@@ -1779,7 +1790,7 @@ hol.VectorLayer.prototype.getSplashScreen = function(){
     }
     loading = document.createElement('div');
     loading.setAttribute('id', 'holLoadingMessage');
-    loading.appendChild(document.createTextNode(hol.strLoading));
+    loading.appendChild(document.createTextNode(this.captions.strLoading));
     this.splash.appendChild(loading);
     this.docBody.appendChild(this.splash);
     spinner = document.createElement('div');
@@ -1937,7 +1948,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     div.setAttribute('class', 'toolbarSpacer');
     this.toolbar.appendChild(div);
     this.iButton = document.createElement('button');
-    this.iButton.appendChild(document.createTextNode(hol.strInfo));
+    this.iButton.appendChild(document.createTextNode(this.captions.strInfo));
     this.iButton.addEventListener('click', function(){
         if (this.splash.style.display === 'block'){
           this.splash.style.display = 'none';
@@ -1951,8 +1962,8 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     
     if ((this.allowUserTracking === true)&&('geolocation' in navigator)){
       this.userTrackButton = document.createElement('button');
-      this.userTrackButton.appendChild(document.createTextNode(hol.strTrack));
-      this.userTrackButton.setAttribute('title', hol.strToggleTracking);
+      this.userTrackButton.appendChild(document.createTextNode(this.captions.strTrack));
+      this.userTrackButton.setAttribute('title', this.captions.strToggleTracking);
       this.userTrackButton.addEventListener('click', function(){
         this.toggleTracking();
         return false;
@@ -1961,7 +1972,7 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     }
     
     this.mobileMenuToggleButton = document.createElement('button');
-    this.mobileMenuToggleButton.appendChild(document.createTextNode(hol.strMenuToggle));
+    this.mobileMenuToggleButton.appendChild(document.createTextNode(this.captions.strMenuToggle));
     this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
     this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden');this.classList.toggle('menuHidden');});
     this.toolbar.appendChild(this.mobileMenuToggleButton);
@@ -2094,7 +2105,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navCloseDiv.setAttribute('id', 'navCloseDiv');
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
-      closeBtn.appendChild(doc.createTextNode(hol.strCloseX));
+      closeBtn.appendChild(doc.createTextNode(this.captions.strCloseX));
       closeBtn.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden'); this.mobileMenuToggleButton.classList.toggle('menuHidden');}.bind(this));
       navCloseDiv.appendChild(closeBtn);
       rightBox.appendChild(navCloseDiv);
@@ -2103,7 +2114,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navHeader = doc.createElement('h2');
       chkShowAll = doc.createElement('input');
       chkShowAll.setAttribute('type', 'checkbox');
-      chkShowAll.setAttribute('title', hol.strShowHideAllFeats);
+      chkShowAll.setAttribute('title', this.captions.strShowHideAllFeats);
       chkShowAll.setAttribute('id', 'chkShowAll');
       chkShowAll.addEventListener('change', this.showHideAllFeatures.bind(this, chkShowAll, chkShowAll.checked));
       this.allFeaturesCheckbox = chkShowAll;
@@ -2111,21 +2122,21 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       
       navCaption = doc.createElement('span');
       navCaption.setAttribute('id', 'navCaption');
-      navCaption.appendChild(doc.createTextNode(hol.strLocationsByCat));
+      navCaption.appendChild(doc.createTextNode(this.captions.strLocationsByCat));
       navHeader.appendChild(navCaption);
       navInput = doc.createElement('input');
       navInput.setAttribute('type', 'text');
       navInput.setAttribute('id', 'inpNavSearch');
-      navInput.setAttribute('placeholder', hol.strSearchForLocs);
+      navInput.setAttribute('placeholder', this.captions.strSearchForLocs);
       navInput.addEventListener('keydown', function(event){if (event.keyCode===13 || event.which===13){this.doLocationSearch(true); event.preventDefault();}}.bind(this), false);
       this.navInput = navInput;
       navHeader.appendChild(navInput);
       
       navSearchButton = doc.createElement('button');
       navSearchButton.setAttribute('id', 'btnNavSearch');
-      navSearchButton.appendChild(doc.createTextNode(hol.strSearch));
+      navSearchButton.appendChild(doc.createTextNode(this.captions.strSearch));
       navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
-      navSearchButton.setAttribute('title', hol.strSearchForLocs);
+      navSearchButton.setAttribute('title', this.captions.strSearchForLocs);
       navHeader.appendChild(navSearchButton);
       
       
@@ -2141,7 +2152,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
       closeBtn.addEventListener('click', function(){this.parentNode.style.display = 'none';}, false);
-      closeBtn.appendChild(doc.createTextNode(hol.strCloseX));
+      closeBtn.appendChild(doc.createTextNode(this.captions.strCloseX));
       this.infoDiv.appendChild(closeBtn);
       this.infoDiv.appendChild(doc.createElement('h2'));
       this.infoDiv.appendChild(doc.createElement('div'));
@@ -2195,7 +2206,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
         thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
         thisFeatSpan = doc.createElement('span');
         thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
-        thisFeatSpan.appendChild(doc.createTextNode(props.name || hol.strUnnamedFeat));
+        thisFeatSpan.appendChild(doc.createTextNode(props.name || this.captions.strUnnamedFeat));
         thisFeatLi.appendChild(thisFeatChk);
         thisFeatLi.appendChild(thisFeatSpan);
         thisCatUl.appendChild(thisFeatLi);
@@ -2767,7 +2778,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
       showDoc = document.createElement('span');
       showDoc.setAttribute('class', 'holShowDoc');
       showDoc.addEventListener('click', this.showDocument.bind(this, props.links[0])); 
-      showDoc.appendChild(document.createTextNode(hol.strReadMore));
+      showDoc.appendChild(document.createTextNode(this.captions.strReadMore));
       p.appendChild(showDoc);
       this.infoDiv.querySelector('div').appendChild(p);
     }
@@ -3133,7 +3144,7 @@ hol.VectorLayer.prototype.toggleTracking = function(){
 
     if ((track === true)&&('geolocation' in navigator)){
       this.userTrackButton.classList.add('on');
-      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert(hol.strGeoLocNotSupported); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert(this.captions.strGeoLocNotSupported); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
     }
     else{
       if (this.userPositionMarker !== null){
