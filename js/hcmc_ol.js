@@ -267,6 +267,18 @@ hol.Util.getCenter = function(extent){
 };
 
 /**
+ * @function hol.Util.escapeXml
+ * @memberof hol.Util
+ * @description Escapes a block of XML so that it
+ *              can be shown in literal form.
+ * @param  {string} xml XML code.
+ * @return {string} Escaped string
+ */
+hol.Util.escapeXml = function(xml){
+  return xml.replace(/</g, '&lt;').replace(/&amp;/g, '&amp;amp;').replace(/\n/g, '<br/>');
+};
+
+/**
  * A function in the hol.Util namespace which returns
  * an ol.style.Style object which renders a feature as
  * essentially invisible.
@@ -691,9 +703,11 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUpload = options.allowUpload || false;
     this.allowDrawing = options.allowDrawing || false;
     this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
-    this.allFeaturesTaxonomy = options.allFeaturesTaxonomy || false;
+    this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy && this.allowDrawing) || false;
                                                 //If multiple taxonomies are being used, and this is true, then 
-                                                //generate an additional taxonomy which combines everything.
+                                                //generate an additional taxonomy which combines everything. We 
+                                                //don't allow this when drawing is enabled, otherwise things get
+                                                //too complicated.
         
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
                                                 //To be set by the host application if required.
@@ -725,7 +739,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.geojsonFileName = '';                 //Will contain a filename for data download if needed.
     this.draw = null;                          //Will point to drawing interaction if invoked.
     this.modify = null;                        //Will point to modify interaction if invoked.
-    this.currDrawGeometry = '';                //Will hold e.g. 'Point', 'GeometryCollection'.
+    this.currDrawGeometryType = '';            //Will hold e.g. 'Point', 'GeometryCollection'.
+    this.currDrawGeometry = null;              //Will hold an actual ol geometry object.
     this.drawingFeatures = null;               //Will point to an ol.Collection() if invoked.
     this.featureOverlay = null;                //Will carry drawn features if invoked.
     this.coordsBox = null;                     //Will point to a box containing drawing coords.
@@ -1080,9 +1095,10 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
       //this.coordsBox.value = '';
       return true;
     }
-    if (((drawingType !== this.currDrawGeometry)&&(!drawingType.match(/^GeometryCollection:/)))||((!this.currDrawGeometry.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
+    if (((drawingType !== this.currDrawGeometryType)&&(!drawingType.match(/^GeometryCollection:/)))||((!this.currDrawGeometryType.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
       this.drawingFeatures.clear();
-      this.currDrawGeometry = '';
+      this.currDrawGeometryType = '';
+      this.currDrawGeometry = null;
     }
     if (this.draw !== null){
       this.map.removeInteraction(this.draw);      
@@ -1092,6 +1108,8 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
     }
     if (drawingType === 'None'){
       this.drawingFeatures.clear();
+      this.currGeometry = null;
+      this.currDrawGeometryType = '';
       this.coordsBox.style.display = 'none';
       return true;
     }
@@ -1116,7 +1134,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
     });
     this.modify.on('modifyend', function(evt){this.drawEnd(evt);}.bind(this));
     this.map.addInteraction(this.modify);
-    this.currDrawGeometry = drawingType;
+    this.currDrawGeometryType = drawingType;
     this.coordsBox.style.display = 'block';
     return true;
   }
@@ -1139,7 +1157,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
  */
 hol.VectorLayer.prototype.drawStart = function(){
   try{
-    if (!this.currDrawGeometry.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
+    if (!this.currDrawGeometryType.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
       this.drawingFeatures.clear();
     }
     return true;
@@ -1165,8 +1183,8 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
   var tmpFeat, i, maxi, j, maxj, tmpGeom, polys, arrGeoms;
   try{
   //For some feature types, it's not possible to know for sure when drawing is finished.
-    if (this.currDrawGeometry.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
-      switch (this.currDrawGeometry){
+    if (this.currDrawGeometryType.match(/^((Polygon)|(Multi)|(GeometryCollection))/)){
+      switch (this.currDrawGeometryType){
       
       case 'Polygon':
           tmpFeat = new ol.Feature({geometry: new ol.geom.Polygon([])});
@@ -1252,14 +1270,17 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
     else{
       if (typeof evt.feature !== 'undefined'){
         tmpFeat = evt.feature;
-        this.showCoords(tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        tmpGeom = tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        this.showCoords(tmpGeom);
       }
       else{
   //This must be the end of a modify operation, in which case we just write the feature from the drawing layer.
-        this.showCoords(this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+        tmpGeom = this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        this.showCoords(tmpGeom);
       }
     }
-    //return true;
+    this.currDrawGeometry = tmpGeom;
+    return true;
   }
   catch(e){
     console.error(e.message);
@@ -1323,11 +1344,11 @@ hol.VectorLayer.prototype.showCoords = function(geom){
   var strGeoJSON, teiLocation, strFullGeoJSON, geojson = new ol.format.GeoJSON();
   try{
     strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
-    teiLocation = '\n<location type="GeoJSON">\n';
+    teiLocation = 'TEI:\n<location type="GeoJSON">\n';
     teiLocation += '  <geo>"geometry": ' + strGeoJSON + '</geo>\n';
     teiLocation += '</location>';
     
-    strFullGeoJSON = '\n\n{"type": "Feature", "geometry":' + strGeoJSON + ', "properties":{}}';
+    strFullGeoJSON = '\n\nGeoJSON:\n{"type": "Feature", "geometry":' + strGeoJSON + ', "properties":{}}';
     
     this.coordsBox.value = teiLocation + strFullGeoJSON;
     this.acceptCoords.style.display = 'block';
@@ -1352,44 +1373,66 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
   var tax, catNum, catPos, cat, featName, featId, feat;
   tax = this.taxonomies[this.currTaxonomy];
   
-  //First check whether there's a Drawn Features category.
-  if (!this.taxonomyHasCategory(this.currTaxonomy, 'drawnFeatures')){
-  //If not, create one.
-    catPos = tax.categories.length + 1;
-    tax.categories.push({name: 'Drawn features', desc: 'Features drawn during the current session', pos: catPos, id: 'drawnFeatures', features: []});
-    catNum = tax.categories.length-1;
-    cat = tax.categories[catNum];
+  try{
+    
+    //First check whether there's a Drawn Features category.
+    if (!this.taxonomyHasCategory(this.currTaxonomy, 'drawnFeatures')){
+    //If not, create one.
+      catPos = tax.categories.length + 1;
+      tax.categories.push({name: 'Drawn features', desc: 'Features drawn during the current session', pos: catPos, id: 'drawnFeatures', features: []});
+      catNum = tax.categories.length-1;
+      cat = tax.categories[catNum];
+    }
+    else{
+      catNum = this.getCatNumFromId('drawnFeatures', -1);
+      cat = tax.categories[catNum];
+    }
+    
+    //Now ask for a name from the user.
+    featName = window.prompt(this.captions.strGetFeatureName, '');
+    
+    //Create an id from the name.
+    featId = featName.replace(/[^A-Za-z]/, '');
+    
+    //Make it unique.
+    while (this.getFeatNumFromId(featId, -1) !== -1){
+      featId += 'x';
+    }
+    
+    //Create a new feature.
+    feat = new ol.Feature({});
+    feat.setId(featId);
+    feat.setProperties({"name": featName, "links": [], "desc": hol.Util.escapeXml(this.coordsBox.value)});
+    feat.setProperties({"taxonomies": [{"id": this.currTaxonomy.id, "name": this.currTaxonomy.name, "pos": catPos, "categories": [{"id": "drawnFeatures", "name": "Drawn features"}]}]});
+    feat.setProperties({"showing": false, "selected": false}, true)
+    feat.setGeometry(this.currDrawGeometry.clone().transform('EPSG:4326', 'EPSG:3857'));
+    
+    //Add it to the feature set.
+    this.features.push(feat);
+    this.source.addFeature(feat);
+    cat.features.push(feat);
+    
+    //Clear the drawing surface.
+    this.drawingFeatures.clear();
+    this.addDrawInteraction(this.currDrawGeometryType);
+    
+    //Rebuild the navbar.
+    this.buildNavPanel();    
+    
+    //Show the new feature by id.
+    this.selectFeatureFromId(featId);
+    
+    //Hide the accept button, and null the current geometry.
+    this.currDrawGeometry = null;
+    this.coordsBox.value = '';
+    this.acceptCoords.style.display = 'none';
+    
+    return true;
   }
-  else{
-    catNum = this.getCatNumFromId('drawnFeatures', -1);
-    cat = tax.categories[catNum];
+  catch(e){
+    console.error(e.message);
+    return false;
   }
-  
-  //Now ask for a name from the user.
-  featName = window.prompt(this.captions.strGetFeatureName, '');
-  
-  //Create an id from the name.
-  featId = featName.replace(/[^A-Za-z]/, '');
-  
-  //Make it unique.
-  
-  //Create a new feature.
-  
-  //Add it to the feature set.
-  
-      
-
-  //cat.features.push(feat);
-  
-  //Clear the drawing surface.
-  
-  //Rebuild the navbar.
-  
-  //Show the new feature by id.
-  
-  //Hide the coords box and button.
-  this.acceptCoords.style.display = 'none';
-  this.coordsBox.style.display = 'none';  
 };
 
 //This load procedure is a a discrete process

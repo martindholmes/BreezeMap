@@ -108,7 +108,8 @@
         holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
                                                               allowDrawing: true,
                                                               allowUpload: true,
-                                                              allowUserTracking: true});
+                                                              allowUserTracking: true,
+                                                              allFeaturesTaxonomy: false});
       }
       
       window.addEventListener('load', function (event){initMap();});
