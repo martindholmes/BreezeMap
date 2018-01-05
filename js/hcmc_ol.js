@@ -66,6 +66,8 @@ hol.captions['en'] = {};
 hol.captions['en'].strCloseX             = '×';
 hol.captions['en'].strFile               = 'File';
 hol.captions['en'].strLoadFile           = 'Load file...';
+hol.captions['en'].strPasteGeoJSON       = 'Paste GeoJSON...'
+hol.captions['en'].strPasteHere          = 'Paste a single GeoJSON Feature here';
 hol.captions['en'].strSaveGeoJSON        = 'Save GeoJSON...';
 hol.captions['en'].strSetup              = 'Setup...';
 hol.captions['en'].strMapArea            = 'Map area';
@@ -885,7 +887,7 @@ hol.VectorLayer.prototype.setupEditingMenu = function(){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.setupUpload = function(){
-  var input, ul, itemUp, itemDown;
+  var input, ul, itemUp, itemDown, itemPaste;
   try{
     if (this.fileMenu === null){
       if (this.menu === null){this.setupEditingMenu();}
@@ -923,6 +925,10 @@ hol.VectorLayer.prototype.setupUpload = function(){
       itemDown.appendChild(document.createTextNode(this.captions.strSaveGeoJSON));
       ul.appendChild(itemDown);
       itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false); 
+      itemPaste = document.createElement('li');
+      itemPaste.appendChild(document.createTextNode(this.captions.strPasteGeoJSON));
+      ul.appendChild(itemPaste);
+      itemPaste.addEventListener('click', this.pasteGeoJSON.bind(this), false); 
     }
     
     return true;
@@ -1611,6 +1617,39 @@ hol.VectorLayer.prototype.downloadGeoJSON = function(){
     el.click();
     this.docBody.removeChild(el);
     return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
+
+/**
+ * Function for providing an option to paste a GeoJSON feature
+ * into the map.
+ * 
+ * @function hol.VectorLayer.prototype.pasteGeoJSON 
+ * @memberof hol.VectorLayer.prototype
+ * @description Provides the option for the user to paste some
+ *              GeoJSON into the map. Currently handling is 
+ *              limited to only a single Feature object.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.pasteGeoJSON = function(){
+  var geojson, pastedText;
+  try{
+    geojson = new ol.format.GeoJSON();
+    pastedText = window.prompt(this.captions.strPasteHere, '{"type": "Feature"}');
+    
+//TODO: Finish this function.
+
+//Check the object is parseable.
+
+//Create a temporary feature with it.
+
+//Set up drawing for this feature.
+
   }
   catch(e){
     console.error(e.message);
