@@ -8,9 +8,6 @@
         <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
-      
-        <link rel="stylesheet" href="css/tei2017.css" type="text/css"/>
-      
         <script src="ol/ol.js" type="text/ecmascript"></script>
         <script src="js/hcmc_ol.js" type="text/ecmascript"></script>
       <style type="text/css">
@@ -54,7 +51,8 @@
          Open Street Maps dataset. */
          
       //Globals...
-      var mapCentre = [-35.392728, 48.722176];
+      var mapCenter = [-123.31207,48.463289];
+      
       var view = null, myLayers = [], featureJSONFile = 'js/world.json', holLayer = null;
          
       function initMap(){
@@ -63,10 +61,11 @@
         view = new ol.View({
           projection: 'EPSG:3857',
           /*center:  [-13726849,6184454],*/
-          center: ol.proj.fromLonLat(mapCentre),
+          //center: ol.proj.fromLonLat(mapCentre),
+          center: ol.proj.transform(mapCenter, 'EPSG:4326', 'EPSG:3857'),
           maxZoom: 22,
           numZoomLevels: 21,
-          zoom: 17
+          zoom: 12
         });
         
         //OSM

@@ -2,13 +2,13 @@
   "features": [
   { "type": "Feature",
       "id": "holMap", 
-"geometry": {"type": "Polygon", "coordinates":[[[-165.254664,72.912167],[-165.254664,-60.252428],[179.010961,-60.252428],[179.010961,72.912167],[-165.254664,72.912167]]]}, "properties": {
+"geometry": {"type":"Polygon","coordinates":[[[-123.321801,48.468888],[-123.321801,48.459725],[-123.300129,48.459725],[-123.300129,48.468888],[-123.321801,48.468888]]]}, "properties": {
         "name": "holMap",
         "taxonomies": [
           {"id": "areas",
           "name": "Working areas",
            "pos": 1,
-           "categories": [{"id": "UVic", "name": "UVic", "pos": 1},{"id": "london", "name": "London, UK", "pos": 2}]}]
+           "categories": [{"id": "UVic", "name": "UVic", "desc": "Features related to the main UVic campus", "pos": 1},{"id": "myths", "name": "Myths on Maps", "pos": 2},{"id": "london", "name": "London, UK", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -22,7 +22,21 @@
           {"id": "areas",
           "name": "Working areas",
            "pos": 1,
-           "categories": [{"id": "london", "name": "London, UK", "pos": 2}]}]
+           "categories": [{"id": "london", "name": "London, UK", "pos": 3}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "ancientGreece", 
+"geometry": {"type":"Polygon","coordinates":[[[8.393555,46.980252],[8.393555,30.069094],[40.209961,30.069094],[40.209961,46.980252],[8.393555,46.980252]]]},
+      "properties": {
+        "name": "Ancient Greece (Myths on Maps)", 
+        "desc": "The general area of Ancient Greece, for use in the Myths on Maps project.", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "areas",
+          "name": "Working areas",
+           "pos": 1,
+           "categories": [{"id": "myths", "name": "Myths on Maps", "pos": 2}]}]
       }
     },
     { "type": "Feature",
@@ -36,7 +50,7 @@
           {"id": "areas",
           "name": "Working areas",
            "pos": 1,
-           "categories": [{"id": "UVic", "name": "UVic", "pos": 1}]}]
+           "categories": [{"id": "UVic", "name": "UVic", "desc": "Features related to the main UVic campus", "pos": 1}]}]
       }
     }
   ]

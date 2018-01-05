@@ -20,6 +20,10 @@
                 <taxonomy xml:id="areas" n="Working areas">
                     <category xml:id="UVic">
                         <gloss>UVic</gloss>
+                        <desc>Features related to the main UVic campus</desc>
+                    </category>
+                    <category xml:id="myths">
+                        <gloss>Myths on Maps</gloss>
                     </category>
                     <category xml:id="london">
                         <gloss>London, UK</gloss>
@@ -37,7 +41,10 @@
                     <place xml:id="holMap" corresp="#holTaxonomies">
                         <placeName>World Map</placeName>
                         <desc/>
-                        <location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates":[[[-165.254664,72.912167],[-165.254664,-60.252428],[179.010961,-60.252428],[179.010961,72.912167],[-165.254664,72.912167]]]}</geo>
+                        <!--<location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates":[[[-165.254664,72.912167],[-165.254664,-60.252428],[179.010961,-60.252428],[179.010961,72.912167],[-165.254664,72.912167]]]}</geo>
+                        </location>-->
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[-123.321801,48.468888],[-123.321801,48.459725],[-123.300129,48.459725],[-123.300129,48.468888],[-123.321801,48.468888]]]}</geo>
                         </location>
                     </place>
                     
@@ -54,6 +61,14 @@
                         <desc>The area covered by the foreground of the <ref target="http://jenkins.hcmc.uvic.ca/job/MoEML/lastSuccessfulBuild/artifact/static/site/agas.htm">Agas Map</ref>.</desc>
 
                         <location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates": [[[-0.131021,51.493488],[-0.050941,51.493488],[-0.050941,51.519559],[-0.131021,51.519559],[-0.131021,51.493488]]]}</geo>
+                        </location>
+                    </place>
+                    
+                    <place corresp="#myths" xml:id="ancientGreece">
+                        <placeName>Ancient Greece (Myths on Maps)</placeName>
+                        <desc>The general area of Ancient Greece, for use in the Myths on Maps project.</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[8.393555,46.980252],[8.393555,30.069094],[40.209961,30.069094],[40.209961,46.980252],[8.393555,46.980252]]]}</geo>
                         </location>
                     </place>
                     

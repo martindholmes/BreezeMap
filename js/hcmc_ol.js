@@ -76,6 +76,7 @@ hol.captions['en'].strInfo               = 'ℹ';
 hol.captions['en'].strTrack              = '⌖';
 hol.captions['en'].strMenuToggle         = '≡';
 hol.captions['en'].strOk                 = '✔';
+hol.captions['en'].strEdit               = '🖉';
 hol.captions['en'].strLocationsByCat     = 'Locations by category';
 hol.captions['en'].strSearch             = '🔍';
 hol.captions['en'].strReadMore           = 'Read more...';
@@ -86,6 +87,8 @@ hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on th
 hol.captions['en'].strShowHideAllFeats   = 'Show/hide all features';
 hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
 hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
+hol.captions['en'].strStopDrawing        = 'Stop drawing';
+hol.captions['en'].strClear              = 'Clear';
 
 /**
  * Constants in hol namespace used
@@ -560,7 +563,8 @@ hol.Util.expandCollapseCategory=function(sender, catNum){
         if ((typeof cat.desc !== 'undefined')&&(cat.desc.length > 0)){
             this.deselectFeature();
             this.infoDiv.querySelector('h2').innerHTML = cat.name;
-            this.infoDiv.querySelector('div').innerHTML = cat.desc;
+            this.infoDiv.querySelector("div[id='infoContent']").innerHTML = cat.desc;
+            if (this.allowDrawing){this.infoDiv.querySelector("button[id='btnEditFeature']").style.display = 'none';}
             this.rewriteHolLinks(this.infoDiv);
             this.infoDiv.style.display = 'block';
         }
@@ -955,7 +959,7 @@ hol.VectorLayer.prototype.setupDrawing = function(){
 
 //Now the main feature-drawing menu.
     if (this.drawMenu === null){
-      types = ['None', 'Clear', 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
+      types = [this.captions.strStopDrawing, this.captions.strClear, 'Point', 'MultiPoint', 'LineString', 'MultiLineString', 'Polygon', 'MultiPolygon', 'GeometryCollection'];
       simpleTypes = ['Point', 'LineString', 'Polygon'];
       this.drawMenu = document.createElement('li');
       this.drawMenu.appendChild(document.createTextNode(this.captions.strDraw));
@@ -993,7 +997,8 @@ hol.VectorLayer.prototype.setupDrawing = function(){
       this.coordsBox.setAttribute('id', 'holCoordsBox');
       this.docBody.appendChild(this.coordsBox);
       this.acceptCoords = document.createElement('button');
-      this.acceptCoords.setAttribute('id', 'holAcceptCoords');
+      this.acceptCoords.setAttribute('id', 'btnAcceptCoords');
+      this.acceptCoords.setAttribute('class', 'drawButton');
       this.acceptCoords.appendChild(document.createTextNode(this.captions.strOk));
       this.acceptCoords.addEventListener('click', this.addDrawnFeature.bind(this));
       this.docBody.appendChild(this.acceptCoords);
@@ -1090,9 +1095,9 @@ hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
 hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
   try{
   
-    if (drawingType === 'Clear'){
+    if (drawingType === this.captions.strClear){
       this.drawingFeatures.clear();
-      //this.coordsBox.value = '';
+      this.coordsBox.value = '';
       return true;
     }
     if (((drawingType !== this.currDrawGeometryType)&&(!drawingType.match(/^GeometryCollection:/)))||((!this.currDrawGeometryType.match(/^GeometryCollection:/))&&(drawingType.match(/^GeometryCollection:/)))){
@@ -1106,11 +1111,12 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
     if (this.modify !== null){
       this.map.removeInteraction(this.modify);
     }
-    if (drawingType === 'None'){
+    if (drawingType === this.captions.strStopDrawing){
       this.drawingFeatures.clear();
       this.currGeometry = null;
       this.currDrawGeometryType = '';
       this.coordsBox.style.display = 'none';
+      this.acceptCoords.style.display = 'none';
       return true;
     }
     
@@ -2122,7 +2128,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
   var doc = document, form, rightBox, navPanel, navCloseDiv, navHeader, navSearchButton,
       chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
       catTitleSpan, thisCatUl, thisCatFeatures, f, props, thisFeatLi, 
-      thisFeatChk, thisFeatSpan, i, maxi, closeBtn;
+      thisFeatChk, thisFeatSpan, i, maxi, infoCloseDiv, closeBtn, editBtn, contentDiv;
   try{
 //Sanity check:
     if (this.currTaxonomy < 0){
@@ -2192,13 +2198,26 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
 //features.
       this.infoDiv = doc.createElement('div');
       this.infoDiv.setAttribute('id', 'holInfo');
+      infoCloseDiv = doc.createElement('div');
+      infoCloseDiv.setAttribute('id', 'infoCloseDiv');
       closeBtn = doc.createElement('span');
       closeBtn.setAttribute('class', 'closeBtn');
-      closeBtn.addEventListener('click', function(){this.parentNode.style.display = 'none';}, false);
+      closeBtn.addEventListener('click', function(){this.parentNode.parentNode.style.display = 'none';}, false);
       closeBtn.appendChild(doc.createTextNode(this.captions.strCloseX));
-      this.infoDiv.appendChild(closeBtn);
+      if (this.allowDrawing){
+        editBtn = doc.createElement('button');
+        editBtn.appendChild(doc.createTextNode(this.captions.strEdit));
+        editBtn.setAttribute('id', 'btnEditFeature');
+        editBtn.setAttribute('class', 'drawButton');
+        editBtn.addEventListener('click', this.editSelectedFeature.bind(this));
+      }
+      infoCloseDiv.appendChild(closeBtn);
+      infoCloseDiv.appendChild(editBtn);
+      this.infoDiv.appendChild(infoCloseDiv);
       this.infoDiv.appendChild(doc.createElement('h2'));
-      this.infoDiv.appendChild(doc.createElement('div'));
+      contentDiv = doc.createElement('div');
+      contentDiv.setAttribute('id', 'infoContent');
+      this.infoDiv.appendChild(contentDiv);
       rightBox.appendChild(this.infoDiv);
       
       this.docBody.appendChild(form);
@@ -2814,7 +2833,10 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     currFeat.setStyle(hol.Util.getSelectedStyle());
     currFeat.setProperties({"selected": true});
     this.infoDiv.querySelector('h2').innerHTML = props.name;
-    this.infoDiv.querySelector('div').innerHTML = props.desc;
+    this.infoDiv.querySelector("div[id='infoContent']").innerHTML = props.desc;
+    if (this.allowDrawing){
+      this.infoDiv.querySelector("button[id='btnEditFeature']").style.display = 'inline-block';
+    }
     this.rewriteHolLinks(this.infoDiv);
     if (props.links.length > 0){
       p = document.createElement('p');
@@ -2850,6 +2872,53 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
   catch(e){
     console.error(e.message);
     return -1;
+  }
+};
+
+/**
+ * Function for cloning the currently-selected feature so itss
+ *                         geometry can be edited.
+ *
+ * @function hol.VectorLayer.prototype.editSelectedFeature
+ * @memberof hol.VectorLayer.prototype
+ * @description clones the currently-selected feature (if there 
+ *                     is one) and presents that geometry for 
+ *                     editing.
+ * @returns {boolean} true for success, false for failure.
+ */
+hol.VectorLayer.prototype.editSelectedFeature = function(){
+  var tmpFeat, evt;
+  try{
+    if ((this.selectedFeature > -1)&&(this.allowDrawing)){
+//Clear existing drawing (should we warn first?)
+      this.drawingFeatures.clear();
+      
+//Clone the current feature
+      tmpFeat = this.features[this.selectedFeature].clone();
+
+//Find its geometry type, and set up drawing for that drawing type
+      this.addDrawInteraction(tmpFeat.getGeometry().getType());
+      tmpFeat.setStyle(hol.Util.getDrawingStyle());
+      
+//Deselect the current feature.
+      this.showHideFeature(false, this.selectedFeature);
+      
+//Assign the feature to the drawing layer
+      this.drawingFeatures.push(tmpFeat);
+      
+//Run the drawing-done function to write the geometry to the 
+//coords box.
+      evt = {feature: tmpFeat};
+      this.drawEnd(evt); 
+
+    }
+    else{
+      return false;
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
   }
 };
 
