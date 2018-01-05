@@ -66,7 +66,7 @@ hol.captions['en'] = {};
 hol.captions['en'].strCloseX             = '×';
 hol.captions['en'].strFile               = 'File';
 hol.captions['en'].strLoadFile           = 'Load file...';
-hol.captions['en'].strSave               = 'Save...';
+hol.captions['en'].strSaveGeoJSON        = 'Save GeoJSON...';
 hol.captions['en'].strSetup              = 'Setup...';
 hol.captions['en'].strMapArea            = 'Map area';
 hol.captions['en'].strDraw               = 'Draw';
@@ -77,10 +77,10 @@ hol.captions['en'].strTrack              = '⌖';
 hol.captions['en'].strMenuToggle         = '≡';
 hol.captions['en'].strOk                 = '✔';
 hol.captions['en'].strEdit               = '🖉';
-hol.captions['en'].strLocationsByCat     = 'Locations by category';
+hol.captions['en'].strLocationsByCat     = 'Features by category';
 hol.captions['en'].strSearch             = '🔍';
 hol.captions['en'].strReadMore           = 'Read more...';
-hol.captions['en'].strSearchForLocs      = 'Search for locations';
+hol.captions['en'].strSearchForLocs      = 'Search for features';
 hol.captions['en'].strUnnamedFeat        = 'unnamed feature';
 hol.captions['en'].strNetworkError       = 'There was a network error.';
 hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on the map.';
@@ -89,6 +89,9 @@ hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support
 hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
 hol.captions['en'].strStopDrawing        = 'Stop drawing';
 hol.captions['en'].strClear              = 'Clear';
+hol.captions['en'].strDrawnFeatures      = 'Drawn features';
+hol.captions['en'].strDrawnFeaturesDesc  = 'Features drawn during the current session';
+hol.captions['en'].strEditThisFeature    = 'Edit a copy of this feature by clicking on the edit button above.';
 
 /**
  * Constants in hol namespace used
@@ -917,7 +920,7 @@ hol.VectorLayer.prototype.setupUpload = function(){
             reader.readAsDataURL(input.files[0]);
         }.bind(this), false);
       itemDown = document.createElement('li');
-      itemDown.appendChild(document.createTextNode(this.captions.strSave));
+      itemDown.appendChild(document.createTextNode(this.captions.strSaveGeoJSON));
       ul.appendChild(itemDown);
       itemDown.addEventListener('click', this.downloadGeoJSON.bind(this), false); 
     }
@@ -1385,7 +1388,7 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
     if (!this.taxonomyHasCategory(this.currTaxonomy, 'drawnFeatures')){
     //If not, create one.
       catPos = tax.categories.length + 1;
-      tax.categories.push({name: 'Drawn features', desc: 'Features drawn during the current session', pos: catPos, id: 'drawnFeatures', features: []});
+      tax.categories.push({name: this.captions.strDrawnFeatures, desc: this.captions.strDrawnFeaturesDesc, pos: catPos, id: 'drawnFeatures', features: []});
       catNum = tax.categories.length-1;
       cat = tax.categories[catNum];
     }
@@ -1408,8 +1411,8 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
     //Create a new feature.
     feat = new ol.Feature({});
     feat.setId(featId);
-    feat.setProperties({"name": featName, "links": [], "desc": hol.Util.escapeXml(this.coordsBox.value)});
-    feat.setProperties({"taxonomies": [{"id": this.currTaxonomy.id, "name": this.currTaxonomy.name, "pos": catPos, "categories": [{"id": "drawnFeatures", "name": "Drawn features"}]}]});
+    feat.setProperties({"name": featName, "links": [], "desc": this.captions.strEditThisFeature});
+    feat.setProperties({"taxonomies": [{"id": this.currTaxonomy.id, "name": this.currTaxonomy.name, "pos": catPos, "categories": [{"id": "drawnFeatures", "name": this.captions.strDrawnFeatures}]}]});
     feat.setProperties({"showing": false, "selected": false}, true)
     feat.setGeometry(this.currDrawGeometry.clone().transform('EPSG:4326', 'EPSG:3857'));
     
