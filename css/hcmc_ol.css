@@ -310,8 +310,8 @@ div#infoCloseDiv{
 
 nav#holNav{
  
-  flex: 1;
-  flex-shrink: 1;
+  flex: 2;
+  flex-shrink: 2;
   overflow-y: auto;
   padding: 0;
   margin: 0;
@@ -326,8 +326,8 @@ div#holInfo{
   padding: 0;
   overflow: auto;  
   margin: 0;
-  flex: 3;
-  flex-shrink: 0;
+  flex: 2;
+  flex-shrink: 2;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 0 0 5px 5px;
