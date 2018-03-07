@@ -2880,7 +2880,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
       this.infoDiv.querySelector("button[id='btnEditFeature']").style.display = 'inline-block';
     }
     this.rewriteHolLinks(this.infoDiv);
-    if (props.links.length > 0){
+    if ((props.links.length > 0)&&(this.infoDiv.querySelectorAll('span[class=\'holShowDoc\']').length < 1)){
       p = document.createElement('p');
       showDoc = document.createElement('span');
       showDoc.setAttribute('class', 'holShowDoc');
