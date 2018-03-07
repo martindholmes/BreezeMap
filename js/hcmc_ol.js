@@ -2246,15 +2246,15 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       closeBtn.setAttribute('class', 'closeBtn');
       closeBtn.addEventListener('click', function(){this.parentNode.parentNode.style.display = 'none';}, false);
       closeBtn.appendChild(doc.createTextNode(this.captions.strCloseX));
+      infoCloseDiv.appendChild(closeBtn);
       if (this.allowDrawing){
         editBtn = doc.createElement('button');
         editBtn.appendChild(doc.createTextNode(this.captions.strEdit));
         editBtn.setAttribute('id', 'btnEditFeature');
         editBtn.setAttribute('class', 'drawButton');
         editBtn.addEventListener('click', this.editSelectedFeature.bind(this));
+        infoCloseDiv.appendChild(editBtn);
       }
-      infoCloseDiv.appendChild(closeBtn);
-      infoCloseDiv.appendChild(editBtn);
       this.infoDiv.appendChild(infoCloseDiv);
       this.infoDiv.appendChild(doc.createElement('h2'));
       contentDiv = doc.createElement('div');
