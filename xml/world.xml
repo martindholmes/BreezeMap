@@ -6,21 +6,21 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title><ref target="https://hcmc.uvic.ca/tei2017/">TEI 2017</ref>: UVic Campus and Downtown Map</title>
+                <title>World Map</title>
             </titleStmt>
             <publicationStmt>
                 <p>Humanities Computing and Media Centre, University of Victoria.</p>
             </publicationStmt>
             <sourceDesc>
-                <p>Born digital file for TEI 2017 conference.</p>
+                <p>Born digital file for BreezeMap-based projects.</p>
             </sourceDesc>
         </fileDesc>
         <encodingDesc>
             <classDecl xml:id="holTaxonomies">
                 <taxonomy xml:id="areas" n="Working areas">
-                    <category xml:id="UVic">
-                        <gloss>UVic</gloss>
-                        <desc>Features related to the main UVic campus</desc>
+                    <category xml:id="victoria">
+                        <gloss>Victoria</gloss>
+                        <desc>Locations in and around Victoria, BC</desc>
                     </category>
                     <category xml:id="myths">
                         <gloss>Myths on Maps</gloss>
@@ -34,7 +34,7 @@
     </teiHeader>
     <text>
         <body>
-            <head>UVic Campus and Downtown</head>
+            <head>World Map</head>
             <div>
                 <listPlace>
                     <!--       This is a special feature which defines the map bounds and title.             -->
@@ -72,11 +72,19 @@
                         </location>
                     </place>
                     
-                    <place xml:id="uvicCampus" corresp="#UVic">
+                    <place xml:id="uvicCampus" corresp="#victoria">
                         <placeName>UVic Campus</placeName>
                         <desc>Main university campus at Gordon Head</desc>
                         <location type="GeoJSON">
                             <geo>"geometry": {"type": "Polygon", "coordinates": [[[-123.317392,48.466533],[-123.319237,48.463546],[-123.317692,48.459504],[-123.313916,48.458451],[-123.310654,48.457398],[-123.307006,48.460501],[-123.305333,48.46198],[-123.303015,48.46124],[-123.301857,48.46309],[-123.302243,48.463289],[-123.303874,48.464342],[-123.307092,48.466135],[-123.307993,48.467159],[-123.309667,48.468013],[-123.311942,48.466387],[-123.317392,48.466533]]]}</geo>
+                        </location>
+                    </place>
+                    
+                    <place xml:id="greaterVictoria" corresp="#victoria">
+                        <placeName>Greater Victoria</placeName>
+                        <desc>The Greater Victoria area, BC</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[-123.581772,48.707275],[-123.581772,48.373584],[-123.253555,48.373584],[-123.253555,48.707275],[-123.581772,48.707275]]]}</geo>
                         </location>
                     </place>
                 </listPlace>
