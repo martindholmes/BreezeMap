@@ -319,6 +319,7 @@ nav#holNav{
   height: auto;
   justify-content: center;
   align-items: center;
+  flex-basis: auto;
 }
 /*popup box that appear under menu when item is selected*/
 div#holInfo{
@@ -332,6 +333,7 @@ div#holInfo{
   background-color: rgba(255, 255, 255, 1);
   border-radius: 0 0 5px 5px;
   color: rgb(57,70,78);
+  flex-basis: auto;
 }
 
 nav#holNav h2{
