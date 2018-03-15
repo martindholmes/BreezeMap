@@ -8,7 +8,7 @@
           {"id": "areas",
           "name": "Working areas",
            "pos": 1,
-           "categories": [{"id": "UVic", "name": "UVic", "desc": "Features related to the main UVic campus", "pos": 1},{"id": "myths", "name": "Myths on Maps", "pos": 2},{"id": "london", "name": "London, UK", "pos": 3}]}]
+           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1},{"id": "myths", "name": "Myths on Maps", "pos": 2},{"id": "london", "name": "London, UK", "pos": 3}]}]
       }
     },
     { "type": "Feature",
@@ -50,7 +50,21 @@
           {"id": "areas",
           "name": "Working areas",
            "pos": 1,
-           "categories": [{"id": "UVic", "name": "UVic", "desc": "Features related to the main UVic campus", "pos": 1}]}]
+           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1}]}]
+      }
+    },
+    { "type": "Feature",
+      "id": "greaterVictoria", 
+"geometry": {"type":"Polygon","coordinates":[[[-123.581772,48.707275],[-123.581772,48.373584],[-123.253555,48.373584],[-123.253555,48.707275],[-123.581772,48.707275]]]},
+      "properties": {
+        "name": "Greater Victoria", 
+        "desc": "The Greater Victoria area, BC", 
+        "links": [], 
+        "taxonomies": [
+          {"id": "areas",
+          "name": "Working areas",
+           "pos": 1,
+           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1}]}]
       }
     }
   ]
