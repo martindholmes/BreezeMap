@@ -2874,11 +2874,15 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     props = currFeat.getProperties();
     currFeat.setStyle(hol.Util.getSelectedStyle());
     currFeat.setProperties({"selected": true});
+//Set the title of the popup to the name of the feature.
     this.infoDiv.querySelector('h2').innerHTML = props.name;
+//Set the content of the popup to the description of the feature.
     this.infoDiv.querySelector("div[id='infoContent']").innerHTML = props.desc;
+//Show the edit button if we're allowing feature editing.
     if (this.allowDrawing){
       this.infoDiv.querySelector("button[id='btnEditFeature']").style.display = 'inline-block';
     }
+    
     this.rewriteHolLinks(this.infoDiv);
     if ((props.links.length > 0)&&(this.infoDiv.querySelectorAll('span[class=\'holShowDoc\']').length < 1)){
       p = document.createElement('p');
@@ -2887,7 +2891,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
       showDoc.addEventListener('click', this.showDocument.bind(this, props.links[0])); 
       showDoc.appendChild(document.createTextNode(this.captions.strReadMore));
       p.appendChild(showDoc);
-      this.infoDiv.querySelector('div').appendChild(p);
+      this.infoDiv.querySelector("div[id='infoContent']").appendChild(p);
     }
     this.infoDiv.style.display = 'block';
 //Now highlight and if necessary show the appropriate entry in the navigation panel.
