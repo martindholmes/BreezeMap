@@ -471,8 +471,9 @@
                     </place>
                     <place xml:id="bldgMearns" corresp="#bldgTeaching #bldgAdmin">
                         <placeName>Mearns Centre for Learning</placeName>
-                        <desc>This is the current home of the Humanities Computing and Media Centre, which
-                        used to be located in the <ref target="hol:bldgClearihue">Clearihue Building</ref>.</desc>
+                        <desc><p>This is the current home of the Humanities Computing and Media Centre, which
+                        used to be located in the <ref target="hol:bldgClearihue">Clearihue Building</ref>.</p>
+                        <p>The library also lives in the same building.</p></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/lic.php"/></item>

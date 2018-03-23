@@ -250,6 +250,7 @@
                <alternate>
                  <macroRef key="macro.phraseSeq"/>
                  <elementRef key="list"/>
+                 <elementRef key="p" minOccurs="0" maxOccurs="unbounded"/>
                </alternate>
              </content>
            </elementSpec>

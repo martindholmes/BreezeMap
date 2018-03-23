@@ -5,10 +5,10 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2018-01-02T22:23:45Z. .
-TEI Edition: Version 3.3.0a. Last updated on
-	15th December 2017, revision 8f36d97
-TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.0a./
+Schema generated from ODD source 2018-03-23T22:16:44Z. .
+TEI Edition: Version 3.3.1a. Last updated on
+	23rd March 2018, revision e9206ef
+TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.1a./
   
 --><!--This material is dual-licensed.
 [https://opensource.org/licenses/MIT] All code will be hosted on GitHub and released under an MIT license. [http://creativecommons.org/licenses/by/4.0/] Documentation will be released under Creative Commons Attribution 4.0 International.-->
@@ -1567,6 +1567,9 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
          <choice>
             <ref name="macro.phraseSeq"/>
             <ref name="list"/>
+            <zeroOrMore>
+               <ref name="p"/>
+            </zeroOrMore>
          </choice>
          <ref name="att.global.attributes"/>
          <ref name="att.translatable.attributes"/>
@@ -1887,7 +1890,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
          <optional>
             <attribute name="type">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">classifies the title according to some convenient typology.
-Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] short; 5] desc(descriptive) </a:documentation>
+Sample values include: 1] main; 2] sub (subordinate) ; 3] alt (alternate) ; 4] short; 5] desc (descriptive) </a:documentation>
                <data type="token">
                   <param name="pattern">(\p{L}|\p{N}|\p{P}|\p{S})+</param>
                </data>
@@ -2208,7 +2211,7 @@ Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] sho
          <ref name="att.typed.attributes"/>
          <optional>
             <attribute name="version">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the major version number of the TEI Guidelines against which this document is valid.</a:documentation>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">specifies the version number of the TEI Guidelines against which this document is valid.</a:documentation>
                <data type="token">
                   <param name="pattern">[\d]+(\.[\d]+){0,2}</param>
                </data>

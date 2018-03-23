@@ -167,6 +167,10 @@
     <xsl:value-of select="replace(normalize-space($convertedFrag), '&quot;', '\\&quot;')"/> 
   </xsl:function>
   
+  <xsl:template match="p" mode="serializedXhtml">
+    &lt;p&gt;<xsl:apply-templates mode="#current"/>&lt;/p&gt;
+  </xsl:template>
+  
   <xsl:template match="title[@level='m' or @level='j']" mode="serializedXhtml">
     &lt;em&gt;<xsl:apply-templates mode="#current"/>&lt;/em&gt;
   </xsl:template>
