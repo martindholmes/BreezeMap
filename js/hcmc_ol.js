@@ -3265,8 +3265,11 @@ hol.VectorLayer.prototype.showDocument = function(docPath){
 /**
  * @function hol.VectorLayer.prototype.rewriteHolLinks
  * @memberof hol.VectorLayer.prototype
- * @description Rewrites links written with the hol: private URI 
- *              protocol so that they make a JS call to this object.
+ * @description Rewrites links written with the hol: and box: private URI 
+ *              protocols so that they make a JS call to this object. hol:
+ *              links are turned into feature id links, and box: links are
+ *              turned into calls which show the document inside the left-side
+ *              iframe.
  * @param {element} the element containing the HTML within which this
  *                  operation should be done.
  * @returns {boolean} true (success) or false (failure).
