@@ -434,7 +434,7 @@
 "geometry":{"type":"Polygon", "coordinates":[[[-123.3136429,48.4644294],[-123.3135437,48.4644363],[-123.3135495,48.4644729],[-123.3135549,48.4645064],[-123.3134548,48.4645135],[-123.3134561,48.4645214],[-123.313334,48.46453],[-123.313302,48.464329],[-123.313243,48.4643331],[-123.3130154,48.4643491],[-123.3130206,48.4643817],[-123.3130065,48.4643827],[-123.3129827,48.4643844],[-123.3129871,48.4644118],[-123.3126661,48.4644343],[-123.3126508,48.4644354],[-123.3126466,48.4644088],[-123.3126053,48.4644117],[-123.3126,48.4643786],[-123.3124697,48.4643877],[-123.3124527,48.4642815],[-123.3124686,48.4642804],[-123.3124627,48.4642436],[-123.3124909,48.4642417],[-123.3124794,48.4641695],[-123.3126038,48.4641607],[-123.3126152,48.4642322],[-123.3127225,48.4642247],[-123.3127066,48.4641247],[-123.3126972,48.464066],[-123.3124762,48.4640815],[-123.3124562,48.4639561],[-123.3124999,48.4639531],[-123.3124957,48.4639271],[-123.3124935,48.4639131],[-123.3125857,48.4639066],[-123.3125771,48.4638528],[-123.3127429,48.4638412],[-123.3127438,48.4638469],[-123.3130071,48.4638284],[-123.3130155,48.4638811],[-123.3131136,48.4638742],[-123.3132267,48.4638663],[-123.3132216,48.4638345],[-123.3131573,48.463839],[-123.3131435,48.4637526],[-123.3133221,48.46374],[-123.3133267,48.4637688],[-123.3134624,48.4637593],[-123.3134798,48.4638686],[-123.3135923,48.4638607],[-123.313604,48.4639341],[-123.3136359,48.4639318],[-123.3136403,48.4639592],[-123.3136097,48.4639613],[-123.3136139,48.4639875],[-123.3136257,48.4640618],[-123.3135462,48.4640674],[-123.3135431,48.4640476],[-123.3135177,48.4640494],[-123.3135255,48.4640982],[-123.3135426,48.4642056],[-123.3135092,48.4642079],[-123.3135133,48.4642338],[-123.3136107,48.4642269],[-123.3136429,48.4644294]],[[-123.3132882,48.4642215],[-123.3132712,48.4641184],[-123.313232,48.4641212],[-123.3132264,48.464087],[-123.3132641,48.4640843],[-123.3132486,48.46399],[-123.313026,48.4640061],[-123.3130286,48.4640221],[-123.3129614,48.464027],[-123.3129586,48.4640104],[-123.3128444,48.4640187],[-123.3128735,48.4641954],[-123.3131187,48.4641777],[-123.3131279,48.4642331],[-123.3132882,48.4642215]]]},
       "properties": {
         "name": "Cornett Building", 
-        "desc": "Built in 1966, the Cornett Building is the second oldest building on campus. The oldest is the <a href=\"hol:bldgClearihue\">Clearihue Building</a> .", 
+        "desc": "Built in 1966, the Cornett Building is the second oldest building on campus. The oldest is the <a href=\"hol:bldgClearihue\">Clearihue Building</a>.", 
         "links": [], 
         "taxonomies": [
           {"id": "bldg",
@@ -560,7 +560,7 @@
 "geometry":{"type":"Polygon", "coordinates":[[[-123.3099761,48.4637042],[-123.3097029,48.4637241],[-123.3097042,48.4637317],[-123.3096533,48.4637356],[-123.3095982,48.4637399],[-123.3095967,48.4637318],[-123.3093749,48.4637479],[-123.3093776,48.4637672],[-123.3093394,48.4637695],[-123.3092627,48.4637742],[-123.3092602,48.4637562],[-123.3090896,48.4637686],[-123.3090783,48.4637002],[-123.3087307,48.4637254],[-123.3087343,48.4637486],[-123.3087129,48.4637501],[-123.3086477,48.4637545],[-123.3086396,48.4637019],[-123.3086831,48.463699],[-123.3086532,48.4635175],[-123.3087109,48.4635134],[-123.3087002,48.4634488],[-123.3089805,48.4634284],[-123.3089765,48.4634093],[-123.3090229,48.4634052],[-123.3089802,48.4631469],[-123.309151,48.4631345],[-123.3091472,48.4631147],[-123.3092062,48.4631097],[-123.3092586,48.4631053],[-123.3092626,48.4631263],[-123.3094857,48.4631101],[-123.309484,48.4631008],[-123.309536,48.4630966],[-123.3095848,48.4630926],[-123.3095867,48.4631028],[-123.3098734,48.463082],[-123.3099538,48.463554],[-123.3099761,48.4637042]]]},
       "properties": {
         "name": "Mearns Centre for Learning", 
-        "desc": "<p>This is the current home of the Humanities Computing and Media Centre, which used to be located in the <a href=\"hol:bldgClearihue\">Clearihue Building</a> .</p> <p>The library also lives in the same building.</p>", 
+        "desc": "<div class=\"p\">This is the current home of the Humanities Computing and Media Centre, which used to be located in the <a href=\"hol:bldgClearihue\">Clearihue Building</a>.</div> <div class=\"p\">The library also lives in the same building.</div> <div class=\"p\"> This is the home of: <ul> <li><a href=\"box:http://www.mholmes.com\">Martin Holmes</a></li> <li><a href=\"box:https://www.uvic.ca/humanities/hcmc/aboutus/staff/profiles/newtongreg.php\">Greg Newton</a></li> </ul> </div>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/lic.php", "https://www.uvic.ca/home/about/campus-info/maps/maps/lib.php"], 
         "taxonomies": [
           {"id": "bldg",
@@ -799,7 +799,7 @@
       "properties": {
         "name": "Outdoor Aquatic Unit", 
         "desc": "...", 
-        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/oau.php/"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/oau.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -813,7 +813,7 @@
       "properties": {
         "name": "Fine Arts Building", 
         "desc": "...", 
-        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fia.php/"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fia.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -827,7 +827,7 @@
       "properties": {
         "name": "Visial Arts Building", 
         "desc": "...", 
-        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/via.php/"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/via.php"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",
@@ -854,7 +854,7 @@
 "geometry":{"type":"Polygon", "coordinates":[[[-123.307972,48.465647],[-123.308049,48.465585],[-123.30825,48.465688],[-123.308412,48.465554],[-123.308312,48.465503],[-123.308392,48.465439],[-123.308579,48.465425],[-123.308583,48.46546],[-123.308832,48.465443],[-123.308805,48.465263],[-123.308524,48.465283],[-123.308471,48.465252],[-123.308449,48.465099],[-123.308516,48.465094],[-123.308466,48.46477],[-123.308428,48.464772],[-123.308424,48.464745],[-123.308222,48.464758],[-123.308219,48.464737],[-123.308105,48.464745],[-123.308074,48.464546],[-123.307981,48.464553],[-123.307972,48.464494],[-123.307794,48.464506],[-123.307801,48.464544],[-123.307704,48.464551],[-123.307719,48.46465],[-123.30759,48.46466],[-123.30764,48.464963],[-123.307712,48.464959],[-123.307932,48.465075],[-123.307955,48.465073],[-123.307979,48.465211],[-123.308112,48.465284],[-123.308132,48.465284],[-123.308133,48.465294],[-123.308092,48.46533],[-123.308052,48.465311],[-123.30794,48.465406],[-123.30797,48.465418],[-123.307806,48.46556],[-123.307972,48.465647]]]},
       "properties": {
         "name": "Student Union Building", 
-        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"./images/subBld.jpg\" target=\"_blank\"><img src=\"./images/subBld.jpg\" alt=\"./images/subBld.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "bldg",
@@ -868,7 +868,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.308866,48.465173]},
       "properties": {
         "name": "Waypoint D: Student Union Building", 
-        "desc": "<a href=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" target=\"_blank\"><img src=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\" alt=\"https://www.movetovictoria.com/static/images/listings/hd/2052_lf0e711c1_20-student-union-building.jpg\"/></a>", 
+        "desc": "<a href=\"./images/subBld.jpg\" target=\"_blank\"><img src=\"./images/subBld.jpg\" alt=\"./images/subBld.jpg\"/></a>", 
         "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/sub.php/"], 
         "taxonomies": [
           {"id": "transp",
@@ -1218,7 +1218,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.309012,48.465366]},
       "properties": {
         "name": "Waypoint C: Empowerment totem pole", 
-        "desc": "Contemporary Coast Salish housepost <a href=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" target=\"_blank\"><img src=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\" alt=\"https://es481.geog.uvic.ca/sites/es481.geog.uvic.ca/files/empowerment.jpg\"/></a>", 
+        "desc": "Contemporary Coast Salish housepost <a href=\"./images/totem.jpg\" target=\"_blank\"><img src=\"./images/totem.jpg\" alt=\"./images/totem.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
@@ -1260,7 +1260,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.316276,48.463895]},
       "properties": {
         "name": "Waypoint J: forest path to University Club - entrance", 
-        "desc": "<a href=\"./html/images/pathToUClub.png\" target=\"_blank\"><img src=\"./html/images/pathToUClub.png\" alt=\"./html/images/pathToUClub.png\"/></a>", 
+        "desc": "<a href=\"./images/pathDownToUClub.jpg\" target=\"_blank\"><img src=\"./images/pathDownToUClub.jpg\" alt=\"./images/pathDownToUClub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
@@ -1274,7 +1274,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.309273,48.466244]},
       "properties": {
         "name": "Waypoint A: bus terminal to SUB", 
-        "desc": "<a href=\"./html/images/busTerminalToSUB.png\" target=\"_blank\"><img src=\"./html/images/busTerminalToSUB.png\" alt=\"./html/images/busTerminalToSUB.png\"/></a>", 
+        "desc": "<a href=\"./images/subBusTerminal.jpg\" target=\"_blank\"><img src=\"./images/subBusTerminal.jpg\" alt=\"./images/subBusTerminal.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
@@ -1288,7 +1288,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.308957,48.46576]},
       "properties": {
         "name": "Waypoint B: path beside SUB", 
-        "desc": "<a href=\"./html/images/pathFromSUB.png\" target=\"_blank\"><img src=\"./html/images/pathFromSUB.png\" alt=\"./html/images/pathFromSUB.png\"/></a>", 
+        "desc": "<a href=\"./images/pathBySub.jpg\" target=\"_blank\"><img src=\"./images/pathBySub.jpg\" alt=\"./images/pathBySub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",
@@ -1302,7 +1302,7 @@
 "geometry":{"type":"Point", "coordinates":[-123.314854,48.463514]},
       "properties": {
         "name": "Waypoint I: path toward University Club", 
-        "desc": "<a href=\"./html/images/pathDivergeTowardUClub.png\" target=\"_blank\"><img src=\"./html/images/pathDivergeTowardUClub.png\" alt=\"./html/images/pathDivergeTowardUClub.png\"/></a>", 
+        "desc": "<a href=\"./images/pathForkToUClub.jpg\" target=\"_blank\"><img src=\"./images/pathForkToUClub.jpg\" alt=\"./images/pathForkToUClub.jpg\"/></a>", 
         "links": [], 
         "taxonomies": [
           {"id": "transp",

@@ -5,7 +5,7 @@
          xmlns:teix="http://www.tei-c.org/ns/Examples"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2018-03-23T22:16:44Z. .
+Schema generated from ODD source 2018-03-23T22:37:47Z. .
 TEI Edition: Version 3.3.1a. Last updated on
 	23rd March 2018, revision e9206ef
 TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.1a./
@@ -202,27 +202,27 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.1a./
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.datable.w3c-att-datable-w3c-when-constraint-rule-1">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[@when]">
         <sch:report test="@notBefore|@notAfter|@from|@to" role="nonfatal">The @when attribute cannot be used with any other att.datable.w3c attributes.</sch:report>
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.datable.w3c-att-datable-w3c-from-constraint-rule-2">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[@from]">
         <sch:report test="@notBefore" role="nonfatal">The @from and @notBefore attributes cannot be used together.</sch:report>
       </sch:rule>
    </pattern>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.datable.w3c-att-datable-w3c-to-constraint-rule-3">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[@to]">
         <sch:report test="@notAfter" role="nonfatal">The @to and @notAfter attributes cannot be used together.</sch:report>
       </sch:rule>
@@ -244,9 +244,9 @@ TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.3.1a./
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.datable-calendar-calendar-constraint-rule-4">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[@calendar]">
             <sch:assert test="string-length(.) gt 0">
 @calendar indicates the system or calendar to which the date represented by the content of this element
@@ -599,9 +599,9 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.typed-subtypeTyped-constraint-rule-5">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[@subtype]">
         <sch:assert test="@type">The <sch:name/> element should not be categorized in detail with @subtype unless also categorized in general with @type</sch:assert>
       </sch:rule>
@@ -627,9 +627,9 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
    </define>
    <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
             id="breezemap-att.pointing-targetLang-targetLang-constraint-rule-6">
-      <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns="http://www.tei-c.org/ns/1.0"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                 context="tei:*[not(self::tei:schemaSpec)][@targetLang]">
             <sch:assert test="@target">@targetLang should only be used on <sch:name/> if @target is specified.</sch:assert>
           </sch:rule>
@@ -1495,7 +1495,8 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-p-abstractModel-structure-p-constraint-report-4">
             <rule context="tei:p">
-               <report test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum                |parent::tei:item                |parent::tei:note                |parent::tei:q                |parent::tei:quote                |parent::tei:remarks                |parent::tei:said                |parent::tei:sp                |parent::tei:stage                |parent::tei:cell                |parent::tei:figure                )">
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                       test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum                |parent::tei:item                |parent::tei:note                |parent::tei:q                |parent::tei:quote                |parent::tei:remarks                |parent::tei:said                |parent::tei:sp                |parent::tei:stage                |parent::tei:cell                |parent::tei:figure                )">
         Abstract model violation: Paragraphs may not occur inside other paragraphs or ab elements.
       </report>
             </rule>
@@ -1503,7 +1504,8 @@ Suggested values include: 1] below; 2] bottom; 3] margin; 4] top; 5] opposite; 6
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-p-abstractModel-structure-l-constraint-report-5">
             <rule context="tei:p">
-               <report test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                       test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
         Abstract model violation: Lines may not contain higher-level structural elements such as div, p, or ab.
       </report>
             </rule>
@@ -1571,6 +1573,16 @@ Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] for
                <ref name="p"/>
             </zeroOrMore>
          </choice>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="breezemap-desc-onlyPointersInSecondDesc-constraint-assert-4">
+            <rule context="tei:desc">
+               <sch:assert xmlns="http://www.tei-c.org/ns/1.0"
+                           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                           test="not(preceding-sibling::desc) or (child::list and not(descendant::ref))"> 
+                 The second desc element must contain only a list of items containing ptr elements. 
+                 If you need complex content, use a sequence of p elements in the first desc.</sch:assert>
+            </rule>
+         </pattern>
          <ref name="att.global.attributes"/>
          <ref name="att.translatable.attributes"/>
          <ref name="att.typed.attributes"/>
@@ -1667,7 +1679,7 @@ Sample values include: 1] suspension; 2] contraction; 3] brevigraph; 4] superscr
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-ptr-ptrAtts-constraint-report-6">
             <rule context="tei:ptr">
-               <report test="@target and @cRef">Only one of the
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron" test="@target and @cRef">Only one of the
 attributes @target and @cRef may be supplied on <name/>.</report>
             </rule>
          </pattern>
@@ -1687,7 +1699,7 @@ attributes @target and @cRef may be supplied on <name/>.</report>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-ref-refAtts-constraint-report-7">
             <rule context="tei:ref">
-               <report test="@target and @cRef">Only one of the
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron" test="@target and @cRef">Only one of the
 	attributes @target' and @cRef' may be supplied on <name/>
                </report>
             </rule>
@@ -1770,8 +1782,8 @@ attributes @target and @cRef may be supplied on <name/>.</report>
          </group>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-list-gloss-list-must-have-labels-constraint-rule-7">
-            <sch:rule xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-                      xmlns="http://www.tei-c.org/ns/1.0"
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       context="tei:list[@type='gloss']">
 	              <sch:assert test="tei:label">The content of a "gloss" list should include a sequence of one or more pairs of a label element followed by an item element</sch:assert>
             </sch:rule>
@@ -1809,6 +1821,7 @@ Suggested values include: 1] gloss; 2] index; 3] instructions; 4] litany; 5] syl
          <choice>
             <ref name="ptr"/>
             <ref name="graphic"/>
+            <ref name="ref"/>
          </choice>
          <ref name="att.global.attributes"/>
          <ref name="att.sortable.attributes"/>
@@ -2275,7 +2288,7 @@ Sample values include: 1] main; 2] sub (subordinate) ; 3] alt (alternate) ; 4] s
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-div-abstractModel-structure-l-constraint-report-9">
             <rule context="tei:div">
-               <report test="ancestor::tei:l">
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron" test="ancestor::tei:l">
         Abstract model violation: Lines may not contain higher-level structural elements such as div.
       </report>
             </rule>
@@ -2283,7 +2296,8 @@ Sample values include: 1] main; 2] sub (subordinate) ; 3] alt (alternate) ; 4] s
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-div-abstractModel-structure-p-constraint-report-10">
             <rule context="tei:div">
-               <report test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
+               <report xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                       test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
         Abstract model violation: p and ab may not contain higher-level structural elements such as div.
       </report>
             </rule>

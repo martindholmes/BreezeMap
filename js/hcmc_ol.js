@@ -3272,7 +3272,7 @@ hol.VectorLayer.prototype.showDocument = function(docPath){
  * @returns {boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.rewriteHolLinks = function(el){
-  var links, elMatch, i, maxi, link, featId;
+  var links, elMatch, i, maxi, link, featId, docUrl;
   try{
     if (el == null){return false;}
     elMatch = 'a[href^=hol\\3A]';
@@ -3283,6 +3283,15 @@ hol.VectorLayer.prototype.rewriteHolLinks = function(el){
       link.setAttribute('href', 'javascript:void(0)');
       link.classList.add('holFeatureLink');
       link.addEventListener('click', function(featId){this.selectFeatureFromId(featId);}.bind(this, featId), false);
+    }
+    elMatch = 'a[href^=box\\3A]';
+    links = el.querySelectorAll(elMatch);
+    for (i=0, maxi=links.length; i<maxi; i++){
+      link = links[i];
+      docUrl = link.getAttribute('href').replace(/^box:/, '');
+      link.setAttribute('href', 'javascript:void(0)');
+      link.classList.add('holShowDoc');
+      link.addEventListener('click', this.showDocument.bind(this, docUrl));
     }
     return true;
   }

@@ -168,19 +168,23 @@
   </xsl:function>
   
   <xsl:template match="p" mode="serializedXhtml">
-    &lt;p&gt;<xsl:apply-templates mode="#current"/>&lt;/p&gt;
+    &lt;div class="p"&gt;<xsl:apply-templates mode="#current"/>&lt;/div&gt;
   </xsl:template>
   
-  <xsl:template match="title[@level='m' or @level='j']" mode="serializedXhtml">
-    &lt;em&gt;<xsl:apply-templates mode="#current"/>&lt;/em&gt;
+<!-- For inline elements, we need to avoid adding extra space before or after the element, so 
+     the template is all on one line.-->
+  <xsl:template match="title[@level='m' or @level='j']" mode="serializedXhtml">&lt;em&gt;<xsl:apply-templates mode="#current"/>&lt;/em&gt;</xsl:template>
+  
+  <xsl:template match="title[@level='a'] | q" mode="serializedXhtml">&lt;q&gt;<xsl:apply-templates mode="#current"/>&lt;/q&gt;</xsl:template>
+  
+  <xsl:template match="ref[@target]" mode="serializedXhtml">&lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;</xsl:template>
+  
+  <xsl:template match="list" mode="serializedXhtml">
+    &lt;ul&gt;<xsl:apply-templates mode="#current"/>&lt;/ul&gt;
   </xsl:template>
   
-  <xsl:template match="title[@level='a'] | q" mode="serializedXhtml">
-    &lt;q&gt;<xsl:apply-templates mode="#current"/>&lt;/q&gt;
-  </xsl:template>
-  
-  <xsl:template match="ref[@target]" mode="serializedXhtml">
-    &lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;
+  <xsl:template match="item" mode="serializedXhtml">
+    &lt;li&gt;<xsl:apply-templates mode="#current"/>&lt;/li&gt;
   </xsl:template>
   
   <xsl:template match="graphic" mode="serializedXhtml">

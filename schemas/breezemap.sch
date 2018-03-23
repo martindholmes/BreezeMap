@@ -52,7 +52,9 @@
     <rule context="tei:desc[preceding-sibling::tei:desc]">
       <assert test="child::tei:list and count(child::*) = 1">
         The second desc element in a place must have only a 
-        list of pointers (links) in it.
+        list of pointers (links) in it. If you need complex 
+        content, use a sequence of p elements in the first 
+        desc.
       </assert>
     </rule>
   </pattern>
