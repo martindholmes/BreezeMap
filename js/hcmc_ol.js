@@ -712,7 +712,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUpload = options.allowUpload || false;
     this.allowDrawing = options.allowDrawing || false;
     this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
-    this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy && this.allowDrawing) || false;
+    this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy && !this.allowDrawing) || false;
                                                 //If multiple taxonomies are being used, and this is true, then 
                                                 //generate an additional taxonomy which combines everything. We 
                                                 //don't allow this when drawing is enabled, otherwise things get
