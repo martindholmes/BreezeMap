@@ -1768,7 +1768,7 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
       this.taxonomies.push({name: taxName, pos: taxPos, id: taxId, categories: []});
       foundTax[0] = this.taxonomies[this.taxonomies.length-1];
       for (i=0, maxi=this.taxonomies.length-1; i<maxi; i++){
-        for (j=0, maxj=this.taxonomies[i].categories.length; j<maxi; j++){
+        for (j=0, maxj=this.taxonomies[i].categories.length; j<maxj; j++){
           foundTax[0].categories.push(this.taxonomies[i].categories[j]);
         }
       }

@@ -16,7 +16,11 @@
           {"id": "transp",
           "name": "Transportation",
            "pos": 3,
-           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1},{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]}]
+           "categories": [{"id": "transpBus", "name": "Buses", "desc": "<a href=\"https://www.uvic.ca/security/parking/campus/transit/index.php\">Bus stops</a>", "pos": 1},{"id": "transpWalkBusToUVClub", "name": "Walk from buses to University Club", "pos": 2},{"id": "transpWalkBusToClearihue", "name": "Walk from buses to Clearihue Building", "pos": 3}]},
+          {"id": "empty",
+          "name": "Empty taxonomy",
+           "pos": 4,
+           "categories": [{"id": "emptyNothing", "name": "Empty category", "desc": "Category with no associated places.", "pos": 1}]}]
       }
     },
     { "type": "Feature",
