@@ -676,7 +676,7 @@ div#holInfo img{
   text-decoration: none;
 }
 
-span.holShowDoc{
+.holShowDoc{
   cursor: pointer;
   font-style: italic;
   text-decoration: underline;

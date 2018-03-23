@@ -2864,7 +2864,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
  * @returns {number} the index of a feature if one is selected, or -1.
  */
 hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
-  var currFeat, props, p, showDoc, targetCat, catLi, featLi;
+  var currFeat, props, p, ul, showDoc, readMore, targetCat, catLi, featLi, i, imax;
 //First deselect any existing selection.
   try{
     this.deselectFeature();
@@ -2885,13 +2885,18 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     
     this.rewriteHolLinks(this.infoDiv);
     if ((props.links.length > 0)&&(this.infoDiv.querySelectorAll('span[class=\'holShowDoc\']').length < 1)){
-      p = document.createElement('p');
-      showDoc = document.createElement('span');
-      showDoc.setAttribute('class', 'holShowDoc');
-      showDoc.addEventListener('click', this.showDocument.bind(this, props.links[0])); 
-      showDoc.appendChild(document.createTextNode(this.captions.strReadMore));
-      p.appendChild(showDoc);
-      this.infoDiv.querySelector("div[id='infoContent']").appendChild(p);
+      ul = document.createElement('ul');
+      for (i=0, imax=props.links.length; i< imax; i++){
+        showDoc = document.createElement('li');
+        showDoc.setAttribute('class', 'holShowDoc');
+        showDoc.addEventListener('click', this.showDocument.bind(this, props.links[i])); 
+        readMore = this.captions.strReadMore;
+        if (imax > 1){readMore += ' (' + (i+1) + ')';}
+        showDoc.appendChild(document.createTextNode(readMore));
+        ul.appendChild(showDoc);
+      }
+      
+      this.infoDiv.querySelector("div[id='infoContent']").appendChild(ul);
     }
     this.infoDiv.style.display = 'block';
 //Now highlight and if necessary show the appropriate entry in the navigation panel.
