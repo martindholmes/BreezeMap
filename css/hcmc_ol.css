@@ -592,7 +592,7 @@ div#holDocDisplay{
 
 div#holDocDisplay iframe#holDocDisplayFrame{
   width: 100%;
-  height: calc(100% - 3rem);
+  height: calc(100% - 4rem);
   border-style: none;
 }
 
