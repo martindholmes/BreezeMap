@@ -67,6 +67,12 @@
                         <gloss>Walk from buses to Clearihue Building</gloss>
                     </category>
                 </taxonomy>
+                <taxonomy xml:id="empty" n="Empty taxonomy">
+                    <category xml:id="emptyNothing">
+                        <gloss>Empty category</gloss>
+                        <desc>Category with no associated places.</desc>
+                    </category>
+                </taxonomy>
             </classDecl>
         </encodingDesc>
     </teiHeader>
