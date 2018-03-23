@@ -137,7 +137,7 @@
       "properties": {
         "name": "First Peoples House", 
         "desc": "<a href=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\" target=\"_blank\"><img src=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\" alt=\"https://burntembers.files.wordpress.com/2013/03/img_1773.jpg\"/></a>", 
-        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fph.php"], 
+        "links": ["https://www.uvic.ca/home/about/campus-info/maps/maps/fph.php", "html/favourites.html"], 
         "taxonomies": [
           {"id": "bldg",
           "name": "Buildings",

@@ -169,6 +169,7 @@
       <fileset dir="${proj.dir}" includes="css/*.css"/>
       <fileset dir="${proj.dir}" includes="ol/*.*" excludes="ol/ol_latest.zip"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
+      <fileset dir="${proj.dir}/xml" includes="*/**"/>
     </copy>
     <copy todir="${proj.dir}/test/js">
       <fileset dir="${proj.dir}/js" includes="*.*" excludes="ol_latest.json"/>

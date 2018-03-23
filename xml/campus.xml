@@ -195,12 +195,14 @@
                     </place>
                     <place xml:id="bldgFirstPeople" corresp="#bldgTeaching #bldgAdmin">
                         <placeName>First Peoples House</placeName>
-                        <desc><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/></desc>
+                        <desc><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/>
+                        </desc>
                         <desc>                            
                             <list>
                                 <item>
                                     <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/fph.php"/>
                                 </item>
+                                <item><ptr target="html/favourites.html"/></item>
                             </list>
                         </desc>
                         <location type="GeoJSON">
