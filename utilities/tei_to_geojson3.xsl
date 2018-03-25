@@ -29,6 +29,8 @@
     <output:omit-xml-declaration value="yes"/>
   </output:serialization-parameters></xsl:variable>
   
+  <xsl:variable name="selfClosingXhtmlElements" select="('area', 'base', 'head', 'br', 'col', 'colgroup', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'video', 'audio', 'wbr')"/>
+  
     <xsl:strip-space elements="*"/>
     
     <xsl:variable name="root" select="/"/>
@@ -145,7 +147,7 @@
   </xsl:template>-->
   
     <xsl:template match="p" mode="xhtml5">
-      <div class="p"><xsl:apply-templates mode="#current"/></div>
+      <xh:div class="p"><xsl:apply-templates mode="#current"/></xh:div>
     </xsl:template>
     
     <!-- For inline elements, we need to avoid adding extra space before or after the element, so 
@@ -173,19 +175,26 @@
       <xh:br/>
     </xsl:template>
   
-  <xsl:template mode="escape" match="xh:*">
+  <xsl:template mode="escape" match="xh:*" as="xs:string*">
     <xsl:variable name="n" select="local-name(.)"/>
     <xsl:text>&lt;</xsl:text><xsl:value-of select="$n"/>
-    <xsl:text> xmlns="http://www.w3.org/1999/xhtml"</xsl:text>
-    <xsl:for-each select="@*"><xsl:text> </xsl:text><xsl:value-of select="concat($n, '=', $quot, ., $quot)"/></xsl:for-each>
-    <xsl:text>&gt;</xsl:text><xsl:apply-templates mode="#current"/><xsl:text>&lt;/</xsl:text><xsl:value-of select="$n"/><xsl:text>&gt;</xsl:text>
+    <!--<xsl:if test="not(parent::xh:*)">
+      <xsl:text> xmlns="http://www.w3.org/1999/xhtml"</xsl:text>
+    </xsl:if>-->
+    <xsl:for-each select="@*"><xsl:text> </xsl:text><xsl:value-of select="concat(local-name(.), '=', $quot, ., $quot)"/></xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="$n = $selfClosingXhtmlElements"><xsl:text>/&gt;</xsl:text></xsl:when>
+      <xsl:otherwise>
+        <xsl:text>&gt;</xsl:text><xsl:apply-templates mode="#current"/><xsl:text>&lt;/</xsl:text><xsl:value-of select="$n"/><xsl:text>&gt;</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   
   <xsl:function name="hcmc:createEscapedXhtml" as="xs:string">
     <xsl:param name="el" as="element()"/>
-    <xsl:variable name="xhtml" as="element()*"><xsl:apply-templates select="$el" mode="xhtml5"/></xsl:variable>
-    <xsl:variable name="escapedXhtml" as="xs:string"><xsl:apply-templates select="$xhtml" mode="escape"/></xsl:variable>
-    <xsl:value-of select="$escapedXhtml"/>
+    <xsl:variable name="xhtml" as="node()*"><xsl:apply-templates select="$el" mode="xhtml5"/></xsl:variable>
+    <xsl:variable name="escapedXhtml" as="xs:string*"><xsl:apply-templates select="$xhtml" mode="escape"/></xsl:variable>
+    <xsl:value-of select="normalize-space(string-join($escapedXhtml, ''))"/>
   </xsl:function>
       
       

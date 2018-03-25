@@ -2864,7 +2864,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
  * @returns {number} the index of a feature if one is selected, or -1.
  */
 hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
-  var currFeat, props, p, ul, showDoc, readMore, targetCat, catLi, featLi, i, imax;
+  var currFeat, props, ul, showDoc, readMore, targetCat, catLi, featLi, i, imax;
 //First deselect any existing selection.
   try{
     this.deselectFeature();

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="19.1">
+<project version="20.0">
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="19.1" xml:space="preserve">
+            <serialized version="20.0" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>document.types</String>
@@ -210,7 +210,7 @@
                                                 <String></String>
                                             </field>
                                             <field name="inputXSLURL">
-                                                <String>${pdu}/utilities/tei_to_geojson.xsl</String>
+                                                <String>${pdu}/utilities/tei_to_geojson3.xsl</String>
                                             </field>
                                             <field name="inputXMLURL">
                                                 <String>${currentFileURL}</String>

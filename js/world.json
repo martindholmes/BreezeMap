@@ -1,71 +1,229 @@
-{ "type": "FeatureCollection",
-  "features": [
-  { "type": "Feature",
-      "id": "holMap", 
-"geometry": {"type":"Polygon","coordinates":[[[-123.321801,48.468888],[-123.321801,48.459725],[-123.300129,48.459725],[-123.300129,48.468888],[-123.321801,48.468888]]]}, "properties": {
-        "name": "holMap",
-        "taxonomies": [
-          {"id": "areas",
-          "name": "Working areas",
-           "pos": 1,
-           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1},{"id": "myths", "name": "Myths on Maps", "pos": 2},{"id": "london", "name": "London, UK", "pos": 3}]}]
-      }
-    },
-    { "type": "Feature",
-      "id": "agasLondon", 
-"geometry": {"type": "Polygon", "coordinates": [[[-0.131021,51.493488],[-0.050941,51.493488],[-0.050941,51.519559],[-0.131021,51.519559],[-0.131021,51.493488]]]},
-      "properties": {
-        "name": "Agas London", 
-        "desc": "The area covered by the foreground of the <a href=\"http://jenkins.hcmc.uvic.ca/job/MoEML/lastSuccessfulBuild/artifact/static/site/agas.htm\">Agas Map</a>.", 
-        "links": [], 
-        "taxonomies": [
-          {"id": "areas",
-          "name": "Working areas",
-           "pos": 1,
-           "categories": [{"id": "london", "name": "London, UK", "pos": 3}]}]
-      }
-    },
-    { "type": "Feature",
-      "id": "ancientGreece", 
-"geometry": {"type":"Polygon","coordinates":[[[8.393555,46.980252],[8.393555,30.069094],[40.209961,30.069094],[40.209961,46.980252],[8.393555,46.980252]]]},
-      "properties": {
-        "name": "Ancient Greece (Myths on Maps)", 
-        "desc": "The general area of Ancient Greece, for use in the Myths on Maps project.", 
-        "links": [], 
-        "taxonomies": [
-          {"id": "areas",
-          "name": "Working areas",
-           "pos": 1,
-           "categories": [{"id": "myths", "name": "Myths on Maps", "pos": 2}]}]
-      }
-    },
-    { "type": "Feature",
-      "id": "uvicCampus", 
-"geometry": {"type": "Polygon", "coordinates": [[[-123.317392,48.466533],[-123.319237,48.463546],[-123.317692,48.459504],[-123.313916,48.458451],[-123.310654,48.457398],[-123.307006,48.460501],[-123.305333,48.46198],[-123.303015,48.46124],[-123.301857,48.46309],[-123.302243,48.463289],[-123.303874,48.464342],[-123.307092,48.466135],[-123.307993,48.467159],[-123.309667,48.468013],[-123.311942,48.466387],[-123.317392,48.466533]]]},
-      "properties": {
-        "name": "UVic Campus", 
-        "desc": "Main university campus at Gordon Head", 
-        "links": [], 
-        "taxonomies": [
-          {"id": "areas",
-          "name": "Working areas",
-           "pos": 1,
-           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1}]}]
-      }
-    },
-    { "type": "Feature",
-      "id": "greaterVictoria", 
-"geometry": {"type":"Polygon","coordinates":[[[-123.581772,48.707275],[-123.581772,48.373584],[-123.253555,48.373584],[-123.253555,48.707275],[-123.581772,48.707275]]]},
-      "properties": {
-        "name": "Greater Victoria", 
-        "desc": "The Greater Victoria area, BC", 
-        "links": [], 
-        "taxonomies": [
-          {"id": "areas",
-          "name": "Working areas",
-           "pos": 1,
-           "categories": [{"id": "victoria", "name": "Victoria", "desc": "Locations in and around Victoria, BC", "pos": 1}]}]
-      }
-    }
-  ]
-}
+
+  { "type" : "FeatureCollection",
+    "features" : 
+    [ 
+      { "type" : "Feature",
+        "id" : "holMap",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.321801,
+                48.468888 ],
+              
+              [ -123.321801,
+                48.459725 ],
+              
+              [ -123.300129,
+                48.459725 ],
+              
+              [ -123.300129,
+                48.468888 ],
+              
+              [ -123.321801,
+                48.468888 ] ] ] },
+        "properties" : 
+        { "name" : "holMap",
+          "taxonomies" : 
+          [ 
+            { "id" : "areas",
+              "name" : "Working areas",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "victoria",
+                  "name" : "Victoria",
+                  "desc" : "Locations in and around Victoria, BC",
+                  "pos" : 1 },
+                
+                { "id" : "myths",
+                  "name" : "Myths on Maps",
+                  "pos" : 2 },
+                
+                { "id" : "london",
+                  "name" : "London, UK",
+                  "pos" : 3 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "agasLondon",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -0.131021,
+                51.493488 ],
+              
+              [ -0.050941,
+                51.493488 ],
+              
+              [ -0.050941,
+                51.519559 ],
+              
+              [ -0.131021,
+                51.519559 ],
+              
+              [ -0.131021,
+                51.493488 ] ] ] },
+        "properties" : 
+        { "name" : "Agas London",
+          "desc" : "The area covered by the foreground of the <a href=\"http:\/\/jenkins.hcmc.uvic.ca\/job\/MoEML\/lastSuccessfulBuild\/artifact\/static\/site\/agas.htm\">Agas Map<\/a>.",
+          "links" : 
+          [  ],
+          "taxonomies" : 
+          [ 
+            { "id" : "areas",
+              "name" : "Working areas",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "london",
+                  "name" : "London, UK",
+                  "pos" : 3 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "ancientGreece",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ 8.393555,
+                46.980252 ],
+              
+              [ 8.393555,
+                30.069094 ],
+              
+              [ 40.209961,
+                30.069094 ],
+              
+              [ 40.209961,
+                46.980252 ],
+              
+              [ 8.393555,
+                46.980252 ] ] ] },
+        "properties" : 
+        { "name" : "Ancient Greece (Myths on Maps)",
+          "desc" : "The general area of Ancient Greece, for use in the Myths on Maps project.",
+          "links" : 
+          [  ],
+          "taxonomies" : 
+          [ 
+            { "id" : "areas",
+              "name" : "Working areas",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "myths",
+                  "name" : "Myths on Maps",
+                  "pos" : 2 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "uvicCampus",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.317392,
+                48.466533 ],
+              
+              [ -123.319237,
+                48.463546 ],
+              
+              [ -123.317692,
+                48.459504 ],
+              
+              [ -123.313916,
+                48.458451 ],
+              
+              [ -123.310654,
+                48.457398 ],
+              
+              [ -123.307006,
+                48.460501 ],
+              
+              [ -123.305333,
+                48.46198 ],
+              
+              [ -123.303015,
+                48.46124 ],
+              
+              [ -123.301857,
+                48.46309 ],
+              
+              [ -123.302243,
+                48.463289 ],
+              
+              [ -123.303874,
+                48.464342 ],
+              
+              [ -123.307092,
+                48.466135 ],
+              
+              [ -123.307993,
+                48.467159 ],
+              
+              [ -123.309667,
+                48.468013 ],
+              
+              [ -123.311942,
+                48.466387 ],
+              
+              [ -123.317392,
+                48.466533 ] ] ] },
+        "properties" : 
+        { "name" : "UVic Campus",
+          "desc" : "Main university campus at Gordon Head",
+          "links" : 
+          [  ],
+          "taxonomies" : 
+          [ 
+            { "id" : "areas",
+              "name" : "Working areas",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "victoria",
+                  "name" : "Victoria",
+                  "desc" : "Locations in and around Victoria, BC",
+                  "pos" : 1 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "greaterVictoria",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.581772,
+                48.707275 ],
+              
+              [ -123.581772,
+                48.373584 ],
+              
+              [ -123.253555,
+                48.373584 ],
+              
+              [ -123.253555,
+                48.707275 ],
+              
+              [ -123.581772,
+                48.707275 ] ] ] },
+        "properties" : 
+        { "name" : "Greater Victoria",
+          "desc" : "The Greater Victoria area, BC",
+          "links" : 
+          [  ],
+          "taxonomies" : 
+          [ 
+            { "id" : "areas",
+              "name" : "Working areas",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "victoria",
+                  "name" : "Victoria",
+                  "desc" : "Locations in and around Victoria, BC",
+                  "pos" : 1 } ] } ] } } ] }
