@@ -130,22 +130,23 @@
           </array>
         </map>
       </xsl:variable>
-      
-      <xsl:result-document  href="{$outputPath}.xml" method="xml" indent="yes">
+ 
+<!-- Uncomment this for debugging.-->
+
+      <!--<xsl:result-document  href="{$outputPath}.xml" method="xml" indent="yes">
         <xsl:sequence select="$jsonXml"/>
-      </xsl:result-document>
+      </xsl:result-document>-->
+      
+<!-- Output nice clean JSON without pain.     -->
       <xsl:result-document  href="{$outputPath}">
         <xsl:value-of select="xml-to-json($jsonXml, map{'indent': true()})"/>
       </xsl:result-document>
       
     </xsl:template>
   
-  <!--<xsl:template name="serializedXhtml5">
-    <xsl:param name="input" as="element()*"/>
-    <xsl:variable name="output"><xsl:apply-templates select="$input" mode="xhtml5"/></xsl:variable>
-    <xsl:value-of select="serialize($output, $serializationParams)"/>
-  </xsl:template>-->
-  
+
+<!-- These templates turn TEI elements into XHTML5 elements. Add more here
+     to handle more complex TEI.  -->
     <xsl:template match="p" mode="xhtml5">
       <xh:div class="p"><xsl:apply-templates mode="#current"/></xh:div>
     </xsl:template>
@@ -175,6 +176,7 @@
       <xh:br/>
     </xsl:template>
   
+<!-- This turns XHTML5 into serialized strings. -->
   <xsl:template mode="escape" match="xh:*" as="xs:string*">
     <xsl:variable name="n" select="local-name(.)"/>
     <xsl:text>&lt;</xsl:text><xsl:value-of select="$n"/>
@@ -189,7 +191,10 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
+<!-- This takes TEI, turns it into XHTML5, then spits out the results 
+     as a serialized string. Used for transforming TEI into XHTML5 blocks
+     which can be output as strings in the GeoJSON. -->
   <xsl:function name="hcmc:createEscapedXhtml" as="xs:string">
     <xsl:param name="el" as="element()"/>
     <xsl:variable name="xhtml" as="node()*"><xsl:apply-templates select="$el" mode="xhtml5"/></xsl:variable>
