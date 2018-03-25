@@ -7,6 +7,7 @@
     xmlns="http://www.tei-c.org/ns/1.0"
     xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+    xmlns:xh="http://www.w3.org/1999/xhtml"
     version="3.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
@@ -23,6 +24,10 @@
     
   <xsl:output method="text" encoding="UTF-8" exclude-result-prefixes="#all"
     normalization-form="NFC" media-type="text/json"  />
+  
+  <xsl:variable name="serializationParams"><output:serialization-parameters xmlns:output="http://www.w3.org/2010/xslt-xquery-serialization">
+    <output:omit-xml-declaration value="yes"/>
+  </output:serialization-parameters></xsl:variable>
   
     <xsl:strip-space elements="*"/>
     
@@ -53,19 +58,23 @@
                   <string key="name">holMap</string>
                   <array key="taxonomies">
                     <xsl:for-each select="$root//taxonomy">
-                      <string key="id"><xsl:value-of select="@xml:id"/></string>
-                      <string key="name"><xsl:value-of select="@n"/></string>
-                      <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
-                      <array key="taxonomies">
-                        <xsl:for-each select="child::category">
-                          <string key="id"><xsl:value-of select="@xml:id"/></string>
-                          <string key="name"><xsl:apply-templates select="gloss" mode="xhtml5"/></string>
-                          <xsl:if test="desc">
-                            <string key="desc"><xsl:apply-templates select="desc" mode="xhtml5"/></string>
-                          </xsl:if>
-                          <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
-                        </xsl:for-each>
-                      </array>
+                      <map>
+                        <string key="id"><xsl:value-of select="@xml:id"/></string>
+                        <string key="name"><xsl:value-of select="@n"/></string>
+                        <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
+                        <array key="categories">
+                          <xsl:for-each select="child::category">
+                            <map>
+                              <string key="id"><xsl:value-of select="@xml:id"/></string>
+                              <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
+                              <xsl:if test="desc">
+                                <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
+                              </xsl:if>
+                              <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
+                            </map>
+                          </xsl:for-each>
+                        </array>
+                      </map>
                     </xsl:for-each>
                   </array>
                 </map>
@@ -80,8 +89,8 @@
                   <xsl:variable name="gjGeomObj" select="json-to-xml($gjGeometry)"/>
                   <xsl:sequence select="$gjGeomObj/*:map/*"/>
                   <map key="properties">
-                    <string key="name"><xsl:apply-templates select="$thisPlace/placeName" mode="xhtml5"/></string>
-                    <string key="desc"><xsl:apply-templates select="$thisPlace/desc[1]" mode="xhtml5"/></string>
+                    <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml($thisPlace/placeName)"/></string>
+                    <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml($thisPlace/desc[1])"/></string>
                     <array key="links">
                       <xsl:for-each select="$thisPlace/desc[2]/list/item/ptr">
                         <string><xsl:value-of select="@target"/></string>
@@ -90,94 +99,123 @@
 <!--  Now taxonomies and categories.        -->
                     <xsl:variable name="thisFeatureCategories" select="for $c in distinct-values(($thisPlace/@corresp/tokenize(., '\s+'))) return substring-after($c, '#')"/>
                     <xsl:variable name="thisFeatureTaxonomies" select="$root//taxonomy[child::category[@xml:id=$thisFeatureCategories]]"/>
-<!--        DONE TO HERE!!!!! -->
+
+                    <array key="taxonomies">
+                        <xsl:for-each select="$thisFeatureTaxonomies">
+                          <map>
+                            <string key="id"><xsl:value-of select="@xml:id"/></string>
+                            <string key="name"><xsl:value-of select="@n"/></string>
+                            <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
+                            <xsl:variable name="thisTaxCatsForThisFeat" select="child::category[@xml:id=$thisFeatureCategories]"/>
+                            <array key="categories">
+                              <xsl:for-each select="$thisTaxCatsForThisFeat">
+                                <map>
+                                  <string key="id"><xsl:value-of select="@xml:id"/></string>
+                                  <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
+                                  <xsl:if test="desc">
+                                    <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
+                                  </xsl:if>
+                                  <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
+                                </map>
+                              </xsl:for-each>
+                            </array>
+                          </map>
+                        </xsl:for-each>
+                    </array>
                   </map>
                 </map>
               </xsl:for-each>
           </array>
         </map>
       </xsl:variable>
+      
+      <xsl:result-document  href="{$outputPath}.xml" method="xml" indent="yes">
+        <xsl:sequence select="$jsonXml"/>
+      </xsl:result-document>
       <xsl:result-document  href="{$outputPath}">
-        <xsl:value-of select="xml-to-json($xmlStructure, map{'indent': true()})"/>
+        <xsl:value-of select="xml-to-json($jsonXml, map{'indent': true()})"/>
       </xsl:result-document>
-
-<!--      Now the GeoJSON. -->
-      <xsl:result-document href="{$outputPath}" format="json">
-        
-        <xsl:variable name="places" select="//text/body/descendant::place[location]"/>
-       
-          
-        <xsl:for-each select="$places[@xml:id != 'holMap']">
-          <xsl:variable name="thisPlace" select="."/>
-          
-          
-<!--  Now taxonomies and categories.        -->
-          <xsl:variable name="thisFeatureCategories" select="for $c in distinct-values(($thisPlace/@corresp/tokenize(., '\s+'))) return substring-after($c, '#')"/>
-          <xsl:variable name="thisFeatureTaxonomies" select="$root//taxonomy[child::category[@xml:id=$thisFeatureCategories]]"/>
-          
-<!--   CONVERTED TO HERE!!!!       -->
-          
-          <xsl:text>        "taxonomies": [</xsl:text>
-            <xsl:for-each select="$thisFeatureTaxonomies">
-              <xsl:text>&#x0a;          {"id": "</xsl:text><xsl:value-of select="@xml:id"/><xsl:text>",</xsl:text>
-              <xsl:text>&#x0a;          "name": "</xsl:text><xsl:value-of select="@n"/><xsl:text>",</xsl:text>
-              <xsl:text>&#x0a;           "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/><xsl:text>,</xsl:text>
-              <xsl:text>&#x0a;           "categories": [</xsl:text>
-              <xsl:variable name="thisTaxCatsForThisFeat" select="child::category[@xml:id=$thisFeatureCategories]"/>
-              <xsl:for-each select="$thisTaxCatsForThisFeat">
-                <xsl:text>{"id": </xsl:text><xsl:value-of select="concat($quot, @xml:id, $quot)"/>
-                <xsl:text>, "name": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(gloss), $quot)"/>
-                <xsl:if test="desc">
-                  <xsl:text>, "desc": </xsl:text><xsl:value-of select="concat($quot, hcmc:escapeForJSON(desc), $quot)"/>
-                </xsl:if>
-                <xsl:text>, "pos": </xsl:text><xsl:value-of select="count(preceding-sibling::category) + 1"/><xsl:text>}</xsl:text>
-                <xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
-              </xsl:for-each>
-              <xsl:text>]}</xsl:text><xsl:if test="position() lt last()"><xsl:text>,</xsl:text></xsl:if>
-            </xsl:for-each>
-          <xsl:text>]</xsl:text>
-          <xsl:text>&#x0a;      }</xsl:text>
-          <xsl:text>&#x0a;    }</xsl:text>
-          <xsl:if test="position() lt last()"><xsl:text>,&#x0a;  </xsl:text></xsl:if>
-        </xsl:for-each>
-        <xsl:text>&#x0a;  ]&#x0a;}</xsl:text>
-      </xsl:result-document>
+      
+    </xsl:template>
+  
+  <!--<xsl:template name="serializedXhtml5">
+    <xsl:param name="input" as="element()*"/>
+    <xsl:variable name="output"><xsl:apply-templates select="$input" mode="xhtml5"/></xsl:variable>
+    <xsl:value-of select="serialize($output, $serializationParams)"/>
+  </xsl:template>-->
+  
+    <xsl:template match="p" mode="xhtml5">
+      <div class="p"><xsl:apply-templates mode="#current"/></div>
     </xsl:template>
     
+    <!-- For inline elements, we need to avoid adding extra space before or after the element, so 
+   the template is all on one line.-->
+    <xsl:template match="title[@level='m' or @level='j']" mode="xhtml5"><xh:em><xsl:apply-templates mode="#current"/></xh:em></xsl:template>
+    
+    <xsl:template match="title[@level='a'] | q" mode="xhtml5"><xh:q><xsl:apply-templates mode="#current"/></xh:q></xsl:template>
+    
+    <xsl:template match="ref[@target]" mode="xhtml5"><xh:a href="{@target}"><xsl:apply-templates mode="#current"/></xh:a></xsl:template>
+    
+    <xsl:template match="list" mode="xhtml5">
+      <xh:ul><xsl:apply-templates mode="#current"/></xh:ul>
+    </xsl:template>
+    
+    <xsl:template match="item" mode="xhtml5">
+      <xh:li><xsl:apply-templates mode="#current"/></xh:li>
+    </xsl:template>
+    
+    <xsl:template match="graphic" mode="xhtml5">
+      <xsl:variable as="xs:string" name="imgPath"><xsl:apply-templates mode="#current" select="@url"/></xsl:variable>
+      <xh:a target="_blank" href="{$imgPath}"><xh:img alt="{@url}" src="{$imgPath}"/></xh:a>
+    </xsl:template>
+    
+    <xsl:template match="lb" mode="xhtml5">
+      <xh:br/>
+    </xsl:template>
   
-  <xsl:function name="hcmc:escapeForJSON" as="xs:string">
-    <xsl:param name="inNode" as="node()*"/>
-<!--   First, we have to process all the elements into plain text. -->
-    <xsl:variable name="convertedFrag"><xsl:apply-templates mode="serializedXhtml" select="$inNode"/></xsl:variable>
-    <xsl:value-of select="replace(normalize-space($convertedFrag), '&quot;', '\\&quot;')"/> 
+  <xsl:template mode="escape" match="xh:*">
+    <xsl:variable name="n" select="local-name(.)"/>
+    <xsl:text>&lt;</xsl:text><xsl:value-of select="$n"/>
+    <xsl:text> xmlns="http://www.w3.org/1999/xhtml"</xsl:text>
+    <xsl:for-each select="@*"><xsl:text> </xsl:text><xsl:value-of select="concat($n, '=', $quot, ., $quot)"/></xsl:for-each>
+    <xsl:text>&gt;</xsl:text><xsl:apply-templates mode="#current"/><xsl:text>&lt;/</xsl:text><xsl:value-of select="$n"/><xsl:text>&gt;</xsl:text>
+  </xsl:template>
+  
+  <xsl:function name="hcmc:createEscapedXhtml" as="xs:string">
+    <xsl:param name="el" as="element()"/>
+    <xsl:variable name="xhtml" as="element()*"><xsl:apply-templates select="$el" mode="xhtml5"/></xsl:variable>
+    <xsl:variable name="escapedXhtml" as="xs:string"><xsl:apply-templates select="$xhtml" mode="escape"/></xsl:variable>
+    <xsl:value-of select="$escapedXhtml"/>
   </xsl:function>
-  
-  <xsl:template match="p" mode="serializedXhtml">
+      
+      
+    <!--
+  <xsl:template match="p" mode="xhtml5">
     &lt;div class="p"&gt;<xsl:apply-templates mode="#current"/>&lt;/div&gt;
   </xsl:template>
   
-<!-- For inline elements, we need to avoid adding extra space before or after the element, so 
-     the template is all on one line.-->
-  <xsl:template match="title[@level='m' or @level='j']" mode="serializedXhtml">&lt;em&gt;<xsl:apply-templates mode="#current"/>&lt;/em&gt;</xsl:template>
+<!-\- For inline elements, we need to avoid adding extra space before or after the element, so 
+     the template is all on one line.-\->
+  <xsl:template match="title[@level='m' or @level='j']" mode="xhtml5">&lt;em&gt;<xsl:apply-templates mode="#current"/>&lt;/em&gt;</xsl:template>
   
-  <xsl:template match="title[@level='a'] | q" mode="serializedXhtml">&lt;q&gt;<xsl:apply-templates mode="#current"/>&lt;/q&gt;</xsl:template>
+  <xsl:template match="title[@level='a'] | q" mode="xhtml5">&lt;q&gt;<xsl:apply-templates mode="#current"/>&lt;/q&gt;</xsl:template>
   
-  <xsl:template match="ref[@target]" mode="serializedXhtml">&lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;</xsl:template>
+  <xsl:template match="ref[@target]" mode="xhtml5">&lt;a href="<xsl:value-of select="@target"/>"&gt;<xsl:apply-templates mode="#current"/>&lt;/a&gt;</xsl:template>
   
-  <xsl:template match="list" mode="serializedXhtml">
+  <xsl:template match="list" mode="xhtml5">
     &lt;ul&gt;<xsl:apply-templates mode="#current"/>&lt;/ul&gt;
   </xsl:template>
   
-  <xsl:template match="item" mode="serializedXhtml">
+  <xsl:template match="item" mode="xhtml5">
     &lt;li&gt;<xsl:apply-templates mode="#current"/>&lt;/li&gt;
   </xsl:template>
   
-  <xsl:template match="graphic" mode="serializedXhtml">
+  <xsl:template match="graphic" mode="xhtml5">
     &lt;a href="<xsl:apply-templates select="@url" mode="#current"/>" target="_blank"&gt;&lt;img src="<xsl:apply-templates select="@url" mode="#current"/>" alt="<xsl:value-of select="@url"/>"/&gt;&lt;/a&gt;
   </xsl:template>
     
-  <xsl:template match="lb" mode="serializedXhtml">
+  <xsl:template match="lb" mode="xhtml5">
     &lt;br/&gt;
   </xsl:template>
-    
+    -->
 </xsl:stylesheet>
