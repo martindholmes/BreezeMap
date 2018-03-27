@@ -23,10 +23,38 @@
       </fileDesc>
   </teiHeader>
   <text>
+    
     <body>
       <head>The BreezeMap Project: Documentation</head>
-      <p></p>
+      
+      <div xml:id="intro">
+        <head>Introduction</head>
+        <p>The BreezeMap project is an attempt to provide a helpful interface layer between <ref target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">TEI</ref> XML-based gazetteer 
+      or placeography projects (based on the TEI <gi>listPlace</gi> and <gi>place</gi> elements)
+      and the <ref target="http://openlayers.org">OpenLayers</ref> mapping library. It also aims
+      to provide a tool for markup of non-map static images, as a replacement for UVic's old 
+        <ref target="https://hcmc.uvic.ca/~mholmes/image_markup/">Image Markup Tool</ref>.</p>
+      
+      <p>The basic idea is this:
+      
+      <list>
+        <item>You create a new TEI placeography from a template.</item>
+        <item>You configure an OpenLayers map HTML file based on a template.</item>
+        <item>The BreezeMap project turns your placeography into GeoJSON, and builds a map 
+        site for you.</item>
+        <item>You can use the map site to draw new features, then transfer their coordinates
+        back into the placeography file, to build your map.</item>
+      </list>
+      
+      At the moment, considerable knowledge is required to be able to use the tool, because 
+      we're still working on basic functionality and processing, and haven't yet started 
+      work on tutorials, templates and other helpful components that will make the project
+      really useful. 
+      </p>
+      </div>
+      
     </body>
+    
       <back><div>
          <schemaSpec ident="breezemap">
            <moduleRef key="core" include="date desc choice abbr expan foreign gloss graphic head item list note p ptr q ref relatedItem term title"/>

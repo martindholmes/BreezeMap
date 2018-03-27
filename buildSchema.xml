@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project basedir="." default="all" name="Build ODD file and schema">
+  
+  <description>
+    This build process creates the RNG schema from the ODD file, and
+    also generates the documentation in HTML format.
+  </description>
+  
+  <property name="echo.separator" value="************************************************"/>
+  <!-- note: following properties are passed as parameters via Oxygen:
+      -${pd}:            current project directory (i.e. where the breezemap.xpr file lives)
+      -${teiPlugin}:      Location of the TEI plugin framework.
+  -->
+  
+  <import file="${teiPlugin}/xml/tei/stylesheet/common/teianttasks.xml"/>
+  
+  <property name="odd2oddxsl" value="${teiPlugin}/xml/tei/stylesheet/odds/odd2odd.xsl"/>
+  
+  <target name="ODDToSchema">
+    <echo>${echo.separator}</echo>
+    <echo>*Create schema from ODD file.*</echo>
+    <echo>${echo.separator}</echo>
+    
+    <xslt force="yes" style="${teiPlugin}/xml/tei/stylesheet/odds/odd2odd.xsl" in="${basedir}/schemas/breezemap.odd" out="${basedir}/schemas/breezemap.odd.processedodd">
+      <factory name="net.sf.saxon.TransformerFactoryImpl">
+        <attribute name="http://saxon.sf.net/feature/xinclude-aware" value="true"/>
+      </factory>
+      <param name="lang" expression="${lang}" if="lang"/>
+      <param name="defaultSource" expression="${defaultSource}" if="defaultSource"/>
+      <param name="selectedSchema" expression="${selectedSchema}" if="selectedSchema"/>
+      <param name="verbose" expression="${verbose}" if="verbose"/>
+    </xslt>
+    <buildgeneric type="relaxng" xsl="${teiPlugin}/xml/tei/stylesheet/profiles/tei/relaxng/to.xsl" in="${basedir}/schemas/breezemap.odd.processedodd" out="${basedir}/schemas/breezemap.rng"/>
+  </target> 
+  
+  <target name="ODDToDocumentation">
+    <echo>${echo.separator}</echo>
+    <echo>*Create documentation from ODD file.*</echo>
+    <echo>${echo.separator}</echo>
+    
+    <xslt force="yes" style="${teiPlugin}/xml/tei/stylesheet/odds/odd2lite.xsl" in="${basedir}/schemas/breezemap.odd.processedodd" out="${basedir}/schemas/breezemap.lite.odd">
+      <factory name="net.sf.saxon.TransformerFactoryImpl">
+        <attribute name="http://saxon.sf.net/feature/xinclude-aware" value="true"/>
+      </factory>
+      <param name="lang" expression="${lang}" if="lang"/>
+      <param name="defaultSource" expression="${defaultSource}" if="defaultSource"/>
+      <param name="selectedSchema" expression="${selectedSchema}" if="selectedSchema"/>
+      <param name="verbose" expression="${verbose}" if="verbose"/>
+    </xslt>
+    <!--<xslt force="yes" style="${teiPlugin}/xml/tei/stylesheet/profiles/tei/html5/to.xsl" in="${basedir}/schemas/breezemap.lite.odd" out="${basedir}/documentation/breezemap.html">
+      <factory name="net.sf.saxon.TransformerFactoryImpl">
+        <attribute name="http://saxon.sf.net/feature/xinclude-aware" value="true"/>
+      </factory>
+      <param name="doctypeSystem" expression="''" type="XPATH_STRING"/>
+    </xslt>-->
+    <buildgeneric type="relaxng" xsl="${teiPlugin}/xml/tei/stylesheet/profiles/tei/html5/to.xsl" in="${basedir}/schemas/breezemap.lite.odd" out="${basedir}/documentation/breezemap.html">
+    </buildgeneric>
+<!--   The result from the above transformation is horribly invalid. We do some tweaks
+       by removing the unprocessable doctype, then using XSLT. -->
+    <exec executable="sed">
+      <arg value="-i"/>
+      <arg line="'s/&lt;!DOCTYPE html/&lt;!DOCTYPE html&gt;/g'"/>
+      <arg value="${basedir}/documentation/breezemap.html"/>
+    </exec>
+    <exec executable="sed">
+      <arg value="-i"/>
+      <arg line="'s/SYSTEM .about:legacy-compat.&gt;//g'"/>
+      <arg value="${basedir}/documentation/breezemap.html"/>
+    </exec>
+    
+    
+    <xslt force="yes" style="${basedir}/utilities/spiff_up_documentation.xsl" in="${basedir}/documentation/breezemap.html" out="${basedir}/documentation/breezemap.html_temp">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+    </xslt>
+    <move file="${basedir}/documentation/breezemap.html_temp" tofile="${basedir}/documentation/breezemap.html"/>
+  </target> 
+  
+  <target name="clean">
+    <echo>${echo.separator}</echo>
+    <echo>*Clean up temp files.*</echo>
+    <echo>${echo.separator}</echo>
+    <delete dir="${basedir}/schema">
+      <include name="*.lite.odd"/>
+      <include name="*.processedodd"/>
+    </delete>
+  </target>
+  
+  <target name="all">
+    <antcall target="ODDToSchema"/>
+    <antcall target="ODDToDocumentation"/>
+    <antcall target="clean"/>
+  </target>
+  
+</project>
