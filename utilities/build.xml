@@ -79,6 +79,11 @@
       <arg value="-xsl:tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
+      <arg value="-s:${proj.dir}/xml/imageMarkup.xml"/>
+      <arg value="-xsl:tei_to_geojson3.xsl"/>
+      <arg value="--suppressXsltNamespaceCheck:on"/>
+    </java>
     <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingUserFile}">
       <arg value="-s:${abs.inputXml}"/>
       <arg value="-xsl:tei_to_geojson3.xsl"/>

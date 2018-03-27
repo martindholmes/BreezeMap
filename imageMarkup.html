@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <meta charset="UTF-8"/>
+      <title>Image Markup Test</title>
+        <link rel="stylesheet" href="ol/ol.css" type="text/css"/>
+        <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
+      
+<!--   NOTE: We're using the debug version of OL for testing purposes.   -->
+        <script src="ol/ol-debug.js" type="text/ecmascript"></script>
+        <script src="js/hcmc_ol.js" type="text/ecmascript"></script>
+      <style type="text/css">
+<!--        
+        #opacitySlider{
+          position: absolute;
+          top: 5em;
+          left: 3em;
+          z-index: 100;
+          display: block;
+          background-color: rgba(0, 60, 136, 0.5);
+          color: #ffffff;
+        }
+        #opacitySlider:hover{
+          background-color: rgba(0, 60, 136, 0.7);
+        }
+        .ol-rotate {
+          left: 0.5em;
+          top: 6em;
+          transition: opacity 0.25s linear 0s, visibility 0s linear 0s;
+          width: 1.375em;
+        }
+        -->
+      </style>
+    </head>
+    <body>
+      
+        <div id="map" class="map"></div>
+      <form>
+      <input class="ol-control ol-unselectable" id="opacitySlider" title="Change the base map layer opacity" type="range" step="0.01" max="1" min="0" value="0.6" />
+      </form>
+       
+       <div id="splash">
+         <p>Welcome to the HCMC's Image Markup Test. This project is a pilot/test environment 
+           for the development of the HCMC's <a href="https://github.com/martindholmes/BreezeMap">BreezeMap</a> project. </p>
+       </div>
+      
+      <script type="text/ecmascript">
+      <!-- 
+      /* Initial setup of the map with default controls using Tileset created by HCMC from 
+         Open Street Maps dataset. */
+         
+      //Globals...
+      var extent = [0, 0, 600, 960];
+      var projection = new ol.proj.Projection({
+        code: 'imt-image',
+        units: 'pixels',
+        extent: extent
+      });
+      
+      var mapCentre = [300,480];
+      var view = null, layerImage = null, myLayers = [], featureJSONFile = 'js/imageMarkup.json', holLayer = null;
+      
+      
+         
+      function initImageMarkup(){
+      
+        //Create a view centred on our area.
+        view = new ol.View({
+          projection: projection,
+          center: ol.extent.getCenter(extent),
+          zoom: 2,
+          maxZoom: 8
+        });
+        
+        //Create a tile layer using our own built OSM tileset.
+        layerImage = new ol.layer.Image({
+          source: new ol.source.ImageStatic({
+              attributions: '© <a href="http://graves.uvic.ca">Robert Graves Diary</a>',
+              url: 'images/graves_1935-02-22.jpg',
+              projection: projection,
+              imageExtent: extent
+          })
+        });
+        
+        myLayers.push(layerImage);
+        
+        //Create a map using our new layer.
+        map = new ol.Map({
+          layers: myLayers,
+          renderer: 'canvas',
+          target: 'map',
+          interactions: ol.interaction.defaults().extend([
+             	    new ol.interaction.DragRotateAndZoom()
+             	  ]),
+          view: view
+        });
+      
+//Set up the opacity control
+        document.getElementById('opacitySlider').onchange = function(){layerImage.setOpacity(this.value);};
+        document.getElementById('opacitySlider').onchange();
+  
+//Now let's create a hol vector layer for all our features.
+        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
+                                                              allowDrawing: true,
+                                                              allowUpload: true,
+                                                              allowUserTracking: true,
+                                                              allFeaturesTaxonomy: true});
+      }
+      
+      window.addEventListener('load', function (event){initImageMarkup();});
+      
+    -->
+    </script>
+      
+       
+    </body>
+</html>

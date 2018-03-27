@@ -1184,6 +1184,37 @@ hol.VectorLayer.prototype.drawStart = function(){
 };
 
 /**
+ * Function which decides whether a geometry needs to be transformed 
+ * from EPSG:3857 to EPSG4326 or not, and if needed. transforms it.
+ * The decision depends on whether the initial view projection is 
+ * 3857 or not. If we're dealing with a static image layer, then it
+ * would not be.
+ * 
+ * @function hol.VectorLayer.prototype.transformGeom 
+ * @memberof hol.VectorLayer.prototype
+ * @description If the projection of the ol.View is EPSG:3857, then we're
+ *              dealing with a real map, and we need to convert to EPSG:4326
+ *              to save as GeoJSON. If not, we're dealing with a static image
+ *              and we need to leave the geometry alone. 
+ * @param   {ol.geom.Geometry} geom The geometry we're dealing with.
+ * @returns {ol.geom.Geometry} A clone of the original geometry, transformed or not.
+ */
+hol.VectorLayer.prototype.transformGeom = function(geom){
+  try{
+    if (this.view.getProjection().getCode() === 'EPSG:3857'){
+      return geom.clone().transform('EPSG:3857', 'EPSG:4326');
+    }
+    else{
+      return geom.clone();
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return null;
+  }
+};
+
+/**
  * Function to handle the products of drawing a feature.
  * 
  * @function hol.VectorLayer.prototype.drawEnd 
@@ -1205,11 +1236,13 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
           tmpFeat = new ol.Feature({geometry: new ol.geom.Polygon([])});
           tmpGeom = tmpFeat.getGeometry();
           for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-            tmpFeat.getGeometry().appendLinearRing(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            //tmpFeat.getGeometry().appendLinearRing(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            tmpFeat.getGeometry().appendLinearRing(this.transformGeom(this.drawingFeatures.item(i).getGeometry()));
           }
   //The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
           if (typeof evt.feature !== 'undefined'){
-            tmpGeom.appendLinearRing(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            //tmpGeom.appendLinearRing(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            tmpGeom.appendLinearRing(this.transformGeom(evt.feature.getGeometry()));
           }
           this.showCoords(tmpFeat.getGeometry());
           break;
@@ -1218,11 +1251,13 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
           tmpFeat = new ol.Feature({geometry: new ol.geom.MultiPoint([])});
           tmpGeom = tmpFeat.getGeometry();
           for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-            tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            //tmpFeat.getGeometry().appendPoint(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            tmpFeat.getGeometry().appendPoint(this.transformGeom(this.drawingFeatures.item(i).getGeometry()));
           }
   //The last geometry drawn is not added to the layer because technically we have not finished drawing yet.
           if (typeof evt.feature !== 'undefined'){
-            tmpGeom.appendPoint(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            //tmpGeom.appendPoint(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            tmpGeom.appendPoint(this.transformGeom(evt.feature.getGeometry()));
           }
           this.showCoords(tmpFeat.getGeometry());
           break;
@@ -1230,7 +1265,8 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
           tmpFeat = new ol.Feature({geometry: new ol.geom.MultiLineString([])});
           tmpGeom = tmpFeat.getGeometry();
           for (i=0, maxi=this.drawingFeatures.getLength(); i<maxi; i++){
-            tmpGeom.appendLineString(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            //tmpGeom.appendLineString(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+            tmpGeom.appendLineString(this.transformGeom(this.drawingFeatures.item(i).getGeometry()));
           }
           if (typeof evt.feature !== 'undefined'){
             tmpGeom.appendLineString(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
@@ -1245,13 +1281,15 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
             for (i=0; i<maxi; i++){
               polys = this.drawingFeatures.item(i).getGeometry().getPolygons();
               for (j=0, maxj = polys.length; j<maxj; j++){
-                tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+                //tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+                tmpGeom.appendPolygon(this.transformGeom(polys[j]));
               }
             }
             if (typeof evt.feature !== 'undefined'){
               polys = evt.feature.getGeometry().getPolygons();
               for (j=0, maxj = polys.length; j<maxj; j++){
-                tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+                //tmpGeom.appendPolygon(polys[j].clone().transform('EPSG:3857', 'EPSG:4326'));
+                tmpGeom.appendPolygon(this.transformGeom(polys[j]));
               }
             }
             this.showCoords(tmpGeom);
@@ -1269,11 +1307,13 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
             
   //Now go through all the features on the layer.
             for (i=0; i<maxi; i++){
-              arrGeoms.push(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+              //arrGeoms.push(this.drawingFeatures.item(i).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+              arrGeoms.push(this.transformGeom(this.drawingFeatures.item(i).getGeometry()));
                         }
   //Add the feature from this drawing event.
             if (typeof evt.feature !== 'undefined'){
-              arrGeoms.push(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+              //arrGeoms.push(evt.feature.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326'));
+              arrGeoms.push(this.transformGeom(evt.feature.getGeometry()));
             }
   //Create a new GeometryCollection with the array.
             tmpGeom = new ol.geom.GeometryCollection(arrGeoms);
@@ -1285,12 +1325,14 @@ hol.VectorLayer.prototype.drawEnd = function(evt){
     else{
       if (typeof evt.feature !== 'undefined'){
         tmpFeat = evt.feature;
-        tmpGeom = tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        //tmpGeom = tmpFeat.getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        tmpGeom = this.transformGeom(tmpFeat.getGeometry());
         this.showCoords(tmpGeom);
       }
       else{
   //This must be the end of a modify operation, in which case we just write the feature from the drawing layer.
-        tmpGeom = this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        //tmpGeom = this.drawingFeatures.item(0).getGeometry().clone().transform('EPSG:3857', 'EPSG:4326');
+        tmpGeom = this.transformGeom(this.drawingFeatures.item(0).getGeometry());
         this.showCoords(tmpGeom);
       }
     }
@@ -1325,7 +1367,7 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
     }
     geom = tmpFeat.getGeometry();
     this.setMapBounds(geom.getExtent());
-    this.showCoords(geom.clone().transform('EPSG:3857', 'EPSG:4326'));
+    this.showCoords(this.transformGeom(geom.clone()));
     this.drawingFeatures.clear();
     this.baseFeature.setGeometry(geom);
     tmpFeat.setGeometry(null);
@@ -1358,7 +1400,12 @@ hol.VectorLayer.prototype.drawMapBoundsEnd = function(evt){
 hol.VectorLayer.prototype.showCoords = function(geom){
   var strGeoJSON, teiLocation, strFullGeoJSON, geojson = new ol.format.GeoJSON();
   try{
-    strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
+    if (this.view.getProjection().getCode() === 'EPSG:3857'){
+      strGeoJSON = geojson.writeGeometry(geom, {decimals: 6, rightHanded: true});
+    }
+    else{
+      strGeoJSON = geojson.writeGeometry(geom, {decimals: 1, rightHanded: true});
+    }
     teiLocation = 'TEI:\n<location type="GeoJSON">\n';
     teiLocation += '  <geo>"geometry": ' + strGeoJSON + '</geo>\n';
     teiLocation += '</location>';
@@ -1419,8 +1466,13 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
     feat.setId(featId);
     feat.setProperties({"name": featName, "links": [], "desc": this.captions.strEditThisFeature});
     feat.setProperties({"taxonomies": [{"id": this.currTaxonomy.id, "name": this.currTaxonomy.name, "pos": catPos, "categories": [{"id": "drawnFeatures", "name": this.captions.strDrawnFeatures}]}]});
-    feat.setProperties({"showing": false, "selected": false}, true)
-    feat.setGeometry(this.currDrawGeometry.clone().transform('EPSG:4326', 'EPSG:3857'));
+    feat.setProperties({"showing": false, "selected": false}, true);
+    if (this.view.getProjection().getCode() === 'EPSG:3857'){
+      feat.setGeometry(this.currDrawGeometry.clone().transform('EPSG:4326', 'EPSG:3857'));
+    }
+    else{
+      feat.setGeometry(this.currDrawGeometry.clone());
+    }
     
     //Add it to the feature set.
     this.features.push(feat);
@@ -1608,7 +1660,12 @@ hol.VectorLayer.prototype.downloadGeoJSON = function(){
     geojson = new ol.format.GeoJSON();
     outFeats = [this.baseFeature];
     outFeats = outFeats.concat(this.source.getFeatures());
-    mapjson = geojson.writeFeatures(outFeats, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6, rightHanded: true});
+    if (this.view.getProjection().getCode() === 'EPSG:3857'){
+      mapjson = geojson.writeFeatures(outFeats, {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857', decimals: 6, rightHanded: true});
+    }
+    else{
+      mapjson = geojson.writeFeatures(outFeats, {dataProjection: this.view.getProjection().getCode(), featureProjection: this.view.getProjection().getCode(), decimals: 1, rightHanded: true});
+    }
     el = document.createElement('a');
     el.setAttribute('href', 'data:application/geo+json;charset=utf-8,' + encodeURIComponent(mapjson));
     el.setAttribute('download', this.geojsonFileName);

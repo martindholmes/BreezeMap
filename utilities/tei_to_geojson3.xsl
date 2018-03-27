@@ -153,7 +153,7 @@
     
     <!-- For inline elements, we need to avoid adding extra space before or after the element, so 
    the template is all on one line.-->
-    <xsl:template match="title[@level='m' or @level='j']" mode="xhtml5"><xh:em><xsl:apply-templates mode="#current"/></xh:em></xsl:template>
+    <xsl:template match="title[@level='m' or @level='j'] | foreign | term" mode="xhtml5"><xh:em><xsl:apply-templates mode="#current"/></xh:em></xsl:template>
     
     <xsl:template match="title[@level='a'] | q" mode="xhtml5"><xh:q><xsl:apply-templates mode="#current"/></xh:q></xsl:template>
     
@@ -171,10 +171,16 @@
       <xsl:variable as="xs:string" name="imgPath"><xsl:apply-templates mode="#current" select="@url"/></xsl:variable>
       <xh:a target="_blank" href="{$imgPath}"><xh:img alt="{@url}" src="{$imgPath}"/></xh:a>
     </xsl:template>
+  
+    <xsl:template match="desc/descendant::gloss" mode="xhtml5">
+      <xh:span class="{local-name()}"><xsl:apply-templates mode="#current"/></xh:span>
+    </xsl:template>
     
     <xsl:template match="lb" mode="xhtml5">
       <xh:br/>
     </xsl:template>
+  
+  
   
 <!-- This turns XHTML5 into serialized strings. -->
   <xsl:template mode="escape" match="xh:*" as="xs:string*">

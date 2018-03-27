@@ -672,6 +672,14 @@ div#holInfo div.p{
   margin-bottom: 0.5em;
 }
 
+span.gloss::before{
+  content: "[";
+}
+
+span.gloss::after{
+  content: "]";
+}
+
 div#holInfo img{
   border: solid 1px gray;
   max-width: 100%;

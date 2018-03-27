@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../schemas/breezemap.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../schemas/breezemap.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../schemas/breezemap.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Image Markup Test</title>
+            </titleStmt>
+            <publicationStmt>
+                <p>Humanities Computing and Media Centre, University of Victoria.</p>
+            </publicationStmt>
+            <sourceDesc>
+                <p>Born digital file for BreezeMap-based projects.</p>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <classDecl xml:id="holTaxonomies">
+                <taxonomy xml:id="entities" n="Entities">
+                    <category xml:id="people">
+                        <gloss>People</gloss>
+                        <desc>People mentioned</desc>
+                    </category>
+                    <category xml:id="places">
+                        <gloss>Places mentioned</gloss>
+                    </category>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <head>Robert Graves Diary 1935-02-22</head>
+            <div>
+                <listPlace>
+                    <!--       This is a special feature which defines the map bounds and title.             -->
+                    <place xml:id="holMap" corresp="#holTaxonomies">
+                        <placeName>Robert Graves Diary 1935-02-22</placeName>
+                        <desc/>
+                        <location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates":[[[0,0],[0,960],[600,960],[600,0],[0,0]]]}</geo>
+                        </location>
+                    </place>
+                    
+                    
+                </listPlace>
+            </div>
+        </body>
+    </text>
+</TEI>

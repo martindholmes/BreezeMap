@@ -23,7 +23,11 @@
       </fileDesc>
   </teiHeader>
   <text>
-      <body>
+    <body>
+      <head>The BreezeMap Project: Documentation</head>
+      <p></p>
+    </body>
+      <back><div>
          <schemaSpec ident="breezemap">
            <moduleRef key="core" include="date desc choice abbr expan foreign gloss graphic head item list note p ptr q ref relatedItem term title"/>
            <moduleRef key="header" include="availability catDesc catRef category classDecl encodingDesc fileDesc licence listPrefixDef prefixDef profileDesc projectDesc publicationStmt sourceDesc taxonomy teiHeader titleStmt"/>
@@ -265,7 +269,7 @@
              </content>
            </elementSpec>
            
-      </schemaSpec>
-      </body>
+      </schemaSpec></div>
+      </back>
   </text>
 </TEI>
