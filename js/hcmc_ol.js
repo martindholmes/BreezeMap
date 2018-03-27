@@ -88,6 +88,7 @@ hol.captions['en'].strNetworkError       = 'There was a network error.';
 hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on the map.';
 hol.captions['en'].strShowHideAllFeats   = 'Show/hide all features';
 hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
+hol.captions['en'].strGeoLocRequiresTLS  = 'Geolocation tracking requires a secure connection (https).';
 hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
 hol.captions['en'].strStopDrawing        = 'Stop drawing';
 hol.captions['en'].strClear              = 'Clear';
@@ -3372,11 +3373,13 @@ hol.VectorLayer.prototype.rewriteHolLinks = function(el){
  */
 hol.VectorLayer.prototype.toggleTracking = function(){
   try{
-    var track = (this.geolocationId === -1);
+    var track = (this.geolocationId === -1), msg;
 
     if ((track === true)&&('geolocation' in navigator)){
       this.userTrackButton.classList.add('on');
-      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert(this.captions.strGeoLocNotSupported); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
+      if (window.location.protocol === 'https:'){msg = this.captions.strGeoLocNotSupported;}
+      else{msg = this.captions.strGeoLocRequiresTLS;}
+      this.geolocationId = navigator.geolocation.watchPosition(this.trackPosition.bind(this), function(){alert(msg); this.userTrackButton.classList.remove('on'); navigator.geolocation.clearWatch(this.geolocationId); this.geolocationId = -1;}.bind(this), {enableHighAccuracy: true});
     }
     else{
       if (this.userPositionMarker !== null){
