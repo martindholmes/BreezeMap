@@ -145,7 +145,7 @@ ul.holMenu>li>ul li:hover{
   background-color: rgb(240,240,240);
 }
 ul.holMenu>li>ul>li>a:link,
-ul.holMenu>li>ul>li>a:visted{
+ul.holMenu>li>ul>li>a:visited{
 
 }
 
@@ -384,7 +384,7 @@ button#btnNavSearch{
 h2 input#inpNavSearch{
   appearance: none;
   box-shadow: none;
-  border-radius: none;
+  border-radius: 0;
   max-width: 14rem;
   flex: auto;
 }

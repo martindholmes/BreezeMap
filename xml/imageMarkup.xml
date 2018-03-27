@@ -41,8 +41,34 @@
                         <location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates":[[[0,0],[0,960],[600,960],[600,0],[0,0]]]}</geo>
                         </location>
                     </place>
-                    
-                    
+                    <place xml:id="aesg" corresp="#people">
+                        <placeName>Amy Graves</placeName>                        
+                        <desc>Robert Graves's mother.</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[174.1,793],[174.6,755.7],[270.9,755.3],[267,793.5],[174.1,793]]]}</geo>
+                        </location>
+                    </place>
+                    <place xml:id="jenny" corresp="#people">
+                        <placeName>Jenny Nicholson</placeName>
+                        <desc>Graves's oldest daughter</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[316.9,567.7],[315,528.3],[387.2,529.2],[387.2,566.7],[316.9,567.7]]]}</geo>
+                        </location>
+                    </place>
+                    <place xml:id="canJuni" corresp="#places">
+                        <placeName>Ca'n Juni</placeName>
+                        <desc>Garden terraces belonging to Juan Gelat. RG also had access to the fruit there.</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[287.8,388.6],[288.8,344.5],[406.9,349.2],[405,391.4],[287.8,388.6]]]}</geo>
+                        </location>
+                    </place>
+                    <place xml:id="harrods" corresp="#places">
+                        <placeName>Harrods</placeName>
+                        <desc>London department store.</desc>
+                        <location type="GeoJSON">
+                            <geo>"geometry": {"type":"Polygon","coordinates":[[[217.5,217.7],[217,181.6],[290.2,184.9],[289.2,217.7],[217.5,217.7]]]}</geo>
+                        </location>
+                    </place>
                 </listPlace>
             </div>
         </body>
