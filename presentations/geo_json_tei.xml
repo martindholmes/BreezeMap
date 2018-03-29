@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_jtei.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_jtei.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" rend="jTEI">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title type="main">Encoding GeoJSON Geometries in TEI</title>
+
+            <author>
+               <name xml:id="mholmes">
+                  <forename>Martin</forename>
+                  <surname>Holmes</surname>
+               </name>
+               <affiliation>University of Victoria Humanities Computing and Media
+                  Centre</affiliation>
+               <email>mholmes@uvic.ca</email>
+            </author>
+         </titleStmt>
+         <publicationStmt>
+            <publisher>TEI Consortium</publisher>
+            <date/>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>For this publication a Creative Commons Attribution 4.0 International license
+                     has been granted by the author(s) who retain full copyright.</p>
+               </licence>
+            </availability>
+         </publicationStmt>
+         <sourceDesc>
+            <p>No source, born digital. Abstract for submission to the TEI 2018 Conference in
+               Tokyo.</p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The BreezeMap project is developing a code-base for integrating GeoJSON, OpenLayers,
+               and TEI for constructing maps, facsimiles, and gazetteers using TEI.</p>
+         </projectDesc>
+      </encodingDesc>
+      <profileDesc>
+         <langUsage>
+            <language ident="en">en</language>
+         </langUsage>
+         <textClass>
+            <keywords xml:lang="en">
+               <term>maps</term>
+               <term>GeoJSON</term>
+               <term>facsimiles</term>
+            </keywords>
+         </textClass>
+      </profileDesc>
+      <revisionDesc>
+         <change who="#mholmes" when="2018-03-29">Created this document…</change>
+      </revisionDesc>
+   </teiHeader>
+   <text>
+      <front>
+         <div type="abstract" xml:id="abstract"> </div>
+      </front>
+      <body>
+
+         <div xml:id="geojson">
+            <head>GeoJSON and BreezeMap</head>
+            <p> Although the GeoJSON format was both stable and widely supported by 2008, it was not
+               until 2016 that the Internet Engineering Task Force adopted it, with some minor
+               changes, as an RFC (<ref target="#ietf2016" type="bibl">IETF 2016</ref>). Software
+               support for GeoJSON is now virtually universal in the mapping community. </p>
+
+            <p>GeoJSON provides a clear and easily-processable array of feature geometries,
+               including primitives (Point, LineString, Polygon) and complex combinations
+               (MultiPoint, MultiLineString, MultiPolygon and MultiGeometry) to enable the encoding
+               of locations on a mapping surface using GIS coordinates.</p>
+
+            <p>Our <ref target="https://github.com/martindholmes/BreezeMap">BreezeMap</ref> project
+               aims to create a toolset based on <ref target="http://openlayers.org"
+                  >OpenLayers</ref>, GeoJSON and TEI for creating interactive maps and
+               gazetteers</p>
+         </div>
+         <div xml:id="mapping">
+            <head>Mapping in TEI</head>
+            <p/>
+         </div>
+         <div xml:id="facsimiles">
+            <head>Facsimiles</head>
+            <p>The GeoJSON RFC says <quote source="#ietfref1">GeoJSON uses a geographic coordinate
+                  reference system, World Geodetic System 1984, and units of decimal
+                  degrees.</quote>, and <quote source="#ietfref1">the first two elements [of a position] are
+                  longitude and latitude, or easting and northing</quote>, (<ref xml:id="ietfref1"
+                  target="#ietf2016" type="bibl">IETF 2016</ref>); in other words, it is intended
+            only for geographic data. However, there is nothing intrinsic to the specification of
+            geometries in the document which precludes using the same structures to describe 
+            features on any two- or three-dimensional surface. The same types of feature (points,
+            lines, polygons, and combinations of them) are a natural fit when annotating manuscript
+            images, engravings, and other pictorial or textual content in any TEI project which 
+            incorporates a facsimile component. A mapping library such as OpenLayers will happily
+            display any static image with features described in <soCalled>GeoJSON</soCalled> 
+               which actually consist only of pixel offsets. </p>
+            
+            <p>This makes <soCalled>GeoJSON</soCalled> a natural fit for rendering annotated
+            images, and interfaces such as those provided by OpenLayers drawing tool a good 
+            option for <soCalled>authoring</soCalled> such features. The question then is how
+            best to encode the resulting data, in a non-lossy manner, in the existing TEI 
+            elements for describing features on a surface (<gi>zone</gi> and the soon-to-be-available
+               <gi>path</gi>). The remainder of this presentation will examine ways in which such 
+               geometries can be encoded in TEI, and easily recovered into GeoJSON structures
+               for rendering purposes.
+            </p>
+         </div>
+      </body>
+
+      <back>
+         <div type="bibliography">
+
+            <listBibl>
+
+               <bibl xml:id="holmes2012"><author>Holmes, Martin</author>. <date>2012</date>. <title
+                     level="m">Image Markup Tool</title>. Version 1.8.2.2. <ref
+                     target="https://hcmc.uvic.ca/~mholmes/image_markup/"
+                     >https://hcmc.uvic.ca/~mholmes/image_markup/</ref>.</bibl>
+
+               <bibl xml:id="ietf2016"><author>Internet Engineering Task Force</author>.
+                     <date>2016</date>. <title level="m">The GeoJSON Format</title>. <idno>Request
+                     for Comments (RFC) No. 7946</idno>. <ref
+                     target="https://tools.ietf.org/html/rfc7946"
+                     >https://tools.ietf.org/html/rfc7946</ref>.</bibl>
+
+               <bibl xml:id="jenstad2015"><author>Jenstad, Janelle</author>, <author>Kim
+                     McLean-Fiander</author>, <author>Greg Newton</author> and <author>Martin
+                     Holmes</author>. <date>2015</date>. <title level="a">How To Edit a Map in
+                     TEI</title>. Digital Humanities 2015 Conference, Sydney, Australia. <ref
+                     target="http://dh2015.org/abstracts/xml/JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI//JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI.html"
+                     >http://dh2015.org/abstracts/xml/JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI//JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI.html</ref>. </bibl>
+
+            </listBibl>
+         </div>
+      </back>
+   </text>
+</TEI>
