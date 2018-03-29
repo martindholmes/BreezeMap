@@ -57,7 +57,29 @@
    </teiHeader>
    <text>
       <front>
-         <div type="abstract" xml:id="abstract"> </div>
+         <div type="abstract" xml:id="abstract">
+            <p>This presentation will address two distinct but related issues concerning the
+            representation of feature geometries on two-dimensional surfaces in TEI.</p>
+            
+            <p>Over the last decade, GeoJSON has proved itself as a simple, efficient and rich standard for 
+            encoding map features, and is widely used throughout the GIS community, eclipsing
+            other apparently more XML-friendly options such as GML and KML. As more TEI projects
+            incorporate GIS data, there is a need to provide examples of good practice which 
+            enable the integration of GeoJSON-encoded feature geometries (Point, LineString, Polygon,
+            MultiPoint, MultiLineString, MultiPolygon and MultiGeometry) with TEI encoding.
+            The first half of this presentation will show how the University of Victoria’s
+            BreezeMap project is approaching this problem.</p>
+            
+            <p>The second half of the presentation will address the need to encode 
+            similar complex geometries inside the TEI <gi>facsimile</gi> element, to represent
+            points, lines and polygons on text-bearing surfaces or other two-dimensional 
+            coordinate spaces. The model of GeoJSON can be helpful here too, and although
+            the existing TEI element-set (<gi>surface</gi>, <gi>zone</gi>, and the soon-to-be-added
+            <gi>path</gi>), along with their current attribute array, already make this possible,
+            there are many possible approaches that might be taken for any given geometry. It would
+            be desirable to settle on a set of best practices and exemplify them in the TEI
+            Guidelines.</p>
+         </div>
       </front>
       <body>
 
@@ -71,42 +93,103 @@
             <p>GeoJSON provides a clear and easily-processable array of feature geometries,
                including primitives (Point, LineString, Polygon) and complex combinations
                (MultiPoint, MultiLineString, MultiPolygon and MultiGeometry) to enable the encoding
-               of locations on a mapping surface using GIS coordinates.</p>
+               of locations (features) on a mapping surface using GIS coordinates.</p>
 
             <p>Our <ref target="https://github.com/martindholmes/BreezeMap">BreezeMap</ref> project
                aims to create a toolset based on <ref target="http://openlayers.org"
                   >OpenLayers</ref>, GeoJSON and TEI for creating interactive maps and
-               gazetteers</p>
+               gazetteers, as well as an approach for encoding complex features on textual 
+            facsimiles and other surfaces represented as two-dimensional digital images. This
+            presentation will discuss the approaches taken to integrating
+            TEI and GeoJSON in the BreezeMap project.</p>
          </div>
          <div xml:id="mapping">
             <head>Mapping in TEI</head>
-            <p/>
+            <p>Projects marrying TEI and GIS are increasingly common (<ref type="bibl"
+                  target="#hickcox2013">Hickcox et al 2013</ref>, <ref type="bibl"
+                  target="#jenstad2006">Jenstad 2006-present</ref>). The TEI treats places as
+               first-order entities, and building a gazetteer using <gi>listPlace</gi> and
+                  <gi>place</gi> is straightforward, but support for actual GIS is currently very
+               limited (see my TEI feature request <ref
+                  target="https://github.com/TEIC/TEI/issues/1474">Need to improve GIS/gazetteer
+                  encoding support in TEI</ref>). The TEI <gi>geo</gi> element <quote
+                  source="#teiref1">contains any expression of a set of geographic coordinates,
+                  representing a point, line, or area on the surface of the earth in some
+                  notation.</quote> (<ref xml:id="teiref1" target="#tei2018" type="bibl">TEI
+                  2018</ref>), a rather vague definition which is currently supplemented by only a
+               few examples showing single points encoded as a simple coordinate pair, or embedded
+               GML showing a Linear Ring. For encoders who would like to make use of the range of
+               geometries available in modern mapping standards, it would help to have a few clear
+               examples showing GeoJSON embedded in TEI, as in <ref type="crossref" target="#exampleGeo">Example 1</ref>, 
+               which is taken from a campus map that forms one of the test projects in BreezeMap: 
+               
+               <figure xml:id="exampleGeo">
+                  
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <place xml:id="bldgElliottTheatre" corresp="#bldgTeaching">
+                        <placeName>Elliott Lecture Theatre</placeName>
+                        <desc>...</desc>
+                        <location type="GeoJSON">
+                           <geo crs="urn:ogc:def:crs:OGC:1.3:CRS84"
+                              geoEncoding="GeoJSON">"geometry":{"type":"Polygon",
+                              "coordinates":[[[-123.3108016,48.4627526],[-123.3102577,48.4627937],[-123.3102336,48.4626537],[-123.3102028,48.4624747],[-123.3107466,48.4624335],[-123.310778,48.4626155],[-123.3108016,48.4627526]]]}</geo>
+                        </location>
+                     </place>
+                  </egXML>
+                  <head type="legend">A TEI <gi>place</gi> element incorporating GeoJSON
+                     geometry</head>
+               </figure>
+               
+               The <att>crs</att> and <att>geoEncoding</att> attributes, which are part of
+               the feature request mentioned above, will
+               provide better options for machine-readable encoding than the current <gi>geoDecl</gi>
+               header element allows. The actual feature geometry is expressed in its pure GeoJSON 
+               format, and is easily machine-readable. Converting a TEI gazetteer constructed like 
+               this into a GeoJSON file for display in a mapping application is trivial, especially
+               with XSLT 3.0's enhanced support for JSON.
+            </p>
          </div>
          <div xml:id="facsimiles">
             <head>Facsimiles</head>
-            <p>The GeoJSON RFC says <quote source="#ietfref1">GeoJSON uses a geographic coordinate
+            <p>The GeoJSON RFC specifies that <quote source="#ietfref1">GeoJSON uses a geographic coordinate
                   reference system, World Geodetic System 1984, and units of decimal
-                  degrees.</quote>, and <quote source="#ietfref1">the first two elements [of a position] are
-                  longitude and latitude, or easting and northing</quote>, (<ref xml:id="ietfref1"
-                  target="#ietf2016" type="bibl">IETF 2016</ref>); in other words, it is intended
-            only for geographic data. However, there is nothing intrinsic to the specification of
-            geometries in the document which precludes using the same structures to describe 
-            features on any two- or three-dimensional surface. The same types of feature (points,
-            lines, polygons, and combinations of them) are a natural fit when annotating manuscript
-            images, engravings, and other pictorial or textual content in any TEI project which 
-            incorporates a facsimile component. A mapping library such as OpenLayers will happily
-            display any static image with features described in <soCalled>GeoJSON</soCalled> 
-               which actually consist only of pixel offsets. </p>
-            
-            <p>This makes <soCalled>GeoJSON</soCalled> a natural fit for rendering annotated
-            images, and interfaces such as those provided by OpenLayers drawing tool a good 
-            option for <soCalled>authoring</soCalled> such features. The question then is how
-            best to encode the resulting data, in a non-lossy manner, in the existing TEI 
-            elements for describing features on a surface (<gi>zone</gi> and the soon-to-be-available
-               <gi>path</gi>). The remainder of this presentation will examine ways in which such 
-               geometries can be encoded in TEI, and easily recovered into GeoJSON structures
-               for rendering purposes.
+                  degrees.</quote>, and <quote source="#ietfref1">the first two elements [of a
+                  position] are longitude and latitude, or easting and northing</quote>, (<ref
+                  xml:id="ietfref1" target="#ietf2016" type="bibl">IETF 2016</ref>); in other words,
+               it is intended only for geographic data. However, there is nothing intrinsic to the
+               specification of geometries in the RFC which precludes using the same structures
+               to describe features on any two- or three-dimensional surface. The same types of
+               feature (points, lines, polygons, and combinations of them) are a natural fit when
+               annotating manuscript images, engravings, and other pictorial or textual content in
+               any TEI project which incorporates a facsimile component. A mapping library such as
+               OpenLayers will happily display any static image with features described in
+                  <soCalled>GeoJSON</soCalled> which actually consist only of pixel offsets. 
+               This is the approach we take when encoding pseudo-geographical coordinates on 
+               historical maps which are not, or cannot be, geo-rectified, as in the case of the 
+               Agas Map (<ref type="bibl" target="#jenstad2015">Jenstad et al. 2015</ref>).
+               
+               <figure xml:id="agas">
+                  <graphic url="images/agas.png" width="867px" height="711px"/>
+                  <head type="legend">A detail from the Agas Map, which shows features
+                  outlines using polygons and lines which are expressed in GeoJSON in 
+                  the TEI encoding</head>
+               </figure>
             </p>
+
+            <p>This makes <soCalled>GeoJSON</soCalled> (or at least, its formal structure)
+               a natural fit for rendering annotated images,
+               and interfaces such as those provided by OpenLayers drawing tools a good option for
+                  <soCalled>authoring</soCalled> such features. The question then is how best to
+               encode the resulting data, in a non-lossy manner, in the existing TEI elements for
+               describing features on a surface (<gi>zone</gi> and the soon-to-be-available
+                  <gi>path</gi>). Browser-based drawing tools developed and optimized for maps
+               can now provide a more powerful alternative to older, less sophisticated tools for
+               facsimile editing, such as my own Image Markup Tool (<ref type="bibl" target="#holmes2012">Holmes 2012</ref>).
+            </p>
+               
+               <p>The remainder of this presentation will examine ways in which such
+               geometries can be encoded in TEI, and easily recovered into GeoJSON structures for
+               rendering purposes. </p>
          </div>
       </body>
 
@@ -114,6 +197,12 @@
          <div type="bibliography">
 
             <listBibl>
+               <bibl xml:id="hickcox2013"><author>Hickcox, Alice</author>, <author>Michael C.
+                     Page</author>, and <author>Randy Gue</author>. <date>2013</date>. <title
+                     level="a">The Atlanta Map project: TEI and GIS collaborate to create a research
+                     environment</title>. Digital Humanities 2013 Conference, Nebraska. <ref
+                     target="http://dh2013.unl.edu/abstracts/ab-416.html"
+                     >http://dh2013.unl.edu/abstracts/ab-416.html</ref>.</bibl>
 
                <bibl xml:id="holmes2012"><author>Holmes, Martin</author>. <date>2012</date>. <title
                      level="m">Image Markup Tool</title>. Version 1.8.2.2. <ref
@@ -132,6 +221,14 @@
                      TEI</title>. Digital Humanities 2015 Conference, Sydney, Australia. <ref
                      target="http://dh2015.org/abstracts/xml/JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI//JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI.html"
                      >http://dh2015.org/abstracts/xml/JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI//JENSTAD_Janelle_Auriol_How_To_Edit_a_Map_in_TEI.html</ref>. </bibl>
+               <bibl xml:id="jenstad2006"><editor>Jenstad, Janelle</editor>.
+                     <date>2006-present</date>. The Map of Early Modern London. <ref
+                     target="http://mapoflondon.uvic.ca/">http://mapoflondon.uvic.ca/</ref></bibl>
+
+               <bibl xml:id="tei2018"><author>TEI Consortium</author>. <date>2018</date>. <title
+                     level="m">TEI Guidelines</title>, version <ref
+                     target="http://www.tei-c.org/Vault/P5/3.3.0/doc/tei-p5-doc/en/html/"
+                     >3.3.0</ref>. </bibl>
 
             </listBibl>
          </div>
