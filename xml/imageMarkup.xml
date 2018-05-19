@@ -23,7 +23,8 @@
                         <desc>People mentioned</desc>
                     </category>
                     <category xml:id="places">
-                        <gloss>Places mentioned</gloss>
+                        <gloss>Places   </gloss>
+                        <desc>Places mentioned</desc>
                     </category>
                 </taxonomy>
             </classDecl>
