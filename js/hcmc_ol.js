@@ -89,6 +89,9 @@ hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on th
 hol.captions['en'].strShowHideAllFeats   = 'Show/hide all features';
 hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
 hol.captions['en'].strGeoLocRequiresTLS  = 'Geolocation tracking requires a secure connection (https).';
+hol.captions['en'].strNewTaxonomy        = 'Add taxonomy'
+hol.captions['en'].strGetTaxonomyName    = 'Type a name for your new taxonomy:'
+hol.captions['en'].strGetCategoryName    = 'Type a name for your new category';
 hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
 hol.captions['en'].strStopDrawing        = 'Stop drawing';
 hol.captions['en'].strClear              = 'Clear';
@@ -1033,8 +1036,13 @@ hol.VectorLayer.prototype.setupDrawing = function(){
  * @returns {Boolean} true (success) or false (failure).
  */
 hol.VectorLayer.prototype.setupTaxonomyEditing = function(){ 
+  var itemAddTaxonomy;
   try{
-    
+    if (this.fileMenu === null){this.setupFileMenu();}
+    itemAddTaxonomy = document.createElement('li');
+    itemAddTaxonomy.appendChild(document.createTextNode(this.captions.strNewTaxonomy));
+    this.fileMenu.getElementsByTagName('ul')[0].appendChild(itemAddTaxonomy);
+    itemAddTaxonomy.addEventListener('click', this.newTaxonomy.bind(this), false);
     return true;
   }
   catch(e){
@@ -1919,6 +1927,42 @@ hol.VectorLayer.prototype.taxonomyHasFeature = function(taxNum, featId){
 };
 
 /**
+ * Function for adding a new taxonomy to the current set.
+ *
+ * @function hol.VectorLayer.prototype.newTaxonomy
+ * @memberof hol.VectorLayer.prototype
+ * @description Prompts the user for a new taxonomy name, then 
+ *              constructs an id for the new taxonomy, adds 
+ *              it to the set, then switches to it.
+ * @returns {Boolean} true if the taxonomy is successfully created; 
+ *                    false if the process fails or is aborted.
+ */
+hol.VectorLayer.prototype.newTaxonomy = function(){
+  var taxName, taxId;
+  try{
+    //Now ask for a name from the user.
+    taxName = window.prompt(this.captions.strGetTaxonomyName, '');
+    
+    //Create an id from the name.
+    taxId = taxName.replace(/[^A-Za-z]/, '');
+    
+    //Make it unique.
+    while (this.getTaxNumFromId(taxId, -1) !== -1){
+      taxId += 'x';
+    }
+    //Add it to the set.
+    this.taxonomies.push({name: taxName, pos: this.taxonomies.length + 1, id: taxId, categories: []});
+    this.buildTaxonomySelector();
+    this.taxonomySelector.selectedIndex = this.taxonomySelector.options.length - 1;
+    this.changeTaxonomy(this.taxonomySelector);
+  }
+    catch(e){
+    console.error(e.message);
+    return false;
+  }
+};  
+
+/**
  * Function for finding an existing splash screen div, or
  * creating one if one does not exist.
  *
@@ -2407,6 +2451,34 @@ hol.VectorLayer.prototype.getCatNumFromId = function(catId, defVal){
         if (this.taxonomies[this.currTaxonomy].categories[i].id === catId){
           return i;
         }
+      }
+    }
+    return result;
+  }
+  catch(e){
+    console.error(e.message);
+    return defVal;
+  }
+};
+
+/**
+ * Function for retrieving the taxonomy index from its string identifier.
+ *
+ * @function hol.VectorLayer.getTaxNumFromId
+ * @memberof hol.VectorLayer.prototype
+ * @description retrieves the taxonomy index
+ *                         number from its string id.
+ * @param {string} taxId the string identifier.
+ * @param {number} defVal the value to return if the category id is not found.
+ * @returns {number} the index of the taxonomy, or defVal by default if the
+ *                   identifier is not found.
+ */
+hol.VectorLayer.prototype.getTaxNumFromId = function(taxId, defVal){
+  var i, maxi, result = defVal;
+  try{
+    for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+      if (this.taxonomies[i].id === taxId){
+        return i;
       }
     }
     return result;
