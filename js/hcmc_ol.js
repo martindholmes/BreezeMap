@@ -89,9 +89,11 @@ hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on th
 hol.captions['en'].strShowHideAllFeats   = 'Show/hide all features';
 hol.captions['en'].strGeoLocNotSupported = 'Sorry, your browser does not support geolocation tracking.';
 hol.captions['en'].strGeoLocRequiresTLS  = 'Geolocation tracking requires a secure connection (https).';
-hol.captions['en'].strNewTaxonomy        = 'Add taxonomy'
+hol.captions['en'].strNewTaxonomy        = 'Add taxonomy';
+hol.captions['en'].strNewCategory        = 'Add category';
 hol.captions['en'].strGetTaxonomyName    = 'Type a name for your new taxonomy:'
-hol.captions['en'].strGetCategoryName    = 'Type a name for your new category';
+hol.captions['en'].strGetCategoryName    = 'Type a name for your new category:';
+hol.captions['en'].strGetCategoryDesc    = 'Type a brief description for your new category:';
 hol.captions['en'].strGetFeatureName     = 'Type a name for your new feature:';
 hol.captions['en'].strStopDrawing        = 'Stop drawing';
 hol.captions['en'].strClear              = 'Clear';
@@ -1960,7 +1962,6 @@ hol.VectorLayer.prototype.newTaxonomy = function(){
     
     //Create an id from the name.
     taxId = hol.Util.idFromName(taxName);
-    console.log(taxId);
     
     //Make it unique.
     while (this.getTaxNumFromId(taxId, -1) !== -1){
@@ -1977,6 +1978,46 @@ hol.VectorLayer.prototype.newTaxonomy = function(){
     return false;
   }
 };  
+
+/**
+ * Function for adding a new category to the current taxonomy.
+ *
+ * @function hol.VectorLayer.prototype.newCategory
+ * @memberof hol.VectorLayer.prototype
+ * @description Prompts the user for a new category name, then 
+ *              constructs an id for the new category, and adds 
+ *              it to the current taxonomy.
+ * @returns {Boolean} true if the category is successfully created; 
+ *                    false if the process fails or is aborted.
+ */
+hol.VectorLayer.prototype.newCategory = function(){
+  var catName, catId, catDesc, catPos;
+  try{
+    //Now ask for a name from the user.
+    catName = window.prompt(this.captions.strGetCategoryName, '');
+    
+    //Create an id from the name.
+    catId = hol.Util.idFromName(catName);
+    
+    //Get the category description.
+    catDesc = window.prompt(this.captions.strGetCategoryDesc, '');
+    
+    catPos = this.taxonomies[this.currTaxonomy].categories.length + 1;
+    
+    //Make it unique.
+    while (this.getCatNumFromId(catId, -1) !== -1){
+      catId += 'x';
+    }
+    //Add it to the set.
+    this.taxonomies[this.currTaxonomy].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, features: []});
+    
+    
+  }
+    catch(e){
+    console.error(e.message);
+    return false;
+  }
+}; 
 
 /**
  * Function for finding an existing splash screen div, or
