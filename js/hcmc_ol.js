@@ -548,6 +548,21 @@ hol.Util.getSize = function(extent){
   return (w * h);
 };
 
+/** Utility function which is passed a user-created name and 
+ *          returns a valid id constructed from it.
+*  @method hol.Util.idFromName Utility function for constructing
+*                   a valid QName from a prose string.
+*  @param   {string} name
+*  @returns {string} The constructed ud.
+* */
+hol.Util.idFromName = function(name){
+//Get rid of unwanted chars.
+  var candidate = name.replace(/[^A-Za-z0-9]+/g, '').replace(/^[^A-Za-z]+/, '');
+//Lowercase the first letter.
+  candidate = candidate.substring(0, 1).toLowerCase() + candidate.substring(1);
+  return candidate;
+};
+
 /**
  * A function in the hol.Util namespace which expands and
  * contracts a category in the navigation panel.
@@ -1463,7 +1478,7 @@ hol.VectorLayer.prototype.addDrawnFeature = function(){
     featName = window.prompt(this.captions.strGetFeatureName, '');
     
     //Create an id from the name.
-    featId = featName.replace(/[^A-Za-z]/, '');
+    featId = hol.Util.idFromName(featName);
     
     //Make it unique.
     while (this.getFeatNumFromId(featId, -1) !== -1){
@@ -1944,7 +1959,8 @@ hol.VectorLayer.prototype.newTaxonomy = function(){
     taxName = window.prompt(this.captions.strGetTaxonomyName, '');
     
     //Create an id from the name.
-    taxId = taxName.replace(/[^A-Za-z]/, '');
+    taxId = hol.Util.idFromName(taxName);
+    console.log(taxId);
     
     //Make it unique.
     while (this.getTaxNumFromId(taxId, -1) !== -1){
