@@ -9,7 +9,6 @@
 "use strict";
 
 
-
 /**
  * This file provides functionality built onto
  * the OpenLayers3+ API to handle data in various
@@ -778,6 +777,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.splash = this.getSplashScreen();
         
     this.source = null;                        //Will point to the ol.source.Vector.
+    this.tmpSource = null;                     //Will be used to load more features without discarding existing set.
     this.taxonomiesLoaded = false;             //Need to know when the taxonomies have been constructed.
     this.features = [];                        //This is set to point to the features of the source after loading.
     this.baseFeature = null;                   //Will hold a pointer to the base map feature which is never shown but 
@@ -1668,6 +1668,130 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
     return false;
   }
 };
+
+//This procedure is adapted from hol.VectorLayer.prototype.loadGeoJSONFromString
+//to provide an option for appending the contents of a GeoJSON file to the 
+//existing set of features.
+/**
+ * Function for loading GeoJSON from a string variable without
+ * removing existing features.
+ * 
+ * @function hol.VectorLayer.prototype.appendGeoJSONFromString 
+ * @memberof hol.VectorLayer.prototype
+ * @description Reads the string supplied as GeoJSON and constructs
+ *              a feature set on in a temporary source from it, then 
+ *              adds the features to the existing source, and 
+ *              parses the feature set for taxonomies.
+ * @param   {String} geojson The input string; either GeoJSON or the url
+ *                           of a GeoJSON file.
+ * @returns {Boolean} true (success) or false (failure).
+ */
+hol.VectorLayer.prototype.appendGeoJSONFromString = function(geojson){ 
+//Vars
+  var listenerKey, showTax, showTaxInt;
+
+  try{
+    
+    this.featsLoaded = false;
+    
+    this.taxonomies = [];
+    
+    this.taxonomiesLoaded = false;
+    
+    if (this.taxonomySelector !== null){
+      
+    //Remove the wrapper span if removing the taxonomy selector.
+      this.taxonomySelector.parentNode.parentNode.removeChild(this.taxonomySelector.parentNode);
+      this.taxonomySelector = null;
+    }
+
+//We need to know whether the input string is GeoJSON, TEI or a url.
+
+//This is a crude approach: does it contain a curly brace?
+    if (geojson.indexOf('{') > -1){
+//It's a GeoJSON string;
+
+//TODO: THIS IS BADLY BROKEN. The features are read, and the navbar is created,
+//but the map disappears and all features are points in the centre. Don't know 
+//why yet.
+      this.source.addFeatures((new ol.format.GeoJSON()).readFeatures(geojson));
+    }
+    else{
+//It's a URL.
+      
+      this.tmpSource = new ol.source.Vector({
+        crossOrigin: 'anonymous',
+        url: geojson,
+        format: new ol.format.GeoJSON({dataProjection: 'EPSG:3857', featureProjection: 'EPSG:4326'})
+      });
+    }
+    
+    listenerKey = this.tmpSource.on('change', function(e) {
+      var i, maxi;
+      if (this.tmpSource.getState() === 'ready') {
+      
+// and unregister the "change" listener
+        ol.Observable.unByKey(listenerKey);
+        
+//Now we need to set some additional properties on the new features.
+        this.tmpSource.forEachFeature(function(feat){
+          if (feat.getId() != 'holMap'){
+            feat.setProperties({"showing": false, "selected": false}, true);
+            this.source.addFeature(feat);
+          }
+        }.bind(this));
+       
+        this.tmpSource = null;
+      
+        this.featsLoaded = true;
+        
+        this.features = this.source.getFeatures();
+
+//Now build the taxonomy data structure from the information
+//encoded in the features' properties component. If this succeeds
+//(returning the number of taxonomies created), we can move on.
+
+        if (this.readTaxonomies() > 0){
+        
+//Now we want to discover whether there's a preferred 
+//taxonomy to display, based on the URI query string.
+//Start by setting default value; if there are no taxonomies,
+//then -1; else the first one in the list.
+          this.currTaxonomy = 0;
+          showTax = hol.Util.getQueryParam('taxonomy');
+          if (showTax.length > 0){
+//It may be a name or an index number.
+            showTaxInt = parseInt(showTax);
+            if ((Number.isInteger(showTaxInt))&&(showTaxInt < this.taxonomies.length)){
+              this.currTaxonomy = showTaxInt;
+            }
+            else{
+              for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+                if (this.taxonomies[i].name === showTax){
+                  this.currTaxonomy = i;
+                }
+              }
+            }
+          }
+          
+          this.buildTaxonomySelector();
+          this.buildNavPanel();
+          
+        }
+      }
+    }.bind(this));
+    
+    this.tmpSource.loadFeatures();
+    
+//Success.
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+};
+
 
 /**
  * Function for providing a download of the map data in GeoJSON
