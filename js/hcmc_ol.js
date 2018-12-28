@@ -762,6 +762,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
 
     this.map = olMap;                          //The OpenLayers map object.
+    this.mapTitle = '';                        //If a map title is specified in the GeoJSON, it will be stored here.
     this.view = this.map.getView();            //Pointer to the ol.View.
     this.featuresUrl = featuresUrl || '';      //URL of the JSON file containing all the features.
     this.startupDoc = options.startupDoc || '';//If there is an initial document to show in the left panel.
@@ -1624,6 +1625,10 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
   //Otherwise, we set the map to the bounds of the first feature.
           else{
             this.setMapBounds(this.baseFeature.getGeometry().getExtent());
+            this.mapTitle = this.baseFeature.getProperties().mapTitle || '';
+            if (this.mapTitle != ''){
+              document.querySelector('span.docTitle').innerHTML = this.mapTitle;
+            }
           }
         
 //Now we want to discover whether there's a preferred 

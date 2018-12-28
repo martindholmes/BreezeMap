@@ -25,6 +25,7 @@
                 48.468888 ] ] ] },
         "properties" : 
         { "name" : "holMap",
+          "mapTitle" : "World Map",
           "taxonomies" : 
           [ 
             { "id" : "areas",

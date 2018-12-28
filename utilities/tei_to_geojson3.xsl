@@ -56,8 +56,10 @@
                 <xsl:variable name="gjGeomObj" select="json-to-xml($gjGeometry)"/>
                 <xsl:sequence select="$gjGeomObj/*:map/*"/>
                 <map key="properties">
-<!-- This base feature gets a copy of all the taxonomies and categories. -->
                   <string key="name">holMap</string>
+                  <string key="mapTitle"><xsl:value-of select="if (//titleStmt/title) then //titleStmt[1]/title[1] else ''"/></string>
+<!-- This base feature gets a copy of all the taxonomies and categories. -->
+                  
                   <array key="taxonomies">
                     <xsl:for-each select="$root//taxonomy">
                       <map>
