@@ -81,7 +81,7 @@
             <head>UVic Campus</head>
             <div>
                 <listPlace>
-<!--       This is a special feature which defines the map bounds and title.             -->
+<!-- This is a special feature which defines the map bounds and title. -->
                     <place xml:id="holMap" corresp="#holTaxonomies">
                         <placeName>UVic Campus</placeName>
                         <desc></desc>
