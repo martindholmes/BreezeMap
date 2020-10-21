@@ -230,7 +230,7 @@
                         </location>
                     </place>
                     <place xml:id="bldgUniversityCentre" corresp="#bldgAdmin #bldgFood">
-                        <placeName>University Centre</placeName>
+                        <placeName>Jamie Cassels Centre</placeName>
                         <desc>The University's central administrative building, containing 
                         the Senate Chambers along with food services and the Farquhar Auditorium.</desc>
                         <desc>
@@ -242,21 +242,21 @@
                         </location>
                     </place>
                     <place xml:id="pkngMtrdUniCen4" corresp="#pkngMetered">
-                        <placeName>Metered parking near University Centre</placeName>
+                        <placeName>Metered parking near Jamie Cassels Centre</placeName>
                         <desc>4 parking spots.</desc>
                         <location type="GeoJSON">
 						  <geo>"geometry":{"type":"Polygon", "coordinates":[[[-123.311551,48.465905],[-123.311561,48.465868],[-123.311195,48.465821],[-123.311183,48.46586],[-123.311551,48.465905]]]}</geo>
 						</location>
                     </place>
                     <place xml:id="pkngMtrdUniCen3" corresp="#pkngMetered">
-                        <placeName>Metered parking (handicap) near University Centre</placeName>
+                        <placeName>Metered parking (handicap) near Jamie Cassels Centre</placeName>
                         <desc>2 parking spots, both handicap.</desc>
                         <location type="GeoJSON">
 						  <geo>"geometry":{"type":"Polygon", "coordinates":[[[-123.31053,48.465672],[-123.310498,48.465715],[-123.310282,48.465649],[-123.310313,48.465604],[-123.31053,48.465672]]]}</geo>
 						</location>
                     </place>
                     <place xml:id="pkngMtrdUniCen2" corresp="#pkngMetered">
-                        <placeName>Metered parking at University Centre</placeName>
+                        <placeName>Metered parking at Jamie Cassels Centre</placeName>
                         <desc>12 parking spots, including 1 handicap spot.</desc>
                         <location type="GeoJSON">
 						  <geo>"geometry":{"type":"Polygon", "coordinates":[[[-123.311325,48.46549],[-123.311293,48.465485],[-123.311262,48.465285],[-123.311229,48.465238],[-123.311168,48.465202],[-123.311098,48.465182],[-123.310443,48.465232],[-123.31044,48.465206],[-123.311091,48.465158],[-123.311194,48.46518],[-123.311264,48.465221],[-123.311303,48.465281],[-123.311331,48.465463],[-123.311325,48.46549]]]}</geo>
@@ -368,7 +368,7 @@
                     </place>
                     <place xml:id="pkngLotA" corresp="#pkngCovered">
                         <placeName>Parking Lot A</placeName>
-                        <desc>Underground parking lot below the University Centre.</desc>
+                        <desc>Underground parking lot below the Jamie Cassels Centre.</desc>
                         <location type="GeoJSON"><geo>"geometry":{"type":"Polygon", "coordinates":[[[-123.311087,48.465113],[-123.311235,48.464992],[-123.311321,48.464799],[-123.311232,48.464813],[-123.3112,48.46479],[-123.311109,48.464795],[-123.311093,48.46474],[-123.310916,48.464751],[-123.310926,48.464806],[-123.3105,48.464841],[-123.310554,48.465152],[-123.311087,48.465113]]]}</geo>
                         </location>
                     </place>

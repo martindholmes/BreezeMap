@@ -25,7 +25,7 @@
                 48.465918 ] ] ] },
         "properties" : 
         { "name" : "holMap",
-          "mapTitle" : "UVic Campus Map",
+          "mapTitle" : "",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1342,7 +1342,7 @@
               [ -123.311871,
                 48.465594 ] ] ] },
         "properties" : 
-        { "name" : "University Centre",
+        { "name" : "Jamie Cassels Centre",
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
@@ -1385,7 +1385,7 @@
               [ -123.311551,
                 48.465905 ] ] ] },
         "properties" : 
-        { "name" : "Metered parking near University Centre",
+        { "name" : "Metered parking near Jamie Cassels Centre",
           "desc" : "4 parking spots.",
           "links" : 
           [  ],
@@ -1423,7 +1423,7 @@
               [ -123.31053,
                 48.465672 ] ] ] },
         "properties" : 
-        { "name" : "Metered parking (handicap) near University Centre",
+        { "name" : "Metered parking (handicap) near Jamie Cassels Centre",
           "desc" : "2 parking spots, both handicap.",
           "links" : 
           [  ],
@@ -1488,7 +1488,7 @@
               [ -123.311325,
                 48.46549 ] ] ] },
         "properties" : 
-        { "name" : "Metered parking at University Centre",
+        { "name" : "Metered parking at Jamie Cassels Centre",
           "desc" : "12 parking spots, including 1 handicap spot.",
           "links" : 
           [  ],
@@ -2290,7 +2290,7 @@
                 48.465113 ] ] ] },
         "properties" : 
         { "name" : "Parking Lot A",
-          "desc" : "Underground parking lot below the University Centre.",
+          "desc" : "Underground parking lot below the Jamie Cassels Centre.",
           "links" : 
           [  ],
           "taxonomies" : 
