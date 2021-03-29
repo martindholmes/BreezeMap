@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="20.0">
+<project>
     <meta>
         <filters directoryPatterns="" filePatterns="" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
-            <serialized version="20.0" xml:space="preserve">
+            <serialized xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
                         <String>document.types</String>
                         <documentTypeDescriptor-array>
                             <documentTypeDescriptor>
+                                <field name="webResources">
+                                    <null/>
+                                </field>
                                 <field name="extensionPatch">
                                     <null/>
                                 </field>
@@ -230,9 +233,6 @@
                                             <field name="openInBrowser">
                                                 <Boolean>false</Boolean>
                                             </field>
-                                            <field name="outputFile">
-                                                <File>${pd}/js/${cfn}.json</File>
-                                            </field>
                                             <field name="outputResource">
                                                 <String>${pd}/js/${cfn}.json</String>
                                             </field>
@@ -280,6 +280,9 @@
                                                             <String>${pdu}/js/${cfn}.json</String>
                                                         </field>
                                                         <field name="hasXPathValue">
+                                                            <Boolean>false</Boolean>
+                                                        </field>
+                                                        <field name="isStatic">
                                                             <Boolean>false</Boolean>
                                                         </field>
                                                     </transformationParameter>
@@ -377,6 +380,11 @@
                                         <String>ANT</String>
                                     </list>
                                 </field>
+                                <field name="scenarioStorageLocations">
+                                    <list>
+                                        <Byte>2</Byte>
+                                    </list>
+                                </field>
                             </scenarioAssociation>
                         </scenarioAssociation-array>
                     </entry>
@@ -425,9 +433,6 @@
                                 </field>
                                 <field name="openInBrowser">
                                     <Boolean>false</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <File>${pd}/js/campus.json</File>
                                 </field>
                                 <field name="outputResource">
                                     <String>${pd}/js/campus.json</String>
@@ -591,9 +596,6 @@
                                 </field>
                                 <field name="openInBrowser">
                                     <Boolean>true</Boolean>
-                                </field>
-                                <field name="outputFile">
-                                    <null/>
                                 </field>
                                 <field name="outputResource">
                                     <null/>

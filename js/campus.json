@@ -25,7 +25,7 @@
                 48.465918 ] ] ] },
         "properties" : 
         { "name" : "holMap",
-          "mapTitle" : "",
+          "mapTitle" : "UVic Campus Map",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
