@@ -97,50 +97,16 @@
     <!--  First get the JSON file with the latest release data in it.     -->
     <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest" verbose="on"
       usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
-    <script language="javascript">
-      <![CDATA[
-        //Originally written for Rhino; requires compatibility
-        //shim to work on Nashorn. The alternative to importClass
-        //for Nashorn would be something like:
-        // var File = Java.type('java.io.File');
-        //or we could use:
-        // var imports = new JavaImporter(java.io.File, java.io.FileReader...);
-        // with (imports){ [do stuff]}
-        if (typeof importClass != "function") {
-            load("nashorn:mozilla_compat.js");
-        }
-        importClass(java.io.File);
-        importClass(java.io.FileReader);
-        importClass(java.io.BufferedReader);
-        importClass(java.io.FileWriter);
-        importClass(java.io.BufferedWriter);
-        
-        function doEcho(messidge){
-            echo = project.createTask("echo");
-            echo.setMessage(messidge);
-            echo.perform();
-        }
-        
-        doEcho("Parsing properties from JSON file...");
-        
-        var filePath = project.getProperty("proj.dir") + "/js/ol_latest.json";
-        var file = new File(filePath);
-        fr = new FileReader(file);
-        br = new BufferedReader(fr);
-        
-        // Read the file. 
-        // This assumes the file has no line breaks and is one line.
-        var json = br.readLine();
-        
-        // Evaluate the JSON.
-        var struct = eval("(" + json + ")");
-        
-        // Set each property in the project environment.
-        doEcho("Zipfile location is " + struct['assets'][0]['browser_download_url']);
-        project.setProperty("olzip", struct['assets'][0]['browser_download_url']);
-       
-        ]]>
-    </script>
+    
+    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+      <arg value="-s:get_ol_version.xsl"/>
+      <arg value="-xsl:get_ol_version.xsl"/>
+      <arg line="projDir=${proj.dir}"/>
+      <arg value="--suppressXsltNamespaceCheck:on"/>
+    </java>
+    
+    <loadfile property="olzip" srcFile="${proj.dir}/js/ol_latest.txt"/>
+    
     <echo message="Downloading zip file from ${olzip}..."/>
     <get src="${olzip}" verbose="on" usetimestamp="true" dest="${proj.dir}/ol/ol_latest.zip"/>
     <echo message="Unzipping the files..."/>
