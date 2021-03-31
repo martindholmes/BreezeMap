@@ -92,7 +92,7 @@
         });
       
 //Set up the opacity control
-        document.getElementById('opacitySlider').onchange = function(){layerXYZ.setOpacity(this.value);};
+        document.getElementById('opacitySlider').onchange = function(){layerXYZ.setOpacity(parseFloat(this.value));};
         document.getElementById('opacitySlider').onchange();
   
 //Now let's create a hol vector layer for all our features.

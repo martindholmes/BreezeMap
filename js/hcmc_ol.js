@@ -737,6 +737,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                 //generate an additional taxonomy which combines everything. We 
                                                 //don't allow this when drawing is enabled, otherwise things get
                                                 //too complicated.
+
+    this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
+    this.collator = new Intl.Collator(this.pageLang);
         
     this.linkPrefix = options.linkPrefix || ''; //Prefix to be added to all linked document paths before retrieval.
                                                 //To be set by the host application if required.
@@ -2582,10 +2585,9 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       }*/
       thisCatFeatures.sort(function(a,b){
         var aName = a.getProperties().name.toUpperCase(), bName = b.getProperties().name.toUpperCase();
-        if (aName < bName){return -1;}
-        if (aName > bName){return 1;}
-        return 0;
-      });
+        return this.collator.compare(aName,bName);
+      }.bind(this));
+
       for (i=0, maxi=thisCatFeatures.length; i<maxi; i++){
         f = this.features.indexOf(thisCatFeatures[i]);
         props = thisCatFeatures[i].getProperties();
