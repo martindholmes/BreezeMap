@@ -9,7 +9,7 @@
     
     It can build the test projects for the developers of BreezeMap.
     
-    It can build a user's project based on the 
+    It can build a user's project based on the [TODO - complete this...]
     
     Note: this uses additional jars in the same folder as the build file
     to enable the use of JavaScript. You may need to call it thus:
@@ -162,6 +162,15 @@
       <arg line="${proj.dir}/js/hcmc_ol.js"/>
     </java>
   </target>
+  
+  <target name="buildCss">
+    <echo message="${echo.separator}"/>
+    <echo message="Building SCSS source to create CSS file in css folder."/>
+    <exec executable="sass">
+      <arg value="${proj.dir}/css/hcmc_ol.scss"/>
+      <arg value="${proj.dir}/css/hcmc_ol.css"/>
+    </exec>
+  </target>
 
   <target name="createTestSite">
     <echo message="${echo.separator}"/>
@@ -188,6 +197,7 @@
 
   <target name="doAll">
     <antcall target="cleanup"/>
+    <antcall target="buildCss"/>
     <antcall target="teiToGeoJSON"/>
     <antcall target="getOL"/>
     <antcall target="minify"/>
