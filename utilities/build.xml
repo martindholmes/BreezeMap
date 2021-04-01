@@ -59,8 +59,7 @@
   <target name="cleanup">
     <echo message="${echo.separator}"/>
     <echo message="Deleting old stuff."/>
-    <delete dir="${proj.dir}/kml"/>
-    <mkdir dir="${proj.dir}/kml"/>
+    <delete file="${proj.dir}/js/ol_latest.txt"/>
     <!--    Don't mess with OL for the moment. -->
     <!--<delete dir="${proj.dir}/ol"/>
         <mkdir dir="${proj.dir}/ol"/>-->
