@@ -69,22 +69,22 @@
   <target name="teiToGeoJSON">
     <echo message="${echo.separator}"/>
     <echo message="Converting TEI to GeoJSON."/>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/campus.xml"/>
       <arg value="-xsl:tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/world.xml"/>
       <arg value="-xsl:tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/imageMarkup.xml"/>
       <arg value="-xsl:tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar" if:true="${buildingUserFile}">
+    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingUserFile}">
       <arg value="-s:${abs.inputXml}"/>
       <arg value="-xsl:tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
@@ -98,7 +98,7 @@
     <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest" verbose="on"
       usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
     
-    <java classname="net.sf.saxon.Transform" classpath="saxon9he.jar">
+    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar">
       <arg value="-s:get_ol_version.xsl"/>
       <arg value="-xsl:get_ol_version.xsl"/>
       <arg line="projDir=${proj.dir}"/>
