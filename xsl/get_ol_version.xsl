@@ -27,7 +27,7 @@
   <xsl:output method="text" encoding="UTF-8" normalization-form="NFC"/>
   
  <xsl:template match="/">
-   <xsl:variable name="jsonPath" as="xs:string" select="$projDir || 'js/ol_latest.json'"/>
+   <xsl:variable name="jsonPath" as="xs:string" select="$projDir || '/js/ol_latest.json'"/>
    <xsl:variable name="outputFile" as="xs:string" select="replace($jsonPath, '\.json$', '.txt')"/>
    <xsl:message expand-text="yes">Attempting to parse {$jsonPath} and write URL to {$outputFile}.</xsl:message>
    

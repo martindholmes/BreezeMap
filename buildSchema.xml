@@ -70,7 +70,7 @@
     </exec>
     
     
-    <xslt force="yes" style="${basedir}/utilities/spiff_up_documentation.xsl" in="${basedir}/documentation/breezemap.html" out="${basedir}/documentation/breezemap.html_temp">
+    <xslt force="yes" style="${basedir}/xsl/spiff_up_documentation.xsl" in="${basedir}/documentation/breezemap.html" out="${basedir}/documentation/breezemap.html_temp">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
     </xslt>
     <move file="${basedir}/documentation/breezemap.html_temp" tofile="${basedir}/documentation/breezemap.html"/>

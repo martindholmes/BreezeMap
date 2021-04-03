@@ -23,7 +23,7 @@
 
   <!--  We'll use the root directory of the ant file to do all our relative paths. -->
   <dirname property="antfile.dir" file="${ant.file}"/>
-  <property name="proj.dir" value="${antfile.dir}/../"/>
+  <property name="proj.dir" value="${antfile.dir}"/>
   <property name="abs.proj.dir" location="${proj.dir}"/>
 
   <condition property="buildingTestsOnly">
@@ -69,24 +69,24 @@
   <target name="teiToGeoJSON">
     <echo message="${echo.separator}"/>
     <echo message="Converting TEI to GeoJSON."/>
-    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/campus.xml"/>
-      <arg value="-xsl:tei_to_geojson3.xsl"/>
+      <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/world.xml"/>
-      <arg value="-xsl:tei_to_geojson3.xsl"/>
+      <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/xml/imageMarkup.xml"/>
-      <arg value="-xsl:tei_to_geojson3.xsl"/>
+      <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar" if:true="${buildingUserFile}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingUserFile}">
       <arg value="-s:${abs.inputXml}"/>
-      <arg value="-xsl:tei_to_geojson3.xsl"/>
+      <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
   </target>
@@ -98,9 +98,9 @@
     <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest" verbose="on"
       usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
     
-    <java classname="net.sf.saxon.Transform" classpath="saxon-he-10.jar">
-      <arg value="-s:get_ol_version.xsl"/>
-      <arg value="-xsl:get_ol_version.xsl"/>
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar">
+      <arg value="-s:${proj.dir}/xsl/get_ol_version.xsl"/>
+      <arg value="-xsl:${proj.dir}/xsl/get_ol_version.xsl"/>
       <arg line="projDir=${proj.dir}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
@@ -121,7 +121,7 @@
   <target name="minify">
     <echo message="${echo.separator}"/>
     <echo message="Minifying our JavaScript."/>
-    <java jar="yuicompressor-2.4.8.jar" fork="true">
+    <java jar="${proj.dir}/utilities/yuicompressor-2.4.8.jar" fork="true">
       <arg line="-o ${proj.dir}/js/hcmc_ol.min.js"/>
       <arg line="-v"/>
       <arg line="--charset utf-8"/>
