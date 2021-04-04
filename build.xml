@@ -69,17 +69,17 @@
     <echo message="${echo.separator}"/>
     <echo message="Converting TEI to GeoJSON."/>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
-      <arg value="-s:${proj.dir}/xml/campus.xml"/>
+      <arg value="-s:${proj.dir}/testdata/campus.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
-      <arg value="-s:${proj.dir}/xml/world.xml"/>
+      <arg value="-s:${proj.dir}/testdata/world.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
-      <arg value="-s:${proj.dir}/xml/imageMarkup.xml"/>
+      <arg value="-s:${proj.dir}/testdata/imageMarkup.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
@@ -140,17 +140,17 @@
   <target name="createTestSite">
     <echo message="${echo.separator}"/>
     <echo message="Creating test site."/>
-    <delete dir="${proj.dir}/test"/>
-    <mkdir dir="${proj.dir}/test"/>
-    <mkdir dir="${proj.dir}/test/js"/>
-    <copy todir="${proj.dir}/test">
+    <delete dir="${proj.dir}/testsite"/>
+    <mkdir dir="${proj.dir}/testsite"/>
+    <mkdir dir="${proj.dir}/testsite/js"/>
+    <copy todir="${proj.dir}/testsite">
       <fileset dir="${proj.dir}" includes="fonts/*.*"/>
       <fileset dir="${proj.dir}" includes="css/*.css"/>
       <fileset dir="${proj.dir}" includes="ol/*.*" excludes="ol/ol_latest.zip"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
-      <fileset dir="${proj.dir}/xml" includes="*/**"/>
+      <fileset dir="${proj.dir}/testdata" includes="*/**"/>
     </copy>
-    <copy todir="${proj.dir}/test/js">
+    <copy todir="${proj.dir}/testsite/js">
       <fileset dir="${proj.dir}/js" includes="*.*" excludes="ol_latest.json"/>
     </copy>
   </target>
