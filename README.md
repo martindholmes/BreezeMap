@@ -10,13 +10,16 @@ An additional component of the project extends this functionality to cover the a
 We are developing a tool tentatively called BreezeMap.* This tool is built on the OpenLayers framework and the Open Street Maps tileset (although allowing the use of any other suitable tile source, such as those created by the Pelagios project). BreezeMap will allow researchers to draw features on a map; annotate them; and categorize them according to multiple new or pre-existing taxonomies. The tool is designed to be simple to learn, yet powerful in its functions.
 
 ## Plan
-The project will take place in three phases, each with a useful deliverable product:
+The project will take place in three phases, each with a useful deliverable product. Note that development of this project is largely driven by the needs of specific UVic HCMC projects, so while we do have a long-term roadmap, actual work on the project is likely to be diverted into adding support for new features required by those projects, at the expense of the long-term goals. In particular, since our primary users are HCMC staff and associated researchers who have programming skills, the components of the roadmap aimed at providing user-friendly interfaces for creating TEI files or GeoJSON collections are likely to take a back seat while more urgent feature requests are dealt with.
 
 ### Phase 1
 During Phase 1, we will develop an infrastructure based on Ant, XSLT, Saxon and XML to author gazetteer documents in TEI and convert them to GeoJSON for rendering with OpenLayers. This phase is largely complete, although work remains to be done on the conversion between GeoJSON geometries and TEI facsimile elements.
 
 ### Phase 2
-During Phase 1 we will build and test a web-based interface that enables users to:
+During Phase 2, we will transition the project to a build process based on NPM, so that the OpenLayers source itself can be built together with our own modules to create a smaller, faster JavaScript library which includes no unnecessary code.
+
+### Phase 3
+Phase 3 will be focused on building and testing a web-based interface that enables users to:
 
 * Identify an area of interest on the world map; DONE.
 * Create one or more named taxonomies, each with a set of named categories, to any of which they can assign the features they create;
@@ -29,8 +32,8 @@ During Phase 1 we will build and test a web-based interface that enables users t
 
 This web-based interface can be deployed on a server or run locally on a user’s desktop. It will be released with full accompanying documentation and a video tutorial.
 
-### Phase 3
-During Phase 3, we will explore the use of Electron to create a desktop application version of the Phase 1 product. The desktop version for Windows, Linux, and Macintosh will enable additional features such as:
+### Phase 4
+During Phase 4, we will explore the use of Electron to create a desktop application version of the Phase 1 product. The desktop version for Windows, Linux, and Macintosh will enable additional features such as:
 
 * Straightforward save/load of GeoJSON and TEI to the local disk;
 * In-app conversion between formats, allowing us to support KML and RDF in addition to the other two formats;
