@@ -53,7 +53,7 @@
       //Globals...
       var mapCenter = [-123.31207,48.463289];
       
-      var view = null, myLayers = [], featureJSONFile = 'js/world.json', holLayer = null;
+      var map = null, view = null, myLayers = [], layerOSM = null, featureJSONFile = 'js/world.json', holLayer = null;
          
       function initMap(){
       
@@ -69,7 +69,7 @@
         });
         
         //OSM
-        var layerOSM = new ol.layer.Tile({
+        layerOSM = new ol.layer.Tile({
           source: new ol.source.OSM({
             numZoomLevels: 20,
             maxZoom: 20

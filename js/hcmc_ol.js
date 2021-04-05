@@ -1084,7 +1084,6 @@ hol.VectorLayer.prototype.setupTaxonomyEditing = function(){
  */
 
 hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
-  var geometryFunction, start, end;
   try{
     this.drawingFeatures.clear();
     if (this.draw !== null){
@@ -1093,22 +1092,11 @@ hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
     if (this.modify !== null){
       this.map.removeInteraction(this.modify);
     }
-    geometryFunction = function(coordinates, geometry) {
-      if (!geometry) {
-        geometry = new ol.geom.Polygon(null);
-      }
-      start = coordinates[0];
-      end = coordinates[1];
-      geometry.setCoordinates([
-        [start, [start[0], end[1]], end, [end[0], start[1]], start]
-      ]);
-      return geometry;
-    };
     this.draw = new ol.interaction.Draw({
       features: this.drawingFeatures,
       type: 'LineString',
       maxPoints: 2,
-      geometryFunction: geometryFunction
+      geometryFunction: ol.interaction.Draw.createBox()
     });
     this.map.addInteraction(this.draw);
     this.coordsBox.style.display = 'block';
