@@ -408,6 +408,161 @@
           "desc" : "The oldest building on campus...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cle.php" ],
+          "from" : "1962",
+          "taxonomies" : 
+          [ 
+            { "id" : "bldg",
+              "name" : "Buildings",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "bldgTeaching",
+                  "name" : "Teaching",
+                  "desc" : "Buildings with classrooms.",
+                  "pos" : 1 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "bldgBegbie",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.316801,
+                48.465514 ],
+              
+              [ -123.316435,
+                48.465539 ],
+              
+              [ -123.316249,
+                48.465441 ],
+              
+              [ -123.316113,
+                48.46541 ],
+              
+              [ -123.316113,
+                48.465346 ],
+              
+              [ -123.316055,
+                48.465348 ],
+              
+              [ -123.316049,
+                48.465291 ],
+              
+              [ -123.315983,
+                48.465296 ],
+              
+              [ -123.315911,
+                48.464872 ],
+              
+              [ -123.315962,
+                48.464833 ],
+              
+              [ -123.316182,
+                48.464819 ],
+              
+              [ -123.316141,
+                48.46458 ],
+              
+              [ -123.316161,
+                48.464578 ],
+              
+              [ -123.316183,
+                48.46456 ],
+              
+              [ -123.316369,
+                48.464548 ],
+              
+              [ -123.316397,
+                48.464528 ],
+              
+              [ -123.316397,
+                48.464511 ],
+              
+              [ -123.316514,
+                48.464502 ],
+              
+              [ -123.316514,
+                48.464515 ],
+              
+              [ -123.316576,
+                48.464548 ],
+              
+              [ -123.316581,
+                48.464593 ],
+              
+              [ -123.316643,
+                48.464625 ],
+              
+              [ -123.316675,
+                48.464594 ],
+              
+              [ -123.316721,
+                48.46459 ],
+              
+              [ -123.316739,
+                48.464576 ],
+              
+              [ -123.316848,
+                48.464639 ],
+              
+              [ -123.316832,
+                48.464648 ],
+              
+              [ -123.316833,
+                48.464672 ],
+              
+              [ -123.316856,
+                48.464683 ],
+              
+              [ -123.316866,
+                48.464729 ],
+              
+              [ -123.316845,
+                48.464743 ],
+              
+              [ -123.316849,
+                48.464767 ],
+              
+              [ -123.316868,
+                48.464776 ],
+              
+              [ -123.316785,
+                48.464846 ],
+              
+              [ -123.316766,
+                48.464835 ],
+              
+              [ -123.316725,
+                48.464836 ],
+              
+              [ -123.316631,
+                48.464792 ],
+              
+              [ -123.316588,
+                48.464822 ],
+              
+              [ -123.316623,
+                48.465057 ],
+              
+              [ -123.316713,
+                48.465052 ],
+              
+              [ -123.3169,
+                48.465144 ],
+              
+              [ -123.316938,
+                48.465387 ],
+              
+              [ -123.316801,
+                48.465514 ] ] ] },
+        "properties" : 
+        { "name" : "Begbie Building",
+          "desc" : "...",
+          "links" : 
+          [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
+          "from" : "1980",
+          "to" : "2000",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -560,6 +715,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
+          "from" : "2000",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -571,6 +727,88 @@
                   "name" : "Teaching",
                   "desc" : "Buildings with classrooms.",
                   "pos" : 1 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "bldgAdminServices",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.314584,
+                48.466308 ],
+              
+              [ -123.314365,
+                48.466364 ],
+              
+              [ -123.314226,
+                48.466138 ],
+              
+              [ -123.31411,
+                48.466147 ],
+              
+              [ -123.314104,
+                48.466117 ],
+              
+              [ -123.31398,
+                48.466127 ],
+              
+              [ -123.31399,
+                48.466174 ],
+              
+              [ -123.313576,
+                48.466205 ],
+              
+              [ -123.313556,
+                48.466097 ],
+              
+              [ -123.313575,
+                48.466096 ],
+              
+              [ -123.313568,
+                48.466048 ],
+              
+              [ -123.313548,
+                48.466049 ],
+              
+              [ -123.313528,
+                48.465938 ],
+              
+              [ -123.313947,
+                48.465906 ],
+              
+              [ -123.313961,
+                48.465989 ],
+              
+              [ -123.314134,
+                48.465975 ],
+              
+              [ -123.314078,
+                48.465889 ],
+              
+              [ -123.314308,
+                48.465829 ],
+              
+              [ -123.314584,
+                48.466308 ] ] ] },
+        "properties" : 
+        { "name" : "Administrative Services Building",
+          "desc" : "...",
+          "links" : 
+          [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
+          "from" : "2008",
+          "to" : "2016-11-16",
+          "taxonomies" : 
+          [ 
+            { "id" : "bldg",
+              "name" : "Buildings",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "bldgAdmin",
+                  "name" : "Administrative",
+                  "desc" : "Buildings with administrative offices.",
+                  "pos" : 2 } ] } ] } },
       
       { "type" : "Feature",
         "id" : "bldgMichaelWilliams",
@@ -640,6 +878,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
+          "from" : "2016-11-17",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -756,6 +995,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cst.php" ],
+          "from" : "2003",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -863,6 +1103,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mck.php" ],
+          "from" : "1975",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -958,6 +1199,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/carsa.php" ],
+          "from" : "2015",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1014,6 +1256,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cha.php" ],
+          "from" : "1985",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1076,6 +1319,7 @@
           "desc" : "The Elliott Building...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ell.php" ],
+          "from" : "1964",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1166,6 +1410,7 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fph.php",
             "html\/favourites.html" ],
+          "from" : "2010",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1342,10 +1587,170 @@
               [ -123.311871,
                 48.465594 ] ] ] },
         "properties" : 
+        { "name" : "University Centre Centre",
+          "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
+          "links" : 
+          [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
+          "from" : "1978",
+          "to" : "2020-10-12",
+          "taxonomies" : 
+          [ 
+            { "id" : "bldg",
+              "name" : "Buildings",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "bldgAdmin",
+                  "name" : "Administrative",
+                  "desc" : "Buildings with administrative offices.",
+                  "pos" : 2 },
+                
+                { "id" : "bldgFood",
+                  "name" : "Food",
+                  "desc" : "Buildings with food outlets, cafes, restaurants and so on.",
+                  "pos" : 4 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "bldgCasselsCentre",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.311871,
+                48.465594 ],
+              
+              [ -123.311901,
+                48.465575 ],
+              
+              [ -123.311894,
+                48.465545 ],
+              
+              [ -123.311922,
+                48.46553 ],
+              
+              [ -123.311921,
+                48.465501 ],
+              
+              [ -123.31196,
+                48.465459 ],
+              
+              [ -123.311952,
+                48.465391 ],
+              
+              [ -123.311974,
+                48.465372 ],
+              
+              [ -123.311966,
+                48.465325 ],
+              
+              [ -123.312004,
+                48.465298 ],
+              
+              [ -123.311972,
+                48.465072 ],
+              
+              [ -123.312007,
+                48.465043 ],
+              
+              [ -123.312268,
+                48.465019 ],
+              
+              [ -123.312217,
+                48.464711 ],
+              
+              [ -123.311913,
+                48.464739 ],
+              
+              [ -123.311909,
+                48.464706 ],
+              
+              [ -123.311777,
+                48.464642 ],
+              
+              [ -123.311508,
+                48.464659 ],
+              
+              [ -123.311406,
+                48.464743 ],
+              
+              [ -123.311406,
+                48.464772 ],
+              
+              [ -123.311379,
+                48.464799 ],
+              
+              [ -123.311233,
+                48.464812 ],
+              
+              [ -123.311185,
+                48.464788 ],
+              
+              [ -123.311105,
+                48.464794 ],
+              
+              [ -123.311097,
+                48.464742 ],
+              
+              [ -123.310922,
+                48.464755 ],
+              
+              [ -123.310932,
+                48.464808 ],
+              
+              [ -123.310502,
+                48.46484 ],
+              
+              [ -123.310556,
+                48.465151 ],
+              
+              [ -123.311093,
+                48.465111 ],
+              
+              [ -123.311238,
+                48.464996 ],
+              
+              [ -123.311472,
+                48.465129 ],
+              
+              [ -123.311506,
+                48.465334 ],
+              
+              [ -123.311529,
+                48.465347 ],
+              
+              [ -123.311535,
+                48.465384 ],
+              
+              [ -123.31159,
+                48.465415 ],
+              
+              [ -123.311594,
+                48.465462 ],
+              
+              [ -123.311667,
+                48.465511 ],
+              
+              [ -123.311675,
+                48.465543 ],
+              
+              [ -123.311712,
+                48.46556 ],
+              
+              [ -123.311718,
+                48.46559 ],
+              
+              [ -123.311749,
+                48.465603 ],
+              
+              [ -123.311871,
+                48.465594 ] ] ] },
+        "properties" : 
         { "name" : "Jamie Cassels Centre",
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
+          "from" : "2020-10-13",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -2560,6 +2965,7 @@
           "desc" : "Built in 1966, the Cornett Building is the second oldest building on campus. The oldest is the <a href=\"hol:bldgClearihue\">Clearihue Building<\/a>.",
           "links" : 
           [  ],
+          "from" : "1966",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -2652,6 +3058,97 @@
           "desc" : "The Business and Social Sciences faculties live in the BEC building.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/bec.php" ],
+          "from" : "1997",
+          "taxonomies" : 
+          [ 
+            { "id" : "bldg",
+              "name" : "Buildings",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "bldgTeaching",
+                  "name" : "Teaching",
+                  "desc" : "Buildings with classrooms.",
+                  "pos" : 1 },
+                
+                { "id" : "bldgAdmin",
+                  "name" : "Administrative",
+                  "desc" : "Buildings with administrative offices.",
+                  "pos" : 2 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "bldgClassroom",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.3137552,
+                48.4649378 ],
+              
+              [ -123.3137001,
+                48.4649404 ],
+              
+              [ -123.3137082,
+                48.4649919 ],
+              
+              [ -123.3135888,
+                48.4650001 ],
+              
+              [ -123.3132143,
+                48.4650258 ],
+              
+              [ -123.3131568,
+                48.4650298 ],
+              
+              [ -123.3131451,
+                48.4649604 ],
+              
+              [ -123.3130912,
+                48.4649638 ],
+              
+              [ -123.3130428,
+                48.4649669 ],
+              
+              [ -123.3129555,
+                48.4649198 ],
+              
+              [ -123.3129344,
+                48.4647812 ],
+              
+              [ -123.3130052,
+                48.4647229 ],
+              
+              [ -123.3131222,
+                48.4647152 ],
+              
+              [ -123.3131746,
+                48.4647117 ],
+              
+              [ -123.3131627,
+                48.4646349 ],
+              
+              [ -123.3135259,
+                48.4646073 ],
+              
+              [ -123.3136487,
+                48.464598 ],
+              
+              [ -123.3136554,
+                48.4646526 ],
+              
+              [ -123.3137057,
+                48.4646502 ],
+              
+              [ -123.3137552,
+                48.4649378 ] ] ] },
+        "properties" : 
+        { "name" : "Classroom Building",
+          "desc" : "...",
+          "links" : 
+          [  ],
+          "from" : "1996",
+          "to" : "2000",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -2740,6 +3237,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "from" : "2000",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -2819,6 +3317,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "from" : "1968",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -2913,6 +3412,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "from" : "1969",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3019,6 +3519,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "from" : "1970",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3035,6 +3536,99 @@
                   "name" : "Research",
                   "desc" : "Buildings containing research facilities.",
                   "pos" : 5 } ] } ] } },
+      
+      { "type" : "Feature",
+        "id" : "bldgCIT",
+        "geometry" : 
+        { "type" : "Polygon",
+          "coordinates" : 
+          [ 
+            [ 
+              [ -123.3145111,
+                48.4637125 ],
+              
+              [ -123.3144096,
+                48.4637188 ],
+              
+              [ -123.3144127,
+                48.463734 ],
+              
+              [ -123.3143775,
+                48.4637412 ],
+              
+              [ -123.314446,
+                48.4638495 ],
+              
+              [ -123.3143393,
+                48.4639392 ],
+              
+              [ -123.3141245,
+                48.4639177 ],
+              
+              [ -123.314113,
+                48.4639399 ],
+              
+              [ -123.3140858,
+                48.4639404 ],
+              
+              [ -123.3141028,
+                48.4640389 ],
+              
+              [ -123.3139356,
+                48.4640502 ],
+              
+              [ -123.3138951,
+                48.4638078 ],
+              
+              [ -123.3139032,
+                48.4637829 ],
+              
+              [ -123.3139245,
+                48.4637853 ],
+              
+              [ -123.3139454,
+                48.4637514 ],
+              
+              [ -123.3140218,
+                48.4637722 ],
+              
+              [ -123.3140301,
+                48.4637592 ],
+              
+              [ -123.3140413,
+                48.4637414 ],
+              
+              [ -123.3140273,
+                48.4636599 ],
+              
+              [ -123.3144963,
+                48.4636276 ],
+              
+              [ -123.3145111,
+                48.4637125 ] ] ] },
+        "properties" : 
+        { "name" : "Centre for Innovative Teaching",
+          "desc" : "...",
+          "links" : 
+          [  ],
+          "from" : "1999",
+          "to" : "2004-09",
+          "taxonomies" : 
+          [ 
+            { "id" : "bldg",
+              "name" : "Buildings",
+              "pos" : 1,
+              "categories" : 
+              [ 
+                { "id" : "bldgTeaching",
+                  "name" : "Teaching",
+                  "desc" : "Buildings with classrooms.",
+                  "pos" : 1 },
+                
+                { "id" : "bldgAdmin",
+                  "name" : "Administrative",
+                  "desc" : "Buildings with administrative offices.",
+                  "pos" : 2 } ] } ] } },
       
       { "type" : "Feature",
         "id" : "bldgHickman",
@@ -3110,6 +3704,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "from" : "2004-10",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3234,6 +3829,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "from" : "1986",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3677,6 +4273,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "from" : "1967",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3904,6 +4501,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "from" : "1967",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4026,6 +4624,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cun.php" ],
+          "from" : "1972",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4242,6 +4841,7 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
+          "from" : "2008",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4313,6 +4913,7 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
+          "from" : "2008",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4432,6 +5033,7 @@
           "desc" : "Ocean, Earth and Atmospheric Sciences.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sci.php" ],
+          "from" : "2011",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4619,6 +5221,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
+          "from" : "2004",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4720,6 +5323,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
+          "from" : "1990",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4869,6 +5473,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/elw.php" ],
+          "from" : "1995",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5010,6 +5615,7 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"><img alt=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\" src=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ucl.php" ],
+          "from" : "1982",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5199,6 +5805,7 @@
           "desc" : "The UVic Services Building houses the UVic Bookstore, Finnerty Express Cafe, and several administrative services. <a target=\"_blank\" href=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"><img alt=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\" src=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/csr.php" ],
+          "from" : "1965\/1996",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5237,6 +5844,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/oau.php" ],
+          "from" : "1987",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5323,6 +5931,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fia.php" ],
+          "from" : "1991",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5478,6 +6087,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/via.php" ],
+          "from" : "1993",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5660,6 +6270,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/pnx.php\/" ],
+          "from" : "1981",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5809,6 +6420,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
+          "from" : "1963\/1995",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5833,6 +6445,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
+          "from" : "1961",
           "taxonomies" : 
           [ 
             { "id" : "transp",

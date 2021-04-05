@@ -25,6 +25,8 @@
   <xsl:output method="text" encoding="UTF-8" exclude-result-prefixes="#all"
     normalization-form="NFC" media-type="text/json"  />
   
+  <xsl:param name="projDir" as="xs:string" select="'..'"/>
+  
   <xsl:variable name="serializationParams"><output:serialization-parameters xmlns:output="http://www.w3.org/2010/xslt-xquery-serialization">
     <output:omit-xml-declaration value="yes"/>
   </output:serialization-parameters></xsl:variable>
@@ -35,14 +37,14 @@
     
     <xsl:variable name="root" select="/"/>
     <xsl:variable name="quot">"</xsl:variable>
-    <xsl:param name="outputPath" select="concat('../js/', tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()], '.json')"/>
+    <xsl:param name="outputPath" select="$projDir || '/js/' || tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()] || '.json'"/>
   
     <xsl:template match="/">
       <xsl:variable name="jsonXml">
         <map xmlns="http://www.w3.org/2005/xpath-functions">
           <string key="type">FeatureCollection</string>
           <array key="features">
-            <xsl:variable name="places" select="//text/body/descendant::place[location]"/>
+            <xsl:variable name="places" select="//text/body/descendant::place[child::location]"/>
 <!-- Now we do the default base feature which constitutes the map, and which is never shown.
      It includes a complete copy of the taxonomies, as well as the coordinates of the map
      starting position. -->
@@ -100,6 +102,24 @@
                         <string><xsl:value-of select="@target"/></string>
                       </xsl:for-each>
                     </array>
+                    
+<!--  Now any of the dating attributes.     -->
+<!--  If there's @when-iso, we turn it into from and to. -->
+                    <xsl:choose>
+                      <xsl:when test="$thisPlace/location/@when-iso">
+                        <string key="from"><xsl:value-of select="$thisPlace/location/@when-iso"/></string>
+                        <string key="to"><xsl:value-of select="$thisPlace/location/@when-iso"/></string>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:if test="$thisPlace/location/@from-iso">
+                          <string key="from"><xsl:value-of select="$thisPlace/location/@from-iso"/></string>
+                        </xsl:if>
+                        <xsl:if test="$thisPlace/location/@to-iso">
+                          <string key="to"><xsl:value-of select="$thisPlace/location/@to-iso"/></string>
+                        </xsl:if>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                    
 <!--  Now taxonomies and categories.        -->
                     <xsl:variable name="thisFeatureCategories" select="for $c in distinct-values(($thisPlace/@corresp/tokenize(., '\s+'))) return substring-after($c, '#')"/>
                     <xsl:variable name="thisFeatureTaxonomies" select="$root//taxonomy[child::category[@xml:id=$thisFeatureCategories]]"/>
