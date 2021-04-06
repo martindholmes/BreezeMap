@@ -83,6 +83,20 @@
                       </map>
                     </xsl:for-each>
                   </array>
+                  <xsl:if test="$places//location[@from-iso or @to-iso]">
+                    <!-- NOTE: The following method of sorting/comparing datetimes is inadequate and needs to be fixed. It is present
+                         as a temporary measure for development purposes. -->
+                    <xsl:variable name="froms" as="xs:string*" select="sort((for $f in $places//location/@from-iso return tokenize($f, '/')[1]))"/>
+                    <xsl:variable name="tos" as="xs:string*" select="sort((for $t in $places//location/@to-iso return tokenize($t, '/')[last()]))"/>
+                    <map key="timelineRange">
+                      <xsl:if test="count($froms) gt 0">
+                        <string key="earliest"><xsl:value-of select="$froms[1]"/></string>
+                      </xsl:if>
+                      <xsl:if test="count($tos) gt 0">
+                        <string key="latest"><xsl:value-of select="$tos[last()]"/></string>
+                      </xsl:if>
+                    </map>
+                  </xsl:if>
                 </map>
               </map>
               <xsl:for-each select="$places[@xml:id != 'holMap']">

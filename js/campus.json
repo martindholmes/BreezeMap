@@ -109,7 +109,10 @@
                 { "id" : "emptyNothing",
                   "name" : "Empty category",
                   "desc" : "Category with no associated places.",
-                  "pos" : 1 } ] } ] } },
+                  "pos" : 1 } ] } ],
+          "timelineRange" : 
+          { "earliest" : "1961",
+            "latest" : "2020-10-12" } } },
       
       { "type" : "Feature",
         "id" : "bldgClearihue",
@@ -4020,6 +4023,7 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lic.php",
             "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lib.php" ],
+          "from" : "1964",
           "taxonomies" : 
           [ 
             { "id" : "bldg",
