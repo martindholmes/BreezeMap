@@ -261,13 +261,33 @@
     <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
     
     <!-- Next, get the duration between the two date-times. -->
-    <xsl:variable name="range" as="xs:duration" select="$dEnd - $dStart"/>
+    <xsl:variable name="dtRange" as="xs:dayTimeDuration" select="$dEnd - $dStart"/>
     
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
-    <!--<xsl:choose>
-      <xsl:when test=""/>
-    </xsl:choose>-->
+    <xsl:choose>
+      <xsl:when test="($dtRange div (xs:dayTimeDuration('P1H'))) lt $maxPointCount">
+        <!-- It's hours. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:dayTimeDuration('P1D'))) lt $maxPointCount">
+        <!-- It's days. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:yearMonthDuration('P1M'))) lt $maxPointCount">
+        <!-- It's months. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:yearMonthDuration('P1Y'))) lt $maxPointCount">
+        <!-- It's years. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:yearMonthDuration('P5Y'))) lt $maxPointCount">
+        <!-- It's 5-year blocks. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:yearMonthDuration('P10Y'))) lt $maxPointCount">
+        <!-- It's decades. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:yearMonthDuration('P100Y'))) lt $maxPointCount">
+        <!-- It's centuries. -->
+      </xsl:when>
+    </xsl:choose>
     
   </xsl:function>
   
