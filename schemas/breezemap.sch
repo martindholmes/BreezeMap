@@ -20,6 +20,7 @@
   <xsl:variable name="rePolygon" select="concat('\[', $reLinearRing, '(\s*,', $reLinearRing, ')*\]')"/>
   <xsl:variable name="reMultiLineString" select="concat('\s*\[', $reLineString, '(,\s*', $reLineString, ')+', '\s*\]\s*')"/>
   <xsl:variable name="reMultiPolygon" select="concat('\s*\[\s*', $rePolygon, '(\s*,\s*', $rePolygon, ')+\s*\]\s*')"/>
+  
   <!--<pattern>
     <rule context="tei:TEI">
       <report test="*" role="info">These are the regexes used for matching geometries: &#x0a;
@@ -59,7 +60,7 @@
     </rule>
   </pattern>
   
-  <pattern>
+  <!--<pattern>
     <rule context="tei:location[@type='GeometryCollection']">
       <assert test="count(tei:geo[@n]) gt 1 and not(tei:geo[not(@n)])">
         A location element containing a GeometryCollection must have more than
@@ -67,42 +68,42 @@
         attribute.
       </assert>
     </rule>
-  </pattern>
+  </pattern>-->
   
   <pattern>
-    <rule context="tei:location[@type='Point']/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='Point']">
-      <assert test="matches(., concat('^', $rePoint, '$'))">
+    <rule context="tei:location[@type='GeoJSON']/tei:geo[matches(., '\WPoint\W')]">
+      <assert test="matches(., concat($rePoint, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON Point.
       </assert>
     </rule>
   </pattern>
   
   <pattern>
-    <rule context="tei:location[@type='MultiPoint']/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='MultiPoint']">
-      <assert test="matches(., concat('^', $reMultiPoint, '$'))">
+    <rule context="tei:location[@type='GeoJSON']/tei:geo[matches(., '\WMultiPoint\W')]">
+      <assert test="matches(., concat($reMultiPoint, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON MultiPoint.
       </assert>
     </rule>
   </pattern>
   
   <pattern>
-    <rule context="tei:location[@type='LineString']/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='LineString']">
-      <assert test="matches(., concat('^', $reLineString, '$'))">
+    <rule context="tei:location[@type='GeoJSON']/tei:geo[matches(., '\WLineString\W')]">
+      <assert test="matches(., concat($reLineString, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON LineString.
       </assert>
     </rule>
   </pattern>
   <pattern>
-    <rule context="tei:location[@type='MultiLineString']/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='MutliLineString']">
-      <assert test="matches(., concat('^', $reMultiLineString, '$'))">
+    <rule context="tei:location[@type='GeoJSON']/tei:geo[matches(., '\WMultiLineString\W')]">
+      <assert test="matches(., concat($reMultiLineString, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON MultiLineString.
       </assert>
     </rule>
   </pattern>
   
   <pattern>
-    <rule context="tei:location[@type=('Polygon')]/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='Polygon']">
-      <assert test="matches(., concat('^', $rePolygon, '$'))">
+    <rule context="tei:location[@type=('GeoJSON')]/tei:geo[matches(., '\WPolygon\W')]">
+      <assert test="matches(., concat($rePolygon, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON Polygon:
         <value-of select="$rePolygon"/>
       </assert>
@@ -110,8 +111,8 @@
   </pattern>
   
   <pattern>
-    <rule context="tei:location[@type=('MultiPolygon')]/tei:geo | tei:location[@type='GeometryCollection']/tei:geo[@n='MultiPolygon']">
-      <assert test="matches(., concat('^', $reMultiPolygon, '$'))">
+    <rule context="tei:location[@type=('GeoJSON')]/tei:geo[matches(., '\WMultiPolygon\W')]">
+      <assert test="matches(., concat($reMultiPolygon, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON MultiPolygon:
         <value-of select="$reMultiPolygon"/>
       </assert>
