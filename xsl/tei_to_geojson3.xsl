@@ -266,7 +266,7 @@
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
-      <xsl:when test="($dtRange div (xs:dayTimeDuration('P1H'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:dayTimeDuration('P0DT1H'))) lt $maxPointCount">
         <!-- It's hours. -->
       </xsl:when>
       <xsl:when test="($dtRange div (xs:dayTimeDuration('P1D'))) lt $maxPointCount">
