@@ -243,7 +243,105 @@
     <xsl:variable name="escapedXhtml" as="xs:string*"><xsl:apply-templates select="$xhtml" mode="escape"/></xsl:variable>
     <xsl:value-of select="normalize-space(string-join($escapedXhtml, ''))"/>
   </xsl:function>
-      
+  
+  <xd:doc>
+    <xd:desc><xd:ref type="function" name="hcmc:getTimelinePoints" as="xs:string*">hcmc:getTimelinePoints</xd:ref>
+    receives a pair of points in time, calculates the duration between them, and then constructs a map of optimum
+    points to form the divisions of a timeline, returning these as datetime strings in ISO 8601 format.</xd:desc>
+    <xd:param name="start" as="xs:string">The starting point.</xd:param>
+    <xd:param name="end" as="xs:string">The ending point.</xd:param>
+    <xd:param name="maxPointCount" as="xs:integer">The maximum number of points to be returned.</xd:param>
+  </xd:doc>
+  <xsl:function name="hcmc:getTimelinePoints" as="xs:string*">
+    <xsl:param name="start" as="xs:string"/>
+    <xsl:param name="end" as="xs:string"/>
+    <xsl:param name="maxPointCount" as="xs:integer"/>
+    <!-- First, expand the inputs to get full dateTimes. -->
+    <xsl:variable name="dStart" as="xs:dateTime" select="hcmc:expandDateTime($start, true())"/>
+    <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
+    
+    <!-- Next, get the duration between the two date-times. -->
+    <xsl:variable name="range" as="xs:duration" select="$dEnd - $dStart"/>
+    
+    <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
+    <!-- TODO: CONTINUE THIS. -->
+    <!--<xsl:choose>
+      <xsl:when test=""/>
+    </xsl:choose>-->
+    
+  </xsl:function>
+  
+  <xd:doc>
+    <xd:desc><xd:ref type="function" name="hcmc:expandDateTime" as="xs:string*">hcmc:expandDateTime</xd:ref>
+      receives a date or datetime string and expands it to a complete datetime
+    which can be converted into an xs:dateTime, then returns the xs:dateTime.
+      <xd:param name="strDateTime" as="xs:string">The possibly-incomplete datetime.</xd:param>
+      <xd:param name="boolRoundDown" as="xs:boolean">Whether to round down to the beginning
+        of the period or up to the end of the period.</xd:param>
+    </xd:desc>
+  </xd:doc>
+  <xsl:function name="hcmc:expandDateTime" as="xs:dateTime">
+    <xsl:param name="strDateTime" as="xs:string"/>
+    <xsl:param name="boolRoundDown" as="xs:boolean"/>
+    <xsl:choose>
+      <xsl:when test="$boolRoundDown">
+        <xsl:choose>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-01-01T00:00:00')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-01T00:00:00')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || 'T00:00:00')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || ':00:00')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d:\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || ':00')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message terminate="yes" select="$strDateTime || ' is not a valid date/time value.'"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-12-31T23:59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-((01)|(03)|(05)|(07)|(08)|(10)|(12))$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-31T23:59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-((04)|(06)|(09)|(11))$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-30T23:59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-02$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || '-28T23:59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || 'T23:59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || ':59:59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d:\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime || ':59')"/>
+          </xsl:when>
+          <xsl:when test="matches($strDateTime, '^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d$')">
+            <xsl:sequence select="xs:dateTime($strDateTime)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message terminate="yes" select="$strDateTime || ' is not a valid date/time value.'"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
       
     <!--
   <xsl:template match="p" mode="xhtml5">
