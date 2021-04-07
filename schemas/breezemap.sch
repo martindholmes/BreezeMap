@@ -21,6 +21,9 @@
   <xsl:variable name="reMultiLineString" select="concat('\s*\[', $reLineString, '(,\s*', $reLineString, ')+', '\s*\]\s*')"/>
   <xsl:variable name="reMultiPolygon" select="concat('\s*\[\s*', $rePolygon, '(\s*,\s*', $rePolygon, ')+\s*\]\s*')"/>
   
+<!--  Regular expressions for datetime components. -->
+  <xsl:variable name="reIsoDateTime">^\d\d\d\d(-\d\d(-\d\d(T\d\d(:\d\d(:\d\d)?)?)?)?)?(/\d\d\d\d(-\d\d(-\d\d(T\d\d(:\d\d(:\d\d)?)?)?)?)?)?$</xsl:variable>
+  
   <!--<pattern>
     <rule context="tei:TEI">
       <report test="*" role="info">These are the regexes used for matching geometries: &#x0a;
@@ -115,6 +118,19 @@
       <assert test="matches(., concat($reMultiPolygon, '\}$'))">
         This set of coordinates does not match the pattern for a GeoJSON MultiPolygon:
         <value-of select="$reMultiPolygon"/>
+      </assert>
+    </rule>
+  </pattern>
+  
+  <pattern>
+    <rule context="tei:location[@type='GeoJSON']">
+      <assert test="not(@from-iso) or matches(@from-iso, $reIsoDateTime)">
+        ISO date/times must take one of these forms:
+        1964, 1964-05, 1964-05-22, 1964-05-22T06, 1964-05-22T06:12, 1964-05-22T06:12:22
+      </assert>
+      <assert test="not(@to-iso) or matches(@to-iso, $reIsoDateTime)">
+        ISO date/times must take one of these forms:
+        1964, 1964-05, 1964-05-22, 1964-05-22T06, 1964-05-22T06:12, 1964-05-22T06:12:22
       </assert>
     </rule>
   </pattern>
