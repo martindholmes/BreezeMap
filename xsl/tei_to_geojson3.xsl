@@ -261,34 +261,90 @@
     <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
     
     <!-- Next, get the duration between the two date-times. -->
-    <xsl:variable name="dtRange" as="xs:dayTimeDuration" select="$dEnd - $dStart"/>
+    <xsl:variable name="dtRange" as="xs:duration" select="$dEnd - $dStart"/>
     
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
-      <xsl:when test="($dtRange div (xs:dayTimeDuration('P0DT1H'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P0DT1H'))) lt $maxPointCount">
         <!-- It's hours. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:dayTimeDuration('P1D'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P1D'))) lt $maxPointCount">
         <!-- It's days. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:yearMonthDuration('P1M'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P1M'))) lt $maxPointCount">
         <!-- It's months. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:yearMonthDuration('P1Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P1Y'))) lt $maxPointCount">
         <!-- It's years. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:yearMonthDuration('P5Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P5Y'))) lt $maxPointCount">
         <!-- It's 5-year blocks. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:yearMonthDuration('P10Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P10Y'))) lt $maxPointCount">
         <!-- It's decades. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:yearMonthDuration('P100Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRange div (xs:duration('P25Y'))) lt $maxPointCount">
+        <!-- It's quarter-centuries. -->
+      </xsl:when>
+      <xsl:when test="($dtRange div (xs:duration('P100Y'))) lt $maxPointCount">
         <!-- It's centuries. -->
       </xsl:when>
     </xsl:choose>
     
+  </xsl:function>
+  
+  <xd:doc>
+    <xd:desc><xd:ref name="hcmc:roundDownDateTime">hcmc:roundDownDateTime</xd:ref> rounds a datetime
+    down or up to a particular anchor value based on a fixed period. </xd:desc>
+    <xd:param name="dt" as="xs:dateTime">The incoming dateTime.</xd:param>
+    <xd:param name="granularity" as="xs:string">The period to be rounded to, in a string as
+      used by xs:duration constructors.</xd:param>
+    <xd:return>An xs:dateTime for the rounded value.</xd:return>
+  </xd:doc>
+  <xsl:function name="hcmc:roundDownDateTime" as="xs:dateTime">
+    <xsl:param name="dt" as="xs:dateTime"/>
+    <xsl:param name="granularity" as="xs:string"/>
+    <xsl:variable name="dtPictureString" as="xs:string" select="'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]'"/>"
+    <xsl:variable name="strDt" as="xs:string" select="format-dateTime($dt, $dtPictureString)"/>
+    <xsl:variable name="strDate" as="xs:string" select="substring-before($strDt, 'T')"/>
+    <xsl:variable name="strTime" as="xs:string" select="substring-after($strDt, 'T')"/>
+     
+    <!--<xsl:variable name="durSinceYearZero" as="xs:duration" select="$dt - xs:dateTime('0000-01-01T00:00:00')"/>-->
+    <!-- We have to fork based on whether we're using yearMonth or dayTime durations, because 
+         the operators are constrained to apply specifically to pairs of matching types. -->
+    <xsl:choose>
+      <xsl:when test="contains($granularity, 'H')">
+        <!-- It's hours. -->
+        <xsl:sequence select="dateTime(xs:date($strDate), xs:time(replace($strTime, ':\d\d:\d\d$', ':00:00')))"/>
+      </xsl:when>
+      <xsl:when test="contains($granularity, 'D')">
+        <!-- It's hours. -->
+        <xsl:sequence select="dateTime(xs:date($strDate), xs:time('00:00:00'))"/>
+      </xsl:when>
+      <xsl:when test="contains($granularity, 'M')">
+        <!-- It's months. -->
+        <xsl:sequence select="dateTime(xs:date(replace($strDate, '-\d\d$', '-01')), xs:time('00:00:00'))"/>
+      </xsl:when>
+      <xsl:when test="contains($granularity, '1Y')">
+        <!-- It's years. -->
+        <xsl:sequence select="dateTime(xs:date(replace($strDate, '-\d\d-\d\d$', '-01-01')), xs:time('00:00:00'))"/>
+      </xsl:when>
+      <xsl:when test="contains($granularity, 'P\d+')">
+        <!-- It's blocks of 5, 10, 25 or 100 years. -->
+        <xsl:variable name="intYear" as="xs:integer" select="xs:integer(substring($strDt, 1, 4))"/>
+        <xsl:variable name="intGran" as="xs:integer" select="xs:integer(replace($granularity, 'P(\d+)Y', '$1'))"/>
+        <xsl:variable name="intRoundedYear" as="xs:integer" select="$intYear - ($intYear mod $intGran)"/>
+        <xsl:sequence select="dateTime(xs:date(xs:string($intRoundedYear) || '-01-01'), xs:time('00:00:00'))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message terminate="yes" select="$granularity || ' is not a viable granularity for the timeline.'"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    
+<!--    <xsl:variable name="durSinceYearZero" as="xs:duration" select="$dt - xs:dateTime('0000-01-01T00:00:00')"/>
+    <xsl:variable name="durRounded" as="xs:duration" select="$durSinceYearZero - ($durSinceYearZero mod $granularity)"/>
+    <xsl:sequence select="$dt - ($dt mod $granularity)"/>-->
   </xsl:function>
   
   <xd:doc>
