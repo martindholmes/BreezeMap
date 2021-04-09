@@ -43,7 +43,7 @@
                     <place xml:id="holMap" corresp="#holTaxonomies">
                         <placeName>[Map title]</placeName>
                         <desc></desc>
-                        <location type="Polygon"> <geo>[[[-529.39365,83.751289],[-529.39365,-61.28181],[-166.58115,-61.28181],[-166.58115,83.751289],[-529.39365,83.751289]]]</geo>
+                        <location type="GeoJSON"> <geo>"geometry": {"type":"Polygon","coordinates":[[[-529.39365,83.751289],[-529.39365,-61.28181],[-166.58115,-61.28181],[-166.58115,83.751289],[-529.39365,83.751289]]]}</geo>
                         </location>
                     </place>
                     
@@ -60,12 +60,12 @@
                         <desc>
                             <list>
                                 <item>
-                                    <ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/cle.php"/>
+                                    <ptr target="https://www.uvic.ca/search/maps-buildings/buildings/mearns-centre-for-learning.php?utm_medium=redirect&utm_source=/home/about/campus-info/maps/maps/lic.php&utm_campaign=redirect-usage"/>
                                 </item>
                             </list>
                         </desc>
                         <location type="Point">
-                            <geo>[-468.573338,71.628402]</geo>
+                            <geo>"geometry": {"type":"Point","coordinates":[-123.30892,48.463656]}</geo>
                         </location>
                     </place>-->
                     
