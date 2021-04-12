@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:hcmc="http://hcmc.uvic.ca/ns"
+  stylesheet="functions_module.xsl">
+  
+  <!--<x:scenario label="Scenario for testing template with match 'xh:*' and mode 'escape'">
+    <x:context mode="escape"/>
+    <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
+  </x:scenario>
+
+  <x:scenario label="Scenario for testing function createEscapedXhtml">
+    <x:call function="hcmc:createEscapedXhtml">
+      <x:param name="el" select="''"/>
+    </x:call>
+    <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
+  </x:scenario>
+
+  <x:scenario label="Scenario for testing function getTimelinePoints">
+    <x:call function="hcmc:getTimelinePoints">
+      <x:param name="start" select="''"/>
+      <x:param name="end" select="''"/>
+      <x:param name="maxPointCount" select="''"/>
+    </x:call>
+    <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
+  </x:scenario>
+  -->
+
+  <x:scenario label="Scenarios for testing function roundDownDateTime">
+    <x:scenario label="Round down to an hour">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="xs:dateTime('2015-02-02T16:10:05')"/>
+        <x:param name="granularity" select="'P1H'"/>
+      </x:call>
+      <x:expect label="Rounded down to the hour" select="xs:dateTime('2015-02-02T16:00:00')"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="Scenarios for testing function expandDateTime">
+    <x:scenario label="Expand a date to its latest datetime">
+      <x:call function="hcmc:expandDateTime">
+        <x:param name="strDateTime" select="'2020-01-01'"/>
+        <x:param name="boolRoundDown" select="false()"/>
+      </x:call>
+      <x:expect label="The latest possible moment in 2020-01-01" select="xs:dateTime('2020-01-01T23:59:59')"/>
+    </x:scenario>
+    <x:scenario label="Expand a date to its earliest datetime">
+      <x:call function="hcmc:expandDateTime">
+        <x:param name="strDateTime" select="'2020-01-01'"/>
+        <x:param name="boolRoundDown" select="true()"/>
+      </x:call>
+      <x:expect label="The earliest possible moment in 2020-01-01" select="xs:dateTime('2020-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Expand a year to its earliest datetime">
+      <x:call function="hcmc:expandDateTime">
+        <x:param name="strDateTime" select="'1850'"/>
+        <x:param name="boolRoundDown" select="true()"/>
+      </x:call>
+      <x:expect label="The earliest possible moment in 1850" select="xs:dateTime('1850-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Expand a month to its latest datetime">
+      <x:call function="hcmc:expandDateTime">
+        <x:param name="strDateTime" select="'1850-02'"/>
+        <x:param name="boolRoundDown" select="false()"/>
+      </x:call>
+      <x:expect label="The latest possible moment in 1850-02" select="xs:dateTime('1850-02-28T23:59:59')"/>
+    </x:scenario>
+  </x:scenario>
+  
+</x:description>
