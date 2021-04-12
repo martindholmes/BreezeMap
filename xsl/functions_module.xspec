@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:hcmc="http://hcmc.uvic.ca/ns"
-  stylesheet="functions_module.xsl">
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" 
+  xmlns:hcmc="http://hcmc.uvic.ca/ns"
+  stylesheet="functions_module.xsl"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  >
   
   <!--
   <x:scenario label="Scenario for testing template with match 'xh:*' and mode 'escape'">
@@ -15,15 +18,52 @@
     <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
   </x:scenario>
 
-  <x:scenario label="Scenario for testing function getTimelinePoints">
-    <x:call function="hcmc:getTimelinePoints">
-      <x:param name="start" select="''"/>
-      <x:param name="end" select="''"/>
-      <x:param name="maxPointCount" select="''"/>
-    </x:call>
-    <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
-  </x:scenario>
+  
   -->
+  
+  <x:scenario label="Scenario for testing function getTimelinePoints">
+    <x:scenario label="Should be hours">
+      <x:call function="hcmc:getTimelinePoints">
+        <x:param name="start" select="'2020-01-01T08:00:00'"/>
+        <x:param name="end" select="'2020-01-03T08:00:00'"/>
+        <x:param name="maxPointCount" select="100"/>
+      </x:call>
+      <x:expect label="Should be hours" select="'hours'"/>
+    </x:scenario>
+    <x:scenario label="Should be days">
+      <x:call function="hcmc:getTimelinePoints">
+        <x:param name="start" select="'2020-01-01T08:00:00'"/>
+        <x:param name="end" select="'2020-01-20T08:00:00'"/>
+        <x:param name="maxPointCount" select="100"/>
+      </x:call>
+      <x:expect label="Should be days" select="'days'"/>
+    </x:scenario>
+    <x:scenario label="Should be months">
+      <x:call function="hcmc:getTimelinePoints">
+        <x:param name="start" select="'2018-03-01T08:00:00'"/>
+        <x:param name="end" select="'2020-01-03T08:00:00'"/>
+        <x:param name="maxPointCount" select="100"/>
+      </x:call>
+      <x:expect label="Should be months" select="'months'"/>
+    </x:scenario>
+    <x:scenario label="Should be years">
+      <x:call function="hcmc:getTimelinePoints">
+        <x:param name="start" select="'1923-03-01T08:00:00'"/>
+        <x:param name="end" select="'2020-01-03T08:00:00'"/>
+        <x:param name="maxPointCount" select="100"/>
+      </x:call>
+      <x:expect label="Should be years" select="'years'"/>
+    </x:scenario>
+    <x:scenario label="Should be decades">
+      <x:call function="hcmc:getTimelinePoints">
+        <x:param name="start" select="'1500-03-01T08:00:00'"/>
+        <x:param name="end" select="'2020-01-03T08:00:00'"/>
+        <x:param name="maxPointCount" select="100"/>
+      </x:call>
+      <x:expect label="Should be decades" select="'decades'"/>
+    </x:scenario>
+    
+  </x:scenario>
 
   <x:scenario label="Scenarios for testing function roundDownDateTime">
     <x:variable name="dtSource" as="xs:dateTime" select="xs:dateTime('2015-02-02T16:10:05')"/>

@@ -81,36 +81,53 @@
     <xsl:variable name="dStart" as="xs:dateTime" select="hcmc:expandDateTime($start, true())"/>
     <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
     
-    <!-- Next, get the duration between the two date-times. -->
-    <xsl:variable name="dtRange" as="xs:duration" select="$dEnd - $dStart"/>
+    <!-- Next, get the durations between the two date-times. -->
+    <xsl:variable name="dtRangeDayTime" as="xs:dayTimeDuration" select="$dEnd - $dStart"/>
+    <xsl:variable name="dtRangeYearMonth" as="xs:yearMonthDuration" select="xs:yearMonthDuration(xs:date($dEnd) - xs:date($dStart))"/>
+    
+    <xsl:message select="'$dtRangeDayTime = ' || xs:string($dtRangeDayTime)"/>
+    <xsl:message select="'$dtRangeYearMonth = ' || xs:string($dtRangeYearMonth)"/>
+    
+    
     
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
-      <xsl:when test="($dtRange div (xs:duration('P0DT1H'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) gt 0">
+        <xsl:sequence select="'hours'"/>
         <!-- It's hours. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P1D'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P1D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P1D'))) gt 0">
+        <xsl:sequence select="'days'"/>
         <!-- It's days. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P1M'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P30D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P30D'))) gt 0">
+        <xsl:sequence select="'months'"/>
         <!-- It's months. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P1Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P365D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P365D'))) gt 0">
+        <xsl:sequence select="'years'"/>
         <!-- It's years. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P5Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P1826D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P1826D'))) gt 0">
+        <xsl:sequence select="'5-year blocks'"/>
         <!-- It's 5-year blocks. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P10Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P3652D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P3652D'))) gt 0">
+        <xsl:sequence select="'decades'"/>
         <!-- It's decades. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P25Y'))) lt $maxPointCount">
-        <!-- It's quarter-centuries. -->
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P9132D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P9132D'))) gt 0">
+        <xsl:sequence select="'25-year blocks'"/>
+        <!-- It's 25-year blocks. -->
       </xsl:when>
-      <xsl:when test="($dtRange div (xs:duration('P100Y'))) lt $maxPointCount">
+      <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P36600D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P36600D'))) gt 0">
+        <xsl:sequence select="'centuries'"/>
         <!-- It's centuries. -->
       </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="'Unable to calculate timeline granularity.'"/>
+      </xsl:otherwise>
     </xsl:choose>
     
   </xsl:function>
