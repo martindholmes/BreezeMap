@@ -2,7 +2,8 @@
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec" xmlns:hcmc="http://hcmc.uvic.ca/ns"
   stylesheet="functions_module.xsl">
   
-  <!--<x:scenario label="Scenario for testing template with match 'xh:*' and mode 'escape'">
+  <!--
+  <x:scenario label="Scenario for testing template with match 'xh:*' and mode 'escape'">
     <x:context mode="escape"/>
     <x:expect label="Not yet implemented" select="'Not yet implemented'"/>
   </x:scenario>
@@ -25,12 +26,62 @@
   -->
 
   <x:scenario label="Scenarios for testing function roundDownDateTime">
+    <x:variable name="dtSource" as="xs:dateTime" select="xs:dateTime('2015-02-02T16:10:05')"/>
     <x:scenario label="Round down to an hour">
       <x:call function="hcmc:roundDownDateTime">
-        <x:param name="dt" select="xs:dateTime('2015-02-02T16:10:05')"/>
+        <x:param name="dt" select="$dtSource"/>
         <x:param name="granularity" select="'P1H'"/>
       </x:call>
       <x:expect label="Rounded down to the hour" select="xs:dateTime('2015-02-02T16:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to a day">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P1D'"/>
+      </x:call>
+      <x:expect label="Rounded down to the day" select="xs:dateTime('2015-02-02T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to a month">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P1M'"/>
+      </x:call>
+      <x:expect label="Rounded down to the month" select="xs:dateTime('2015-02-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to a year">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P1Y'"/>
+      </x:call>
+      <x:expect label="Rounded down to the year" select="xs:dateTime('2015-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to five years">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P5Y'"/>
+      </x:call>
+      <x:expect label="Rounded down to five years" select="xs:dateTime('2015-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to ten years">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P10Y'"/>
+      </x:call>
+      <x:expect label="Rounded down to ten years" select="xs:dateTime('2010-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to 25 years">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P25Y'"/>
+      </x:call>
+      <x:expect label="Rounded down to 25 years" select="xs:dateTime('2000-01-01T00:00:00')"/>
+    </x:scenario>
+    <x:scenario label="Round down to 100 years">
+      <x:call function="hcmc:roundDownDateTime">
+        <x:param name="dt" select="$dtSource"/>
+        <x:param name="granularity" select="'P100Y'"/>
+      </x:call>
+      <x:expect label="Rounded down to 100 years" select="xs:dateTime('2000-01-01T00:00:00')"/>
     </x:scenario>
   </x:scenario>
 

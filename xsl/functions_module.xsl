@@ -123,18 +123,23 @@
       used by xs:duration constructors.</xd:param>
     <xd:return>An xs:dateTime for the rounded value.</xd:return>
   </xd:doc>
-  <xsl:function name="hcmc:roundDownDateTime" as="xs:dateTime">
+  <xsl:function name="hcmc:roundDownDateTime" as="xs:dateTime*">
     <xsl:param name="dt" as="xs:dateTime"/>
     <xsl:param name="granularity" as="xs:string"/>
-    <xsl:variable name="dtPictureString" as="xs:string" select="'[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]'"/>"
+    <xsl:variable name="dtPictureString" as="xs:string">[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]</xsl:variable>
     <xsl:variable name="strDt" as="xs:string" select="format-dateTime($dt, $dtPictureString)"/>
     <xsl:variable name="strDate" as="xs:string" select="substring-before($strDt, 'T')"/>
     <xsl:variable name="strTime" as="xs:string" select="substring-after($strDt, 'T')"/>
-     
+    
+    <xsl:message select="'$strDate = ' || $strDate"/> 
+    <xsl:message select="'$strTime = ' || $strTime"/>
     <!--<xsl:variable name="durSinceYearZero" as="xs:duration" select="$dt - xs:dateTime('0000-01-01T00:00:00')"/>-->
     <!-- We have to fork based on whether we're using yearMonth or dayTime durations, because 
          the operators are constrained to apply specifically to pairs of matching types. -->
     <xsl:message select="'contains($granularity, ''H'') ' || contains($granularity, 'H')"/>
+<!--    
+    <xsl:sequence select="xs:dateTime('2020-01-01T12:12:12')"/>
+    -->
     <xsl:choose>
       <xsl:when test="contains($granularity, 'H')">
         <!-- It's hours. -->
@@ -164,10 +169,6 @@
         <xsl:message terminate="yes" select="$granularity || ' is not a viable granularity for the timeline.'"/>
       </xsl:otherwise>
     </xsl:choose>
-    
-<!--    <xsl:variable name="durSinceYearZero" as="xs:duration" select="$dt - xs:dateTime('0000-01-01T00:00:00')"/>
-    <xsl:variable name="durRounded" as="xs:duration" select="$durSinceYearZero - ($durSinceYearZero mod $granularity)"/>
-    <xsl:sequence select="$dt - ($dt mod $granularity)"/>-->
   </xsl:function>
   
   <xd:doc>
