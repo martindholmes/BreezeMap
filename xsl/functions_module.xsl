@@ -81,15 +81,9 @@
     <xsl:variable name="dStart" as="xs:dateTime" select="hcmc:expandDateTime($start, true())"/>
     <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
     
-    <!-- Next, get the durations between the two date-times. -->
+    <!-- Next, get the duration between the two date-times. -->
     <xsl:variable name="dtRangeDayTime" as="xs:dayTimeDuration" select="$dEnd - $dStart"/>
-    <xsl:variable name="dtRangeYearMonth" as="xs:yearMonthDuration" select="xs:yearMonthDuration(xs:date($dEnd) - xs:date($dStart))"/>
-    
-    <xsl:message select="'$dtRangeDayTime = ' || xs:string($dtRangeDayTime)"/>
-    <xsl:message select="'$dtRangeYearMonth = ' || xs:string($dtRangeYearMonth)"/>
-    
-    
-    
+
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
