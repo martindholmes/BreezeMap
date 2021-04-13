@@ -17,12 +17,25 @@
             having explicit XSpec testing outside of their use context.</xd:p>
         </xd:desc>
     </xd:doc>
+    
+  <xd:doc>
+    <xd:desc><xd:ref name="maxTimelinePoints" type="param" as="xs:integer">maxTimelinePoints</xd:ref> is the 
+    maximum number of discrete points that should be permitted on a timeline control; this is a configurable
+    parameter defaulting to 100, and is used to calculate the granularity of the timeline.</xd:desc>
+  </xd:doc>
+  <xsl:param name="maxTimelinePoints" as="xs:integer" select="100"/>
   
   <xd:doc>
     <xd:desc><xd:ref name="selfClosingXhtmlElements" type="variable">selfClosingXhtmlElements</xd:ref>
     is a sequence of strings representing element names which should be rendered as self-closing.</xd:desc>
   </xd:doc>
   <xsl:variable name="selfClosingXhtmlElements" select="('area', 'base', 'head', 'br', 'col', 'colgroup', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'video', 'audio', 'wbr')"/>
+  
+  <xd:doc>
+    <xd:desc><xd:ref type="variable" name="dtPictureString">The formatting string for ISO 8601 dateTime values.</xd:ref></xd:desc>
+  </xd:doc>
+  <xsl:variable name="dtPictureString" as="xs:string">[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]</xsl:variable>
+
   
   <xd:doc>
     <xd:desc><xd:ref name="quot" type="variable">quot</xd:ref>
@@ -66,6 +79,38 @@
   </xsl:function>
   
   <xd:doc>
+    <xd:desc><xd:ref name="hcmc:getTimelineAsStrings">hcmc:getTimelineAsStrings</xd:ref> is a recursive
+    function which builds a sequence of ISO datetime ranges (slash delimited) which will serve as the 
+    basis for the HTML timeline control. </xd:desc>
+    <xd:param name="soFar" as="xs:string*">The sequence built up so far.</xd:param>
+    <xd:param name="currRangeStart" as="xs:dateTime">The next point from which to build the next range.</xd:param>
+    <xd:param name="range" as="xs:duration">The range up to the next point.</xd:param>
+    <xd:param name="terminus" as="xs:dateTime">The point beyond which we don't need to go.</xd:param>
+  </xd:doc>
+  <xsl:function name="hcmc:getTimelineAsStrings" as="xs:string*">
+    <xsl:param name="soFar" as="xs:string*"/>
+    <xsl:param name="currRangeStart" as="xs:dateTime"/>
+    <xsl:param name="range" as="xs:duration"/>
+    <xsl:param name="terminus" as="xs:dateTime"/>
+    <xsl:choose>
+      <xsl:when test="$currRangeStart ge $terminus">
+        <xsl:sequence select="$soFar"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable as="xs:dateTime" name="nextRangeStart" select="$currRangeStart + $range"/>
+        <xsl:variable as="xs:dateTime" name="currRangeEnd" select="$nextRangeStart - xs:dayTimeDuration('PT1S')"/>
+        <xsl:variable name="strCurrRange" as="xs:string" select="format-dateTime($currRangeStart, $dtPictureString) || '/' || format-dateTime($currRangeEnd, $dtPictureString)"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings(
+          ($soFar, $strCurrRange), 
+          $nextRangeStart, 
+          $range, 
+          $terminus
+          )"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
+  <xd:doc>
     <xd:desc><xd:ref type="function" name="hcmc:getTimelinePoints" as="xs:string*">hcmc:getTimelinePoints</xd:ref>
     receives a pair of points in time, calculates the duration between them, and then constructs a map of optimum
     points to form the divisions of a timeline, returning these as datetime strings in ISO 8601 format.</xd:desc>
@@ -77,47 +122,59 @@
     <xsl:param name="start" as="xs:string"/>
     <xsl:param name="end" as="xs:string"/>
     <xsl:param name="maxPointCount" as="xs:integer"/>
+    
     <!-- First, expand the inputs to get full dateTimes. -->
     <xsl:variable name="dStart" as="xs:dateTime" select="hcmc:expandDateTime($start, true())"/>
     <xsl:variable name="dEnd" as="xs:dateTime" select="hcmc:expandDateTime($end, false())"/>
     
     <!-- Next, get the duration between the two date-times. -->
     <xsl:variable name="dtRangeDayTime" as="xs:dayTimeDuration" select="$dEnd - $dStart"/>
+    
+    <xsl:variable name="strStartFull" as="xs:string" select="format-dateTime($dStart, $dtPictureString)"/>
 
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
     <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) gt 0">
-        <xsl:sequence select="'hours'"/>
+        <!--<xsl:sequence select="'hours'"/>-->
         <!-- It's hours. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P1H')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:dayTimeDuration('P0DT1H'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P1D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P1D'))) gt 0">
-        <xsl:sequence select="'days'"/>
         <!-- It's days. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P1D')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:dayTimeDuration('P1D'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P30D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P30D'))) gt 0">
-        <xsl:sequence select="'months'"/>
         <!-- It's months. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P1M')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P1M'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P365D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P365D'))) gt 0">
-        <xsl:sequence select="'years'"/>
         <!-- It's years. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P1Y')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P1Y'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P1826D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P1826D'))) gt 0">
-        <xsl:sequence select="'5-year blocks'"/>
         <!-- It's 5-year blocks. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P5Y')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P5Y'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P3652D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P3652D'))) gt 0">
-        <xsl:sequence select="'decades'"/>
         <!-- It's decades. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P10Y')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P10Y'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P9132D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P9132D'))) gt 0">
-        <xsl:sequence select="'25-year blocks'"/>
         <!-- It's 25-year blocks. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P25Y')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P25Y'), $dEnd)"/>
       </xsl:when>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P36600D'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P36600D'))) gt 0">
-        <xsl:sequence select="'centuries'"/>
         <!-- It's centuries. -->
+        <xsl:variable name="tlStart" as="xs:dateTime" select="hcmc:roundDownDateTime($dStart, 'P100Y')"/>
+        <xsl:sequence select="hcmc:getTimelineAsStrings((), $tlStart, xs:yearMonthDuration('P100Y'), $dEnd)"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="'Unable to calculate timeline granularity.'"/>
@@ -137,7 +194,6 @@
   <xsl:function name="hcmc:roundDownDateTime" as="xs:dateTime*">
     <xsl:param name="dt" as="xs:dateTime"/>
     <xsl:param name="granularity" as="xs:string"/>
-    <xsl:variable name="dtPictureString" as="xs:string">[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]</xsl:variable>
     <xsl:variable name="strDt" as="xs:string" select="format-dateTime($dt, $dtPictureString)"/>
     <xsl:variable name="strDate" as="xs:string" select="substring-before($strDt, 'T')"/>
     <xsl:variable name="strTime" as="xs:string" select="substring-after($strDt, 'T')"/>
