@@ -198,12 +198,12 @@
     <xsl:variable name="strDate" as="xs:string" select="substring-before($strDt, 'T')"/>
     <xsl:variable name="strTime" as="xs:string" select="substring-after($strDt, 'T')"/>
     
-    <xsl:message select="'$strDate = ' || $strDate"/> 
-    <xsl:message select="'$strTime = ' || $strTime"/>
+    <!--<xsl:message select="'$strDate = ' || $strDate"/> 
+    <xsl:message select="'$strTime = ' || $strTime"/>-->
     <!--<xsl:variable name="durSinceYearZero" as="xs:duration" select="$dt - xs:dateTime('0000-01-01T00:00:00')"/>-->
     <!-- We have to fork based on whether we're using yearMonth or dayTime durations, because 
          the operators are constrained to apply specifically to pairs of matching types. -->
-    <xsl:message select="'contains($granularity, ''H'') ' || contains($granularity, 'H')"/>
+    <!--<xsl:message select="'contains($granularity, ''H'') ' || contains($granularity, 'H')"/>-->
 <!--    
     <xsl:sequence select="xs:dateTime('2020-01-01T12:12:12')"/>
     -->
