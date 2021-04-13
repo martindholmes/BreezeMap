@@ -1111,14 +1111,14 @@
                     <place corresp="#transpWalkBusToClearihue" xml:id="walkToClearihue">
                         <placeName>Walking path from buses to Clearihue Building</placeName>
                         <desc>...</desc>
-                        <location type="GeoJSON">
+                        <location type="GeoJSON" subtype="directional">
                             <geo>"geometry":{"type":"LineString", "coordinates":[[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133]]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToUVClub" xml:id="walkToUVClub">
                         <placeName>Walking path from buses to University Club</placeName>
                         <desc>...</desc>
-                        <location type="GeoJSON">
+                        <location type="GeoJSON" subtype="directional">
                             <geo>"geometry":{"type":"LineString", "coordinates":[[-123.309272,48.466243],[-123.309112,48.465852],[-123.308958,48.465762],[-123.308844,48.464982],[-123.309554,48.464404],[-123.309701,48.464133],[-123.309902,48.464015],[-123.310024,48.463879],[-123.313399,48.463618],[-123.314855,48.463513],[-123.315465,48.463756],[-123.315704,48.463809],[-123.316102,48.463862],[-123.316277,48.463895],[-123.316188,48.464104],[-123.316317,48.464078],[-123.316482,48.464123],[-123.316789,48.464042],[-123.317296,48.463995]]}</geo>
                         </location>
                     </place>

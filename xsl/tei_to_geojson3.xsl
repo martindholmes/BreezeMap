@@ -135,6 +135,10 @@
                       </xsl:otherwise>
                     </xsl:choose>
                     
+                    <xsl:if test="$thisPlace/location/@subtype[.='directional']">
+                      <boolean key="directional">true</boolean>
+                    </xsl:if>
+                    
 <!--  Now taxonomies and categories.        -->
                     <xsl:variable name="thisFeatureCategories" select="for $c in distinct-values(($thisPlace/@corresp/tokenize(., '\s+'))) return substring-after($c, '#')"/>
                     <xsl:variable name="thisFeatureTaxonomies" select="$root//taxonomy[child::category[@xml:id=$thisFeatureCategories]]"/>

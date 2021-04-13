@@ -2,7 +2,7 @@
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="application/xml"
 	schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:tei="http://www.tei-c.org/ns/1.0">
   <teiHeader>
       <fileDesc>
          <titleStmt>
@@ -99,18 +99,27 @@
            
            <elementSpec ident="location" mode="change">
              <content>
-               <elementRef key="geo" minOccurs="1" maxOccurs="unbounded"/>
+               <elementRef key="geo" minOccurs="1" maxOccurs="1"/>
              </content>
+             <constraintSpec ident="onlyLineStringsAreDirectional" scheme="schematron">
+               <constraint>
+                 <sch:rule context="tei:location">
+                   <sch:assert test="not(@subtype = 'directional') or matches(child::tei:geo, '[^i]LineString')">
+                     Only a LineString can be specified as directional.
+                   </sch:assert>
+                 </sch:rule>
+               </constraint>
+             </constraintSpec>
              <attList>
                <attDef ident="type" mode="change" usage="req">
                  <valList mode="add" type="closed">
                    <valItem ident="GeoJSON">
-                     <gloss>A complete GeoJSON geometry object. PREFERRED OPTION</gloss>
+                     <gloss>A complete GeoJSON geometry object.</gloss>
                      <desc>The child <gi>geo</gi> element contains a complete GeoJSON geometry object 
                        conforming with the 
                        <ref target="https://tools.ietf.org/html/rfc7946#section-3.1">GeoJSON specification</ref>. </desc>
                    </valItem>
-                   <valItem ident="Point">
+                   <!--<valItem ident="Point">
                      <gloss>A single point. DEPRECATED; use GeoJSON</gloss>
                      <desc>A single point, expressed as two or three coordinates, comma-separated, inside square brackets: [ -121.988314,49.050278,0 ]</desc>
                    </valItem>
@@ -153,6 +162,15 @@
                      <gloss>Collection of multiple geometries. DEPRECATED; use GeoJSON</gloss>
                      <desc>A Geometry Collection consists of multiple geo elements, each of which corresponds 
                      to one of the existing geometries in other attribute values.</desc>
+                   </valItem>-->
+                 </valList>
+               </attDef>
+               <attDef ident="subtype" mode="change" usage="opt">
+                 <valList type="closed" mode="add">
+                   <valItem ident="directional">
+                     <gloss>Directional LineString (representing movement)</gloss>
+                     <desc>A location whose geometry is a LineString may be characterized
+                     as directional, signifying that it represents a journey or movement.</desc>
                    </valItem>
                  </valList>
                </attDef>
