@@ -2280,7 +2280,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
           featNums.push(featNum);
         }
       }
-    }, this);
+    }.bind(this), this);
     this.centerOnFeatures(featNums, true);
   }
   catch(e){
