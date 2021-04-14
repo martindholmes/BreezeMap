@@ -100,13 +100,48 @@
         <xsl:variable as="xs:dateTime" name="nextRangeStart" select="$currRangeStart + $range"/>
         <xsl:variable as="xs:dateTime" name="currRangeEnd" select="$nextRangeStart - xs:dayTimeDuration('PT1S')"/>
         <xsl:variable name="strCurrRange" as="xs:string" select="format-dateTime($currRangeStart, $dtPictureString) || '/' || format-dateTime($currRangeEnd, $dtPictureString)"/>
+        <xsl:variable name="rangeLabel" select="hcmc:getRangeLabel($strCurrRange, $range)"/>
         <xsl:sequence select="hcmc:getTimelineAsStrings(
-          ($soFar, $strCurrRange), 
+          ($soFar, $strCurrRange || '/' || $rangeLabel), 
           $nextRangeStart, 
           $range, 
           $terminus
           )"/>
       </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+  
+  <xd:doc>
+    <xd:desc><xd:ref type="function" name="hcmc:getRangeLabel" as="xs:string*">hcmc:getRangeLabel</xd:ref>
+      receives a string with a slash-delimited ISO 8601 dateTime range, along with a duration,
+      and returns a string representing a human-readable version of the range suitable for a 
+      label for a timeline point on the map. For example, given 1969-01-01T00:00:00/1969-12-31T23:59:59,
+      duration 1 year, it would return "1969"; given 1969-01-01T00:00:00/1974-12-31T23:59:59, 
+      duration 5 years, it would return "1969-1974".</xd:desc>
+    <xd:param name="strRange" as="xs:string">The slash-delimited range.</xd:param>
+    <xd:param name="durRange" as="xs:duration">The period between them.</xd:param>
+  </xd:doc>
+  <xsl:function name="hcmc:getRangeLabel" as="xs:string">
+    <xsl:param name="strRange" as="xs:string"/>
+    <xsl:param name="durRange" as="xs:duration"/>
+    <xsl:choose>
+      <xsl:when test="xs:yearMonthDuration($durRange) gt xs:yearMonthDuration('P1Y')">
+        <xsl:sequence select="replace($strRange, '^(\d\d\d\d)[^/]+/(\d\d\d\d).+$', '$1 - $2')"/>
+      </xsl:when>
+      <xsl:when test="xs:yearMonthDuration($durRange) gt xs:yearMonthDuration('P1M')">
+        <xsl:sequence select="replace($strRange, '^(\d\d\d\d).+$', '$1')"/>
+      </xsl:when>
+      <xsl:when test="xs:yearMonthDuration($durRange) eq xs:yearMonthDuration('P1M')">
+        <xsl:sequence select="replace($strRange, '^(\d\d\d\d-\d\d).+$', '$1')"/>
+      </xsl:when>
+      <xsl:when test="xs:dayTimeDuration($durRange) gt xs:dayTimeDuration('P0DT1H')">
+        <xsl:sequence select="replace($strRange, '^(\d\d\d\d-\d\d-\d\d).+$', '$1')"/>
+      </xsl:when>
+      <xsl:when test="xs:dayTimeDuration($durRange) gt xs:dayTimeDuration('P0DT1M')">
+        <xsl:variable name="dt" select="xs:dateTime(substring-before($strRange, '/'))"/>
+        <xsl:sequence select="format-dateTime($dt, '[MNn] [D1o], [H01]:00 - [H01]:59')"/>
+      </xsl:when>
+      <xsl:otherwise><xsl:sequence select="'Error: unprocessable dateTime range.'"/></xsl:otherwise>
     </xsl:choose>
   </xsl:function>
   
