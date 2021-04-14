@@ -118,19 +118,23 @@
                       </xsl:for-each>
                     </array>
                     
-<!--  Now any of the dating attributes.     -->
+<!--  Now any of the dating attributes. When processing these, we turn each
+      individual date or each component of a slash-delimited range into a 
+      fully-realized dateTime string. -->
 <!--  If there's @when-iso, we turn it into from and to. -->
                     <xsl:choose>
                       <xsl:when test="$thisPlace/location/@when-iso">
-                        <string key="from"><xsl:value-of select="$thisPlace/location/@when-iso"/></string>
-                        <string key="to"><xsl:value-of select="$thisPlace/location/@when-iso"/></string>
+                        <string key="from"><xsl:value-of select="
+                          hcmc:expandDateTime(tokenize($thisPlace/location/@when-iso, '/')[1], true())
+                          "/></string>
+                        <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@when-iso, '/')[last()], false())"/></string>
                       </xsl:when>
                       <xsl:otherwise>
                         <xsl:if test="$thisPlace/location/@from-iso">
-                          <string key="from"><xsl:value-of select="$thisPlace/location/@from-iso"/></string>
+                          <string key="from"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@from-iso, '/')[1], true())"/></string>
                         </xsl:if>
                         <xsl:if test="$thisPlace/location/@to-iso">
-                          <string key="to"><xsl:value-of select="$thisPlace/location/@to-iso"/></string>
+                          <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@to-iso, '/')[last()], false())"/></string>
                         </xsl:if>
                       </xsl:otherwise>
                     </xsl:choose>
