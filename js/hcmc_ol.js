@@ -2659,6 +2659,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     cbx = document.createElement('input');
     cbx.setAttribute('type', 'checkbox');
     cbx.setAttribute('id', 'chkTimeline');
+    cbx.addEventListener('change', function(e){this.toggleTimeline(e.target)}.bind(this));
     cont.appendChild(cbx);
     slider = document.createElement('input');
     slider.setAttribute('type', 'range');
@@ -2680,6 +2681,35 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     return false;
   }
 };
+
+/**
+ * Function for toggling the timeline functionality.
+ *
+ * @function hol.VectorLayer.prototype.toggleTimeline
+ * @memberof hol.VectorLayer.prototype
+ * @description enables or disables the timeline control, and
+ *              runs its change event to reconfigure visibility
+ *              of features currently showing.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.toggleTimeline = function(sender){
+  try{
+    if (sender.checked){
+      console.log('Enabling timeline...');
+      this.timeline.disabled = false;
+      //...
+    }
+    else{
+      console.log('Disabling timeline...');
+      this.timeline.disabled = true;
+      //...
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+}
 
 /**
  * Function for retrieving the category index from its string identifier.
