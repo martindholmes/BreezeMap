@@ -804,3 +804,16 @@ a.holFeatureLink{
   color: #0000ff;
   text-decoration: underline;
 }
+
+/* Timeline */
+div.timeline{
+  position: fixed;
+  bottom: 2vh;
+  left: 2vw;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 4em 1fr;
+}
+div.timeline>label{
+  padding-left: 0.5em;
+}
