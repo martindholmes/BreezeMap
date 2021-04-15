@@ -2669,6 +2669,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     slider.setAttribute('max', (tl.timelinePoints.length - 1).toString());
     slider.setAttribute('list', 'ptsTimeline');
     slider.setAttribute('id', 'rngTimeline');
+    slider.addEventListener('change', function(e){this.timelineChange(e.target)}.bind(this));
     slider.disabled = true;
     cont.appendChild(slider);
     
@@ -2702,13 +2703,31 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     else{
       console.log('Disabling timeline...');
       this.timeline.disabled = true;
-      //...
+      //...Lots of stuff to reset here.
     }
+    return true;
   }
   catch(e){
     console.error(e.message);
     return false;
   }
+}
+
+/**
+ * Function for showing/hiding features based on their current
+ *          display setting and the timeline position.
+ *
+ * @function hol.VectorLayer.prototype.timelineChange
+ * @memberof hol.VectorLayer.prototype
+ * @description triggered by a change in the timeline position,
+ *              this checks all the currently-showing features
+ *              and switches their styles between showing 
+ *              (if they're in the range) and another style
+ *              (if they're not).
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.timelineChange = function(sender){
+  console.log(sender.value);
 }
 
 /**
