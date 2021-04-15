@@ -2651,16 +2651,19 @@ hol.VectorLayer.prototype.buildTimeline = function(){
         opt.setAttribute('label', temp[2]);
       }
     }
-    cont.appendChild(dl);
-    label = document.createElement('label');
-    label.setAttribute('id', 'lblTimeline');
-    label.appendChild(document.createTextNode(this.captions.strTimeline));
-    cont.appendChild(label);
+    document.body.appendChild(dl);
     cbx = document.createElement('input');
     cbx.setAttribute('type', 'checkbox');
     cbx.setAttribute('id', 'chkTimeline');
     cbx.addEventListener('change', function(e){this.toggleTimeline(e.target)}.bind(this));
     cont.appendChild(cbx);
+    label = document.createElement('label');
+    label.setAttribute('id', 'lblTimeline');
+    label.appendChild(document.createTextNode(this.captions.strTimeline));
+    cont.appendChild(label);
+    play = document.createElement('button');
+    play.appendChild(document.createTextNode('\u23f5'));
+    cont.appendChild(play);
     slider = document.createElement('input');
     slider.setAttribute('type', 'range');
     slider.setAttribute('value', '0');
@@ -2698,11 +2701,14 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     if (sender.checked){
       console.log('Enabling timeline...');
       this.timeline.disabled = false;
+      this.timelineChange(this.timeline);
       //...
     }
     else{
       console.log('Disabling timeline...');
       this.timeline.disabled = true;
+      document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
+      this.timeline.value = 0;
       //...Lots of stuff to reset here.
     }
     return true;
@@ -2727,7 +2733,16 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
-  console.log(sender.value);
+  try{
+    let val = sender.value;
+    document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
+    console.log(sender.value);
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+  
 }
 
 /**
