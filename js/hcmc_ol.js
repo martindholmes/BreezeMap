@@ -37,7 +37,7 @@
  *               relationship, and a navigation panel is
  *               required.
  * @author <a href="mailto:mholmes@uvic.ca">Martin Holmes</a>
- * @version 0.1.0
+ * @version 0.1.1
  */
 
 /**
@@ -99,6 +99,7 @@ hol.captions['en'].strClear              = 'Clear';
 hol.captions['en'].strDrawnFeatures      = 'Drawn features';
 hol.captions['en'].strDrawnFeaturesDesc  = 'Features drawn during the current session';
 hol.captions['en'].strEditThisFeature    = 'Edit a copy of this feature by clicking on the edit button above.';
+hol.captions['en'].strTimeline           = 'Timeline';
 
 /**
  * Constants in hol namespace used
@@ -809,6 +810,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.fileMenu = null;                      //Will contain a pointer to file upload/download control menu.
     this.setupMenu = null;                     //Will contain a pointer to map setup menu.
     this.drawMenu = null;                      //Will contain a pointer to the drawing menu.
+    
+    this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
+    this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -1645,6 +1649,8 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
           
           this.buildTaxonomySelector();
           this.buildNavPanel();
+          this.buildTimeline();
+          
 //Now we can parse the query string in case anything is supposed
 //to be shown by default.
           this.parseSearch();
@@ -1772,7 +1778,7 @@ hol.VectorLayer.prototype.appendGeoJSONFromString = function(geojson){
           
           this.buildTaxonomySelector();
           this.buildNavPanel();
-          
+          this.buildTimeline();
         }
       }
     }.bind(this));
@@ -2605,6 +2611,74 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
     return false;
   }
   return true;
+};
+
+/**
+ * Function for building the HTML range control and associated
+ *          components for the timeline functionality, if required.
+ *
+ * @function hol.VectorLayer.prototype.buildTimeline
+ * @memberof hol.VectorLayer.prototype
+ * @description creates a box containing a range control and 
+ *               associated components for showing/hiding features based
+ *               on dateTime.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.buildTimeline = function(){
+  try{
+    let tl = this.baseFeature.getProperties().timeline;
+    if (!tl){
+      console.log('No timeline data found.');
+      return true;
+    }
+    else{
+      console.log('Timeline data found. Building timeline.')
+    }
+    //These are the things we need.
+    let i, imax, cont, dl, opt, slider, cbx, play, label;
+    cont = document.createElement('div');
+    cont.classList.add('timeline');
+    //Note: No browser currently supports the use of datalist. 
+    //This is forward-looking.
+    dl = document.createElement('datalist');
+    dl.setAttribute('id', 'tlPoints');
+    for (i = 0, imax=tl.timelinePoints.length; i < imax; i++){
+      let temp = tl.timelinePoints[i].split('/');
+      this.timelinePoints.push({'start': temp[0], 'end': temp[1], 'label': temp[2]});
+      opt = document.createElement('option');
+      opt.setAttribute('value', i);
+      if (i % 5 == 0){
+        opt.setAttribute('label', temp[2]);
+      }
+    }
+    cont.appendChild(dl);
+    label = document.createElement('label');
+    label.setAttribute('id', 'lblTimeline');
+    label.appendChild(document.createTextNode(this.captions.strTimeline));
+    cont.appendChild(label);
+    cbx = document.createElement('input');
+    cbx.setAttribute('type', 'checkbox');
+    cbx.setAttribute('id', 'chkTimeline');
+    cont.appendChild(cbx);
+    slider = document.createElement('input');
+    slider.setAttribute('type', 'range');
+    slider.setAttribute('value', '0');
+    slider.setAttribute('step', '1');
+    slider.setAttribute('min', '0');
+    slider.setAttribute('max', (tl.timelinePoints.length - 1).toString());
+    slider.setAttribute('list', 'ptsTimeline');
+    slider.setAttribute('id', 'rngTimeline');
+    slider.disabled = true;
+    cont.appendChild(slider);
+    
+    document.body.appendChild(cont);
+    this.timeline = slider;
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
 };
 
 /**
