@@ -812,11 +812,28 @@ div.timeline{
   left: 2vw;
   width: 50vw;
   display: grid;
-  grid-template-columns: 4em 1fr;
+  grid-template-columns: 3em 1fr;
   border: solid 1pt gray;
-  padding: 0.25rem;
+  padding: 0.55rem;
   background-color: rgba(255,255,255,0.5);
+  gap: 0.25rem;
 }
 div.timeline>label{
   padding-left: 0.5em;
+}
+div.timeline #chkTimeline{
+  transform: scale(1.8);
+  justify-self: start;
+  border: 1px solid rgb(204,204,204);
+}
+div.timeline>button{
+  background-color: rgba(245,245,245, .4);
+  border: 1px solid rgb(204,204,204);
+  border-radius: 3px;
+  font-size: 1rem;
+  max-width: 2rem;
+  max-height: 2rem;
+  color: rgb(57,70,78);
+  box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
+  justify-self: start;
 }

@@ -813,6 +813,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
     this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
     this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
+    this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
+    this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -2635,11 +2637,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
   try{
     let tl = this.baseFeature.getProperties().timeline;
     if (!tl){
-      console.log('No timeline data found.');
       return true;
-    }
-    else{
-      console.log('Timeline data found. Building timeline.')
     }
     //These are the things we need.
     let i, imax, cont, dl, opt, slider, cbx, play, label;
@@ -2663,15 +2661,16 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     cbx = document.createElement('input');
     cbx.setAttribute('type', 'checkbox');
     cbx.setAttribute('id', 'chkTimeline');
-    cbx.addEventListener('change', function(e){this.toggleTimeline(e.target)}.bind(this));
+    cbx.addEventListener('change', function(e){this.toggleTimeline(e.target);}.bind(this));
     cont.appendChild(cbx);
     label = document.createElement('label');
     label.setAttribute('id', 'lblTimeline');
     label.appendChild(document.createTextNode(this.captions.strTimeline));
     cont.appendChild(label);
     play = document.createElement('button');
-    play.setAttribute('id', 'playTimeline');
+    play.setAttribute('id', 'btnPlayTimeline');
     play.appendChild(document.createTextNode('\u23f5'));
+    play.addEventListener('click', function(){this.timelinePlay();}.bind(this));
     play.disabled = true;
     cont.appendChild(play);
     slider = document.createElement('input');
@@ -2688,6 +2687,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     
     document.body.appendChild(cont);
     this.timeline = slider;
+    this.playButton = play;
     return true;
   }
   catch(e){
@@ -2709,19 +2709,22 @@ hol.VectorLayer.prototype.buildTimeline = function(){
 hol.VectorLayer.prototype.toggleTimeline = function(sender){
   try{
     if (sender.checked){
-      console.log('Enabling timeline...');
       this.timeline.disabled = false;
-      document.getElementById('playTimeline').disabled = false;
+      this.playButton.disabled = false;
+      this.playButton.innerHTML = '\u23f5';
       this.timelineChange(this.timeline);
-      //...
     }
     else{
-      console.log('Disabling timeline...');
+      if (this.playInterval !== null){
+        clearInterval(this.playInterval);
+        this.playInterval = null;
+        this.playButton.innerHTML = '\u23f5';
+      }
       this.timeline.disabled = true;
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
-      document.getElementById('playTimeline').disabled = true;
+      this.playButton.disabled = true;
+      this.playButton.innerHTML = '\u23f5';
       this.timeline.value = 0;
-      //...Lots of stuff to reset here.
     }
     return true;
   }
@@ -2767,8 +2770,47 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     console.error(e.message);
     return false;
   }
-  
 }
+
+/**
+ * Function for "playing" the timeline in sequence.
+ *
+ * @function hol.VectorLayer.prototype.timelinePlay
+ * @memberof hol.VectorLayer.prototype
+ * @description triggered by the timeline play button, this
+ *              uses a recursive function to advance the 
+ *              timeline until it ends.
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.timelinePlay = function(){
+  try{
+    if (this.playInterval !== null){
+      try{clearInterval(this.playInterval);}catch(e){};
+      this.playButton.innerHTML = '\u23f5';
+      this.playInterval = null;
+      return true;
+    }
+    else{
+      this.playButton.innerHTML = '\u23f9';
+    }
+    this.playInterval = setInterval(function(){
+      if (parseInt(this.timeline.value) < parseInt(this.timeline.max)){
+        this.timeline.stepUp();
+        this.timelineChange(this.timeline);
+      }
+      else{
+        clearInterval(this.playInterval);
+        this.playInterval = null;
+        this.playButton.innerHTML = '\u23f5';
+      }
+    }.bind(this), 1500);
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+} 
 
 /**
  * Function for retrieving the category index from its string identifier.
