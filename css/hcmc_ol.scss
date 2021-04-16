@@ -813,6 +813,9 @@ div.timeline{
   width: 50vw;
   display: grid;
   grid-template-columns: 4em 1fr;
+  border: solid 1pt gray;
+  padding: 0.25rem;
+  background-color: rgba(255,255,255,0.5);
 }
 div.timeline>label{
   padding-left: 0.5em;

@@ -1599,6 +1599,13 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
 //Now we need to set some additional properties on the features.
         for (i = 0, maxi = this.features.length; i<maxi; i++){
           this.features[i].setProperties({"showing": false, "selected": false}, true);
+          let p = this.features[i].getProperties();
+          if (p.from){
+            this.features[i].setProperties({'ssFrom': Date.parse(p.from)});
+          }
+          if (p.to){
+            this.features[i].setProperties({'ssto': Date.parse(p.to)});
+          }
         }
     
 //Now build the taxonomy data structure from the information
@@ -2644,7 +2651,8 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     dl.setAttribute('id', 'tlPoints');
     for (i = 0, imax=tl.timelinePoints.length; i < imax; i++){
       let temp = tl.timelinePoints[i].split('/');
-      this.timelinePoints.push({'start': temp[0], 'end': temp[1], 'label': temp[2]});
+      this.timelinePoints.push({'start': temp[0], 'end': temp[1], 'label': temp[2], 
+                                'ssStart': Date.parse(temp[0]), 'ssEnd': Date.parse(temp[1])});
       opt = document.createElement('option');
       opt.setAttribute('value', i);
       if (i % 5 == 0){
@@ -2662,7 +2670,9 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     label.appendChild(document.createTextNode(this.captions.strTimeline));
     cont.appendChild(label);
     play = document.createElement('button');
+    play.setAttribute('id', 'playTimeline');
     play.appendChild(document.createTextNode('\u23f5'));
+    play.disabled = true;
     cont.appendChild(play);
     slider = document.createElement('input');
     slider.setAttribute('type', 'range');
@@ -2701,6 +2711,7 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     if (sender.checked){
       console.log('Enabling timeline...');
       this.timeline.disabled = false;
+      document.getElementById('playTimeline').disabled = false;
       this.timelineChange(this.timeline);
       //...
     }
@@ -2708,6 +2719,7 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
       console.log('Disabling timeline...');
       this.timeline.disabled = true;
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
+      document.getElementById('playTimeline').disabled = true;
       this.timeline.value = 0;
       //...Lots of stuff to reset here.
     }
@@ -2734,9 +2746,22 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
-    let val = sender.value;
+    let val = sender.value, i, maxi;
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     console.log(sender.value);
+    let tp = this.timelinePoints[sender.value];
+    for (i = 0, maxi = this.features.length; i<maxi; i++){
+      //Check whether it's in range; if so, show it.
+      let p = this.features[i].getProperties();
+      if ((!(p.ssFrom) || p.ssFrom <= tp.ssEnd) && (!(p.ssTo) || p.ssTo >= tp.ssStart)){
+        this.showHideFeature(true, i, -1);
+      }  
+      //Otherwise hide it.
+      else{
+        this.showHideFeature(false, i, -1);
+      }
+    }
+    return true;
   }
   catch(e){
     console.error(e.message);
