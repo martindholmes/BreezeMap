@@ -411,7 +411,8 @@ hol.Util.getSelectedStyle = function(){
     var catNum, catCol;
     catNum = feature.getProperties().showingCat;
     catCol = hol.Util.getColorForCategory(catNum);
-    return [
+    let styles = 
+    [
       new ol.style.Style({
           image: new ol.style.Icon({
           src: 'js/placemark.png',
@@ -439,6 +440,26 @@ hol.Util.getSelectedStyle = function(){
        zIndex: newZ
      })
     ];
+    if (feature.getProperties().directional){
+      var geometry = feature.getGeometry();
+      geometry.forEachSegment(function (start, end) {
+    		var dx = end[0] - start[0];
+    		var dy = end[1] - start[1];
+    		var rotation = Math.atan2(dy, dx);
+
+    		styles.push(new ol.style.Style({
+    		  geometry: new ol.geom.Point(end),
+    		  image: new ol.style.RegularShape({
+    		    fill: new ol.style.Fill({color: 'rgba(255,0,255,1)'}),
+    		    points: 3,
+    		    radius: 10,
+    		    rotation: -rotation,
+    		    angle: Math.PI / 2 // rotate 90°
+    		  })
+    		}));
+      });
+    }
+    return styles;
   };
 };
 
@@ -509,7 +530,8 @@ hol.Util.getCategoryStyle = function(catNum){
     if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
       lineWidth = 5;
     }
-    return [new ol.style.Style({
+    let styles =
+    [new ol.style.Style({
       /*image: new ol.style.Circle({
         fill: new ol.style.Fill({
           color: transCol
@@ -534,6 +556,28 @@ hol.Util.getCategoryStyle = function(catNum){
         width: lineWidth
       })
     })];
+    if (feature.getProperties().directional){
+      var geometry = feature.getGeometry();
+      geometry.forEachSegment(function (start, end) {
+    		var dx = end[0] - start[0];
+    		var dy = end[1] - start[1];
+    		var rotation = Math.atan2(dy, dx);
+        //We want the arrow in the middle of the segment. Not working yet.
+        //var midPoint = [Math.round((end[0] - start[0]) / 2), Math.round((end[1] - start[1]) / 2)];
+
+    		styles.push(new ol.style.Style({
+    		  geometry: new ol.geom.Point(end),
+    		  image: new ol.style.RegularShape({
+    		    fill: new ol.style.Fill({color: col}),
+    		    points: 3,
+    		    radius: 10,
+    		    rotation: -rotation,
+    		    angle: Math.PI / 2 // rotate 90°
+    		  })
+    		}));
+      });
+    }
+    return styles;
   };
 };
 
