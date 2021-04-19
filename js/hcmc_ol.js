@@ -408,7 +408,7 @@ hol.Util.getSelectedStyle = function(){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
-    var catNum, catCol;
+    var catNum, catCol, geometry, dx, dy, rotation, midPoint;
     catNum = feature.getProperties().showingCat;
     catCol = hol.Util.getColorForCategory(catNum);
     let styles = 
@@ -442,7 +442,6 @@ hol.Util.getSelectedStyle = function(){
     ];
     //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
-      var geometry, dx, dy, rotation, midPoint;
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		dx = end[0] - start[0];
@@ -528,7 +527,7 @@ hol.Util.getCategoryStyle = function(catNum){
   transCol = hol.Util.getColorWithAlpha(catNum, '0.2');
   
   return function(feature, resolution){
-    var lineWidth, geomType;
+    var lineWidth, geomType, geometry, dx, dy, rotation, midPoint;
     lineWidth = 2;
     geomType = feature.getGeometry().getType();
     if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
@@ -562,7 +561,6 @@ hol.Util.getCategoryStyle = function(catNum){
     })];
     //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
-      var geometry, dx, dy, rotation, midPoint;
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		dx = end[0] - start[0];
