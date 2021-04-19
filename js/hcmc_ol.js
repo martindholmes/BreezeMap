@@ -440,15 +440,18 @@ hol.Util.getSelectedStyle = function(){
        zIndex: newZ
      })
     ];
+    //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
       var geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		var dx = end[0] - start[0];
     		var dy = end[1] - start[1];
     		var rotation = Math.atan2(dy, dx);
+        //We want the arrow to appear in the middle of each segment.
+        var midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
 
     		styles.push(new ol.style.Style({
-    		  geometry: new ol.geom.Point(end),
+    		  geometry: new ol.geom.Point(midPoint),
     		  image: new ol.style.RegularShape({
     		    fill: new ol.style.Fill({color: 'rgba(255,0,255,1)'}),
     		    points: 3,
@@ -556,17 +559,17 @@ hol.Util.getCategoryStyle = function(catNum){
         width: lineWidth
       })
     })];
+    //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
       var geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		var dx = end[0] - start[0];
     		var dy = end[1] - start[1];
     		var rotation = Math.atan2(dy, dx);
-        //We want the arrow in the middle of the segment. Not working yet.
-        //var midPoint = [Math.round((end[0] - start[0]) / 2), Math.round((end[1] - start[1]) / 2)];
-
+        //We want the arrow in the middle of the segment.
+        var midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
     		styles.push(new ol.style.Style({
-    		  geometry: new ol.geom.Point(end),
+    		  geometry: new ol.geom.Point(midPoint),
     		  image: new ol.style.RegularShape({
     		    fill: new ol.style.Fill({color: col}),
     		    points: 3,
