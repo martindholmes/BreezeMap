@@ -2368,7 +2368,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.buildToolbar = function(){
-  var form, div;
+  var form, div, img;
   try{
     form = document.createElement('form');
     form.addEventListener('submit', function(e){e.preventDefault(); return false;});
@@ -2383,7 +2383,10 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     div.setAttribute('class', 'toolbarSpacer');
     this.toolbar.appendChild(div);
     this.iButton = document.createElement('button');
-    this.iButton.appendChild(document.createTextNode(this.captions.strInfo));
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/info-circle.svg');
+    img.setAttribute('title', this.captions.strInfo);
+    this.iButton.appendChild(img);
     this.iButton.addEventListener('click', function(){
         if (this.splash.style.display === 'block'){
           this.splash.style.display = 'none';
@@ -2397,7 +2400,10 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     
     if ((this.allowUserTracking === true)&&('geolocation' in navigator)){
       this.userTrackButton = document.createElement('button');
-      this.userTrackButton.appendChild(document.createTextNode(this.captions.strTrack));
+      img = document.createElement('img');
+      img.setAttribute('src', 'images/map-marker-alt.svg');
+      img.setAttribute('title', this.captions.strTrack);
+      this.userTrackButton.appendChild(img);
       this.userTrackButton.setAttribute('title', this.captions.strToggleTracking);
       this.userTrackButton.addEventListener('click', function(){
         this.toggleTracking();
