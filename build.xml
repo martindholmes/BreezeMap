@@ -153,6 +153,7 @@
       <fileset dir="${proj.dir}" includes="ol/*.*" excludes="ol/ol_latest.zip"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
       <fileset dir="${proj.dir}/testdata" includes="*/**"/>
+      <fileset dir="${proj.dir}" includes="images/*.*"/>
     </copy>
     <copy todir="${proj.dir}/testsite/js">
       <fileset dir="${proj.dir}/js" includes="*.*" excludes="ol_latest.json"/>
@@ -162,6 +163,12 @@
   <target name="createUserHtml" if:true="${needUserHtml}">
     <echo message="${echo.separator}"/>
     <echo message="Creating an HTML file for project ${inputXml}."/>
+    <!-- We need a simple transform which can be passed the input XML file
+         to get some basic data from it, and then transform the template 
+         appropriately. This transformation can be extended progressively 
+         as we provide methods for encoding the initial configuration of 
+         things like drawing tools in the XML file.
+    -->
   </target>
 
   <target name="doAll">
@@ -171,6 +178,7 @@
     <antcall target="getOL"/>
     <antcall target="minify"/>
     <antcall target="createTestSite"/>
+    <antcall target="createUserHtml"/>
   </target>
 
   <target name="temp">

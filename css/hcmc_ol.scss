@@ -836,4 +836,12 @@ div.timeline>button{
   color: rgb(57,70,78);
   box-shadow: 0 3px 2px 0 rgba(0,0,0,0.06),inset -1px -1px 1px 0 rgba(0,0,0,0.02);
   justify-self: start;
+  padding: 0.2rem;
+}
+div.timeline>button>img, #btnNavSearch>img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+div.timeline > button:disabled > img {
+  opacity: 0.4;
 }

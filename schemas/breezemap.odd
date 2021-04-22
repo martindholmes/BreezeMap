@@ -53,6 +53,63 @@
       </p>
       </div>
       
+      <div xml:id="gettingStarted">
+        <head>Getting started</head>
+        
+        <p>You need two things to get started with BreezeMap:
+          <list rend="numbered">
+            <item>A TEI XML file which contains a <gi>listPlace</gi> element, within which each <gi>place</gi>
+            has a <gi>location</gi> with <att>type</att>=<val>GeoJSON</val> and a child <gi>geo</gi> element
+            containing a GeoJSON geometry.</item>
+            <item>An HTML5 web page file which sets up and configures the BreezeMap OpenLayers-based map
+            you will be using.</item>
+          </list>
+          You can create these files by starting from the templates which are in the <ident>templates</ident>
+          folder in the BreezeMap repository. Make sure the TEI XML file validates against the two schemas 
+          in the <ident>schemas</ident> folder (<ident>breezemap.rng</ident> and <ident>breezemap.sch</ident>)
+          otherwise you may not get reliable output from the build process. Keep the two files together.
+        </p>
+      </div>
+      
+      <div xml:id="building">
+        <head>Building a BreezeMap project</head>
+        
+        <p>To build a BreezeMap project, you will require:
+        <list>
+          <item>Java (a recent version)</item>
+          <item><ref target="https://ant.apache.org/">Ant</ref> (a recent version)</item>
+          <item><ref target="https://sourceforge.net/projects/ant-contrib/">ANT Contrib</ref></item>
+        </list>
+          First, clone the BreezeMap repository if you haven't done that already. To test your system,
+          you can build the test site. Open a terminal in the root of the repository, and issue the 
+          command <code>ant</code>. If the build runs and succeeds, you should see a new folder called
+          <ident>testsite</ident> in the repo root folder. Inside there is a test website with three
+          example map pages. You can test these pages by starting a little local webserver in that folder
+          and then browsing to them, or you can upload the contents of the <ident>testsite</ident> folder
+          to a web server and browse there.
+        </p>
+        
+        <p>You can build your own project in exactly the same way. Imagine you have a TEI XML file called
+        <ident>myMap.xml</ident> in a folder called <ident>data</ident> inside the BreezeMap repository structure.
+        You can open a terminal in the root of the repository folder, then issue this command:
+        
+        <eg>ant -DinputXml=data/myMap.xml</eg>
+          
+          
+          This will create an HTML site in the <ident>testsite</ident> folder, including JSON 
+          generated from your XML, and all the JavaScript and CSS required. If your XML file is
+          already accompanied by an HTML file which shares the same base name, then that will 
+          be copied into the output folder; if not, then a new HTML file will be created based 
+          on <ident>templates/BreezeMap.html</ident>, and that will be copied into the 
+          <ident>testsite</ident> folder. You can then modify that file as you like, and copy 
+          it back to the same folder as the source XML file so that your customized version 
+          will be used in future.
+          <!-- TODO: Add to build process the creation of an HTML file whose filename matches the TEI filename
+               if there is no such a file. -->
+        
+        </p>
+      </div>
+      
     </body>
     
       <back><div>

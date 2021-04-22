@@ -100,7 +100,7 @@
                   </xsl:if>
                 </map>
               </map>
-              <xsl:for-each select="$places[@xml:id != 'holMap']">
+            <xsl:for-each select="$places[@xml:id != 'holMap'][location/geo[contains(., 'geometry')]]">
                 <xsl:variable name="thisPlace" select="."/>
                 <map>
                   <string key="type">Feature</string>
