@@ -100,8 +100,8 @@ hol.captions['en'].strDrawnFeatures      = 'Drawn features';
 hol.captions['en'].strDrawnFeaturesDesc  = 'Features drawn during the current session';
 hol.captions['en'].strEditThisFeature    = 'Edit a copy of this feature by clicking on the edit button above.';
 hol.captions['en'].strTimeline           = 'Timeline';
-hol.captions['en'].strPlay              = 'Play the timeline.'
-hol.captions['en'].strStopPlay          = 'Stop the timeline playback.'
+hol.captions['en'].strPlay               = 'Play the timeline.'
+hol.captions['en'].strStopPlay           = 'Stop the timeline playback.'
 
 /**
  * Constants in hol namespace used
@@ -2512,7 +2512,7 @@ hol.VectorLayer.prototype.changeTaxonomy = function(sender){
  */
 hol.VectorLayer.prototype.buildNavPanel = function(){
   var doc = document, form, rightBox, navPanel, navCloseDiv, navHeader, navSearchButton,
-      chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
+      img, chkShowAll, navCaption, navInput, catUl, cats, catMax, catNum, catLi, catLiChk, 
       catTitleSpan, thisCatUl, thisCatFeatures, f, props, thisFeatLi, 
       thisFeatChk, thisFeatSpan, i, maxi, infoCloseDiv, closeBtn, editBtn, contentDiv;
   try{
@@ -2569,7 +2569,10 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       
       navSearchButton = doc.createElement('button');
       navSearchButton.setAttribute('id', 'btnNavSearch');
-      navSearchButton.appendChild(doc.createTextNode(this.captions.strSearch));
+      //navSearchButton.appendChild(doc.createTextNode(this.captions.strSearch));
+      img = document.createElement('img');
+      img.setAttribute('src', 'images/search.svg');
+      navSearchButton.appendChild(img);
       navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
       navSearchButton.setAttribute('title', this.captions.strSearchForLocs);
       navHeader.appendChild(navSearchButton);
