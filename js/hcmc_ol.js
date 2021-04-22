@@ -100,6 +100,8 @@ hol.captions['en'].strDrawnFeatures      = 'Drawn features';
 hol.captions['en'].strDrawnFeaturesDesc  = 'Features drawn during the current session';
 hol.captions['en'].strEditThisFeature    = 'Edit a copy of this feature by clicking on the edit button above.';
 hol.captions['en'].strTimeline           = 'Timeline';
+hol.captions['en'].strPlay              = 'Play the timeline.'
+hol.captions['en'].strStopPlay          = 'Stop the timeline playback.'
 
 /**
  * Constants in hol namespace used
@@ -442,6 +444,7 @@ hol.Util.getSelectedStyle = function(){
     ];
     //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
+      var geometry, dx, dy, rotation, midPoint;
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		dx = end[0] - start[0];
@@ -862,6 +865,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
     this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
+    this.playImg = null;                       //Will contain a pointer to an SVG image for the button if required.
     
 //Start by creating the toolbar for the page.
     this.buildToolbar();
@@ -2687,7 +2691,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
       return true;
     }
     //These are the things we need.
-    let i, imax, cont, dl, opt, slider, cbx, play, label;
+    let i, imax, cont, dl, opt, slider, cbx, play, label, img;
     cont = document.createElement('div');
     cont.classList.add('timeline');
     //Note: No browser currently supports the use of datalist. 
@@ -2716,7 +2720,10 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     cont.appendChild(label);
     play = document.createElement('button');
     play.setAttribute('id', 'btnPlayTimeline');
-    play.appendChild(document.createTextNode('\u23f5'));
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/play-circle.svg');
+    img.setAttribute('title', this.captions.strPlay);
+    play.appendChild(img);
     play.addEventListener('click', function(){this.timelinePlay();}.bind(this));
     play.disabled = true;
     cont.appendChild(play);
@@ -2735,6 +2742,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     document.body.appendChild(cont);
     this.timeline = slider;
     this.playButton = play;
+    this.playImg = img;
     return true;
   }
   catch(e){
@@ -2755,22 +2763,22 @@ hol.VectorLayer.prototype.buildTimeline = function(){
  */
 hol.VectorLayer.prototype.toggleTimeline = function(sender){
   try{
+  //Whatever happens, we're resetting the play button to show the play icon.
+    this.playImg.setAttribute('src', 'images/play-circle.svg');
+    this.playImg.setAttribute('title', this.captions.strPlay);
     if (sender.checked){
       this.timeline.disabled = false;
       this.playButton.disabled = false;
-      this.playButton.innerHTML = '\u23f5';
       this.timelineChange(this.timeline);
     }
     else{
       if (this.playInterval !== null){
         clearInterval(this.playInterval);
         this.playInterval = null;
-        this.playButton.innerHTML = '\u23f5';
       }
       this.timeline.disabled = true;
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
       this.playButton.disabled = true;
-      this.playButton.innerHTML = '\u23f5';
       this.timeline.value = 0;
     }
     return true;
@@ -2831,15 +2839,19 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
  */
 hol.VectorLayer.prototype.timelinePlay = function(){
   try{
+  //Are we already playing? If so, stop.
     if (this.playInterval !== null){
-      try{clearInterval(this.playInterval);}catch(e){};
-      this.playButton.innerHTML = '\u23f5';
+      try{clearInterval(this.playInterval);}catch(e){'Failed to clear play interval.'};
+      this.playImg.setAttribute('src', 'images/play-circle.svg');
+      this.playImg.setAttribute('title', this.captions.strPlay);
       this.playInterval = null;
       return true;
     }
-    else{
-      this.playButton.innerHTML = '\u23f9';
-    }
+
+  //Otherwise, we start playing.
+    this.playImg.setAttribute('src', 'images/stop-circle.svg');
+    this.playImg.setAttribute('title', this.captions.strStopPlay);
+
     this.playInterval = setInterval(function(){
       if (parseInt(this.timeline.value) < parseInt(this.timeline.max)){
         this.timeline.stepUp();
@@ -2848,7 +2860,8 @@ hol.VectorLayer.prototype.timelinePlay = function(){
       else{
         clearInterval(this.playInterval);
         this.playInterval = null;
-        this.playButton.innerHTML = '\u23f5';
+        this.playImg.setAttribute('src', 'images/play-circle.svg');
+        this.playImg.setAttribute('title', this.captions.strPlay);
       }
     }.bind(this), 1500);
     return true;
