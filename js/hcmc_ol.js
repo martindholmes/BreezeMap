@@ -73,15 +73,13 @@ hol.captions['en'].strMapArea            = 'Map area';
 hol.captions['en'].strDraw               = 'Draw';
 hol.captions['en'].strLoad               = 'Load';
 hol.captions['en'].strLoading            = 'Loading...';
-hol.captions['en'].strInfo               = 'ℹ';
-hol.captions['en'].strTrack              = '⌖';
+hol.captions['en'].strInfo               = 'Information about this map.';
 hol.captions['en'].strMenuToggle         = '≡';
 hol.captions['en'].strOk                 = '✔';
 hol.captions['en'].strEdit               = '🖉';
 hol.captions['en'].strLocationsByCat     = 'Features by category';
-hol.captions['en'].strSearch             = '🔍';
+hol.captions['en'].strSearch             = 'Search the map features.';
 hol.captions['en'].strReadMore           = 'Read more...';
-hol.captions['en'].strSearchForLocs      = 'Search for features';
 hol.captions['en'].strUnnamedFeat        = 'unnamed feature';
 hol.captions['en'].strNetworkError       = 'There was a network error.';
 hol.captions['en'].strToggleTracking     = 'Toggle tracking of my location on the map.';
@@ -2383,9 +2381,9 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     div.setAttribute('class', 'toolbarSpacer');
     this.toolbar.appendChild(div);
     this.iButton = document.createElement('button');
+    this.iButton.setAttribute('title', this.captions.strInfo);
     img = document.createElement('img');
     img.setAttribute('src', 'images/info-circle.svg');
-    img.setAttribute('title', this.captions.strInfo);
     this.iButton.appendChild(img);
     this.iButton.addEventListener('click', function(){
         if (this.splash.style.display === 'block'){
@@ -2402,7 +2400,6 @@ hol.VectorLayer.prototype.buildToolbar = function(){
       this.userTrackButton = document.createElement('button');
       img = document.createElement('img');
       img.setAttribute('src', 'images/map-marker-alt.svg');
-      img.setAttribute('title', this.captions.strTrack);
       this.userTrackButton.appendChild(img);
       this.userTrackButton.setAttribute('title', this.captions.strToggleTracking);
       this.userTrackButton.addEventListener('click', function(){
@@ -2568,19 +2565,18 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       navInput = doc.createElement('input');
       navInput.setAttribute('type', 'text');
       navInput.setAttribute('id', 'inpNavSearch');
-      navInput.setAttribute('placeholder', this.captions.strSearchForLocs);
+      navInput.setAttribute('placeholder', this.captions.strSearch);
       navInput.addEventListener('keydown', function(event){if (event.keyCode===13 || event.which===13){this.doLocationSearch(true); event.preventDefault();}}.bind(this), false);
       this.navInput = navInput;
       navHeader.appendChild(navInput);
       
       navSearchButton = doc.createElement('button');
       navSearchButton.setAttribute('id', 'btnNavSearch');
-      //navSearchButton.appendChild(doc.createTextNode(this.captions.strSearch));
       img = document.createElement('img');
       img.setAttribute('src', 'images/search.svg');
       navSearchButton.appendChild(img);
       navSearchButton.addEventListener('click', this.showHideMapSearch.bind(this, navSearchButton));
-      navSearchButton.setAttribute('title', this.captions.strSearchForLocs);
+      navSearchButton.setAttribute('title', this.captions.strSearch);
       navHeader.appendChild(navSearchButton);
       
       
