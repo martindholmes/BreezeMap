@@ -410,10 +410,10 @@ hol.Util.getSelectedStyle = function(){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
-    var catNum, catCol, geometry, dx, dy, rotation, midPoint;
+    var catNum, catCol, geometry, dx, dy, rotation, midPoint, styles;
     catNum = feature.getProperties().showingCat;
     catCol = hol.Util.getColorForCategory(catNum);
-    let styles = 
+    styles = 
     [
       new ol.style.Style({
           image: new ol.style.Icon({
@@ -444,7 +444,6 @@ hol.Util.getSelectedStyle = function(){
     ];
     //If the feature is a directional LineString, we need to add arrows.
     if (feature.getProperties().directional){
-      var geometry, dx, dy, rotation, midPoint;
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
     		dx = end[0] - start[0];

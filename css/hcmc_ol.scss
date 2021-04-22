@@ -842,3 +842,6 @@ div.timeline>button>img{
   width: 1.5rem;
   height: 1.5rem;
 }
+div.timeline > button:disabled > img {
+  opacity: 0.4;
+}
