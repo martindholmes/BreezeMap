@@ -2806,7 +2806,7 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
-    let val = sender.value, i, maxi;
+    let val = sender.value, i, maxi, featNums = [];
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
@@ -2814,6 +2814,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       //Check whether it's in range; if so, show it.
       let p = this.features[i].getProperties();
       if ((!(p.ssFrom) || p.ssFrom <= tp.ssEnd) && (!(p.ssTo) || p.ssTo >= tp.ssStart)){
+        featNums.push(i);
         this.showHideFeature(true, i, -1);
       }  
       //Otherwise hide it.
@@ -2821,6 +2822,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
         this.showHideFeature(false, i, -1);
       }
     }
+    this.centerOnFeatures(featNums, false);
     return true;
   }
   catch(e){
