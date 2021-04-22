@@ -93,10 +93,19 @@
         <ident>myMap.xml</ident> in a folder called <ident>data</ident> inside the BreezeMap repository structure.
         You can open a terminal in the root of the repository folder, then issue this command:
         
-        <eg>ant -DinputFile=data/myMap.xml</eg>
+        <eg>ant -DinputXml=data/myMap.xml</eg>
           
-          <!-- TODO: Add to build process the copying of an HTML file whose filename matches the TEI filename
-               if there is such a file; then document that here. -->
+          
+          This will create an HTML site in the <ident>testsite</ident> folder, including JSON 
+          generated from your XML, and all the JavaScript and CSS required. If your XML file is
+          already accompanied by an HTML file which shares the same base name, then that will 
+          be copied into the output folder; if not, then a new HTML file will be created based 
+          on <ident>templates/BreezeMap.html</ident>, and that will be copied into the 
+          <ident>testsite</ident> folder. You can then modify that file as you like, and copy 
+          it back to the same folder as the source XML file so that your customized version 
+          will be used in future.
+          <!-- TODO: Add to build process the creation of an HTML file whose filename matches the TEI filename
+               if there is no such a file. -->
         
         </p>
       </div>
