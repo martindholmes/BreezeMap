@@ -2777,8 +2777,9 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     }
     else{
       if (this.playInterval !== null){
-        clearInterval(this.playInterval);
-        this.playInterval = null;
+        //clearInterval(this.playInterval);
+        //this.playInterval = null;
+        this.timelinePlay();
       }
       this.timeline.disabled = true;
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
@@ -2812,12 +2813,17 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
-    for (i = 0, maxi = this.features.length; i<maxi; i++){
+    for (i = 1, maxi = this.features.length; i<maxi; i++){
       //Check whether it's in range; if so, show it.
       let p = this.features[i].getProperties();
       if ((!(p.ssFrom) || p.ssFrom <= tp.ssEnd) && (!(p.ssTo) || p.ssTo >= tp.ssStart)){
         featNums.push(i);
+        let wasShowing = (this.features[i].getProperties().showing);
         this.showHideFeature(true, i, -1);
+        let isShowing = (this.features[i].getProperties().showing);
+        if ((!wasShowing) && isShowing){
+          this.features[i].setStyle(hol.Util.getSelectedStyle());
+        }
       }  
       //Otherwise hide it.
       else{
@@ -2844,6 +2850,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.timelinePlay = function(){
+  let i, maxi;
   try{
   //Are we already playing? If so, stop.
     if (this.playInterval !== null){
@@ -2851,6 +2858,12 @@ hol.VectorLayer.prototype.timelinePlay = function(){
       this.playImg.setAttribute('src', 'images/play-circle.svg');
       this.playImg.setAttribute('title', this.captions.strPlay);
       this.playInterval = null;
+      //Now make sure all showing features have their default style.
+      for (i = 1, maxi = this.features.length; i<maxi; i++){
+        if (this.features[i].getProperties().showing){
+          this.showHideFeature(true, i, -1);
+        }
+      }
       return true;
     }
 
