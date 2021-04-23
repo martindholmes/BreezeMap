@@ -195,7 +195,7 @@ hol.Util.crudeHash = function(s){
 * @type {string[]} 
 * @memberOf hol.Util
 */
-hol.Util.tenColors = ['rgb(0, 0, 0)', 'rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)'];
+hol.Util.tenColors = ['rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)', 'rgb(0, 0, 0)'];
 
 /**
 * @description Set of distinct colours, initially set to the ten defaults.
@@ -2410,7 +2410,10 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     }
     
     this.mobileMenuToggleButton = document.createElement('button');
-    this.mobileMenuToggleButton.appendChild(document.createTextNode(this.captions.strMenuToggle));
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/menu.svg');
+    this.mobileMenuToggleButton.setAttribute('title', this.captions.strMenuToggle);
+    this.mobileMenuToggleButton.appendChild(img);
     this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
     this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden');this.classList.toggle('menuHidden');});
     this.toolbar.appendChild(this.mobileMenuToggleButton);
@@ -2777,8 +2780,6 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     }
     else{
       if (this.playInterval !== null){
-        //clearInterval(this.playInterval);
-        //this.playInterval = null;
         this.timelinePlay();
       }
       this.timeline.disabled = true;
