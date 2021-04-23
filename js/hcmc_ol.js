@@ -1654,7 +1654,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
             this.features[i].setProperties({'ssFrom': Date.parse(p.from)});
           }
           if (p.to){
-            this.features[i].setProperties({'ssto': Date.parse(p.to)});
+            this.features[i].setProperties({'ssTo': Date.parse(p.to)});
           }
         }
     
