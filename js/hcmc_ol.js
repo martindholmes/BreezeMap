@@ -3784,17 +3784,20 @@ hol.VectorLayer.prototype.doLocationSearch = function(doSearch){
       for (i=0, maxi=allDescendants.length; i<maxi; i++){
         allDescendants[i].classList.remove('hidden');
         allDescendants[i].classList.remove('headless');
+        allDescendants[i].classList.remove('searchCatHeader');
         allDescendants[i].classList.remove('expanded');
       }
     }
     else{
+      document.getElementById('chkShowAll').classList.add('hidden');
       items = this.navPanel.getElementsByTagName('li');
       for (i=0, maxi=items.length; i<maxi; i++){
         if (items[i].parentNode.id === 'holCategories'){
-  //This is a category container. Hide its category info and
-  //show its child ul.
+  //This is a category container. Hide its category checkbox and triangle marker,
+  //and show its child ul.
+          items[i].classList.add('searchCatHeader');
           items[i].getElementsByTagName('input')[0].classList.add('hidden');
-          items[i].getElementsByTagName('span')[0].classList.add('hidden');
+          //items[i].getElementsByTagName('span')[0].classList.add('hidden');
 
           hits = 0;
           descendants = items[i].getElementsByTagName('li');

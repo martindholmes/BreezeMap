@@ -353,6 +353,10 @@ nav#holNav h2 input#chkShowAll{
   flex: initial;
 }
 
+nav#holNav h2 input#chkShowAll.hidden{
+  display: none;
+}
+
 nav#holNav h2 span#navCaption{
   display: block;
   flex: auto;
@@ -423,7 +427,6 @@ nav#holNav>ul>li{
 }
 /*List of pre-created colours used below to get a hover effect*/
 /*
-(0, 0, 0)
 (85, 0, 0)
 (0, 85, 0)
 (0, 0, 85)
@@ -433,47 +436,48 @@ nav#holNav>ul>li{
 (150, 0, 0)
 (0, 130, 0)
 (0, 0, 150)
+(0, 0, 0)
 */
-ul#holCategories>li:nth-of-type(1):hover{
-  background-color: rgba(0,0,0,.2)!important;
-}
 
-ul#holCategories>li:nth-of-type(2):hover{
+ul#holCategories>li:nth-of-type(1):hover{
   background-color: rgba(85,0,0,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(3):hover{
+ul#holCategories>li:nth-of-type(2):hover{
   background-color: rgba(0,85,0,.2)!important;  
 }
 
-ul#holCategories>li:nth-of-type(4):hover{
+ul#holCategories>li:nth-of-type(3):hover{
   background-color: rgba(0,0,82,.2)!important;
 } 
 
-ul#holCategories>li:nth-of-type(5):hover{
+ul#holCategories>li:nth-of-type(4):hover{
   background-color: rgba(85,85,0,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(6):hover{
+ul#holCategories>li:nth-of-type(5):hover{
   background-color: rgba(85,0,85,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(7):hover{
+ul#holCategories>li:nth-of-type(6):hover{
   background-color: rgba(0,85,85,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(8):hover{
+ul#holCategories>li:nth-of-type(7):hover{
   background-color: rgba(150,0,0,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(9):hover{
+ul#holCategories>li:nth-of-type(8):hover{
   background-color: rgba(0,130,0,.2)!important;
 }
 
-ul#holCategories>li:nth-of-type(10):hover{
+ul#holCategories>li:nth-of-type(9):hover{
   background-color: rgba(0,0,150,.2)!important;
 }
 
+ul#holCategories>li:nth-of-type(10):hover{
+  background-color: rgba(0,0,0,.2)!important;
+}
 
 
 /*last list item gets a bottom margin*/
@@ -558,7 +562,9 @@ nav#holNav>ul>li.expanded>span:before{
   font-family: ui-font;
 }
 
-nav#holNav>ul>li.headless:before{
+/*Category heading when showing in search result.*/
+
+nav#holNav>ul>li.headless:before, nav#holNav>ul>li.searchCatHeader>span:before{
   content: "";
 }
 
