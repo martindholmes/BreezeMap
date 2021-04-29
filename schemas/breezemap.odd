@@ -79,15 +79,17 @@
           <item>Java (a recent version)</item>
           <item><ref target="https://ant.apache.org/">Ant</ref> (a recent version)</item>
           <item><ref target="https://sourceforge.net/projects/ant-contrib/">ANT Contrib</ref></item>
+          <item><ref target="https://sass-lang.com/dart-sass">Dart Sass</ref>, configured to run from 
+          the command line as <soCalled>sass</soCalled>.</item>
         </list>
           First, either download a stable release version of the project from GitHub, or
-          (if you want to use the current development version) clone the BreezeMap repository. To test your system,
-          you can build the test site. Open a terminal in the root of the repository, and issue the 
-          command <code>ant</code>. If the build runs and succeeds, you should see a new folder called
-          <ident>testsite</ident> in the repo root folder. Inside there is a test website with three
-          example map pages. You can test these pages by starting a little local webserver in that folder
-          and then browsing to them, or you can upload the contents of the <ident>testsite</ident> folder
-          to a web server and browse there.
+          (if you want to use the current development version) clone the BreezeMap repository dev branch. 
+          To test your system, you can build the test site. Open a terminal in the root of the repository, 
+          and issue the command <code>ant</code>. If the build runs and succeeds, you should see a new 
+          folder called <ident>testsite</ident> in the repo root folder. Inside there is a test website 
+          with three example map pages. You can test these pages by starting a little local webserver in 
+          that folder and then browsing to them, or you can upload the contents of the <ident>testsite</ident> 
+          folder to a web server and browse there.
         </p>
         
         <p>You can build your own project in exactly the same way. Imagine you have a TEI XML file called
