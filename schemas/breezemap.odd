@@ -80,7 +80,8 @@
           <item><ref target="https://ant.apache.org/">Ant</ref> (a recent version)</item>
           <item><ref target="https://sourceforge.net/projects/ant-contrib/">ANT Contrib</ref></item>
         </list>
-          First, clone the BreezeMap repository if you haven't done that already. To test your system,
+          First, either download a stable release version of the project from GitHub, or
+          (if you want to use the current development version) clone the BreezeMap repository. To test your system,
           you can build the test site. Open a terminal in the root of the repository, and issue the 
           command <code>ant</code>. If the build runs and succeeds, you should see a new folder called
           <ident>testsite</ident> in the repo root folder. Inside there is a test website with three

@@ -57,6 +57,10 @@
      be present. -->
   <xsl:template match="meta[@charset]"/>
   
+<!-- Get rid of anchor links in the documentation; no need for 
+  them at the scale we're working at. -->
+  <xsl:template match="a[@class='anchorlink']"/>
+  
   
   
 </xsl:stylesheet>

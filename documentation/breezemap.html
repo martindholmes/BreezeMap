@@ -66,15 +66,16 @@
                <li class="item"><a class="link_ref" href="https://ant.apache.org/">Ant</a> (a recent version)</li>
                <li class="item"><a class="link_ref" href="https://sourceforge.net/projects/ant-contrib/">ANT Contrib</a></li>
             </ul>
-            <p> First, clone the BreezeMap repository if you haven't done that already. To test your
-               system, you can build the test site. Open a terminal in the root of the repository,
-               and issue the command <code>ant</code>. If the build runs and succeeds, you should see a new folder called <span class="ident">testsite</span> in the repo root folder. Inside there is a test website with three example map pages.
+            <p> First, either download a stable release version of the project from GitHub, or (if
+               you want to use the current development version) clone the BreezeMap repository. To
+               test your system, you can build the test site. Open a terminal in the root of the
+               repository, and issue the command <code>ant</code>. If the build runs and succeeds, you should see a new folder called <span class="ident">testsite</span> in the repo root folder. Inside there is a test website with three example map pages.
                You can test these pages by starting a little local webserver in that folder and then
                browsing to them, or you can upload the contents of the <span class="ident">testsite</span> folder to a web server and browse there.</p>
             <p>You can build your own project in exactly the same way. Imagine you have a TEI XML
                file called <span class="ident">myMap.xml</span> in a folder called <span class="ident">data</span> inside the BreezeMap repository structure. You can open a terminal in the root of
                the repository folder, then issue this command: </p>
-            <pre id="index.xml-eg-d33e112" class="pre_eg cdata">ant -DinputXml=data/myMap.xml<a href="#index.xml-eg-d33e112" class="anchorlink">⚓</a></pre>
+            <pre id="index.xml-eg-d33e112" class="pre_eg cdata">ant -DinputXml=data/myMap.xml</pre>
             <p> This will create an HTML site in the <span class="ident">testsite</span> folder, including JSON generated from your XML, and all the JavaScript and CSS required.
                If your XML file is already accompanied by an HTML file which shares the same base
                name, then that will be copied into the output folder; if not, then a new HTML file
@@ -250,7 +251,7 @@
   &lt;/alternate&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e367" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -263,7 +264,7 @@ element TEI
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    attribute version { text }?,
    ( <a class="link_ref" href="#TEI.teiHeader" title="&lt;teiHeader&gt;">teiHeader</a>, ( ( <a class="link_ref" href="#TEI.model.resource" title="model.resource">model.resource</a>+, <a class="link_ref" href="#TEI.TEI" title="&lt;TEI&gt;">TEI</a>* ) | <a class="link_ref" href="#TEI.TEI" title="&lt;TEI&gt;">TEI</a>+ ) )
-}<a href="#index.xml-eg-d33e375" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -407,7 +408,7 @@ element TEI
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e877" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -420,7 +421,7 @@ element abbr
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attribute.subtype</a>,
    attribute type { text }?,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e884" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -559,7 +560,7 @@ element abbr
   &lt;classRef key="model.pLike"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e1115" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -572,7 +573,7 @@ element availability
    <a class="link_ref" href="#TEI.att.declarable" title="att.declarable">att.declarable.attributes</a>,
    attribute status { "free" | "unknown" | "restricted" }?,
    ( <a class="link_ref" href="#TEI.model.availabilityPart" title="model.availabilityPart">model.availabilityPart</a> | <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a> )+
-}<a href="#index.xml-eg-d33e1122" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -637,14 +638,14 @@ element availability
  &lt;elementRef key="head"/&gt;
  &lt;elementRef key="div"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e1268" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e1275" class="pre_eg">
-element body { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>, <a class="link_ref" href="#TEI.head" title="&lt;head&gt;">head</a>, <a class="link_ref" href="#TEI.div" title="&lt;div&gt;">div</a> }<a href="#index.xml-eg-d33e1275" class="anchorlink">⚓</a></pre>
+element body { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>, <a class="link_ref" href="#TEI.head" title="&lt;head&gt;">head</a>, <a class="link_ref" href="#TEI.div" title="&lt;div&gt;">div</a> }</pre>
                            </td>
                         </tr>
                      </table>
@@ -723,7 +724,7 @@ element body { <a class="link_ref" href="#TEI.att.global" title="att.global">att
   &lt;classRef key="model.catDescPart"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e1518" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -735,7 +736,7 @@ element catDesc
    <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>,
    <a class="link_ref" href="#TEI.att.canonical" title="att.canonical">att.canonical.attributes</a>,
    ( text | <a class="link_ref" href="#TEI.model.limitedPhrase" title="model.limitedPhrase">model.limitedPhrase</a> | model.catDescPart )*
-}<a href="#index.xml-eg-d33e1525" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -820,7 +821,7 @@ element catDesc
 &lt;content&gt;
  &lt;empty/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e1700" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -833,7 +834,7 @@ element catRef
    <a class="link_ref" href="#TEI.att.pointing" title="att.pointing">att.pointing.attributes</a>,
    attribute scheme { text }?,
    empty
-}<a href="#index.xml-eg-d33e1707" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -937,7 +938,7 @@ element catRef
    maxOccurs="unbounded"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e1880" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -948,7 +949,7 @@ element category
 {
    <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>,
    ( ( <a class="link_ref" href="#TEI.catDesc" title="&lt;catDesc&gt;">catDesc</a>+ | ( <a class="link_ref" href="#TEI.model.descLike" title="model.descLike">model.descLike</a> | equiv | <a class="link_ref" href="#TEI.gloss" title="&lt;gloss&gt;">gloss</a> )* ), <a class="link_ref" href="#TEI.category" title="&lt;category&gt;">category</a>* )
-}<a href="#index.xml-eg-d33e1887" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1035,14 +1036,14 @@ element category
   &lt;elementRef key="choice"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e2167" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e2174" class="pre_eg">
-element choice { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, ( <a class="link_ref" href="#TEI.model.choicePart" title="model.choicePart">model.choicePart</a> | <a class="link_ref" href="#TEI.choice" title="&lt;choice&gt;">choice</a> )+ }<a href="#index.xml-eg-d33e2174" class="anchorlink">⚓</a></pre>
+element choice { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, ( <a class="link_ref" href="#TEI.model.choicePart" title="model.choicePart">model.choicePart</a> | <a class="link_ref" href="#TEI.choice" title="&lt;choice&gt;">choice</a> )+ }</pre>
                            </td>
                         </tr>
                      </table>
@@ -1108,14 +1109,14 @@ element choice { <a class="link_ref" href="#TEI.att.global" title="att.global">a
  &lt;elementRef key="taxonomy" minOccurs="1"
   maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e2303" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e2310" class="pre_eg">
-element classDecl { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.taxonomy" title="&lt;taxonomy&gt;">taxonomy</a>+ }<a href="#index.xml-eg-d33e2310" class="anchorlink">⚓</a></pre>
+element classDecl { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.taxonomy" title="&lt;taxonomy&gt;">taxonomy</a>+ }</pre>
                            </td>
                         </tr>
                      </table>
@@ -1198,7 +1199,7 @@ element classDecl { <a class="link_ref" href="#TEI.att.global" title="att.global
   &lt;classRef key="model.global"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e2769" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1212,7 +1213,7 @@ element date
    <a class="link_ref" href="#TEI.att.datable" title="att.datable">att.datable.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    ( text | model.gLike | <a class="link_ref" href="#TEI.model.phrase" title="model.phrase">model.phrase</a> | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a> )*
-}<a href="#index.xml-eg-d33e2776" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1352,7 +1353,7 @@ element date
    maxOccurs="unbounded"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e3194" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1365,7 +1366,7 @@ element desc
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attribute.subtype</a>,
    attribute type { "deprecationInfo" }?,
    ( <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a> | <a class="link_ref" href="#TEI.list" title="&lt;list&gt;">list</a> | <a class="link_ref" href="#TEI.p" title="&lt;p&gt;">p</a>* )
-}<a href="#index.xml-eg-d33e3201" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1440,7 +1441,7 @@ element desc
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e3654" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1454,7 +1455,7 @@ element district
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.att.datable" title="att.datable">att.datable.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e3661" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1545,7 +1546,7 @@ element district
 &lt;content&gt;
  &lt;elementRef key="listPlace"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e3859" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1560,7 +1561,7 @@ element div
    <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>,
    <a class="link_ref" href="#TEI.att.written" title="att.written">att.written.attributes</a>,
    <a class="link_ref" href="#TEI.listPlace" title="&lt;listPlace&gt;">listPlace</a>
-}<a href="#index.xml-eg-d33e3866" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1617,14 +1618,14 @@ element div
 &lt;content&gt;
  &lt;elementRef key="classDecl"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e3999" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e4006" class="pre_eg">
-element encodingDesc { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.classDecl" title="&lt;classDecl&gt;">classDecl</a> }<a href="#index.xml-eg-d33e4006" class="anchorlink">⚓</a></pre>
+element encodingDesc { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.classDecl" title="&lt;classDecl&gt;">classDecl</a> }</pre>
                            </td>
                         </tr>
                      </table>
@@ -1709,14 +1710,14 @@ element encodingDesc { <a class="link_ref" href="#TEI.att.global" title="att.glo
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e4368" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e4375" class="pre_eg">
-element expan { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a> }<a href="#index.xml-eg-d33e4375" class="anchorlink">⚓</a></pre>
+element expan { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a> }</pre>
                            </td>
                         </tr>
                      </table>
@@ -1803,7 +1804,7 @@ element expan { <a class="link_ref" href="#TEI.att.global" title="att.global">at
    minOccurs="1" maxOccurs="unbounded"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e4516" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1824,7 +1825,7 @@ element fileDesc
       ),
       <a class="link_ref" href="#TEI.sourceDesc" title="&lt;sourceDesc&gt;">sourceDesc</a>+
    )
-}<a href="#index.xml-eg-d33e4523" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -1901,14 +1902,14 @@ element fileDesc
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e4886" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e4893" class="pre_eg">
-element foreign { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a> }<a href="#index.xml-eg-d33e4893" class="anchorlink">⚓</a></pre>
+element foreign { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a> }</pre>
                            </td>
                         </tr>
                      </table>
@@ -1974,7 +1975,7 @@ element foreign { <a class="link_ref" href="#TEI.att.global" title="att.global">
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e5261" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -1987,7 +1988,7 @@ element forename
    <a class="link_ref" href="#TEI.att.personal" title="att.personal">att.personal.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e5268" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2067,14 +2068,14 @@ element forename
 &lt;content&gt;
  &lt;textNode/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e5536" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e5543" class="pre_eg">
-element geo { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>, text }<a href="#index.xml-eg-d33e5543" class="anchorlink">⚓</a></pre>
+element geo { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>, text }</pre>
                            </td>
                         </tr>
                      </table>
@@ -2147,7 +2148,7 @@ element geo { <a class="link_ref" href="#TEI.att.global" title="att.global">att.
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e5930" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2162,7 +2163,7 @@ element gloss
    <a class="link_ref" href="#TEI.att.pointing" title="att.pointing">att.pointing.attributes</a>,
    <a class="link_ref" href="#TEI.att.cReferencing" title="att.cReferencing">att.cReferencing.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e5937" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2255,7 +2256,7 @@ element gloss
  &lt;classRef key="model.descLike"
   minOccurs="0" maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e6253" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2269,7 +2270,7 @@ element graphic
    <a class="link_ref" href="#TEI.att.resourced" title="att.resourced">att.resourced.attributes</a>,
    <a class="link_ref" href="#TEI.att.declaring" title="att.declaring">att.declaring.attributes</a>,
    <a class="link_ref" href="#TEI.model.descLike" title="model.descLike">model.descLike</a>*
-}<a href="#index.xml-eg-d33e6260" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2395,7 +2396,7 @@ element graphic
   &lt;classRef key="model.global"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e6643" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2417,7 +2418,7 @@ element head
     | model.lLike
     | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>
    )*
-}<a href="#index.xml-eg-d33e6651" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2492,7 +2493,7 @@ element head
   &lt;elementRef key="ref"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e6852" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2504,7 +2505,7 @@ element item
    <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>,
    <a class="link_ref" href="#TEI.att.sortable" title="att.sortable">att.sortable.attributes</a>,
    ( <a class="link_ref" href="#TEI.ptr" title="&lt;ptr&gt;">ptr</a> | <a class="link_ref" href="#TEI.graphic" title="&lt;graphic&gt;">graphic</a> | <a class="link_ref" href="#TEI.ref" title="&lt;ref&gt;">ref</a> )
-}<a href="#index.xml-eg-d33e6859" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2586,7 +2587,7 @@ element item
 &lt;content&gt;
  &lt;macroRef key="macro.specialPara"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e7243" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2599,7 +2600,7 @@ element licence
    <a class="link_ref" href="#TEI.att.pointing" title="att.pointing">att.pointing.attributes</a>,
    <a class="link_ref" href="#TEI.att.datable" title="att.datable">att.datable.attributes</a>,
    <a class="link_ref" href="#TEI.macro.specialPara" title="macro.specialPara">macro.specialPara</a>
-}<a href="#index.xml-eg-d33e7250" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -2895,7 +2896,7 @@ element licence
   &lt;/sequence&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e7664" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -2923,7 +2924,7 @@ element list
       ),
       ( <a class="link_ref" href="#TEI.model.divBottom" title="model.divBottom">model.divBottom</a>, <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>* )*
    )
-}<a href="#index.xml-eg-d33e7671" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3041,7 +3042,7 @@ element list
   &lt;/sequence&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e7944" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3060,7 +3061,7 @@ element listOrg
       ( relation | listRelation )*,
       ( ( <a class="link_ref" href="#TEI.org" title="&lt;org&gt;">org</a> | <a class="link_ref" href="#TEI.listOrg" title="&lt;listOrg&gt;">listOrg</a> )+, ( relation | listRelation )* )+
    )
-}<a href="#index.xml-eg-d33e7951" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3166,7 +3167,7 @@ element listOrg
   &lt;/sequence&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e8223" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3185,7 +3186,7 @@ element listPerson
       ( relation | listRelation )*,
       ( ( <a class="link_ref" href="#TEI.model.personLike" title="model.personLike">model.personLike</a> | <a class="link_ref" href="#TEI.listPerson" title="&lt;listPerson&gt;">listPerson</a> )+, ( relation | listRelation )* )+
    )
-}<a href="#index.xml-eg-d33e8230" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3255,7 +3256,7 @@ element listPerson
  &lt;elementRef key="place" minOccurs="1"
   maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e8467" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3269,7 +3270,7 @@ element listPlace
    <a class="link_ref" href="#TEI.att.declarable" title="att.declarable">att.declarable.attributes</a>,
    <a class="link_ref" href="#TEI.att.sortable" title="att.sortable">att.sortable.attributes</a>,
    <a class="link_ref" href="#TEI.place" title="&lt;place&gt;">place</a>+
-}<a href="#index.xml-eg-d33e8474" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3352,7 +3353,7 @@ element listPlace
   &lt;/alternate&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e8632" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3363,7 +3364,7 @@ element listPrefixDef
 {
    <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>,
    ( <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>*, ( <a class="link_ref" href="#TEI.prefixDef" title="&lt;prefixDef&gt;">prefixDef</a> | <a class="link_ref" href="#TEI.listPrefixDef" title="&lt;listPrefixDef&gt;">listPrefixDef</a> )+ )
-}<a href="#index.xml-eg-d33e8639" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3609,7 +3610,7 @@ element listPrefixDef
  &lt;elementRef key="geo" minOccurs="1"
   maxOccurs="1"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e9150" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3641,7 +3642,7 @@ element location
    attribute from-iso { text }?,
    attribute to-iso { text }?,
    <a class="link_ref" href="#TEI.geo" title="&lt;geo&gt;">geo</a>
-}<a href="#index.xml-eg-d33e9157" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3736,7 +3737,7 @@ element location
 &lt;content&gt;
  &lt;macroRef key="macro.specialPara"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e9667" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3752,7 +3753,7 @@ element note
    <a class="link_ref" href="#TEI.att.written" title="att.written">att.written.attributes</a>,
    <a class="link_ref" href="#TEI.att.anchoring" title="att.anchoring">att.anchoring.attributes</a>,
    <a class="link_ref" href="#TEI.macro.specialPara" title="macro.specialPara">macro.specialPara</a>
-}<a href="#index.xml-eg-d33e9674" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3877,7 +3878,7 @@ element note
    minOccurs="0" maxOccurs="unbounded"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e9996" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3905,7 +3906,7 @@ element org
       ( <a class="link_ref" href="#TEI.model.noteLike" title="model.noteLike">model.noteLike</a> | model.biblLike | linkGrp | link | <a class="link_ref" href="#TEI.ptr" title="&lt;ptr&gt;">ptr</a> )*,
       <a class="link_ref" href="#TEI.model.personLike" title="model.personLike">model.personLike</a>*
    )
-}<a href="#index.xml-eg-d33e10003" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -3969,7 +3970,7 @@ element org
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e10494" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -3983,7 +3984,7 @@ element orgName
    <a class="link_ref" href="#TEI.att.personal" title="att.personal">att.personal.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e10501" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4079,7 +4080,7 @@ element orgName
 &lt;content&gt;
  &lt;macroRef key="macro.paraContent"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e10858" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4093,7 +4094,7 @@ element p
    <a class="link_ref" href="#TEI.att.fragmentable" title="att.fragmentable">att.fragmentable.attributes</a>,
    <a class="link_ref" href="#TEI.att.written" title="att.written">att.written.attributes</a>,
    <a class="link_ref" href="#TEI.macro.paraContent" title="macro.paraContent">macro.paraContent</a>
-}<a href="#index.xml-eg-d33e10865" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4162,7 +4163,7 @@ element p
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e11331" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4176,7 +4177,7 @@ element persName
    <a class="link_ref" href="#TEI.att.personal" title="att.personal">att.personal.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e11338" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4362,7 +4363,7 @@ element persName
   &lt;/alternate&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e11739" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4377,7 +4378,7 @@ element person
    attribute sex { list { + } }?,
    attribute age { text }?,
    ( <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a>+ | ( <a class="link_ref" href="#TEI.model.personPart" title="model.personPart">model.personPart</a> | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a> | <a class="link_ref" href="#TEI.ptr" title="&lt;ptr&gt;">ptr</a> )* )
-}<a href="#index.xml-eg-d33e11747" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4497,7 +4498,7 @@ element person
   &lt;elementRef key="location"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e11983" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4516,7 +4517,7 @@ element place
    attribute xml:id { text },
    attribute corresp { list { + } },
    ( <a class="link_ref" href="#TEI.placeName" title="&lt;placeName&gt;">placeName</a>+, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>?, <a class="link_ref" href="#TEI.location" title="&lt;location&gt;">location</a> )
-}<a href="#index.xml-eg-d33e11990" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4600,7 +4601,7 @@ element place
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e12486" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4614,7 +4615,7 @@ element placeName
    <a class="link_ref" href="#TEI.att.personal" title="att.personal">att.personal.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e12493" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4710,7 +4711,7 @@ element placeName
  &lt;classRef key="model.pLike" minOccurs="0"
   maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e12689" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4723,7 +4724,7 @@ element prefixDef
    <a class="link_ref" href="#TEI.att.patternReplacement" title="att.patternReplacement">att.patternReplacement.attributes</a>,
    attribute ident { text },
    <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a>*
-}<a href="#index.xml-eg-d33e12696" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4798,14 +4799,14 @@ element prefixDef
  &lt;classRef key="model.profileDescPart"
   minOccurs="0" maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e12836" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e12843" class="pre_eg">
-element profileDesc { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, model.profileDescPart* }<a href="#index.xml-eg-d33e12843" class="anchorlink">⚓</a></pre>
+element profileDesc { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, model.profileDescPart* }</pre>
                            </td>
                         </tr>
                      </table>
@@ -4858,7 +4859,7 @@ element profileDesc { <a class="link_ref" href="#TEI.att.global" title="att.glob
  &lt;classRef key="model.pLike" minOccurs="1"
   maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e12968" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4870,7 +4871,7 @@ element projectDesc
    <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>,
    <a class="link_ref" href="#TEI.att.declarable" title="att.declarable">att.declarable.attributes</a>,
    <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a>+
-}<a href="#index.xml-eg-d33e12975" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -4936,7 +4937,7 @@ element projectDesc
 &lt;content&gt;
  &lt;empty/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e13277" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -4952,7 +4953,7 @@ element ptr
    <a class="link_ref" href="#TEI.att.pointing" title="att.pointing">att.pointing.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    empty
-}<a href="#index.xml-eg-d33e13284" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5057,7 +5058,7 @@ element ptr
    maxOccurs="unbounded"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e13477" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5071,7 +5072,7 @@ element publicationStmt
       ( model.publicationStmtPart.agency, <a class="link_ref" href="#TEI.model.publicationStmtPart.detail" title="model.publicationStmtPart.detail">model.publicationStmtPart.detail</a>* )+
     | <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a>+
    )
-}<a href="#index.xml-eg-d33e13484" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5192,7 +5193,7 @@ element publicationStmt
 &lt;content&gt;
  &lt;macroRef key="macro.specialPara"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e13986" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5216,7 +5217,7 @@ element q
     | "mentioned"
    }?,
    <a class="link_ref" href="#TEI.macro.specialPara" title="macro.specialPara">macro.specialPara</a>
-}<a href="#index.xml-eg-d33e13993" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5301,7 +5302,7 @@ element q
 &lt;content&gt;
  &lt;macroRef key="macro.paraContent"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e14435" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5317,7 +5318,7 @@ element ref
    <a class="link_ref" href="#TEI.att.pointing" title="att.pointing">att.pointing.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.paraContent" title="macro.paraContent">macro.paraContent</a>
-}<a href="#index.xml-eg-d33e14443" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5382,7 +5383,7 @@ element ref
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e14892" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5396,7 +5397,7 @@ element region
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.att.datable" title="att.datable">att.datable.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e14899" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5520,7 +5521,7 @@ element region
   &lt;classRef key="model.ptrLike"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e15098" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5533,7 +5534,7 @@ element relatedItem
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    attribute target { text }?,
    ( model.biblLike | <a class="link_ref" href="#TEI.model.ptrLike" title="model.ptrLike">model.ptrLike</a> )?
-}<a href="#index.xml-eg-d33e15105" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5599,7 +5600,7 @@ element relatedItem
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e15545" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5613,7 +5614,7 @@ element settlement
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.att.datable" title="att.datable">att.datable.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e15552" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5691,7 +5692,7 @@ element settlement
   &lt;/alternate&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e15722" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5706,7 +5707,7 @@ element sourceDesc
       <a class="link_ref" href="#TEI.model.pLike" title="model.pLike">model.pLike</a>+
     | ( model.biblLike | model.sourceDescPart | <a class="link_ref" href="#TEI.model.listLike" title="model.listLike">model.listLike</a> )+
    )
-}<a href="#index.xml-eg-d33e15729" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5768,7 +5769,7 @@ element sourceDesc
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e16108" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5781,7 +5782,7 @@ element surname
    <a class="link_ref" href="#TEI.att.personal" title="att.personal">att.personal.attributes</a>,
    <a class="link_ref" href="#TEI.att.typed" title="att.typed">att.typed.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e16115" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -5954,7 +5955,7 @@ element surname
  &lt;elementRef key="category" minOccurs="1"
   maxOccurs="unbounded"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e16322" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -5971,7 +5972,7 @@ element taxonomy
    <a class="link_ref" href="#TEI.att.global.source" title="att.global.source">att.global.source.attribute.source</a>,
    attribute n { text },
    <a class="link_ref" href="#TEI.category" title="&lt;category&gt;">category</a>+
-}<a href="#index.xml-eg-d33e16329" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -6103,14 +6104,14 @@ element taxonomy
  &lt;elementRef key="fileDesc"/&gt;
  &lt;elementRef key="encodingDesc"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e16538" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e16545" class="pre_eg">
-element teiHeader { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.fileDesc" title="&lt;fileDesc&gt;">fileDesc</a>, <a class="link_ref" href="#TEI.encodingDesc" title="&lt;encodingDesc&gt;">encodingDesc</a> }<a href="#index.xml-eg-d33e16545" class="anchorlink">⚓</a></pre>
+element teiHeader { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, <a class="link_ref" href="#TEI.fileDesc" title="&lt;fileDesc&gt;">fileDesc</a>, <a class="link_ref" href="#TEI.encodingDesc" title="&lt;encodingDesc&gt;">encodingDesc</a> }</pre>
                            </td>
                         </tr>
                      </table>
@@ -6216,7 +6217,7 @@ element teiHeader { <a class="link_ref" href="#TEI.att.global" title="att.global
 &lt;content&gt;
  &lt;macroRef key="macro.phraseSeq"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e17021" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -6233,7 +6234,7 @@ element term
    <a class="link_ref" href="#TEI.att.sortable" title="att.sortable">att.sortable.attributes</a>,
    <a class="link_ref" href="#TEI.att.cReferencing" title="att.cReferencing">att.cReferencing.attributes</a>,
    <a class="link_ref" href="#TEI.macro.phraseSeq" title="macro.phraseSeq">macro.phraseSeq</a>
-}<a href="#index.xml-eg-d33e17028" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -6319,7 +6320,7 @@ element term
    maxOccurs="unbounded"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e17408" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -6339,7 +6340,7 @@ element terrain
       ( <a class="link_ref" href="#TEI.model.noteLike" title="model.noteLike">model.noteLike</a> | model.biblLike )*,
       <a class="link_ref" href="#TEI.terrain" title="&lt;terrain&gt;">terrain</a>*
    )
-}<a href="#index.xml-eg-d33e17415" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -6455,7 +6456,7 @@ element terrain
   &lt;/sequence&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e17636" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -6475,7 +6476,7 @@ element text
       <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>*,
       ( back, <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>* )?
    )
-}<a href="#index.xml-eg-d33e17643" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -6663,7 +6664,7 @@ element text
 &lt;content&gt;
  &lt;macroRef key="macro.paraContent"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e18342" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -6679,7 +6680,7 @@ element title
    attribute type { text }?,
    attribute level { "a" | "m" | "j" | "s" | "u" }?,
    <a class="link_ref" href="#TEI.macro.paraContent" title="macro.paraContent">macro.paraContent</a>
-}<a href="#index.xml-eg-d33e18350" class="anchorlink">⚓</a></pre>
+}</pre>
                            </td>
                         </tr>
                      </table>
@@ -6742,14 +6743,14 @@ element title
    minOccurs="0" maxOccurs="unbounded"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e18482" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Schema Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e18489" class="pre_eg">
-element titleStmt { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, ( <a class="link_ref" href="#TEI.title" title="&lt;title&gt;">title</a>+, model.respLike* ) }<a href="#index.xml-eg-d33e18489" class="anchorlink">⚓</a></pre>
+element titleStmt { <a class="link_ref" href="#TEI.att.global" title="att.global">att.global.attributes</a>, ( <a class="link_ref" href="#TEI.title" title="&lt;title&gt;">title</a>+, model.respLike* ) }</pre>
                            </td>
                         </tr>
                      </table>
@@ -10362,7 +10363,7 @@ element titleStmt { <a class="link_ref" href="#TEI.att.global" title="att.global
   &lt;classRef key="model.lLike"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e26983" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -10378,7 +10379,7 @@ macro.paraContent =
     | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>
     | lg
     | model.lLike
-   )*<a href="#index.xml-eg-d33e26990" class="anchorlink">⚓</a></pre>
+   )*</pre>
                            </td>
                         </tr>
                      </table>
@@ -10415,7 +10416,7 @@ macro.paraContent =
   &lt;classRef key="model.global"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27103" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -10423,7 +10424,7 @@ macro.paraContent =
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27110" class="pre_eg">
 macro.phraseSeq =
-   ( text | model.gLike | <a class="link_ref" href="#TEI.model.attributable" title="model.attributable">model.attributable</a> | <a class="link_ref" href="#TEI.model.phrase" title="model.phrase">model.phrase</a> | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a> )*<a href="#index.xml-eg-d33e27110" class="anchorlink">⚓</a></pre>
+   ( text | model.gLike | <a class="link_ref" href="#TEI.model.attributable" title="model.attributable">model.attributable</a> | <a class="link_ref" href="#TEI.model.phrase" title="model.phrase">model.phrase</a> | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a> )*</pre>
                            </td>
                         </tr>
                      </table>
@@ -10463,7 +10464,7 @@ macro.phraseSeq =
   &lt;classRef key="model.global"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27170" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -10478,7 +10479,7 @@ macro.specialPara =
     | <a class="link_ref" href="#TEI.model.inter" title="model.inter">model.inter</a>
     | <a class="link_ref" href="#TEI.model.divPart" title="model.divPart">model.divPart</a>
     | <a class="link_ref" href="#TEI.model.global" title="model.global">model.global</a>
-   )*<a href="#index.xml-eg-d33e27177" class="anchorlink">⚓</a></pre>
+   )*</pre>
                            </td>
                         </tr>
                      </table>
@@ -10516,14 +10517,14 @@ macro.specialPara =
   &lt;valItem ident="unknown"/&gt;
  &lt;/valList&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27226" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27233" class="pre_eg cdata">
-teidata.certainty = "high" | "medium" | "low" | "unknown"<a href="#index.xml-eg-d33e27233" class="anchorlink">⚓</a></pre>
+teidata.certainty = "high" | "medium" | "low" | "unknown"</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10561,14 +10562,14 @@ teidata.certainty = "high" | "medium" | "low" | "unknown"<a href="#index.xml-eg-
 &lt;content&gt;
  &lt;dataRef name="nonNegativeInteger"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27283" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27290" class="pre_eg cdata">
-teidata.count = xsd:nonNegativeInteger<a href="#index.xml-eg-d33e27290" class="anchorlink">⚓</a></pre>
+teidata.count = xsd:nonNegativeInteger</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10606,14 +10607,14 @@ teidata.count = xsd:nonNegativeInteger<a href="#index.xml-eg-d33e27290" class="a
  &lt;dataRef name="token"
   restriction="[0-9.,DHMPRSTWYZ/:+\-]+"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27328" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27335" class="pre_eg cdata">
-teidata.duration.iso = token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }<a href="#index.xml-eg-d33e27335" class="anchorlink">⚓</a></pre>
+teidata.duration.iso = token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10680,14 +10681,14 @@ teidata.duration.iso = token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }<a href="#in
 &lt;content&gt;
  &lt;dataRef name="duration"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27419" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27426" class="pre_eg cdata">
-teidata.duration.w3c = xsd:duration<a href="#index.xml-eg-d33e27426" class="anchorlink">⚓</a></pre>
+teidata.duration.w3c = xsd:duration</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10767,14 +10768,14 @@ teidata.duration.w3c = xsd:duration<a href="#index.xml-eg-d33e27426" class="anch
 &lt;content&gt;
  &lt;dataRef key="teidata.word"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27563" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27570" class="pre_eg">
-teidata.enumerated = <a class="link_ref" href="#TEI.teidata.word" title="teidata.word">teidata.word</a><a href="#index.xml-eg-d33e27570" class="anchorlink">⚓</a></pre>
+teidata.enumerated = <a class="link_ref" href="#TEI.teidata.word" title="teidata.word">teidata.word</a></pre>
                            </td>
                         </tr>
                         <tr>
@@ -10819,14 +10820,14 @@ teidata.enumerated = <a class="link_ref" href="#TEI.teidata.word" title="teidata
   &lt;/valList&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27620" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27627" class="pre_eg cdata">
-teidata.language = xsd:language | ( "" )<a href="#index.xml-eg-d33e27627" class="anchorlink">⚓</a></pre>
+teidata.language = xsd:language | ( "" )</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10922,14 +10923,14 @@ teidata.language = xsd:language | ( "" )<a href="#index.xml-eg-d33e27627" class=
 &lt;content&gt;
  &lt;dataRef name="Name"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27764" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27771" class="pre_eg cdata">
-teidata.name = xsd:Name<a href="#index.xml-eg-d33e27771" class="anchorlink">⚓</a></pre>
+teidata.name = xsd:Name</pre>
                            </td>
                         </tr>
                         <tr>
@@ -10971,7 +10972,7 @@ teidata.name = xsd:Name<a href="#index.xml-eg-d33e27771" class="anchorlink">⚓<
   &lt;dataRef name="decimal"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27811" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -10979,7 +10980,7 @@ teidata.name = xsd:Name<a href="#index.xml-eg-d33e27771" class="anchorlink">⚓<
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27818" class="pre_eg cdata">
 teidata.numeric =
-   xsd:double | token { pattern = "(\-?[\d]+/\-?[\d]+)" } | xsd:decimal<a href="#index.xml-eg-d33e27818" class="anchorlink">⚓</a></pre>
+   xsd:double | token { pattern = "(\-?[\d]+/\-?[\d]+)" } | xsd:decimal</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11028,7 +11029,7 @@ teidata.numeric =
  &lt;dataRef name="token"
   restriction="[\-+]?\d+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|gd|rem|vw|vh|vm)"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27864" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -11039,7 +11040,7 @@ teidata.outputMeasurement =
    token
    {
       pattern = "[\-+]?\d+(\.\d+)?(%|cm|mm|in|pt|pc|px|em|ex|gd|rem|vw|vh|vm)"
-   }<a href="#index.xml-eg-d33e27871" class="anchorlink">⚓</a></pre>
+   }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11090,14 +11091,14 @@ teidata.outputMeasurement =
 &lt;content&gt;
  &lt;dataRef name="token"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e27927" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e27934" class="pre_eg cdata">
-teidata.pattern = token<a href="#index.xml-eg-d33e27934" class="anchorlink">⚓</a></pre>
+teidata.pattern = token</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11145,14 +11146,14 @@ teidata.pattern = token<a href="#index.xml-eg-d33e27934" class="anchorlink">⚓<
 &lt;content&gt;
  &lt;dataRef name="anyURI"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28009" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28016" class="pre_eg cdata">
-teidata.pointer = xsd:anyURI<a href="#index.xml-eg-d33e28016" class="anchorlink">⚓</a></pre>
+teidata.pointer = xsd:anyURI</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11192,14 +11193,14 @@ teidata.pointer = xsd:anyURI<a href="#index.xml-eg-d33e28016" class="anchorlink"
  &lt;dataRef name="token"
   restriction="[a-z][a-z0-9\+\.\-]*"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28079" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28086" class="pre_eg cdata">
-teidata.prefix = token { pattern = "[a-z][a-z0-9\+\.\-]*" }<a href="#index.xml-eg-d33e28086" class="anchorlink">⚓</a></pre>
+teidata.prefix = token { pattern = "[a-z][a-z0-9\+\.\-]*" }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11241,14 +11242,14 @@ teidata.prefix = token { pattern = "[a-z][a-z0-9\+\.\-]*" }<a href="#index.xml-e
   &lt;dataRef key="teidata.certainty"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28130" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28137" class="pre_eg">
-teidata.probCert = <a class="link_ref" href="#TEI.teidata.probability" title="teidata.probability">teidata.probability</a> | <a class="link_ref" href="#TEI.teidata.certainty" title="teidata.certainty">teidata.certainty</a><a href="#index.xml-eg-d33e28137" class="anchorlink">⚓</a></pre>
+teidata.probCert = <a class="link_ref" href="#TEI.teidata.probability" title="teidata.probability">teidata.probability</a> | <a class="link_ref" href="#TEI.teidata.certainty" title="teidata.certainty">teidata.certainty</a></pre>
                            </td>
                         </tr>
                      </table>
@@ -11278,14 +11279,14 @@ teidata.probCert = <a class="link_ref" href="#TEI.teidata.probability" title="te
 &lt;content&gt;
  &lt;dataRef name="double"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28174" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28181" class="pre_eg cdata">
-teidata.probability = xsd:double<a href="#index.xml-eg-d33e28181" class="anchorlink">⚓</a></pre>
+teidata.probability = xsd:double</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11321,14 +11322,14 @@ teidata.probability = xsd:double<a href="#index.xml-eg-d33e28181" class="anchorl
 &lt;content&gt;
  &lt;textNode/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28223" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28230" class="pre_eg cdata">
-teidata.replacement = text<a href="#index.xml-eg-d33e28230" class="anchorlink">⚓</a></pre>
+teidata.replacement = text</pre>
                            </td>
                         </tr>
                      </table>
@@ -11361,14 +11362,14 @@ teidata.replacement = text<a href="#index.xml-eg-d33e28230" class="anchorlink">�
 &lt;content&gt;
  &lt;dataRef key="teidata.word"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28267" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28274" class="pre_eg">
-teidata.sex = <a class="link_ref" href="#TEI.teidata.word" title="teidata.word">teidata.word</a><a href="#index.xml-eg-d33e28274" class="anchorlink">⚓</a></pre>
+teidata.sex = <a class="link_ref" href="#TEI.teidata.word" title="teidata.word">teidata.word</a></pre>
                            </td>
                         </tr>
                         <tr>
@@ -11419,7 +11420,7 @@ teidata.sex = <a class="link_ref" href="#TEI.teidata.word" title="teidata.word">
    restriction="[0-9.,DHMPRSTWYZ/:+\-]+"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28356" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -11435,7 +11436,7 @@ teidata.temporal.iso =
  | xsd:gMonthDay
  | xsd:time
  | xsd:dateTime
- | token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }<a href="#index.xml-eg-d33e28363" class="anchorlink">⚓</a></pre>
+ | token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11485,7 +11486,7 @@ teidata.temporal.iso =
   &lt;dataRef name="dateTime"/&gt;
  &lt;/alternate&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28418" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -11500,7 +11501,7 @@ teidata.temporal.w3c =
  | xsd:gYearMonth
  | xsd:gMonthDay
  | xsd:time
- | xsd:dateTime<a href="#index.xml-eg-d33e28425" class="anchorlink">⚓</a></pre>
+ | xsd:dateTime</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11542,14 +11543,14 @@ teidata.temporal.w3c =
 &lt;content&gt;
  &lt;dataRef name="string"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28470" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28477" class="pre_eg cdata">
-teidata.text = string<a href="#index.xml-eg-d33e28477" class="anchorlink">⚓</a></pre>
+teidata.text = string</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11586,14 +11587,14 @@ teidata.text = string<a href="#index.xml-eg-d33e28477" class="anchorlink">⚓</a
 &lt;content&gt;
  &lt;dataRef name="boolean"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28517" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28524" class="pre_eg cdata">
-teidata.truthValue = xsd:boolean<a href="#index.xml-eg-d33e28524" class="anchorlink">⚓</a></pre>
+teidata.truthValue = xsd:boolean</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11636,14 +11637,14 @@ teidata.truthValue = xsd:boolean<a href="#index.xml-eg-d33e28524" class="anchorl
  &lt;dataRef name="token"
   restriction="[\d]+(\.[\d]+){0,2}"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28592" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28599" class="pre_eg cdata">
-teidata.version = token { pattern = "[\d]+(\.[\d]+){0,2}" }<a href="#index.xml-eg-d33e28599" class="anchorlink">⚓</a></pre>
+teidata.version = token { pattern = "[\d]+(\.[\d]+){0,2}" }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11683,7 +11684,7 @@ teidata.version = token { pattern = "[\d]+(\.[\d]+){0,2}" }<a href="#index.xml-e
  &lt;dataRef name="token"
   restriction="[\d]+[a-z]*[\d]*(\.[\d]+[a-z]*[\d]*){0,3}"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28640" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
@@ -11691,7 +11692,7 @@ teidata.version = token { pattern = "[\d]+(\.[\d]+){0,2}" }<a href="#index.xml-e
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28647" class="pre_eg cdata">
 teidata.versionNumber =
-   token { pattern = "[\d]+[a-z]*[\d]*(\.[\d]+[a-z]*[\d]*){0,3}" }<a href="#index.xml-eg-d33e28647" class="anchorlink">⚓</a></pre>
+   token { pattern = "[\d]+[a-z]*[\d]*(\.[\d]+[a-z]*[\d]*){0,3}" }</pre>
                            </td>
                         </tr>
                      </table>
@@ -11722,14 +11723,14 @@ teidata.versionNumber =
  &lt;dataRef name="token"
   restriction="[^\p{C}\p{Z}]+"/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28683" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28690" class="pre_eg cdata">
-teidata.word = token { pattern = "[^\p{C}\p{Z}]+" }<a href="#index.xml-eg-d33e28690" class="anchorlink">⚓</a></pre>
+teidata.word = token { pattern = "[^\p{C}\p{Z}]+" }</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11766,14 +11767,14 @@ teidata.word = token { pattern = "[^\p{C}\p{Z}]+" }<a href="#index.xml-eg-d33e28
 &lt;content&gt;
  &lt;textNode/&gt;
 &lt;/content&gt;
-    <a href="#index.xml-eg-d33e28730" class="anchorlink">⚓</a></pre>
+    </pre>
                            </td>
                         </tr>
                         <tr>
                            <td class="wovenodd-col1"><span lang="en" class="label">Declaration</span></td>
                            <td class="wovenodd-col2">
                               <pre id="index.xml-eg-d33e28737" class="pre_eg cdata">
-teidata.xpath = text<a href="#index.xml-eg-d33e28737" class="anchorlink">⚓</a></pre>
+teidata.xpath = text</pre>
                            </td>
                         </tr>
                         <tr>
@@ -11793,11 +11794,11 @@ teidata.xpath = text<a href="#index.xml-eg-d33e28737" class="anchorlink">⚓</a>
       </div>
       <div class="stdfooter autogenerated">
          <div class="footer"><!--standard links to project, institution etc--><a class="plain" href="http://www.tei-c.org/">TEI</a> <a class="plain" href="/">Home</a> </div>
-         <address>Martin Holmes. Date: 2021-04-22<br/>
+         <address>Martin Holmes. Date: 2021-04-29<br/>
             <!--
 	  Generated from index.xml using XSLT stylesheets version 7.52.0a
 	       based on http://www.tei-c.org/Stylesheets/
-	       on 2021-04-22T14:52:09Z.
+	       on 2021-04-29T17:24:36Z.
 	       SAXON HE 10.3.
 		 --></address>
       </div>
