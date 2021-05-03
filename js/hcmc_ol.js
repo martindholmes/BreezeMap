@@ -2777,12 +2777,14 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
       this.timeline.disabled = false;
       this.playButton.disabled = false;
       this.timelineChange(this.timeline);
+      this.timeline.parentElement.classList.add('enabled');
     }
     else{
       if (this.playInterval !== null){
         this.timelinePlay();
       }
       this.timeline.disabled = true;
+      this.timeline.parentElement.classList.remove('enabled');
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
       this.playButton.disabled = true;
       this.timeline.value = 0;
