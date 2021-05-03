@@ -3298,7 +3298,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  var i, maxi, geomCol, extent, leftMargin = 20, rightMargin, bottomMargin = 20, opts, geoms = [];
 
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
@@ -3310,12 +3310,15 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       extent = geomCol.getExtent();
 //Now we need to allow for the fact that a big block of the map
 //is invisible under the navigation, info and doc panels.
-      //if (this.docDisplayDiv.style.display === 'block'){
       if (parseInt(window.getComputedStyle(this.docDisplayDiv).left) > -1){
         leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
       }
+      if (this.timeline !== null){
+        let cs = window.getComputedStyle(this.timeline.parentElement);
+        bottomMargin = parseInt(cs.bottom) + parseInt(cs.height) + 40;
+      }
       rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
-      opts = {padding: [0, rightMargin, 0, leftMargin],
+      opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
               duration: 1000  
              };
       if (useCurrZoom === true){
