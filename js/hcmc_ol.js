@@ -195,7 +195,7 @@ hol.Util.crudeHash = function(s){
 * @type {string[]} 
 * @memberOf hol.Util
 */
-hol.Util.tenColors = ['rgb(0, 0, 0)', 'rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)'];
+hol.Util.tenColors = ['rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)', 'rgb(0, 0, 0)'];
 
 /**
 * @description Set of distinct colours, initially set to the ten defaults.
@@ -549,7 +549,7 @@ hol.Util.getCategoryStyle = function(catNum){
         src: 'js/placemark.png',
         imgSize: [20,30],
         anchor: [0.5,1],
-        color: transCol
+        color: col
       }),
       fill: new ol.style.Fill({
           color: transCol
@@ -1654,7 +1654,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
             this.features[i].setProperties({'ssFrom': Date.parse(p.from)});
           }
           if (p.to){
-            this.features[i].setProperties({'ssto': Date.parse(p.to)});
+            this.features[i].setProperties({'ssTo': Date.parse(p.to)});
           }
         }
     
@@ -2410,7 +2410,10 @@ hol.VectorLayer.prototype.buildToolbar = function(){
     }
     
     this.mobileMenuToggleButton = document.createElement('button');
-    this.mobileMenuToggleButton.appendChild(document.createTextNode(this.captions.strMenuToggle));
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/menu.svg');
+    this.mobileMenuToggleButton.setAttribute('title', this.captions.strMenuToggle);
+    this.mobileMenuToggleButton.appendChild(img);
     this.mobileMenuToggleButton.setAttribute('id', 'mobileMenuToggle');
     this.mobileMenuToggleButton.addEventListener('click', function(){document.getElementById('holRightBox').classList.toggle('hidden');this.classList.toggle('menuHidden');});
     this.toolbar.appendChild(this.mobileMenuToggleButton);
@@ -2774,14 +2777,14 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
       this.timeline.disabled = false;
       this.playButton.disabled = false;
       this.timelineChange(this.timeline);
+      this.timeline.parentElement.classList.add('enabled');
     }
     else{
       if (this.playInterval !== null){
-        //clearInterval(this.playInterval);
-        //this.playInterval = null;
         this.timelinePlay();
       }
       this.timeline.disabled = true;
+      this.timeline.parentElement.classList.remove('enabled');
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
       this.playButton.disabled = true;
       this.timeline.value = 0;
@@ -3297,7 +3300,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
-  var i, maxi, geomCol, extent, leftMargin = 0, rightMargin, opts, geoms = [];
+  var i, maxi, geomCol, extent, el, leftMargin = 20, rightMargin, bottomMargin = 20, opts, geoms = [];
 
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
@@ -3309,12 +3312,15 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       extent = geomCol.getExtent();
 //Now we need to allow for the fact that a big block of the map
 //is invisible under the navigation, info and doc panels.
-      //if (this.docDisplayDiv.style.display === 'block'){
       if (parseInt(window.getComputedStyle(this.docDisplayDiv).left) > -1){
-        leftMargin = parseInt(window.getComputedStyle(this.docDisplayDiv).width);
+        leftMargin = this.docDisplayDiv.offsetWidth + 20;
       }
-      rightMargin = parseInt(window.getComputedStyle(this.navPanel).width);
-      opts = {padding: [0, rightMargin, 0, leftMargin],
+      if (this.timeline !== null){
+        el = this.timeline.parentElement;
+        bottomMargin = el.offsetHeight + 40;
+      }
+      rightMargin = this.navPanel.offsetWidth + 20;
+      opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
               duration: 1000  
              };
       if (useCurrZoom === true){
@@ -3783,17 +3789,20 @@ hol.VectorLayer.prototype.doLocationSearch = function(doSearch){
       for (i=0, maxi=allDescendants.length; i<maxi; i++){
         allDescendants[i].classList.remove('hidden');
         allDescendants[i].classList.remove('headless');
+        allDescendants[i].classList.remove('searchCatHeader');
         allDescendants[i].classList.remove('expanded');
       }
     }
     else{
+      document.getElementById('chkShowAll').classList.add('hidden');
       items = this.navPanel.getElementsByTagName('li');
       for (i=0, maxi=items.length; i<maxi; i++){
         if (items[i].parentNode.id === 'holCategories'){
-  //This is a category container. Hide its category info and
-  //show its child ul.
+  //This is a category container. Hide its category checkbox and triangle marker,
+  //and show its child ul.
+          items[i].classList.add('searchCatHeader');
           items[i].getElementsByTagName('input')[0].classList.add('hidden');
-          items[i].getElementsByTagName('span')[0].classList.add('hidden');
+          //items[i].getElementsByTagName('span')[0].classList.add('hidden');
 
           hits = 0;
           descendants = items[i].getElementsByTagName('li');
