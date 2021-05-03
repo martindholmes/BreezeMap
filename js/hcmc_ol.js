@@ -549,7 +549,7 @@ hol.Util.getCategoryStyle = function(catNum){
         src: 'js/placemark.png',
         imgSize: [20,30],
         anchor: [0.5,1],
-        color: transCol
+        color: col
       }),
       fill: new ol.style.Fill({
           color: transCol
