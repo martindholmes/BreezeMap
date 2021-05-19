@@ -159,6 +159,7 @@
            
            <elementSpec ident="location" mode="change">
              <content>
+               <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
                <elementRef key="geo" minOccurs="1" maxOccurs="1"/>
              </content>
              <constraintSpec ident="onlyLineStringsAreDirectional" scheme="schematron">
@@ -170,9 +171,20 @@
                  </sch:rule>
                </constraint>
              </constraintSpec>
+             <constraintSpec ident="locDescChildHasOnlyDates" scheme="schematron">
+               <constraint>
+                 <sch:rule context="tei:location/tei:desc">
+                   <sch:assert test="child::tei:date">
+                     If you place a desc element inside the location element, it must have
+                     at least one date element. Its purpose is to provide dates/date-ranges
+                     for the location to be associated with a timeline.
+                   </sch:assert>
+                 </sch:rule>
+               </constraint>
+             </constraintSpec>
              <constraintSpec ident="ifWhenIsoThenNotFromIsoOrToIso" scheme="schematron">
                <constraint>
-                 <sch:rule context="tei:location">
+                 <sch:rule context="tei:location/tei:desc/tei:date">
                    <sch:assert test="not(@when-iso) or not(@from-iso or @to-iso)">
                      You can either use @when-iso for a single point in time, or
                      @from-iso and/or @to-iso to delimit a time range, but you can't 

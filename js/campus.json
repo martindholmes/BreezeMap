@@ -470,7 +470,9 @@
           "desc" : "The oldest building on campus...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cle.php" ],
-          "from" : "1962-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1962-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -623,8 +625,10 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
-          "from" : "1980-01-01T00:00:00",
-          "to" : "2000-12-31T23:59:59",
+          "dateTimes" : 
+          [ 
+            { "from" : "1980-01-01T00:00:00",
+              "to" : "2000-12-31T23:59:59" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -777,7 +781,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
-          "from" : "2000-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2000-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -858,8 +864,10 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
-          "from" : "2008-01-01T00:00:00",
-          "to" : "2016-11-16T23:59:59",
+          "dateTimes" : 
+          [ 
+            { "from" : "2008-01-01T00:00:00",
+              "to" : "2016-11-16T23:59:59" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -940,7 +948,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
-          "from" : "2016-11-17T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2016-11-17T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1057,7 +1067,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cst.php" ],
-          "from" : "2003-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2003-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1165,7 +1177,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mck.php" ],
-          "from" : "1975-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1975-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1261,7 +1275,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/carsa.php" ],
-          "from" : "2015-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2015-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1318,7 +1334,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cha.php" ],
-          "from" : "1985-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1985-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1381,7 +1399,9 @@
           "desc" : "The Elliott Building...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ell.php" ],
-          "from" : "1964-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1964-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1472,7 +1492,9 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fph.php",
             "html\/favourites.html" ],
-          "from" : "2010-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2010-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1653,8 +1675,10 @@
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
-          "from" : "1978-01-01T00:00:00",
-          "to" : "2020-10-12T23:59:59",
+          "dateTimes" : 
+          [ 
+            { "from" : "1978-01-01T00:00:00",
+              "to" : "2020-10-12T23:59:59" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -1812,7 +1836,9 @@
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
-          "from" : "2020-10-13T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2020-10-13T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3027,7 +3053,9 @@
           "desc" : "Built in 1966, the Cornett Building is the second oldest building on campus. The oldest is the <a href=\"hol:bldgClearihue\">Clearihue Building<\/a>.",
           "links" : 
           [  ],
-          "from" : "1966-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1966-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3120,7 +3148,9 @@
           "desc" : "The Business and Social Sciences faculties live in the BEC building.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/bec.php" ],
-          "from" : "1997-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1997-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3209,8 +3239,10 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "1996-01-01T00:00:00",
-          "to" : "2000-12-31T23:59:59",
+          "dateTimes" : 
+          [ 
+            { "from" : "1996-01-01T00:00:00",
+              "to" : "2000-12-31T23:59:59" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3299,7 +3331,9 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "2000-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2000-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3379,7 +3413,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
-          "from" : "1968-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1968-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3474,7 +3510,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
-          "from" : "1969-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1969-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3581,7 +3619,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
-          "from" : "1970-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1970-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3673,8 +3713,10 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "1999-01-01T00:00:00",
-          "to" : "2004-09-30T23:59:59",
+          "dateTimes" : 
+          [ 
+            { "from" : "1999-01-01T00:00:00",
+              "to" : "2004-09-30T23:59:59" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3766,7 +3808,9 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "2004-10-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2004-10-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -3891,7 +3935,9 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "1986-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1986-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4082,7 +4128,9 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lic.php",
             "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lib.php" ],
-          "from" : "1964-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1964-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4336,7 +4384,9 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "1967-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1967-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4564,7 +4614,9 @@
           "desc" : "...",
           "links" : 
           [  ],
-          "from" : "1967-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1967-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4687,7 +4739,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cun.php" ],
-          "from" : "1972-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1972-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4904,7 +4958,9 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
-          "from" : "2008-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2008-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4976,7 +5032,9 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
-          "from" : "2008-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2008-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5096,7 +5154,9 @@
           "desc" : "Ocean, Earth and Atmospheric Sciences.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sci.php" ],
-          "from" : "2011-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2011-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5284,7 +5344,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
-          "from" : "2004-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "2004-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5386,7 +5448,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
-          "from" : "1990-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1990-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5536,7 +5600,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/elw.php" ],
-          "from" : "1995-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1995-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5678,7 +5744,9 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"><img alt=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\" src=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ucl.php" ],
-          "from" : "1982-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1982-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5868,7 +5936,9 @@
           "desc" : "The UVic Services Building houses the UVic Bookstore, Finnerty Express Cafe, and several administrative services. <a target=\"_blank\" href=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"><img alt=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\" src=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/csr.php" ],
-          "from" : "1965-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1965-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5907,7 +5977,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/oau.php" ],
-          "from" : "1987-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1987-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5994,7 +6066,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fia.php" ],
-          "from" : "1991-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1991-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -6150,7 +6224,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/via.php" ],
-          "from" : "1993-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1993-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -6333,7 +6409,9 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/pnx.php\/" ],
-          "from" : "1981-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1981-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -6483,7 +6561,9 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
-          "from" : "1963-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1963-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -6508,7 +6588,9 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
-          "from" : "1961-01-01T00:00:00",
+          "dateTimes" : 
+          [ 
+            { "from" : "1961-01-01T00:00:00" } ],
           "taxonomies" : 
           [ 
             { "id" : "transp",
