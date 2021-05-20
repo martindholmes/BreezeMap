@@ -1637,7 +1637,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
     }
     
     listenerKey = this.source.on('change', function(e) {
-      var i, maxi;
+      var i, maxi, j, maxj, dt;
       if (this.source.getState() === 'ready') {
       
 // and unregister the "change" listener
@@ -1650,11 +1650,16 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
         for (i = 0, maxi = this.features.length; i<maxi; i++){
           this.features[i].setProperties({"showing": false, "selected": false}, true);
           let p = this.features[i].getProperties();
-          if (p.from){
-            this.features[i].setProperties({'ssFrom': Date.parse(p.from)});
-          }
-          if (p.to){
-            this.features[i].setProperties({'ssTo': Date.parse(p.to)});
+          if (p.dateTimes){
+            dt = p.dateTimes;
+            for (j = 0, maxj = dt.length; j < maxj; j++){
+              if (dt[j].from){
+                dt[j].ssFrom = Date.parse(dt[j].from);
+              }
+              if (dt[j].to){
+                dt[j].ssTo = Date.parse(dt[j].to);
+              }
+            }
           }
         }
     
@@ -2795,7 +2800,7 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     console.error(e.message);
     return false;
   }
-}
+};
 
 /**
  * Function for showing/hiding features based on their current
@@ -2819,7 +2824,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     for (i = 1, maxi = this.features.length; i<maxi; i++){
       //Check whether it's in range; if so, show it.
       let p = this.features[i].getProperties();
-      if ((!(p.ssFrom) || p.ssFrom <= tp.ssEnd) && (!(p.ssTo) || p.ssTo >= tp.ssStart)){
+      if (this.featureMatchesTimelinePoints(i, tp)){
         featNums.push(i);
         let wasShowing = (this.features[i].getProperties().showing);
         this.showHideFeature(true, i, -1);
@@ -2840,7 +2845,54 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     console.error(e.message);
     return false;
   }
-}
+};
+
+/**
+ * Function checking whether a feature ought to be showing
+ * based on a timeline date range.
+ *
+ * @function hol.VectorLayer.prototype.featureMatchesTimelinePoints
+ * @memberof hol.VectorLayer.prototype
+ * @description This method is passed the number of a feature, and
+ *           it then checks the dateTime array which is stored in 
+ *           the feature's properties (if there is one) to see if
+ *           any of the datetimes coincides with the timeline point's
+ *           period/range.
+ * @param   {Number} featNum The number of the feature in the array.
+ * @param   {Object} tp = timelinePoint, an object which contains various 
+ *           properties, from which we use ssStart and ssEnd, which are
+ *           milliseconds-since-1970 signed integer values.
+ * @returns {Boolean} true (there is a match, or there is no dateTime
+ *           info in the feature's properties) or false (there is a
+ *           dateTime array, but none of its objects matches the timeline
+ *           point's range). Default is true.
+ */
+hol.VectorLayer.prototype.featureMatchesTimelinePoints = function(featNum, tp){
+  try{
+    let i, maxi, arrDt, f = this.features[featNum], p = f.getProperties();
+    if (p.hasOwnProperty('dateTimes')){
+      arrDt = p.dateTimes;
+      for (i = 0, maxi = arrDt.length; i<maxi; i++){
+        console.log('arrDt = ');
+        console.dir(arrDt);
+        console.log('tp = ');
+        console.dir(tp);
+        if ((!(arrDt[i].ssFrom) || arrDt[i].ssFrom <= tp.ssEnd) && (!(arrDt[i].ssTo) || arrDt[i].ssTo >= tp.ssStart)){
+          return true;
+        }
+      }
+      return false;
+    }
+    else{
+      console.log('No dateTimes array found.');
+      return true;
+    }
+  }
+  catch(e){
+    console.error(e.message);
+    return true;
+  }
+};
 
 /**
  * Function for "playing" the timeline in sequence.
@@ -2892,7 +2944,7 @@ hol.VectorLayer.prototype.timelinePlay = function(){
     console.error(e.message);
     return false;
   }
-} 
+}; 
 
 /**
  * Function for retrieving the category index from its string identifier.
