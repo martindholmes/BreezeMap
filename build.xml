@@ -19,6 +19,10 @@
 
   <!-- Is this being called with the specific name of an XML file? -->
   <property name="inputXml" value=""/>
+  
+  <!-- Allow the user to override the number of points allowed in a timeline
+       if their project prefers more. -->
+  <property name="maxTimelinePoints" value="100"/>
 
 
   <!--  We'll use the root directory of the ant file to do all our relative paths. -->
@@ -72,24 +76,28 @@
       <arg value="-s:${proj.dir}/testdata/campus.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
+      <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/testdata/world.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
+      <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
       <arg value="-s:${proj.dir}/testdata/imageMarkup.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
+      <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
     <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingUserFile}">
       <arg value="-s:${abs.inputXml}"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
+      <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
   </target>
