@@ -2873,10 +2873,6 @@ hol.VectorLayer.prototype.featureMatchesTimelinePoints = function(featNum, tp){
     if (p.hasOwnProperty('dateTimes')){
       arrDt = p.dateTimes;
       for (i = 0, maxi = arrDt.length; i<maxi; i++){
-        console.log('arrDt = ');
-        console.dir(arrDt);
-        console.log('tp = ');
-        console.dir(tp);
         if ((!(arrDt[i].ssFrom) || arrDt[i].ssFrom <= tp.ssEnd) && (!(arrDt[i].ssTo) || arrDt[i].ssTo >= tp.ssStart)){
           return true;
         }
