@@ -530,9 +530,10 @@ hol.Util.getCategoryStyle = function(catNum){
     var lineWidth, geomType, geometry, dx, dy, rotation, midPoint;
     lineWidth = 2;
     geomType = feature.getGeometry().getType();
-    if ((geomType === 'LineString')||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
+    if (((geomType === 'LineString')&&!(feature.getProperties().directional))||(geomType === 'MultiLineString')||(geomType === 'GeometryCollection')){
       lineWidth = 5;
     }
+
     let styles =
     [new ol.style.Style({
       /*image: new ol.style.Circle({
