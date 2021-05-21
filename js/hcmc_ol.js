@@ -2821,21 +2821,24 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
-    for (i = 1, maxi = this.features.length; i<maxi; i++){
-      //Check whether it's in range; if so, show it.
-      let p = this.features[i].getProperties();
-      if (this.featureMatchesTimelinePoints(i, tp)){
-        featNums.push(i);
-        let wasShowing = (this.features[i].getProperties().showing);
-        this.showHideFeature(true, i, -1);
-        let isShowing = (this.features[i].getProperties().showing);
-        if ((!wasShowing) && isShowing){
-          this.features[i].setStyle(hol.Util.getSelectedStyle());
+    for (i = 0, maxi = this.features.length; i<maxi; i++){
+      //Ignore the base feature.
+      if (this.features[i].getId() !== 'holMap'){
+        //Check whether it's in range; if so, show it.
+        let p = this.features[i].getProperties();
+        if (this.featureMatchesTimelinePoints(i, tp)){
+          featNums.push(i);
+          let wasShowing = (this.features[i].getProperties().showing);
+          this.showHideFeature(true, i, -1);
+          let isShowing = (this.features[i].getProperties().showing);
+          if ((!wasShowing) && isShowing){
+            this.features[i].setStyle(hol.Util.getSelectedStyle());
+          }
+        }  
+        //Otherwise hide it.
+        else{
+          this.showHideFeature(false, i, -1);
         }
-      }  
-      //Otherwise hide it.
-      else{
-        this.showHideFeature(false, i, -1);
       }
     }
     this.centerOnFeatures(featNums, false);
