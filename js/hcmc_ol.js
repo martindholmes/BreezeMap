@@ -861,6 +861,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
     this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
+    this.msPlayInterval = 1500;                //Default value for timeline step interval.
     this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
     this.playImg = null;                       //Will contain a pointer to an SVG image for the button if required.
     
@@ -2936,7 +2937,7 @@ hol.VectorLayer.prototype.timelinePlay = function(){
         this.playImg.setAttribute('src', 'images/play-circle.svg');
         this.playImg.setAttribute('title', this.captions.strPlay);
       }
-    }.bind(this), 1500);
+    }.bind(this), this.msPlayInterval);
     return true;
   }
   catch(e){
