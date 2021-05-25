@@ -429,7 +429,7 @@ hol.Util.getSelectedStyle = function(){
           color: 'rgba(255,0,255,1)'
         }),
         stroke: new ol.style.Stroke({
-          color: 'rgba(255,0,255,0.6)',
+          color: 'rgba(255,0,255,' + hol.Util.shapeOpacity + ')',
           width: 8
         }),
         zIndex: newZ
