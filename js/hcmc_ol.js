@@ -207,12 +207,20 @@ hol.Util.tenColors = ['rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85
 hol.Util.colorSet = hol.Util.tenColors;
 
 /**
-* @description Opacity setting for the interior of shapes, defaulting to '0.6'.
+* @description Opacity setting for lines and the outline of shapes, defaulting to '0.6'.
 *              Made into a variable so that projects can override it.
 * @type {string} 
 * @memberOf hol.Util
 */
-hol.Util.shapeOpacity = '0.6';
+hol.Util.lineOpacity = '0.6';
+
+/**
+* @description Opacity setting for the interior of shapes, defaulting to '0.2'.
+*              Made into a variable so that projects can override it.
+* @type {string} 
+* @memberOf hol.Util
+*/
+hol.Util.shapeOpacity = '0.2';
 
 /**
 * @description Get one of the distinct colours, but combine it with a translucency level.
@@ -229,7 +237,7 @@ hol.Util.getColorWithAlpha = function(catNum, alpha){
 
 /**
 * @description Array of strings representing ten maximally distinct colours, 
-* with an alpha setting of hol.Util.shapeOpacity (default 0.6).
+* with an alpha setting of hol.Util.lineOpacity (default 0.6).
 * @type {string[]}
 * @memberOf hol.Util
 */
@@ -237,7 +245,7 @@ hol.Util.tenTranslucentColors = [];
 (function(){
   var i, maxi;
   for (i=0, maxi=hol.Util.tenColors.length; i<maxi; i++){
-    hol.Util.tenTranslucentColors.push(hol.Util.getColorWithAlpha(i, hol.Util.shapeOpacity));
+    hol.Util.tenTranslucentColors.push(hol.Util.getColorWithAlpha(i, hol.Util.lineOpacity));
   }
 });
 
@@ -348,7 +356,7 @@ hol.Util.getHiddenStyle = function(){
 hol.Util.getDrawingStyle = function(){
   return new ol.style.Style({
     fill: new ol.style.Fill({
-      color: 'rgba(255, 255, 255, 0.2)'
+      color: 'rgba(255, 255, 255, ' + hol.Util.shapeOpacity + ')'
     }),
     stroke: new ol.style.Stroke({
       color: '#ffcc33',
@@ -429,7 +437,7 @@ hol.Util.getSelectedStyle = function(){
           color: 'rgba(255,0,255,1)'
         }),
         stroke: new ol.style.Stroke({
-          color: 'rgba(255,0,255,' + hol.Util.shapeOpacity + ')',
+          color: 'rgba(255,0,255,0.6)',
           width: 8
         }),
         zIndex: newZ
@@ -532,7 +540,7 @@ hol.Util.getUserLocationStyle = function(){
 hol.Util.getCategoryStyle = function(catNum){
   var col, transCol;
   col = hol.Util.getColorForCategory(catNum);
-  transCol = hol.Util.getColorWithAlpha(catNum, '0.2');
+  transCol = hol.Util.getColorWithAlpha(catNum, hol.Util.shapeOpacity);
   
   return function(feature, resolution){
     var lineWidth, geomType, geometry, dx, dy, rotation, midPoint;
