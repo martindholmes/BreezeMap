@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2021-04-29T17:30:39Z. .
+Schema generated from ODD source 2021-05-20T16:02:21Z. .
 TEI Edition: Version 4.2.2. Last updated on
 	9th April 2021, revision 609a109b1
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.2.2/
@@ -2724,6 +2724,9 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
    <define name="location">
       <element name="location">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(location) defines the location of a place as a set of geographical coordinates, in terms of other named geo-political entities, or as an address. [13.3.4. Places]</a:documentation>
+         <optional>
+            <ref name="desc"/>
+         </optional>
          <ref name="geo"/>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-location-onlyLineStringsAreDirectional-constraint-rule-9">
@@ -2738,12 +2741,26 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             </sch:rule>
          </pattern>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
-                  id="breezemap-location-ifWhenIsoThenNotFromIsoOrToIso-constraint-rule-10">
+                  id="breezemap-location-locDescChildHasOnlyDates-constraint-rule-10">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
                       xmlns:rng="http://relaxng.org/ns/structure/1.0"
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xi="http://www.w3.org/2001/XInclude"
-                      context="tei:location">
+                      context="tei:location/tei:desc">
+               <sch:assert test="child::tei:date">
+                     If you place a desc element inside the location element, it must have
+                     at least one date element. Its purpose is to provide dates/date-ranges
+                     for the location to be associated with a timeline.
+                   </sch:assert>
+            </sch:rule>
+         </pattern>
+         <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
+                  id="breezemap-location-ifWhenIsoThenNotFromIsoOrToIso-constraint-rule-11">
+            <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
+                      xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                      xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                      xmlns:xi="http://www.w3.org/2001/XInclude"
+                      context="tei:location/tei:desc/tei:date">
                <sch:assert test="not(@when-iso) or not(@from-iso or @to-iso)">
                      You can either use @when-iso for a single point in time, or
                      @from-iso and/or @to-iso to delimit a time range, but you can't 

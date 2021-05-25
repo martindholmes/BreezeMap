@@ -82,12 +82,12 @@
                       </map>
                     </xsl:for-each>
                   </array>
-                  <xsl:if test="$places//location[@from-iso or @to-iso or @when-iso]">
+                  <xsl:if test="$places//location/desc/date[@from-iso or @to-iso or @when-iso]">
                     <!-- NOTE: The following method of sorting/comparing datetimes is inadequate and may need to be fixed. It is present
                          as a temporary measure for development purposes. However, if datetimes are full iso, as they should be, it should 
                          always work, I think. -->
-                    <xsl:variable name="froms" as="xs:string*" select="sort((for $f in ($places//location/@from-iso, $places//location/@when-iso) return tokenize($f, '/')[1]))"/>
-                    <xsl:variable name="tos" as="xs:string*" select="sort((for $t in ($places//location/@to-iso, $places//location/@when-iso) return tokenize($t, '/')[last()]))"/>
+                    <xsl:variable name="froms" as="xs:string*" select="sort((for $f in ($places//location/desc/date/@from-iso, $places//location/desc/date/@when-iso) return tokenize($f, '/')[1]))"/>
+                    <xsl:variable name="tos" as="xs:string*" select="sort((for $t in ($places//location/desc/date/@to-iso, $places//location/desc/date/@when-iso) return tokenize($t, '/')[last()]))"/>
                     <xsl:variable name="timelinePoints" as="xs:string*" select="hcmc:getTimelinePoints($froms[1], $tos[last()], $maxTimelinePoints)"/>
                     <map key="timeline">
                       
@@ -118,26 +118,35 @@
                       </xsl:for-each>
                     </array>
                     
-<!--  Now any of the dating attributes. When processing these, we turn each
+<!--  Now any of the dating elements. When processing these, we turn each
       individual date or each component of a slash-delimited range into a 
       fully-realized dateTime string. -->
 <!--  If there's @when-iso, we turn it into from and to. -->
-                    <xsl:choose>
-                      <xsl:when test="$thisPlace/location/@when-iso">
-                        <string key="from"><xsl:value-of select="
-                          hcmc:expandDateTime(tokenize($thisPlace/location/@when-iso, '/')[1], true())
-                          "/></string>
-                        <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@when-iso, '/')[last()], false())"/></string>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:if test="$thisPlace/location/@from-iso">
-                          <string key="from"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@from-iso, '/')[1], true())"/></string>
-                        </xsl:if>
-                        <xsl:if test="$thisPlace/location/@to-iso">
-                          <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize($thisPlace/location/@to-iso, '/')[last()], false())"/></string>
-                        </xsl:if>
-                      </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:if test="$thisPlace/location/desc/date[@when-iso or @from-iso or @to-iso]">
+                      <array key="dateTimes">
+                        <xsl:for-each select="$thisPlace/location/desc/date[@when-iso or @from-iso or @to-iso]">
+                          <map>
+                            <xsl:choose>
+                              <xsl:when test="@when-iso">
+                                <string key="from"><xsl:value-of select="
+                                  hcmc:expandDateTime(tokenize(@when-iso, '/')[1], true())
+                                  "/></string>
+                                <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize(@when-iso, '/')[last()], false())"/></string>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:if test="@from-iso">
+                                  <string key="from"><xsl:value-of select="hcmc:expandDateTime(tokenize(@from-iso, '/')[1], true())"/></string>
+                                </xsl:if>
+                                <xsl:if test="@to-iso">
+                                  <string key="to"><xsl:value-of select="hcmc:expandDateTime(tokenize(@to-iso, '/')[last()], false())"/></string>
+                                </xsl:if>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </map>
+                        </xsl:for-each>
+                      </array>
+                    </xsl:if>
+                    
                     
                     <xsl:if test="$thisPlace/location/@subtype[.='directional']">
                       <boolean key="directional">true</boolean>
