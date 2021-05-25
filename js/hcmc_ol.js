@@ -2675,7 +2675,8 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       for (i=0, maxi=thisCatFeatures.length; i<maxi; i++){
         f = this.features.indexOf(thisCatFeatures[i]);
         props = thisCatFeatures[i].getProperties();
-        if (!props.showOnMenu || props.showOnMenu == true){
+        
+        if ((props.showOnMenu == null) || (props.showOnMenu == true)){
           thisFeatLi = doc.createElement('li');
           thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
           thisFeatChk = doc.createElement('input');
