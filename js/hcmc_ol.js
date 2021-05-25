@@ -2675,22 +2675,26 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       for (i=0, maxi=thisCatFeatures.length; i<maxi; i++){
         f = this.features.indexOf(thisCatFeatures[i]);
         props = thisCatFeatures[i].getProperties();
-        thisFeatLi = doc.createElement('li');
-        thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
-        thisFeatChk = doc.createElement('input');
-        thisFeatChk.setAttribute('type', 'checkbox');
-        thisFeatChk.setAttribute('data-featNum', f);
-        thisFeatChk.setAttribute('data-catNum', catNum);
-        thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
-        thisFeatSpan = doc.createElement('span');
-        thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
-        thisFeatSpan.appendChild(doc.createTextNode(props.name || this.captions.strUnnamedFeat));
-        thisFeatLi.appendChild(thisFeatChk);
-        thisFeatLi.appendChild(thisFeatSpan);
-        thisCatUl.appendChild(thisFeatLi);
+        if (!props.showOnMenu || props.showOnMenu == true){
+          thisFeatLi = doc.createElement('li');
+          thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
+          thisFeatChk = doc.createElement('input');
+          thisFeatChk.setAttribute('type', 'checkbox');
+          thisFeatChk.setAttribute('data-featNum', f);
+          thisFeatChk.setAttribute('data-catNum', catNum);
+          thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
+          thisFeatSpan = doc.createElement('span');
+          thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
+          thisFeatSpan.appendChild(doc.createTextNode(props.name || this.captions.strUnnamedFeat));
+          thisFeatLi.appendChild(thisFeatChk);
+          thisFeatLi.appendChild(thisFeatSpan);
+          thisCatUl.appendChild(thisFeatLi);
+        }
       }
-      catLi.appendChild(thisCatUl);
-      catUl.appendChild(catLi);
+      if (thisCatUl.getElementsByTagName('li').length > 0){
+        catLi.appendChild(thisCatUl);
+        catUl.appendChild(catLi);
+      }
     }
     
     this.featureCheckboxes = this.navPanel.querySelectorAll("input[type='checkbox'][data-featNum]");

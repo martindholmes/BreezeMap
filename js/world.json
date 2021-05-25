@@ -72,6 +72,7 @@
           "desc" : "The area covered by the foreground of the <a href=\"http:\/\/jenkins.hcmc.uvic.ca\/job\/MoEML\/lastSuccessfulBuild\/artifact\/static\/site\/agas.htm\">Agas Map<\/a>.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "areas",
@@ -109,6 +110,7 @@
           "desc" : "The general area of Ancient Greece, for use in the Myths on Maps project.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "areas",
@@ -179,6 +181,7 @@
           "desc" : "Main university campus at Gordon Head",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "areas",
@@ -217,6 +220,7 @@
           "desc" : "The Greater Victoria area, BC",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "areas",

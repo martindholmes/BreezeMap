@@ -11,7 +11,7 @@
     version="3.0">
     <xd:doc scope="stylesheet">
         <xd:desc>
-            <xd:p><xd:b>Created in:</xd:b> March 2018.</xd:p>
+            <xd:p><xd:b>Created starting in:</xd:b> March 2018.</xd:p>
             <xd:p><xd:b>Author:</xd:b> mholmes</xd:p>
             <xd:p>The purpose of this stylesheet is to process a single 
             TEI file, conforming to a specific highly-constrained schema,
@@ -117,6 +117,9 @@
                         <string><xsl:value-of select="@target"/></string>
                       </xsl:for-each>
                     </array>
+                    
+                    <!-- Some places may be specified as not to be displayed on the menu of the map. -->
+                    <boolean key="showOnMenu"><xsl:value-of select="if (contains-token(@type, 'noMenu')) then 'false' else 'true'"/></boolean>
                     
 <!--  Now any of the dating elements. When processing these, we turn each
       individual date or each component of a slash-delimited range into a 
