@@ -207,6 +207,14 @@ hol.Util.tenColors = ['rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85
 hol.Util.colorSet = hol.Util.tenColors;
 
 /**
+* @description Opacity setting for the interior of shapes, defaulting to '0.6'.
+*              Made into a variable so that projects can override it.
+* @type {string} 
+* @memberOf hol.Util
+*/
+hol.Util.shapeOpacity = '0.6';
+
+/**
 * @description Get one of the distinct colours, but combine it with a translucency level.
 * @method hol.Util.getColorWithAlpha Get one of the distinct colours, but 
 *                                    combine it with a translucency level.
@@ -221,7 +229,7 @@ hol.Util.getColorWithAlpha = function(catNum, alpha){
 
 /**
 * @description Array of strings representing ten maximally distinct colours, 
-* with an alpha setting of 0.6.
+* with an alpha setting of hol.Util.shapeOpacity (default 0.6).
 * @type {string[]}
 * @memberOf hol.Util
 */
@@ -229,7 +237,7 @@ hol.Util.tenTranslucentColors = [];
 (function(){
   var i, maxi;
   for (i=0, maxi=hol.Util.tenColors.length; i<maxi; i++){
-    hol.Util.tenTranslucentColors.push(hol.Util.getColorWithAlpha(i, '0.6'));
+    hol.Util.tenTranslucentColors.push(hol.Util.getColorWithAlpha(i, hol.Util.shapeOpacity));
   }
 });
 
