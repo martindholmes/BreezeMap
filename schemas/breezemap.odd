@@ -113,6 +113,31 @@
         </p>
       </div>
       
+      <div xml:id="details">
+        <head>Detailed documentation</head>
+        
+        <p>This section example TEI XML code along with explanations of how the data in TEI
+        format is rendered on the resulting map page.</p>
+        
+        <div xml:id="taxCat">
+          <head>Taxonomies and categories of places</head>
+          
+          <p>...</p>
+        </div>
+        
+        <div xml:id="places">
+          <head>Places (features)</head>
+          
+          <p>...</p>
+        </div>
+        
+        <div xml:id="locations">
+          <head>Locations and geo-data</head>
+          
+          <p>...</p>
+        </div>
+      </div>
+      
     </body>
     
       <back><div>
