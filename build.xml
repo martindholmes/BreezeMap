@@ -146,6 +146,7 @@
     <exec executable="sass">
       <arg value="${proj.dir}/css/hcmc_ol.scss"/>
       <arg value="${proj.dir}/css/hcmc_ol.css"/>
+      <arg value="--source-map"/>
     </exec>
   </target>
 
@@ -158,6 +159,7 @@
     <copy todir="${proj.dir}/testsite">
       <fileset dir="${proj.dir}" includes="fonts/*.*"/>
       <fileset dir="${proj.dir}" includes="css/*.css"/>
+      <fileset dir="${proj.dir}" includes="css/*.css.map"/>
       <fileset dir="${proj.dir}" includes="ol/*.*" excludes="ol/ol_latest.zip"/>
       <fileset dir="${proj.dir}" includes="*.html"/>
       <fileset dir="${proj.dir}/testdata" includes="*/**"/>
