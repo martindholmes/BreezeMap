@@ -456,26 +456,29 @@ hol.Util.getSelectedStyle = function(){
        zIndex: newZ
      })
     ];
-    //If the feature is a directional LineString, we need to add arrows.
+    //If the feature is a directional LineString, we need to add arrows, assuming the 
+    //segment is long enough to fit one in.
     if (feature.getProperties().directional){
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
-    		dx = end[0] - start[0];
-    		dy = end[1] - start[1];
-    		rotation = Math.atan2(dy, dx);
-        //We want the arrow to appear in the middle of each segment.
-        midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
-
-    		styles.push(new ol.style.Style({
-    		  geometry: new ol.geom.Point(midPoint),
-    		  image: new ol.style.RegularShape({
-    		    fill: new ol.style.Fill({color: 'rgba(255,0,255,1)'}),
-    		    points: 3,
-    		    radius: 10,
-    		    rotation: -rotation,
-    		    angle: Math.PI / 2 // rotate 90°
-    		  })
-    		}));
+        let pixLen = Math.round(new ol.geom.LineString([start, end]).getLength() / resolution);
+        if (pixLen > 25){
+      		dx = end[0] - start[0];
+      		dy = end[1] - start[1];
+      		rotation = Math.atan2(dy, dx);
+          //We want the arrow to appear in the middle of each segment.
+          midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
+          styles.push(new ol.style.Style({
+      		  geometry: new ol.geom.Point(midPoint),
+      		  image: new ol.style.RegularShape({
+      		    fill: new ol.style.Fill({color: 'rgba(255,0,255,1)'}),
+      		    points: 3,
+      		    radius: 10,
+      		    rotation: -rotation,
+      		    angle: Math.PI / 2 // rotate 90°
+      		  })
+      		}));
+        }
       });
     }
     return styles;
@@ -576,25 +579,29 @@ hol.Util.getCategoryStyle = function(catNum){
         width: lineWidth
       })
     })];
-    //If the feature is a directional LineString, we need to add arrows.
+    //If the feature is a directional LineString, we need to add arrows, assuming the 
+    //segment is long enough to fit one in.
     if (feature.getProperties().directional){
       geometry = feature.getGeometry();
       geometry.forEachSegment(function (start, end) {
-    		dx = end[0] - start[0];
-    		dy = end[1] - start[1];
-    		rotation = Math.atan2(dy, dx);
-        //We want the arrow in the middle of the segment.
-        midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
-    		styles.push(new ol.style.Style({
-    		  geometry: new ol.geom.Point(midPoint),
-    		  image: new ol.style.RegularShape({
-    		    fill: new ol.style.Fill({color: col}),
-    		    points: 3,
-    		    radius: 10,
-    		    rotation: -rotation,
-    		    angle: Math.PI / 2 // rotate 90°
-    		  })
-    		}));
+        let pixLen = Math.round(new ol.geom.LineString([start, end]).getLength() / resolution);
+        if (pixLen > 25){
+      		dx = end[0] - start[0];
+      		dy = end[1] - start[1];
+      		rotation = Math.atan2(dy, dx);
+          //We want the arrow in the middle of the segment.
+          midPoint = [start[0] + Math.round((end[0] - start[0]) / 2), start[1] + Math.round((end[1] - start[1]) / 2)];
+      		styles.push(new ol.style.Style({
+      		  geometry: new ol.geom.Point(midPoint),
+      		  image: new ol.style.RegularShape({
+      		    fill: new ol.style.Fill({color: col}),
+      		    points: 3,
+      		    radius: 10,
+      		    rotation: -rotation,
+      		    angle: Math.PI / 2 // rotate 90°
+      		  })
+      		}));
+        }
       });
     }
     return styles;
@@ -2675,22 +2682,27 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
       for (i=0, maxi=thisCatFeatures.length; i<maxi; i++){
         f = this.features.indexOf(thisCatFeatures[i]);
         props = thisCatFeatures[i].getProperties();
-        thisFeatLi = doc.createElement('li');
-        thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
-        thisFeatChk = doc.createElement('input');
-        thisFeatChk.setAttribute('type', 'checkbox');
-        thisFeatChk.setAttribute('data-featNum', f);
-        thisFeatChk.setAttribute('data-catNum', catNum);
-        thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
-        thisFeatSpan = doc.createElement('span');
-        thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
-        thisFeatSpan.appendChild(doc.createTextNode(props.name || this.captions.strUnnamedFeat));
-        thisFeatLi.appendChild(thisFeatChk);
-        thisFeatLi.appendChild(thisFeatSpan);
-        thisCatUl.appendChild(thisFeatLi);
+        
+        if ((props.showOnMenu == null) || (props.showOnMenu == true)){
+          thisFeatLi = doc.createElement('li');
+          thisFeatLi.setAttribute('id', 'featLi_' + catNum + '_' + f);
+          thisFeatChk = doc.createElement('input');
+          thisFeatChk.setAttribute('type', 'checkbox');
+          thisFeatChk.setAttribute('data-featNum', f);
+          thisFeatChk.setAttribute('data-catNum', catNum);
+          thisFeatChk.addEventListener('change', this.showHideFeatureFromNav.bind(this, thisFeatChk, f, catNum));
+          thisFeatSpan = doc.createElement('span');
+          thisFeatSpan.addEventListener('click', this.selectFeatureFromNav.bind(this, f, catNum));
+          thisFeatSpan.appendChild(doc.createTextNode(props.name || this.captions.strUnnamedFeat));
+          thisFeatLi.appendChild(thisFeatChk);
+          thisFeatLi.appendChild(thisFeatSpan);
+          thisCatUl.appendChild(thisFeatLi);
+        }
       }
-      catLi.appendChild(thisCatUl);
-      catUl.appendChild(catLi);
+      if (thisCatUl.getElementsByTagName('li').length > 0){
+        catLi.appendChild(thisCatUl);
+        catUl.appendChild(catLi);
+      }
     }
     
     this.featureCheckboxes = this.navPanel.querySelectorAll("input[type='checkbox'][data-featNum]");

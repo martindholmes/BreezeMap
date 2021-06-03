@@ -470,6 +470,7 @@
           "desc" : "The oldest building on campus...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cle.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1962-01-01T00:00:00" } ],
@@ -625,6 +626,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1980-01-01T00:00:00",
@@ -781,6 +783,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2000-01-01T00:00:00" } ],
@@ -864,6 +867,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2008-01-01T00:00:00",
@@ -948,6 +952,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mwb.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2016-11-17T00:00:00" } ],
@@ -1067,6 +1072,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cst.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2003-01-01T00:00:00" } ],
@@ -1177,6 +1183,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/mck.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1975-01-01T00:00:00" } ],
@@ -1275,6 +1282,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/carsa.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2015-01-01T00:00:00" } ],
@@ -1334,6 +1342,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cha.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1985-01-01T00:00:00" } ],
@@ -1399,6 +1408,7 @@
           "desc" : "The Elliott Building...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ell.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1964-01-01T00:00:00" } ],
@@ -1492,6 +1502,7 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fph.php",
             "html\/favourites.html" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2010-01-01T00:00:00" } ],
@@ -1524,6 +1535,7 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/burntembers.files.wordpress.com\/2013\/03\/img_1773.jpg\"><img alt=\"https:\/\/burntembers.files.wordpress.com\/2013\/03\/img_1773.jpg\" src=\"https:\/\/burntembers.files.wordpress.com\/2013\/03\/img_1773.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fph.php" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -1675,6 +1687,7 @@
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1978-01-01T00:00:00",
@@ -1836,6 +1849,7 @@
           "desc" : "The University's central administrative building, containing the Senate Chambers along with food services and the Farquhar Auditorium.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/uvc.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2020-10-13T00:00:00" } ],
@@ -1882,6 +1896,7 @@
           "desc" : "4 parking spots.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -1920,6 +1935,7 @@
           "desc" : "2 parking spots, both handicap.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -1985,6 +2001,7 @@
           "desc" : "12 parking spots, including 1 handicap spot.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2050,6 +2067,7 @@
           "desc" : "10 parking spots, including 3 handicap spots.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2100,6 +2118,7 @@
           "desc" : "Mostly metered parking",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2201,6 +2220,7 @@
           "desc" : "Main student residence parking.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2248,6 +2268,7 @@
           "desc" : "Parking lot beside main library.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2286,6 +2307,7 @@
           "desc" : "Parking lot beside MacLaurin Building.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2330,6 +2352,7 @@
           "desc" : "Parking lot off Gordon Head Road.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2368,6 +2391,7 @@
           "desc" : "Parking lot near University Club.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2412,6 +2436,7 @@
           "desc" : "Parking lot beside Fraser Building (Law).",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2468,6 +2493,7 @@
           "desc" : "Parking lot beside stadium.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2512,6 +2538,7 @@
           "desc" : "Parking lot beside Interfaith Chapel and Fine Arts.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2574,6 +2601,7 @@
           "desc" : "Parking lot beside bookstore.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2630,6 +2658,7 @@
           "desc" : "Parking lot beside greenhouse. Near Bob Wright Centre.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2680,6 +2709,7 @@
           "desc" : "Covered parking lot attached to CARSA.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2727,6 +2757,7 @@
           "desc" : "Parking lot in front of the Clearihue Building.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -2786,6 +2817,7 @@
           "desc" : "Underground parking lot below the Jamie Cassels Centre.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "pkng",
@@ -3053,6 +3085,7 @@
           "desc" : "Built in 1966, the Cornett Building is the second oldest building on campus. The oldest is the <a href=\"hol:bldgClearihue\">Clearihue Building<\/a>.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1966-01-01T00:00:00" } ],
@@ -3148,6 +3181,7 @@
           "desc" : "The Business and Social Sciences faculties live in the BEC building.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/bec.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1997-01-01T00:00:00" } ],
@@ -3239,6 +3273,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1996-01-01T00:00:00",
@@ -3331,6 +3366,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2000-01-01T00:00:00" } ],
@@ -3413,6 +3449,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1968-01-01T00:00:00" } ],
@@ -3510,6 +3547,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1969-01-01T00:00:00" } ],
@@ -3619,6 +3657,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sed.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1970-01-01T00:00:00" } ],
@@ -3713,6 +3752,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1999-01-01T00:00:00",
@@ -3808,6 +3848,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2004-10-01T00:00:00" } ],
@@ -3935,6 +3976,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1986-01-01T00:00:00" } ],
@@ -3987,6 +4029,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4128,6 +4171,7 @@
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lic.php",
             "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/lib.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1964-01-01T00:00:00" } ],
@@ -4384,6 +4428,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1967-01-01T00:00:00" } ],
@@ -4508,6 +4553,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/hsd.php" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4614,6 +4660,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1967-01-01T00:00:00" } ],
@@ -4739,6 +4786,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/cun.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1972-01-01T00:00:00" } ],
@@ -4887,6 +4935,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -4958,6 +5007,7 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2008-01-01T00:00:00" } ],
@@ -5032,6 +5082,7 @@
           "desc" : "Formerly Social Sciences and Mathematics Building: A Wing",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ssm.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2008-01-01T00:00:00" } ],
@@ -5154,6 +5205,7 @@
           "desc" : "Ocean, Earth and Atmospheric Sciences.",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sci.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2011-01-01T00:00:00" } ],
@@ -5344,6 +5396,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "2004-01-01T00:00:00" } ],
@@ -5448,6 +5501,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/msb.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1990-01-01T00:00:00" } ],
@@ -5600,6 +5654,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/elw.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1995-01-01T00:00:00" } ],
@@ -5677,6 +5732,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/eow.php" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5744,6 +5800,7 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"><img alt=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\" src=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ucl.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1982-01-01T00:00:00" } ],
@@ -5771,6 +5828,7 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"><img alt=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\" src=\"https:\/\/www.uvic.ca\/assets2012\/images\/photos\/main\/campus-info-maps-maps\/main-blg-ucl.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/ucl.php" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -5850,6 +5908,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sec.php\/" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "bldg",
@@ -5936,6 +5995,7 @@
           "desc" : "The UVic Services Building houses the UVic Bookstore, Finnerty Express Cafe, and several administrative services. <a target=\"_blank\" href=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"><img alt=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\" src=\"https:\/\/c1.staticflickr.com\/1\/15\/68453372_c9536a3fb3.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/csr.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1965-01-01T00:00:00" } ],
@@ -5977,6 +6037,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/oau.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1987-01-01T00:00:00" } ],
@@ -6066,6 +6127,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fia.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1991-01-01T00:00:00" } ],
@@ -6224,6 +6286,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/via.php" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1993-01-01T00:00:00" } ],
@@ -6409,6 +6472,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/pnx.php\/" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1981-01-01T00:00:00" } ],
@@ -6561,6 +6625,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1963-01-01T00:00:00" } ],
@@ -6588,6 +6653,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBld.jpg\"><img alt=\".\/images\/subBld.jpg\" src=\".\/images\/subBld.jpg\"\/><\/a>",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/sub.php\/" ],
+          "showOnMenu" : true,
           "dateTimes" : 
           [ 
             { "from" : "1961-01-01T00:00:00" } ],
@@ -6689,6 +6755,7 @@
           "desc" : "All buses between the campus and the rest of the city leave from the bus terminal.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6713,6 +6780,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100071" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6737,6 +6805,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=101036" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6761,6 +6830,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=101011" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6785,6 +6855,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100991" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6809,6 +6880,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=101076" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6833,6 +6905,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=102416" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6857,6 +6930,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=102417" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6881,6 +6955,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=102426" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6905,6 +6980,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100405" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6929,6 +7005,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100507" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6953,6 +7030,7 @@
           "desc" : "This is a drop-off only stop.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -6977,6 +7055,7 @@
           "desc" : "This is a drop-off only stop.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7001,6 +7080,7 @@
           "desc" : "This is a drop-off only stop.",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7025,6 +7105,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100858" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7049,6 +7130,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100741" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7073,6 +7155,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100705" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7097,6 +7180,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100871" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7121,6 +7205,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100878" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7145,6 +7230,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100889" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7169,6 +7255,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/bctransit.com\/victoria\/schedules-and-maps\/next-departures?stopId=100904" ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7209,6 +7296,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "directional" : true,
           "taxonomies" : 
           [ 
@@ -7288,6 +7376,7 @@
           "desc" : "...",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "directional" : true,
           "taxonomies" : 
           [ 
@@ -7312,6 +7401,7 @@
           "desc" : "<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/financialplanning\/assets\/images\/photos\/SnagWaterfall.jpg\"><img alt=\"https:\/\/www.uvic.ca\/financialplanning\/assets\/images\/photos\/SnagWaterfall.jpg\" src=\"https:\/\/www.uvic.ca\/financialplanning\/assets\/images\/photos\/SnagWaterfall.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7335,6 +7425,7 @@
           "desc" : "Contemporary Coast Salish housepost<a target=\"_blank\" href=\".\/images\/totem.jpg\"><img alt=\".\/images\/totem.jpg\" src=\".\/images\/totem.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7362,6 +7453,7 @@
           "desc" : "A distinctive crosswalk, painted in rainbow colours.<a target=\"_blank\" href=\"https:\/\/www.uvic.ca\/imagecache\/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\"><img alt=\"https:\/\/www.uvic.ca\/imagecache\/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\" src=\"https:\/\/www.uvic.ca\/imagecache\/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7389,6 +7481,7 @@
           "desc" : "A highly visible landmark, but do not rely on its time-keeping abililty.<a target=\"_blank\" href=\"https:\/\/farm6.static.flickr.com\/5268\/5647853031_0cce8da5f6_b.jpg\"><img alt=\"https:\/\/farm6.static.flickr.com\/5268\/5647853031_0cce8da5f6_b.jpg\" src=\"https:\/\/farm6.static.flickr.com\/5268\/5647853031_0cce8da5f6_b.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7416,6 +7509,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/pathDownToUClub.jpg\"><img alt=\".\/images\/pathDownToUClub.jpg\" src=\".\/images\/pathDownToUClub.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7439,6 +7533,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/subBusTerminal.jpg\"><img alt=\".\/images\/subBusTerminal.jpg\" src=\".\/images\/subBusTerminal.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7466,6 +7561,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/pathBySub.jpg\"><img alt=\".\/images\/pathBySub.jpg\" src=\".\/images\/pathBySub.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
@@ -7493,6 +7589,7 @@
           "desc" : "<a target=\"_blank\" href=\".\/images\/pathForkToUClub.jpg\"><img alt=\".\/images\/pathForkToUClub.jpg\" src=\".\/images\/pathForkToUClub.jpg\"\/><\/a>",
           "links" : 
           [  ],
+          "showOnMenu" : true,
           "taxonomies" : 
           [ 
             { "id" : "transp",
