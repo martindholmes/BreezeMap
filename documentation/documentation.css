@@ -137,7 +137,7 @@ table.attList{
 }
 td.odd_label{
     vertical-align: top;
-    width: 15em;
+    max-width: 15em;
     font-weight: bold;
 }
 td.odd_value{
