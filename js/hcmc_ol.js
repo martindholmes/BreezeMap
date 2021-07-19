@@ -2379,7 +2379,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
         }
       }
     }.bind(this), this);
-    this.centerOnFeatures(featNums, true);
+    this.centerOnFeatures(featNums, true, true);
   }
   catch(e){
     console.error(e.message);
@@ -2876,7 +2876,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
         }
       }
     }
-    this.centerOnFeatures(featNums, this.timelineZoom);
+    this.centerOnFeatures(featNums, this.timelineZoom, this.timelinePan);
     return true;
   }
   catch(e){
@@ -3243,7 +3243,7 @@ hol.VectorLayer.prototype.showHideFeatureFromNav = function(sender, featNum, cat
 
   if (sender.checked){
     success = success && this.setSelectedFeature(featNum, false);
-    this.centerOnFeatures([featNum], true);
+    this.centerOnFeatures([featNum], true, true);
   }
   return success;
 };
@@ -3273,7 +3273,7 @@ hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
   success = this.showHideFeature(true, featNum, catNum);
 
   success = success && this.setSelectedFeature(featNum, false);
-  this.centerOnFeatures([featNum], true);
+  this.centerOnFeatures([featNum], true, true);
   return success;
 };
 
@@ -3363,7 +3363,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
       this.showHideFeature(show, featNum, catNum);
       featNums.push(featNum);
     }
-    this.centerOnFeatures(featNums, true);
+    this.centerOnFeatures(featNums, true, true);
     this.featureDisplayStatus = hol.NAV_IDLE;
     return true;
   }
@@ -3383,11 +3383,15 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  *              are specified as an array of feature numbers.
  * @param   {number[]} featNums array of feature numbers.
  * @param   {Boolean} changeZoom Whether to change the current zoom level or not.
+ * @param   {Boolean} changeCenter Whether to pan the view to center on new features.
  * @returns {Boolean} true (succeeded) or false (failed).
  */
-hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom){
+hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom, changeCenter){
   var i, maxi, geomCol, extent, el, leftMargin = 20, rightMargin, bottomMargin = 20, opts, geoms = [];
-
+  //If we don't need to do anything, just bail.
+  if (changeZoom === false && changeCenter === false){
+    return true;
+  }
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
       geoms.push(this.features[featNums[i]].getGeometry());
@@ -3523,7 +3527,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
 //If an index is found, show that feature and select it.
         this.showHideFeature(true, featNum, catNum);
         this.setSelectedFeature(featNum, true);
-        this.centerOnFeatures([featNum], true);
+        this.centerOnFeatures([featNum], true, true);
       }
     }
     return featNum;
@@ -3793,7 +3797,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
     
 //Now we should zoom to the highlighted features. 
     if (result > 0){
-        this.centerOnFeatures(arrFeatNums, true);
+        this.centerOnFeatures(arrFeatNums, true, true);
     }
     
 //Now check whether we want to allow feature editing.
