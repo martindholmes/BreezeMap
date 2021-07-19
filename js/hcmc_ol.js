@@ -823,7 +823,12 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                //Whether or not geolocation tracking should be turned on automatically
     this.allowUserTracking = options.allowUserTracking || false;
                                                //Whether a button is provided for users to turn on tracking.
-                                  
+    
+    this.timelinePan = options.timelinePan || true; //Whether or not to pan over to current features when a timeline 
+                                                    //step happens.
+    this.timelineZoom = options.timelineZoom || true; //Whether or not to zoom in  on the current timeline step's 
+                                                      //features when a timeline step happens.                                            
+
     this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
     
     this.userPositionMarker = null;            //Pointer to a feature used as a position marker for user tracking.
@@ -2374,7 +2379,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
         }
       }
     }.bind(this), this);
-    this.centerOnFeatures(featNums, true);
+    this.centerOnFeatures(featNums, false);
   }
   catch(e){
     console.error(e.message);
@@ -2871,7 +2876,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
         }
       }
     }
-    this.centerOnFeatures(featNums, false);
+    this.centerOnFeatures(featNums, this.timelineZoom);
     return true;
   }
   catch(e){
@@ -3238,7 +3243,7 @@ hol.VectorLayer.prototype.showHideFeatureFromNav = function(sender, featNum, cat
 
   if (sender.checked){
     success = success && this.setSelectedFeature(featNum, false);
-    this.centerOnFeatures([featNum], true);
+    this.centerOnFeatures([featNum], false);
   }
   return success;
 };
@@ -3268,7 +3273,7 @@ hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
   success = this.showHideFeature(true, featNum, catNum);
 
   success = success && this.setSelectedFeature(featNum, false);
-  this.centerOnFeatures([featNum], true);
+  this.centerOnFeatures([featNum], false);
   return success;
 };
 
@@ -3358,7 +3363,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
       this.showHideFeature(show, featNum, catNum);
       featNums.push(featNum);
     }
-    this.centerOnFeatures(featNums, true);
+    this.centerOnFeatures(featNums, false);
     this.featureDisplayStatus = hol.NAV_IDLE;
     return true;
   }
@@ -3377,10 +3382,10 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  *              centres the map on a set of features which 
  *              are specified as an array of feature numbers.
  * @param   {number[]} featNums array of feature numbers.
- * @param   {Boolean} useCurrZoom Whether to change the current zoom level or not.
+ * @param   {Boolean} changeZoom Whether to change the current zoom level or not.
  * @returns {Boolean} true (succeeded) or false (failed).
  */
-hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
+hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom){
   var i, maxi, geomCol, extent, el, leftMargin = 20, rightMargin, bottomMargin = 20, opts, geoms = [];
 
   try{
@@ -3404,7 +3409,7 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, useCurrZoom){
       opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
               duration: 1000  
              };
-      if (useCurrZoom === true){
+      if (changeZoom === false){
         opts.maxZoom = this.view.getZoom();
       }
       this.view.fit(extent, /* this.map.getSize(),*/ opts);
@@ -3511,7 +3516,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
 //If an index is found, show that feature and select it.
         this.showHideFeature(true, featNum, catNum);
         this.setSelectedFeature(featNum, true);
-        this.centerOnFeatures([featNum], true);
+        this.centerOnFeatures([featNum], false);
       }
     }
     return featNum;
@@ -3781,7 +3786,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
     
 //Now we should zoom to the highlighted features. 
     if (result > 0){
-        this.centerOnFeatures(arrFeatNums, false);
+        this.centerOnFeatures(arrFeatNums, true);
     }
     
 //Now check whether we want to allow feature editing.
