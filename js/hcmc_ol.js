@@ -3409,8 +3409,12 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom){
       opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
               duration: 1000  
              };
+
+//NOTE: For issue #37, we have to fork here; we can't use this.view.fit
+//if we want to suppress zooming, so we'll have to do something else.
       if (changeZoom === false){
         opts.maxZoom = this.view.getZoom();
+        opts.minZoom = this.view.getZoom();
       }
       this.view.fit(extent, /* this.map.getSize(),*/ opts);
     }
