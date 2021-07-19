@@ -3411,7 +3411,8 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom){
              };
 
 //NOTE: For issue #37, we have to fork here; we can't use this.view.fit
-//if we want to suppress zooming, so we'll have to do something else.
+//if we want to suppress zooming, so we'll have to use this.view.setCenter(),
+//so we'll have to calculate the centre of the current feature set.
       if (changeZoom === false){
         opts.maxZoom = this.view.getZoom();
         opts.minZoom = this.view.getZoom();
