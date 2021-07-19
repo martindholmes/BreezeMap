@@ -2379,7 +2379,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
         }
       }
     }.bind(this), this);
-    this.centerOnFeatures(featNums, false);
+    this.centerOnFeatures(featNums, true);
   }
   catch(e){
     console.error(e.message);
@@ -3243,7 +3243,7 @@ hol.VectorLayer.prototype.showHideFeatureFromNav = function(sender, featNum, cat
 
   if (sender.checked){
     success = success && this.setSelectedFeature(featNum, false);
-    this.centerOnFeatures([featNum], false);
+    this.centerOnFeatures([featNum], true);
   }
   return success;
 };
@@ -3273,7 +3273,7 @@ hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
   success = this.showHideFeature(true, featNum, catNum);
 
   success = success && this.setSelectedFeature(featNum, false);
-  this.centerOnFeatures([featNum], false);
+  this.centerOnFeatures([featNum], true);
   return success;
 };
 
@@ -3363,7 +3363,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
       this.showHideFeature(show, featNum, catNum);
       featNums.push(featNum);
     }
-    this.centerOnFeatures(featNums, false);
+    this.centerOnFeatures(featNums, true);
     this.featureDisplayStatus = hol.NAV_IDLE;
     return true;
   }
@@ -3523,7 +3523,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
 //If an index is found, show that feature and select it.
         this.showHideFeature(true, featNum, catNum);
         this.setSelectedFeature(featNum, true);
-        this.centerOnFeatures([featNum], false);
+        this.centerOnFeatures([featNum], true);
       }
     }
     return featNum;
