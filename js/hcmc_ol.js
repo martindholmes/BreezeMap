@@ -2854,7 +2854,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
     let val = sender.value, i, maxi, featNums = [];
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
-    console.log(sender.value);
+    //console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
     for (i = 0, maxi = this.features.length; i<maxi; i++){
       //Ignore the base feature.
