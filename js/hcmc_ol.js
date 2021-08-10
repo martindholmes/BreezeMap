@@ -804,11 +804,10 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUpload = options.allowUpload || false;
     this.allowDrawing = options.allowDrawing || false;
     this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
-    this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy && !this.allowDrawing) || false;
+    this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy /*&& !this.allowDrawing*/) || false;
                                                 //If multiple taxonomies are being used, and this is true, then 
-                                                //generate an additional taxonomy which combines everything. We 
-                                                //don't allow this when drawing is enabled, otherwise things get
-                                                //too complicated.
+                                                //generate an additional taxonomy which combines everything. If 
+                                                //you combine this with drawing, though, things get messy.
 
     this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
     this.collator = new Intl.Collator(this.pageLang);
@@ -1185,6 +1184,7 @@ hol.VectorLayer.prototype.drawMapBounds = function(drawingType){
     this.map.addInteraction(this.draw);
     this.coordsBox.style.display = 'block';
     this.draw.on('drawend', function(evt){this.drawMapBoundsEnd(evt);}.bind(this));
+    this.showTimeline(false);
   }
   catch(e){
     console.error(e.message);
@@ -1228,6 +1228,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
       this.currDrawGeometryType = '';
       this.coordsBox.style.display = 'none';
       this.acceptCoords.style.display = 'none';
+      this.showTimeline(true);
       return true;
     }
     
@@ -1253,6 +1254,7 @@ hol.VectorLayer.prototype.addDrawInteraction = function(drawingType){
     this.map.addInteraction(this.modify);
     this.currDrawGeometryType = drawingType;
     this.coordsBox.style.display = 'block';
+    this.showTimeline(false);
     return true;
   }
   catch(e){
@@ -2797,6 +2799,31 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     return false;
   }
 };
+
+/**
+ * Function for showing/hiding the timeline, when the screen space
+ *              is tight (e.g. when drawing).
+ *
+ * @function hol.VectorLayer.prototype.showTimeline
+ * @memberof hol.VectorLayer.prototype
+ * @description hides or shows any timelines on the page.
+ * @param   {Boolean} show show if true, hide if false
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.showTimeline = function(show){
+  try{
+    let displayVal = show ? 'grid' : 'none';
+    let timelines = document.getElementsByClassName('timeline');
+    for (let i = 0; i< timelines.length; i++){
+      timelines[i].style.display = displayVal;
+    }
+    return true;
+  }
+  catch(e){
+    console.error(e.message);
+    return false;
+  }
+}
 
 /**
  * Function for toggling the timeline functionality.

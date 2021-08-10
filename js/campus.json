@@ -99,17 +99,7 @@
                 
                 { "id" : "transpWalkBusToClearihue",
                   "name" : "Walk from buses to Clearihue Building",
-                  "pos" : 3 } ] },
-            
-            { "id" : "empty",
-              "name" : "Empty taxonomy",
-              "pos" : 4,
-              "categories" : 
-              [ 
-                { "id" : "emptyNothing",
-                  "name" : "Empty category",
-                  "desc" : "Category with no associated places.",
-                  "pos" : 1 } ] } ],
+                  "pos" : 3 } ] } ],
           "timeline" : 
           { "timelinePoints" : 
             [ "1961-01-01T00:00:00\/1961-12-31T23:59:59\/1961",

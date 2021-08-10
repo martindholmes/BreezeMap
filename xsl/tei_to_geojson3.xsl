@@ -38,7 +38,10 @@
     <xsl:variable name="root" select="/"/>
     <xsl:param name="outputPath" select="$projDir || '/js/' || tokenize(replace(document-uri($root), '\.xml$', ''), '/')[last()] || '.json'"/>
   
-    <xsl:template match="/">
+    <xd:doc>
+      <xd:desc>Root template. This kicks off the whole process.</xd:desc>
+    </xd:doc>
+  <xsl:template match="/">
       <xsl:variable name="jsonXml">
         <map xmlns="http://www.w3.org/2005/xpath-functions">
           <string key="type">FeatureCollection</string>
@@ -63,23 +66,29 @@
                   
                   <array key="taxonomies">
                     <xsl:for-each select="$root//taxonomy">
-                      <map>
-                        <string key="id"><xsl:value-of select="@xml:id"/></string>
-                        <string key="name"><xsl:value-of select="@n"/></string>
-                        <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
-                        <array key="categories">
-                          <xsl:for-each select="child::category">
-                            <map>
-                              <string key="id"><xsl:value-of select="@xml:id"/></string>
-                              <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
-                              <xsl:if test="desc">
-                                <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
-                              </xsl:if>
-                              <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
-                            </map>
-                          </xsl:for-each>
-                        </array>
-                      </map>
+                      <xsl:variable name="taxId" as="xs:string" select="@xml:id"/>
+                      <xsl:variable name="catIdPointers" as="xs:string*" select="for $c in descendant::category return '#' || $c/@xml:id"/>
+                      <!-- We only want to include taxonomies which have items pointing to at least
+                           one of their categories. -->
+                      <xsl:if test="$root/descendant::place[tokenize(@corresp, '\s+') = $catIdPointers]">
+                        <map>
+                          <string key="id"><xsl:value-of select="@xml:id"/></string>
+                          <string key="name"><xsl:value-of select="@n"/></string>
+                          <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
+                          <array key="categories">
+                            <xsl:for-each select="child::category">
+                              <map>
+                                <string key="id"><xsl:value-of select="@xml:id"/></string>
+                                <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
+                                <xsl:if test="desc">
+                                  <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
+                                </xsl:if>
+                                <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
+                              </map>
+                            </xsl:for-each>
+                          </array>
+                        </map>
+                      </xsl:if>
                     </xsl:for-each>
                   </array>
                   <xsl:if test="$places//location/desc/date[@from-iso or @to-iso or @when-iso]">

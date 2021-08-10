@@ -63,6 +63,7 @@
                         <gloss>Walk from buses to Clearihue Building</gloss>
                     </category>
                 </taxonomy>
+              <!-- This is just for testing that unused taxonomies are ignored in the build. -->
                 <taxonomy xml:id="empty" n="Empty taxonomy">
                     <category xml:id="emptyNothing">
                         <gloss>Empty category</gloss>
