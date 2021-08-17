@@ -823,10 +823,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUserTracking = options.allowUserTracking || false;
                                                //Whether a button is provided for users to turn on tracking.
     
-    this.timelinePan = options.timelinePan || true; //Whether or not to pan over to current features when a timeline 
-                                                    //step happens.
-    this.timelineZoom = options.timelineZoom || true; //Whether or not to zoom in  on the current timeline step's 
-                                                      //features when a timeline step happens.                                            
+    this.timelinePanZoom = options.timelinePanZoom || true; //Whether or not to pan/zoom to frame current features 
+                                                    //when a timeline step happens.                                          
 
     this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
     
@@ -2381,7 +2379,7 @@ hol.VectorLayer.prototype.zoomToBox = function(boxExtent){
         }
       }
     }.bind(this), this);
-    this.centerOnFeatures(featNums, true, true);
+    this.centerOnFeatures(featNums);
   }
   catch(e){
     console.error(e.message);
@@ -2845,6 +2843,11 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
       this.playButton.disabled = false;
       this.timelineChange(this.timeline);
       this.timeline.parentElement.classList.add('enabled');
+      //If pan/zoom is turned off, it makes sense to zoom initially
+      //to the base layer frame.
+      if (this.timelinePanZoom === false){
+        this.setMapBounds(this.baseFeature.getGeometry().getExtent());
+      }
     }
     else{
       if (this.playInterval !== null){
@@ -2903,7 +2906,10 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
         }
       }
     }
-    this.centerOnFeatures(featNums, this.timelineZoom, this.timelinePan);
+    if (this.timelinePanZoom){
+      this.centerOnFeatures(featNums);
+    }
+    
     return true;
   }
   catch(e){
@@ -3270,7 +3276,7 @@ hol.VectorLayer.prototype.showHideFeatureFromNav = function(sender, featNum, cat
 
   if (sender.checked){
     success = success && this.setSelectedFeature(featNum, false);
-    this.centerOnFeatures([featNum], true, true);
+    this.centerOnFeatures([featNum]);
   }
   return success;
 };
@@ -3300,7 +3306,7 @@ hol.VectorLayer.prototype.selectFeatureFromNav = function(featNum, catNum){
   success = this.showHideFeature(true, featNum, catNum);
 
   success = success && this.setSelectedFeature(featNum, false);
-  this.centerOnFeatures([featNum], true, true);
+  this.centerOnFeatures([featNum]);
   return success;
 };
 
@@ -3390,7 +3396,7 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
       this.showHideFeature(show, featNum, catNum);
       featNums.push(featNum);
     }
-    this.centerOnFeatures(featNums, true, true);
+    this.centerOnFeatures(featNums);
     this.featureDisplayStatus = hol.NAV_IDLE;
     return true;
   }
@@ -3409,16 +3415,10 @@ hol.VectorLayer.prototype.showHideCategory = function(sender, catNum){
  *              centres the map on a set of features which 
  *              are specified as an array of feature numbers.
  * @param   {number[]} featNums array of feature numbers.
- * @param   {Boolean} changeZoom Whether to change the current zoom level or not.
- * @param   {Boolean} changeCenter Whether to pan the view to center on new features.
  * @returns {Boolean} true (succeeded) or false (failed).
  */
-hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom, changeCenter){
+hol.VectorLayer.prototype.centerOnFeatures = function(featNums){
   var i, maxi, geomCol, extent, el, leftMargin = 20, rightMargin, bottomMargin = 20, opts, geoms = [];
-  //If we don't need to do anything, just bail.
-  if (changeZoom === false && changeCenter === false){
-    return true;
-  }
   try{
     for (i=0, maxi=featNums.length; i<maxi; i++){
       geoms.push(this.features[featNums[i]].getGeometry());
@@ -3441,16 +3441,8 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom, chan
               duration: 1000  
              };
 
-//NOTE: There is more to do here on issue #37 for suppressing
-//panning as well as zooming.
-//If not zooming, we just use this.view.setCenter().
-      if (changeZoom === false){
-        this.view.setCenter(ol.extent.getCenter(extent));
-      }
-//But if zooming, we use this.view.fit.
-      else{
-        this.view.fit(extent, /* this.map.getSize(),*/ opts);
-      }
+      this.view.fit(extent, /* this.map.getSize(),*/ opts);
+
     }
     return true;
   }
@@ -3476,8 +3468,8 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums, changeZoom, chan
 hol.VectorLayer.prototype.setMapBounds = function(extent){
   var opts;
   opts = {
-              duration: 1000  
-             };
+    duration: 1000  
+  };
 
   try{
     this.view.fit(extent, opts);
@@ -3554,7 +3546,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
 //If an index is found, show that feature and select it.
         this.showHideFeature(true, featNum, catNum);
         this.setSelectedFeature(featNum, true);
-        this.centerOnFeatures([featNum], true, true);
+        this.centerOnFeatures([featNum]);
       }
     }
     return featNum;
@@ -3824,7 +3816,7 @@ hol.VectorLayer.prototype.parseSearch = function(){
     
 //Now we should zoom to the highlighted features. 
     if (result > 0){
-        this.centerOnFeatures(arrFeatNums, true, true);
+        this.centerOnFeatures(arrFeatNums);
     }
     
 //Now check whether we want to allow feature editing.

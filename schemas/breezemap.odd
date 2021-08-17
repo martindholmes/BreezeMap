@@ -136,6 +136,12 @@
           
           <p>...</p>
         </div>
+        
+        <div xml:id="options">
+          <head>Options you can pass to the map in JavaScript</head>
+          
+          <p>...</p>
+        </div>
       </div>
       
     </body>
