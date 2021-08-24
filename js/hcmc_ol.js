@@ -1998,7 +1998,7 @@ hol.VectorLayer.prototype.addTestingFeatures = function(){
  */
 hol.VectorLayer.prototype.readTaxonomies = function(){
   var hasName, i, maxi, j, maxj, k, maxk, props, taxName, taxPos, taxId,
-  catName, catDesc, catPos, catId, foundTax, foundCat, maxPos = 0;
+  catName, catDesc, catPos, catId, catIcon, catIconDim, foundTax, foundCat, maxPos = 0;
   
 //We read the taxonomies based on finding them in the features,
 //just in case a subset of features has been separated from the
@@ -2032,9 +2032,11 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
             catDesc = props.taxonomies[j].categories[k].desc;
             catPos = props.taxonomies[j].categories[k].pos;
             catId = props.taxonomies[j].categories[k].id;
+            catIcon = props.taxonomies[j].categories[k].icon;
+            catIconDim = props.taxonomies[j].categories[k].iconDim;
             foundCat = foundTax[0].categories.filter(hasName, catName);
             if (foundCat.length < 1){
-              foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, features: []});
+              foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, catIcon, catIconDim, features: []});
               foundCat[0] = foundTax[0].categories[foundTax[0].categories.length-1];
             }
             if (this.features[i].getId() !== 'holMap'){
