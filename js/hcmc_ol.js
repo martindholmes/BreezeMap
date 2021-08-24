@@ -2032,8 +2032,8 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
             catDesc = props.taxonomies[j].categories[k].desc;
             catPos = props.taxonomies[j].categories[k].pos;
             catId = props.taxonomies[j].categories[k].id;
-            catIcon = props.taxonomies[j].categories[k].icon;
-            catIconDim = props.taxonomies[j].categories[k].iconDim;
+            catIcon = (props.taxonomies[j].categories[k].icon) ? props.taxonomies[j].categories[k].icon : null;
+            catIconDim = (props.taxonomies[j].categories[k].iconDim) ? props.taxonomies[j].categories[k].iconDim : null;
             foundCat = foundTax[0].categories.filter(hasName, catName);
             if (foundCat.length < 1){
               foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, icon: catIcon, iconDim: catIconDim, features: []});
@@ -3150,7 +3150,7 @@ hol.VectorLayer.prototype.getCurrFirstCatNum = function(featId){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
-  var thisFeature, featId, i, maxi;
+  var thisFeature, featId, catId, i, maxi;
   try{
     if ((featNum < 0) || (featNum >= this.features.length)){return false;}
 
@@ -3168,6 +3168,10 @@ hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
     if (catNum < 0){
       catNum = this.getCurrFirstCatNum(featId);
     }
+    
+//TODO: We get the catId so that we can retrieve the icon info for the 
+//category if there is a custom icon.
+
 //Now we show or hide the feature.
     this.featureDisplayStatus = hol.NAV_SHOWHIDING_FEATURES;
     if (show === true){
@@ -3641,7 +3645,7 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
 };
 
 /**
- * Function for cloning the currently-selected feature so itss
+ * Function for cloning the currently-selected feature so its
  *                         geometry can be edited.
  *
  * @function hol.VectorLayer.prototype.editSelectedFeature
