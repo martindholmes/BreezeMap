@@ -536,7 +536,7 @@ hol.Util.getUserLocationStyle = function(){
  * @memberof hol.Util
  * @description returns a constructed ol.FeatureStyleFunction
  *                    for features when they are
- *                    selected on the map.
+ *                    rendered normally on the map.
  * @param {number} catNum Index of the category in its array.
  * @returns {function} ol.FeatureStyleFunction
  */

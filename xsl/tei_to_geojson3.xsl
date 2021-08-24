@@ -76,16 +76,7 @@
                           <string key="name"><xsl:value-of select="@n"/></string>
                           <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
                           <array key="categories">
-                            <xsl:for-each select="child::category">
-                              <map>
-                                <string key="id"><xsl:value-of select="@xml:id"/></string>
-                                <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
-                                <xsl:if test="desc">
-                                  <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
-                                </xsl:if>
-                                <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
-                              </map>
-                            </xsl:for-each>
+                            <xsl:apply-templates select="child::category" mode="json"/>
                           </array>
                         </map>
                       </xsl:if>
@@ -176,16 +167,15 @@
                             <number key="pos"><xsl:value-of select="count(preceding-sibling::taxonomy) + 1"/></number>
                             <xsl:variable name="thisTaxCatsForThisFeat" select="child::category[@xml:id=$thisFeatureCategories]"/>
                             <array key="categories">
-                              <xsl:for-each select="$thisTaxCatsForThisFeat">
-                                <map>
+                              <xsl:apply-templates select="$thisTaxCatsForThisFeat" mode="json"/>
+                                <!--<map>
                                   <string key="id"><xsl:value-of select="@xml:id"/></string>
                                   <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
                                   <xsl:if test="desc">
                                     <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
                                   </xsl:if>
                                   <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
-                                </map>
-                              </xsl:for-each>
+                                </map>-->
                             </array>
                           </map>
                         </xsl:for-each>
@@ -209,6 +199,29 @@
       </xsl:result-document>
       
     </xsl:template>
+  
+  
+  <!-- This template handles the conversion of a category into JSON-XML. 
+       It is called multiple times. -->
+  <xsl:template match="category" mode="json">
+    <xsl:variable name="catId" select="@xml:id"/>
+    <map xmlns="http://www.w3.org/2005/xpath-functions">
+      <string key="id"><xsl:value-of select="$catId"/></string>
+      <string key="name"><xsl:value-of select="hcmc:createEscapedXhtml(gloss)"/></string>
+      <xsl:if test="desc">
+        <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
+      </xsl:if>
+      <xsl:variable name="iconGraphic" select="desc/graphic[@xml:id='icon_' || $catId]"/>
+      <xsl:if test="$iconGraphic">
+        <string key="icon"><xsl:value-of select="$iconGraphic/@url"/></string>
+        <array key="iconDim">
+          <number><xsl:sequence select="$iconGraphic/@width/replace(., 'px', '')"/></number>
+          <number><xsl:sequence select="$iconGraphic/@height/replace(., 'px', '')"/></number>
+        </array>
+      </xsl:if>
+      <number key="pos"><xsl:value-of select="count(preceding-sibling::category) + 1"/></number>
+    </map>
+  </xsl:template>
   
 
 <!-- These templates turn TEI elements into XHTML5 elements. Add more here
@@ -245,6 +258,7 @@
     <xsl:template match="lb" mode="xhtml5">
       <xh:br/>
     </xsl:template>
+
 
 
     <!--

@@ -22,11 +22,11 @@
                     </category>
                     <category xml:id="bldgSports">
                         <gloss>Sports facilities</gloss>
-                        <desc>Buildings with gyms, swimming pools and other sports services.</desc>
+                      <desc><graphic xml:id="icon_bldgSports" width="28px" height="29px" url="images/icon_bldgSports.png"/>Buildings with gyms, swimming pools and other sports services.</desc>
                     </category>
                     <category xml:id="bldgFood">
                         <gloss>Food</gloss>
-                        <desc>Buildings with food outlets, cafes, restaurants and so on.</desc>
+                      <desc><graphic xml:id="icon_bldgFood" width="30px" height="30px" url="images/icon_bldgFood.png"/>Buildings with food outlets, cafes, restaurants and so on.</desc>
                     </category>
                     <category xml:id="bldgResearch">
                         <gloss>Research</gloss>
@@ -54,7 +54,7 @@
                 <taxonomy xml:id="transp" n="Transportation">
                     <category xml:id="transpBus">
                         <gloss>Buses</gloss>
-                        <desc><ref target="https://www.uvic.ca/security/parking/campus/transit/index.php">Bus stops</ref></desc>
+                        <desc><graphic xml:id="icon_transpBus" width="58px" height="20px" url="images/icon_transpBus.png"/><ref target="https://www.uvic.ca/security/parking/campus/transit/index.php">Bus stops</ref></desc>
                     </category>
                     <category xml:id="transpWalkBusToUVClub">
                         <gloss>Walk from buses to University Club</gloss>

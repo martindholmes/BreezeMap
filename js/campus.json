@@ -45,12 +45,20 @@
                 
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
-                  "desc" : "Buildings with gyms, swimming pools and other sports services.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
+                  "icon" : "images\/icon_bldgSports.png",
+                  "iconDim" : 
+                  [ 28,
+                    29 ],
                   "pos" : 3 },
                 
                 { "id" : "bldgFood",
                   "name" : "Food",
-                  "desc" : "Buildings with food outlets, cafes, restaurants and so on.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgFood.png\"><img alt=\"images\/icon_bldgFood.png\" src=\"images\/icon_bldgFood.png\"\/><\/a>Buildings with food outlets, cafes, restaurants and so on.",
+                  "icon" : "images\/icon_bldgFood.png",
+                  "iconDim" : 
+                  [ 30,
+                    30 ],
                   "pos" : 4 },
                 
                 { "id" : "bldgResearch",
@@ -90,7 +98,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 },
                 
                 { "id" : "transpWalkBusToUVClub",
@@ -1285,7 +1297,11 @@
               [ 
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
-                  "desc" : "Buildings with gyms, swimming pools and other sports services.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
+                  "icon" : "images\/icon_bldgSports.png",
+                  "iconDim" : 
+                  [ 28,
+                    29 ],
                   "pos" : 3 } ] } ] } },
       
       { "type" : "Feature",
@@ -1696,7 +1712,11 @@
                 
                 { "id" : "bldgFood",
                   "name" : "Food",
-                  "desc" : "Buildings with food outlets, cafes, restaurants and so on.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgFood.png\"><img alt=\"images\/icon_bldgFood.png\" src=\"images\/icon_bldgFood.png\"\/><\/a>Buildings with food outlets, cafes, restaurants and so on.",
+                  "icon" : "images\/icon_bldgFood.png",
+                  "iconDim" : 
+                  [ 30,
+                    30 ],
                   "pos" : 4 } ] } ] } },
       
       { "type" : "Feature",
@@ -1857,7 +1877,11 @@
                 
                 { "id" : "bldgFood",
                   "name" : "Food",
-                  "desc" : "Buildings with food outlets, cafes, restaurants and so on.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgFood.png\"><img alt=\"images\/icon_bldgFood.png\" src=\"images\/icon_bldgFood.png\"\/><\/a>Buildings with food outlets, cafes, restaurants and so on.",
+                  "icon" : "images\/icon_bldgFood.png",
+                  "iconDim" : 
+                  [ 30,
+                    30 ],
                   "pos" : 4 } ] } ] } },
       
       { "type" : "Feature",
@@ -4935,7 +4959,11 @@
               [ 
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
-                  "desc" : "Buildings with gyms, swimming pools and other sports services.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
+                  "icon" : "images\/icon_bldgSports.png",
+                  "iconDim" : 
+                  [ 28,
+                    29 ],
                   "pos" : 3 } ] } ] } },
       
       { "type" : "Feature",
@@ -5803,7 +5831,11 @@
               [ 
                 { "id" : "bldgFood",
                   "name" : "Food",
-                  "desc" : "Buildings with food outlets, cafes, restaurants and so on.",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgFood.png\"><img alt=\"images\/icon_bldgFood.png\" src=\"images\/icon_bldgFood.png\"\/><\/a>Buildings with food outlets, cafes, restaurants and so on.",
+                  "icon" : "images\/icon_bldgFood.png",
+                  "iconDim" : 
+                  [ 30,
+                    30 ],
                   "pos" : 4 } ] } ] } },
       
       { "type" : "Feature",
@@ -6755,7 +6787,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6780,7 +6816,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6805,7 +6845,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6830,7 +6874,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6855,7 +6903,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6880,7 +6932,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6905,7 +6961,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6930,7 +6990,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6955,7 +7019,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -6980,7 +7048,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7005,7 +7077,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7030,7 +7106,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7055,7 +7135,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7080,7 +7164,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7105,7 +7193,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7130,7 +7222,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7155,7 +7251,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7180,7 +7280,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7205,7 +7309,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7230,7 +7338,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
@@ -7255,7 +7367,11 @@
               [ 
                 { "id" : "transpBus",
                   "name" : "Buses",
-                  "desc" : "<a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "desc" : "<a target=\"_blank\" href=\"images\/icon_transpBus.png\"><img alt=\"images\/icon_transpBus.png\" src=\"images\/icon_transpBus.png\"\/><\/a><a href=\"https:\/\/www.uvic.ca\/security\/parking\/campus\/transit\/index.php\">Bus stops<\/a>",
+                  "icon" : "images\/icon_transpBus.png",
+                  "iconDim" : 
+                  [ 58,
+                    20 ],
                   "pos" : 1 } ] } ] } },
       
       { "type" : "Feature",
