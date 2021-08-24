@@ -2036,7 +2036,7 @@ hol.VectorLayer.prototype.readTaxonomies = function(){
             catIconDim = props.taxonomies[j].categories[k].iconDim;
             foundCat = foundTax[0].categories.filter(hasName, catName);
             if (foundCat.length < 1){
-              foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, catIcon, catIconDim, features: []});
+              foundTax[0].categories.push({name: catName, desc: catDesc, pos: catPos, id: catId, icon: catIcon, iconDim: catIconDim, features: []});
               foundCat[0] = foundTax[0].categories[foundTax[0].categories.length-1];
             }
             if (this.features[i].getId() !== 'holMap'){
