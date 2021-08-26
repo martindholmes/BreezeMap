@@ -428,13 +428,14 @@ hol.Util.getSelectedStyle = function(catIcon, catIconDim){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
-    var catNum, catCol, geometry, dx, dy, rotation, midPoint, styles;
+    var catNum, catCol, geometry, dx, dy, rotation, midPoint, styles, offY;
     catNum = feature.getProperties().showingCat;
     catCol = hol.Util.getColorForCategory(catNum);
       
     //Default values for category icon.
     if (catIcon == null){catIcon = 'js/placemark.png';}
     if (catIconDim == null){catIconDim = [20,30];}
+    offY = Math.round(catIconDim[1] / 2) + 4;
     
     styles = 
     [
@@ -458,6 +459,7 @@ hol.Util.getSelectedStyle = function(catIcon, catIconDim){
        }),
        text: new ol.style.Text({
          font: '1em sans-serif',
+         offsetY: offY,
          fill: new ol.style.Fill({color: catCol}),
          stroke: new ol.style.Stroke({color: 'rgba(255, 255, 255, 1)', width: 3}),
          text: feature.getProperties().name

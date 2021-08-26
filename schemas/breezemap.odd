@@ -122,7 +122,56 @@
         <div xml:id="taxCat">
           <head>Taxonomies and categories of places</head>
           
-          <p>...</p>
+          <p>The purpose of BreezeMap is to build a sophisticated menu panel which gives you 
+            access to places on the map and provides additional information about them. 
+            It does this by organizing places into categories. All places may belong to 
+            multiple categories in multiple taxonomies, and these taxonomies and categories
+            are encoded in the TEI file. Here is an example taxonomy:
+          
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <taxonomy xml:id="bldg" n="Buildings">
+              <category xml:id="bldgTeaching">
+                <gloss>Teaching</gloss>
+                <desc>Buildings with classrooms.</desc>
+              </category>
+              <category xml:id="bldgAdmin">
+                <gloss>Administrative</gloss>
+                <desc>Buildings with administrative offices.</desc>
+              </category>
+            </taxonomy>
+          </egXML>
+          
+          This taxonomy has an <att>xml:id</att> attribute, and an <att>n</att>
+            attribute which provides the caption for the taxonomy in the taxonomy 
+            selector of the map page (which only matters if you have multiple 
+            taxonomies). The example shows two categories of buildings. Each category
+          has an <att>xml:id</att>, a child <gi>gloss</gi> element which 
+            will be used to create the caption for the category in the 
+            location browser, and a child <gi>desc</gi>, which provides a longer 
+            description of the category.
+          </p>
+          
+          <p>If you wish to provide a custom icon for point locations in a particular
+          category, you can do that by adding a TEI <gi>graphic</gi> element in the
+          <gi>desc</gi> element, like this:
+          
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <category xml:id="transpBus">
+              <gloss>Buses</gloss>
+              <desc>
+                <graphic xml:id="icon_transpBus" width="58px" height="20px" 
+                url="images/icon_transpBus.png"/>
+                Bus stops
+              </desc>
+            </category>
+          </egXML>
+          
+          The graphic must have an <att>xml:id</att> attribute which consists of 
+            the prefix <code>icon_</code> followed by the <att>xml:id</att> of the
+            category itself. You should provide the width and height of the icon
+            in pixels in the appropriate attributes.
+          </p>
+          
         </div>
         
         <div xml:id="places">
