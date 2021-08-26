@@ -418,21 +418,30 @@ hol.Util.counter = (function(){
  * @description returns default
  *                    style for features when they are
  *                    selected on the map.
+ * @param {string} catIcon Path to the icon for the category
+                           (may be null).
+ * @param {Array}  catIconDim Array of width,height in pixels of the
+ *                            category icon (may be null).
  * @returns {function} Function which returns an Array of ol.style.Style
  */
-hol.Util.getSelectedStyle = function(){
+hol.Util.getSelectedStyle = function(catIcon, catIconDim){
 //We use a closure to get a self-incrementing zIndex.
   var newZ = hol.Util.counter();
   return function(feature, resolution){
     var catNum, catCol, geometry, dx, dy, rotation, midPoint, styles;
     catNum = feature.getProperties().showingCat;
     catCol = hol.Util.getColorForCategory(catNum);
+      
+    //Default values for category icon.
+    if (catIcon == null){catIcon = 'js/placemark.png';}
+    if (catIconDim == null){catIconDim = [20,30];}
+    
     styles = 
     [
       new ol.style.Style({
           image: new ol.style.Icon({
-          src: 'js/placemark.png',
-          imgSize: [20,30],
+          src: catIcon,
+          imgSize: catIconDim,
           anchor: [0.5,1],
           color: 'rgba(255,0,255,1)'
         }),
@@ -538,12 +547,20 @@ hol.Util.getUserLocationStyle = function(){
  *                    for features when they are
  *                    rendered normally on the map.
  * @param {number} catNum Index of the category in its array.
+ * @param {string} catIcon Path to the icon for this category
+                           (may be null).
+ * @param {Array}  catIconDim Array of width,height in pixels of the
+ *                            category icon (may be null).
  * @returns {function} ol.FeatureStyleFunction
  */
-hol.Util.getCategoryStyle = function(catNum){
+hol.Util.getCategoryStyle = function(catNum, catIcon, catIconDim){
   var col, transCol;
   col = hol.Util.getColorForCategory(catNum);
   transCol = hol.Util.getColorWithAlpha(catNum, hol.Util.shapeOpacity);
+  
+  //Default values for category icon.
+  if (catIcon == null){catIcon = 'js/placemark.png';}
+  if (catIconDim == null){catIconDim = [20,30];}
   
   return function(feature, resolution){
     var lineWidth, geomType, geometry, dx, dy, rotation, midPoint;
@@ -566,8 +583,8 @@ hol.Util.getCategoryStyle = function(catNum){
         radius: 10
       }),*/
       image: new ol.style.Icon({
-        src: 'js/placemark.png',
-        imgSize: [20,30],
+        src: catIcon,
+        imgSize: catIconDim,
         anchor: [0.5,1],
         color: col
       }),
@@ -2884,7 +2901,7 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
-    let val = sender.value, i, maxi, featNums = [];
+    let val = sender.value, i, maxi, featNums = [], catId, cat;
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     //console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
@@ -2899,7 +2916,12 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
           this.showHideFeature(true, i, -1);
           let isShowing = (this.features[i].getProperties().showing);
           if ((!wasShowing) && isShowing){
-            this.features[i].setStyle(hol.Util.getSelectedStyle());
+            catNum = currFeat.getProperties().showingCat;
+            if (catNum < 0){
+              catNum = this.getCatNumFromId(currFeat.getProperties().categories[0]);
+            }
+            cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+            this.features[i].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
           }
         }  
         //Otherwise hide it.
@@ -3150,7 +3172,7 @@ hol.VectorLayer.prototype.getCurrFirstCatNum = function(featId){
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
-  var thisFeature, featId, catId, i, maxi;
+  var thisFeature, featId, cat, i, maxi;
   try{
     if ((featNum < 0) || (featNum >= this.features.length)){return false;}
 
@@ -3169,13 +3191,16 @@ hol.VectorLayer.prototype.showHideFeature = function(show, featNum, catNum){
       catNum = this.getCurrFirstCatNum(featId);
     }
     
+ //Retrieve the cat itself.
+    cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+    
 //TODO: We get the catId so that we can retrieve the icon info for the 
 //category if there is a custom icon.
 
 //Now we show or hide the feature.
     this.featureDisplayStatus = hol.NAV_SHOWHIDING_FEATURES;
     if (show === true){
-      thisFeature.setStyle(hol.Util.getCategoryStyle(catNum));
+      thisFeature.setStyle(hol.Util.getCategoryStyle(catNum, cat.icon, cat.iconDim));
       thisFeature.setProperties({"showing": true, "showingCat": catNum});
     }
     else{
@@ -3582,7 +3607,7 @@ hol.VectorLayer.prototype.selectFeatureFromId = function(featId){
  * @returns {number} the index of a feature if one is selected, or -1.
  */
 hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
-  var currFeat, props, ul, showDoc, readMore, targetCat, catLi, featLi, i, imax;
+  var currFeat, props, ul, showDoc, readMore, catNum, cat, catLi, featLi, i, imax;
 //First deselect any existing selection.
   try{
     this.deselectFeature();
@@ -3590,7 +3615,16 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     this.selectedFeature = featNum;
     currFeat = this.features[featNum];
     props = currFeat.getProperties();
-    currFeat.setStyle(hol.Util.getSelectedStyle());
+    
+//First find the appropriate category: either the one it was shown with, or the first
+//in its list.
+    catNum = currFeat.getProperties().showingCat;
+    if (catNum < 0){
+      catNum = this.getCatNumFromId(currFeat.getProperties().categories[0]);
+    }
+    cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+    
+    currFeat.setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
     currFeat.setProperties({"selected": true});
 //Set the title of the popup to the name of the feature.
     this.infoDiv.querySelector('h2').innerHTML = props.name;
@@ -3618,17 +3652,12 @@ hol.VectorLayer.prototype.setSelectedFeature = function(featNum, jumpInNav){
     }
     this.infoDiv.style.display = 'block';
 //Now highlight and if necessary show the appropriate entry in the navigation panel.
-//First find the appropriate category: either the one it was shown with, or the first
-//in its list.
-    targetCat = currFeat.getProperties().showingCat;
-    if (targetCat < 0){
-      targetCat = this.getCatNumFromId(currFeat.getProperties().categories[0]);
-    }
+
 //Next, make sure that category is expanded in the navigation panel.
-    catLi = document.getElementById('catLi_' + targetCat);
+    catLi = document.getElementById('catLi_' + catNum);
     if (!catLi.classList.contains('expanded')){catLi.classList.add('expanded');}
 //Now we have to find the feature item in that category.
-    featLi = catLi.querySelector('li#featLi_' + targetCat + '_' + featNum);
+    featLi = catLi.querySelector('li#featLi_' + catNum + '_' + featNum);
     if (!featLi.classList.contains('selected')){
       featLi.classList.add('selected');
       this.selectedFeatureNav = featLi;
