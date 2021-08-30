@@ -100,7 +100,8 @@ hol.captions['en'].strEditThisFeature    = 'Edit a copy of this feature by click
 hol.captions['en'].strTimeline           = 'Timeline';
 hol.captions['en'].strPlay               = 'Play the timeline.'
 hol.captions['en'].strStopPlay           = 'Stop the timeline playback.'
-
+hol.captions['en'].strStepForward        = 'Step forward in the timeline.'
+hol.captions['en'].strStepBackward       = 'Step backward in the timeline.'
 /**
  * Constants in hol namespace used
  * for tracking the process of complex
@@ -908,6 +909,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
     this.msPlayInterval = 1500;                //Default value for timeline step interval.
     this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
+    this.stepForwardButton = null;             //Will contain a pointer to the timeline step forward control, if one is constructed.
+    this.stepBackButton = null;             //Will contain a pointer to the timeline step back control, if one is constructed.
     this.playImg = null;                       //Will contain a pointer to an SVG image for the button if required.
     
 //Start by creating the toolbar for the page.
@@ -2759,7 +2762,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
       return true;
     }
     //These are the things we need.
-    let i, imax, cont, dl, opt, slider, cbx, play, label, img;
+    let i, imax, cont, dl, opt, slider, cbx, btns, stepB, play, stepF, label, img;
     cont = document.createElement('div');
     cont.classList.add('timeline');
     //Note: No browser currently supports the use of datalist. 
@@ -2786,15 +2789,42 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     label.setAttribute('id', 'lblTimeline');
     label.appendChild(document.createTextNode(this.captions.strTimeline));
     cont.appendChild(label);
+    
+    //Control buttons for playback.
+    btns = document.createElement('span');
+    
+    stepB = document.createElement('button');
+    stepB.setAttribute('id', 'btnPlayTimeline');
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/step-backward-circle.svg');
+    img.setAttribute('title', this.captions.strStepBackward);
+    stepB.appendChild(img);
+    stepB.addEventListener('click', function(){this.timelineStep(-1);}.bind(this));
+    stepB.disabled = true;
+    btns.appendChild(stepB);
+    
     play = document.createElement('button');
     play.setAttribute('id', 'btnPlayTimeline');
-    img = document.createElement('img');
-    img.setAttribute('src', 'images/play-circle.svg');
-    img.setAttribute('title', this.captions.strPlay);
-    play.appendChild(img);
+    this.playImg = document.createElement('img');
+    this.playImg.setAttribute('src', 'images/play-circle.svg');
+    this.playImg.setAttribute('title', this.captions.strPlay);
+    play.appendChild(this.playImg);
     play.addEventListener('click', function(){this.timelinePlay();}.bind(this));
     play.disabled = true;
-    cont.appendChild(play);
+    btns.appendChild(play);
+    
+    stepF = document.createElement('button');
+    stepF.setAttribute('id', 'btnPlayTimeline');
+    img = document.createElement('img');
+    img.setAttribute('src', 'images/step-forward-circle.svg');
+    img.setAttribute('title', this.captions.strStepForward);
+    stepF.appendChild(img);
+    stepF.addEventListener('click', function(){this.timelineStep(1);}.bind(this));
+    stepF.disabled = true;
+    btns.appendChild(stepF);
+    
+    cont.appendChild(btns);
+    
     slider = document.createElement('input');
     slider.setAttribute('type', 'range');
     slider.setAttribute('value', '0');
@@ -2809,8 +2839,9 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     
     document.body.appendChild(cont);
     this.timeline = slider;
+    this.stepBackButton = stepB;
     this.playButton = play;
-    this.playImg = img;
+    this.stepForwardButton = stepF;
     return true;
   }
   catch(e){
@@ -2861,7 +2892,9 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
     this.playImg.setAttribute('title', this.captions.strPlay);
     if (sender.checked){
       this.timeline.disabled = false;
+      this.stepBackButton.disabled = false;
       this.playButton.disabled = false;
+      this.stepForwardButton.disabled = false;
       this.timelineChange(this.timeline);
       this.timeline.parentElement.classList.add('enabled');
       //If pan/zoom is turned off, it makes sense to zoom initially
@@ -2877,7 +2910,9 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
       this.timeline.disabled = true;
       this.timeline.parentElement.classList.remove('enabled');
       document.getElementById('lblTimeline').innerHTML = this.captions.strTimeline;
+      this.stepBackButton.disabled = true;
       this.playButton.disabled = true;
+      this.stepForwardButton.disabled = true;
       this.timeline.value = 0;
     }
     return true;
@@ -2903,8 +2938,12 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
-    let val = sender.value, i, maxi, featNums = [], catId, cat;
+    let val = sender.value, i, maxi, featNums = [], catNum, cat;
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
+    
+    this.stepBackButton.disabled = !(parseInt(sender.value) > this.timeline.min);
+    this.stepForwardButton.disabled = !(parseInt(sender.value) < this.timeline.max);
+    
     //console.log(sender.value);
     let tp = this.timelinePoints[sender.value];
     for (i = 0, maxi = this.features.length; i<maxi; i++){
@@ -2918,9 +2957,9 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
           this.showHideFeature(true, i, -1);
           let isShowing = (this.features[i].getProperties().showing);
           if ((!wasShowing) && isShowing){
-            catNum = currFeat.getProperties().showingCat;
+            catNum = this.features[i].getProperties().showingCat;
             if (catNum < 0){
-              catNum = this.getCatNumFromId(currFeat.getProperties().categories[0]);
+              catNum = this.getCatNumFromId(this.features[i].getProperties().categories[0]);
             }
             cat = this.taxonomies[this.currTaxonomy].categories[catNum];
             this.features[i].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
@@ -3038,6 +3077,23 @@ hol.VectorLayer.prototype.timelinePlay = function(){
     return false;
   }
 }; 
+
+/**
+ * Function for "stepping" the timeline forwards or backwards.
+ *
+ * @function hol.VectorLayer.prototype.timelineStep
+ * @memberof hol.VectorLayer.prototype
+ * @description triggered by the timeline stepback or stepforward
+ *              buttons, this moves the timeline one step.
+ * @param   {Number} step -1 or +1 to move back or forward.          
+ * @returns {Boolean} true (succeeded) or false (failed).
+ */
+hol.VectorLayer.prototype.timelineStep = function(step){
+  //Stop playing if we're playing.
+  if (this.playInterval !== null){this.timelinePlay();}
+  (step < 0)? this.timeline.stepDown() : this.timeline.stepUp();
+  this.timelineChange(this.timeline);
+}
 
 /**
  * Function for retrieving the category index from its string identifier.

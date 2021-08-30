@@ -818,7 +818,7 @@ div.timeline{
   left: 2vw;
   width: 50vw;
   display: grid;
-  grid-template-columns: 3em 1fr;
+  grid-template-columns: 9rem 1fr;
   border: solid 1pt gray;
   padding: 0.55rem;
   background-color: rgba(255,255,255,0.5);
@@ -836,7 +836,7 @@ div.timeline #chkTimeline{
   justify-self: start;
   border: 1px solid rgb(204,204,204);
 }
-div.timeline>button{
+div.timeline button{
   background-color: rgba(245,245,245, .4);
   border: 1px solid rgb(204,204,204);
   border-radius: 3px;
@@ -848,10 +848,10 @@ div.timeline>button{
   justify-self: start;
   padding: 0.2rem;
 }
-div.timeline>button>img, #btnNavSearch>img, div#holToolbar>button>img{
+div.timeline button>img, #btnNavSearch>img, div#holToolbar>button>img{
   width: 1.5rem;
   height: 1.5rem;
 }
-div.timeline > button:disabled > img {
+div.timeline button:disabled > img {
   opacity: 0.4;
 }
