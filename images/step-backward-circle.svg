@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg51"
+   sodipodi:docname="step-backward-circle.svg"
+   inkscape:version="1.1 (1:1.1+202105261517+ce6663b3b7)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs55" />
+  <sodipodi:namedview
+     id="namedview53"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.7597656"
+     inkscape:cx="256"
+     inkscape:cy="250.31743"
+     inkscape:window-width="1920"
+     inkscape:window-height="1110"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg51" />
+  <!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'EB Garamond';-inkscape-font-specification:'EB Garamond';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     x="133.98032"
+     y="235.31517"
+     id="text2756"><tspan
+       sodipodi:role="line"
+       id="tspan2754"
+       x="133.98032"
+       y="235.31517"></tspan></text>
+  <g
+     id="g8458">
+    <path
+       d="M 256,8 C 119,8 8,119 8,256 8,393 119,504 256,504 393,504 504,393 504,256 504,119 393,8 256,8 Z"
+       id="path49" />
+    <path
+       d="M 139.75012,379.08738 V 132.91262 c 0,-3.83197 3.92342,-6.96721 8.71875,-6.96721 h 34.87495 c 4.7953,0 8.71874,3.13524 8.71874,6.96721 V 235.33061 L 334.10539,130.24185 c 14.96718,-9.92828 38.14449,-1.62568 38.14449,14.28278 v 222.95075 c 0,15.90846 -23.17731,24.21105 -38.14449,14.28278 L 192.06256,277.30805 v 101.77933 c 0,3.83198 -3.92344,6.96723 -8.71874,6.96723 h -34.87495 c -4.79533,0 -8.71875,-3.13525 -8.71875,-6.96723 z"
+       id="path217"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.649494" />
+  </g>
+</svg>
