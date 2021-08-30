@@ -3016,7 +3016,7 @@ hol.VectorLayer.prototype.featureMatchesTimelinePoints = function(featNum, tp){
       return false;
     }
     else{
-      console.log('No dateTimes array found.');
+      //console.log('No dateTimes array found.');
       return true;
     }
   }
