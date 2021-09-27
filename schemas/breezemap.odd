@@ -191,6 +191,39 @@
           
           <p>...</p>
         </div>
+        
+        <div xml:id="timeline">
+          <head>Setting up and using a timeline</head>
+          
+          <p>...Basics should be here...</p>
+          
+          <div xml:id="timelineHooking">
+            <head>Hooking the timeline</head>
+            
+            <p>Every time the timeline position changes, it dispatches a CustomEvent called 
+            <ident>timelineChange</ident>. You can hook this event and use it to trigger other
+            changes in the interface to suit your project. This is how you would do that:
+            
+              <code>document.addEventListener('timelineChange', function(e){console.log(e.detail)});</code>
+              
+              Here, the <ident>detail</ident> property contains the timeline point object from the 
+              <ident>holLayer.timelinePoints</ident> array. That object has the following properties
+              you can make use of:
+              
+              <list>
+                <item><label>label</label>: The string label which is shown on the timeline, typically
+                a human-readable version of the timeline point such as <soCalled>2002</soCalled>.</item>
+                <item><label>ssStart</label>: The starting point for this timeline chunk in milliseconds.</item>
+                <item><label>ssEnd</label>: The ending point for this timeline chunk in milliseconds.</item>
+                <item><label>start</label>: The starting point for this timeline chunk in ISO 8601 form.</item>
+                <item><label>end</label>: The ending point for this timeline chunk in ISO 8601 form.</item>
+              </list>
+            </p>
+            
+          </div>
+          
+        </div>
+        
       </div>
       
     </body>

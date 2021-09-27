@@ -2945,7 +2945,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     this.stepForwardButton.disabled = !(parseInt(sender.value) < this.timeline.max);
     
     //console.log(sender.value);
-    let tp = this.timelinePoints[sender.value];
+    let tp = this.timelinePoints[val];
     for (i = 0, maxi = this.features.length; i<maxi; i++){
       //Ignore the base feature.
       if (this.features[i].getId() !== 'holMap'){
@@ -2974,6 +2974,9 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     if (this.timelinePanZoom){
       this.centerOnFeatures(featNums);
     }
+    //Generate a custom event that can be hooked by external code.
+    let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: tp}});
+    document.dispatchEvent(ev);
     
     return true;
   }
