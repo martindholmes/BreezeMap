@@ -6791,7 +6791,8 @@ element person
   &lt;elementRef key="desc" minOccurs="0"
    maxOccurs="1"/&gt;
   &lt;elementRef key="location"/&gt;
-  &lt;elementRef key="note"/&gt;
+  &lt;elementRef key="note" minOccurs="0"
+   maxOccurs="1"/&gt;
  &lt;/sequence&gt;
 &lt;/content&gt;
     </pre>
@@ -6817,7 +6818,7 @@ element place
    attribute xml:id { text },
    attribute corresp { list { + } },
    attribute type { "noMenu" }?,
-   ( <a class="link_ref" href="#TEI.placeName" title="&lt;placeName&gt;">placeName</a>+, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>?, <a class="link_ref" href="#TEI.location" title="&lt;location&gt;">location</a>, <a class="link_ref" href="#TEI.note" title="&lt;note&gt;">note</a> )
+   ( <a class="link_ref" href="#TEI.placeName" title="&lt;placeName&gt;">placeName</a>+, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>, <a class="link_ref" href="#TEI.desc" title="&lt;desc&gt;">desc</a>?, <a class="link_ref" href="#TEI.location" title="&lt;location&gt;">location</a>, <a class="link_ref" href="#TEI.note" title="&lt;note&gt;">note</a>? )
 }</pre>
                               </td>
                            </tr>
@@ -17965,7 +17966,7 @@ teidata.xpath = text</pre>
             <!--
 	  Generated from index.xml using XSLT stylesheets version 7.53.0a
 	       based on http://www.tei-c.org/Stylesheets/
-	       on 2021-09-27T22:11:30Z.
+	       on 2021-09-27T22:16:16Z.
 	       SAXON HE 10.3.
 		 --></address>
          </div>

@@ -412,7 +412,7 @@
                 <elementRef key="desc"/>
                 <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
                 <elementRef key="location"/>
-                <elementRef key="note"/>
+                <elementRef key="note" minOccurs="0" maxOccurs="1"/>
                </sequence>
              </content>
              <attList>
