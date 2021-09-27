@@ -117,7 +117,9 @@
                         <string><xsl:value-of select="@target"/></string>
                       </xsl:for-each>
                     </array>
-                    
+                    <xsl:if test="$thisPlace/child::note">
+                      <string key="note"><xsl:value-of select="hcmc:createEscapedXhtml($thisPlace/note[1])"/></string>
+                    </xsl:if>
                     <!-- Some places may be specified as not to be displayed on the menu of the map. -->
                     <boolean key="showOnMenu"><xsl:value-of select="if (contains-token(@type, 'noMenu')) then 'false' else 'true'"/></boolean>
                     
