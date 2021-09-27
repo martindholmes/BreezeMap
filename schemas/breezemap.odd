@@ -204,7 +204,7 @@
             <ident>timelineChange</ident>. You can hook this event and use it to trigger other
             changes in the interface to suit your project. This is how you would do that:</p>
             
-              <code>document.addEventListener('timelineChange', function(e){console.log(e.detail)});</code>
+              <eg>document.addEventListener('timelineChange', <lb/>function(e){console.log(e.detail)});</eg>
               
               <p>Here, the <ident>detail</ident> property contains the timeline point object from the 
               <ident>holLayer.timelinePoints</ident> array. That object has the following properties
