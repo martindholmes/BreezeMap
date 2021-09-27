@@ -56,19 +56,7 @@
     </xslt>-->
     <buildgeneric type="relaxng" xsl="${teiPlugin}/xml/tei/stylesheet/profiles/tei/html5/to.xsl" in="${basedir}/schemas/breezemap.lite.odd" out="${basedir}/documentation/breezemap.html">
     </buildgeneric>
-<!--   The result from the above transformation is horribly invalid. We do some tweaks
-       by removing the unprocessable doctype, then using XSLT. -->
-    <exec executable="sed">
-      <arg value="-i"/>
-      <arg line="'s/&lt;!DOCTYPE html/&lt;!DOCTYPE html&gt;/g'"/>
-      <arg value="${basedir}/documentation/breezemap.html"/>
-    </exec>
-    <exec executable="sed">
-      <arg value="-i"/>
-      <arg line="'s/SYSTEM .about:legacy-compat.&gt;//g'"/>
-      <arg value="${basedir}/documentation/breezemap.html"/>
-    </exec>
-    
+<!--   The result from the above transformation is horribly invalid. We do some tweaks using XSLT. -->
     
     <xslt force="yes" style="${basedir}/xsl/spiff_up_documentation.xsl" in="${basedir}/documentation/breezemap.html" out="${basedir}/documentation/breezemap.html_temp">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
