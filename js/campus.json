@@ -785,6 +785,7 @@
           "desc" : "...",
           "links" : 
           [ "https:\/\/www.uvic.ca\/home\/about\/campus-info\/maps\/maps\/fra.php" ],
+          "note" : "This is just a note.",
           "showOnMenu" : true,
           "dateTimes" : 
           [ 
