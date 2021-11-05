@@ -843,7 +843,8 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.allowUserTracking = options.allowUserTracking || false;
                                                //Whether a button is provided for users to turn on tracking.
     
-    this.timelinePanZoom = options.timelinePanZoom || true; //Whether or not to pan/zoom to frame current features 
+    this.timelinePanZoom = (options.timelinePanZoom === undefined)? true : options.timelinePanZoom; 
+                                                    //Whether or not to pan/zoom to frame current features 
                                                     //when a timeline step happens.                                          
 
     this.geolocationId = -1;                   //Will hold the id of the position watcher if tracking is turned on.
