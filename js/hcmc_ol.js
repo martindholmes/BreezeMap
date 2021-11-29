@@ -772,9 +772,7 @@ hol.Util.ajaxRetrieve = function(url, responseType) {
 };
 
 /**
- * Function for parsing a URL query string. Pinched with thanks
- * from here:
- * http://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
+ * Function for parsing a URL query string.
  *
  * @function hol.Util.getQueryParam
  * @memberof hol.Util
@@ -784,15 +782,9 @@ hol.Util.ajaxRetrieve = function(url, responseType) {
  * @returns {string} the value of the param, or an empty string.
  */
 hol.Util.getQueryParam = function(param) {
-    var i, vars, pair, query = window.location.search.substring(1);
-    vars = query.split('&');
-    for (i = 0; i < vars.length; i++) {
-        pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == param) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-    return '';
+  let sp = new URLSearchParams(decodeURI(document.location.search));
+  let val = sp.get(param);
+  return val ? val.trim() : ''; 
 };
 
 
