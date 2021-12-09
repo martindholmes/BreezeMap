@@ -820,6 +820,9 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
                                                 //If multiple taxonomies are being used, and this is true, then 
                                                 //generate an additional taxonomy which combines everything. If 
                                                 //you combine this with drawing, though, things get messy.
+    this.initialTaxonomyId = options.initialTaxonomyId || ''; //Either the id of a taxonomy, or the value 'holAllTaxonomies'
+                                                //for the allFeaturesTaxonomy.
+
 
     this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
     this.collator = new Intl.Collator(this.pageLang);
@@ -1738,7 +1741,8 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
 //Start by setting default value; if there are no taxonomies,
 //then -1; else the first one in the list.
           this.currTaxonomy = 0;
-          showTax = hol.Util.getQueryParam('taxonomy');
+          showTax = (this.initialTaxonomyId == '')? hol.Util.getQueryParam('taxonomy') : this.initialTaxonomyId;
+          //showTax = hol.Util.getQueryParam('taxonomy');
           if (showTax.length > 0){
 //It may be a name or an index number.
             showTaxInt = parseInt(showTax);
@@ -1746,9 +1750,14 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
               this.currTaxonomy = showTaxInt;
             }
             else{
-              for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
-                if (this.taxonomies[i].name === showTax){
-                  this.currTaxonomy = i;
+              if (showTax == 'holTaxonomyAll'){
+                this.currTaxonomy = this.taxonomies.length - 1;
+              }
+              else{
+                for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
+                  if (this.taxonomies[i].id === showTax){
+                    this.currTaxonomy = i;
+                  }
                 }
               }
             }
