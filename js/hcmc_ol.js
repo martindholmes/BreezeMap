@@ -1750,7 +1750,7 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
               this.currTaxonomy = showTaxInt;
             }
             else{
-              if (showTax == 'holTaxonomyAll'){
+              if ((showTax == 'holTaxonomyAll') && (this.allFeaturesTaxonomy)){
                 this.currTaxonomy = this.taxonomies.length - 1;
               }
               else{

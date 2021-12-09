@@ -188,8 +188,35 @@
         
         <div xml:id="options">
           <head>Options you can pass to the map in JavaScript</head>
+          <p>Here's an example of initializing the map in JS:</p>
           
-          <p>...</p>
+          <eg>holLayer = new hol.VectorLayer(map, featureJSONFile, {<lb/>
+            allowDrawing: true,<lb/>
+            allowUserTracking: true,<lb/>
+            allFeaturesTaxonomy: true,<lb/>
+            timelinePanZoom: false,<lb/>
+            initialTaxonomyId: 'holTaxonomyAll'<lb/>
+            });</eg>
+          
+          <p>Among the initialization parameters you can set are:</p>
+          
+          <list>
+            <item><ident>allowDrawing</ident>: A boolean specifying whether drawing tools
+            should be provided to allow users to create their own shapes on the map.</item>
+            <item><ident>allowUserTracking</ident>: A boolean which if true provides a control for the 
+            user to turn on tracking of their own location on the map (which of course depends upon the 
+            user's device having GIS capabilities, and their being in the map location area).</item>
+            <item><ident>allFeaturesTaxonomy</ident>: A boolean that if true causes the automatic 
+            construction of a <soCalled>taxonomy</soCalled> which includes all the features from 
+            all the other taxonomies, as a final option in the taxonomy selector.</item>
+            <item><ident>initialTaxonomyId</ident>: a string value which consists of the xml:id of 
+            one of the <gi>taxonomy</gi> elements in the XML, specifying that the map should 
+            initially display that taxonomy. If set to the special value <val>holTaxonomyAll</val>, 
+              and combined with <ident>allFeaturesTaxonomy</ident>, then the constructed taxonomy
+              containing all features will be displayed when the map loads.
+            </item>
+          </list>
+          
         </div>
         
         <div xml:id="timeline">
