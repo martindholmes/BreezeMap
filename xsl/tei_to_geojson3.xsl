@@ -228,7 +228,7 @@
 
 <!-- These templates turn TEI elements into XHTML5 elements. Add more here
      to handle more complex TEI.  -->
-    <xsl:template match="p" mode="xhtml5">
+    <xsl:template match="p | desc/desc" mode="xhtml5">
       <xh:div class="p"><xsl:apply-templates mode="#current"/></xh:div>
     </xsl:template>
     
