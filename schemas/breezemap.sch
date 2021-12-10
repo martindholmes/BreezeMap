@@ -53,7 +53,7 @@
   </pattern>-->
   
   <pattern>
-    <rule context="tei:desc[preceding-sibling::tei:desc]">
+    <rule context="tei:place/tei:desc[preceding-sibling::tei:desc]">
       <assert test="child::tei:list and count(child::*) = 1">
         The second desc element in a place must have only a 
         list of pointers (links) in it. If you need complex 

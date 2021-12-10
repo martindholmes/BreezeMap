@@ -460,10 +460,12 @@
            
            <elementSpec ident="desc" mode="change">
              <content>
-               <alternate>
+               <alternate minOccurs="1" maxOccurs="unbounded">
+                 <textNode/>
                  <macroRef key="macro.phraseSeq"/>
                  <elementRef key="list" maxOccurs="1"/>
                  <elementRef key="p" minOccurs="0" maxOccurs="unbounded"/>
+                 <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
                </alternate>
              </content>
            </elementSpec>

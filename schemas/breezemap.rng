@@ -5,7 +5,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2021-12-09T20:05:07Z. .
+Schema generated from ODD source 2021-12-10T00:06:39Z. .
 TEI Edition: Version 4.3.0. Last updated on
         31st August 2021, revision b4f72b1ff
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 4.3.0/
@@ -1614,13 +1614,19 @@ Suggested values include: 1] spoken (spoken); 2] thought (thought); 3] written (
    <define name="desc">
       <element name="desc">
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(description) contains a short description of the purpose, function, or use of its parent element, or when the parent is a documentation element, describes or defines the object being documented.  [22.4.1. Description of Components]</a:documentation>
-         <choice>
-            <ref name="macro.phraseSeq"/>
-            <ref name="list"/>
-            <zeroOrMore>
-               <ref name="p"/>
-            </zeroOrMore>
-         </choice>
+         <oneOrMore>
+            <choice>
+               <text/>
+               <ref name="macro.phraseSeq"/>
+               <ref name="list"/>
+               <zeroOrMore>
+                  <ref name="p"/>
+               </zeroOrMore>
+               <zeroOrMore>
+                  <ref name="desc"/>
+               </zeroOrMore>
+            </choice>
+         </oneOrMore>
          <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
                   id="breezemap-desc-deprecationInfo-only-in-deprecated-constraint-rule-7">
             <sch:rule xmlns="http://www.tei-c.org/ns/1.0"
