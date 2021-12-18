@@ -262,6 +262,7 @@
            <moduleRef key="textstructure" include="TEI body div text"/>
            <moduleRef key="tei"/>
            <moduleRef key="namesdates" include="district forename geo listOrg listPerson listPlace location org orgName persName person place placeName region settlement surname terrain"/>
+           <moduleRef key="msdescription" include="objectType"/>
            
            <classRef key="att.global.linking"/>
            

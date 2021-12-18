@@ -22,11 +22,11 @@
                     </category>
                     <category xml:id="bldgSports">
                         <gloss>Sports facilities</gloss>
-                      <desc><graphic xml:id="icon_bldgSports" width="28px" height="29px" url="images/icon_bldgSports.png"/>Buildings with gyms, swimming pools and other sports services.</desc>
+                      <desc><objectType><objectType><graphic xml:id="icon_bldgSports" width="28px" height="29px" url="images/icon_bldgSports.png"/></objectType></objectType>Buildings with gyms, swimming pools and other sports services.</desc>
                     </category>
                     <category xml:id="bldgFood">
                         <gloss>Food</gloss>
-                      <desc><graphic xml:id="icon_bldgFood" width="30px" height="30px" url="images/icon_bldgFood.png"/>Buildings with food outlets, cafes, restaurants and so on.</desc>
+                      <desc><objectType><graphic xml:id="icon_bldgFood" width="30px" height="30px" url="images/icon_bldgFood.png"/></objectType>Buildings with food outlets, cafes, restaurants and so on.</desc>
                     </category>
                     <category xml:id="bldgResearch">
                         <gloss>Research</gloss>
@@ -54,7 +54,7 @@
                 <taxonomy xml:id="transp" n="Transportation">
                     <category xml:id="transpBus">
                         <gloss>Buses</gloss>
-                        <desc><graphic xml:id="icon_transpBus" width="58px" height="20px" url="images/icon_transpBus.png"/><ref target="https://www.uvic.ca/security/parking/campus/transit/index.php">Bus stops</ref></desc>
+                        <desc><objectType><graphic xml:id="icon_transpBus" width="58px" height="20px" url="images/icon_transpBus.png"/></objectType><ref target="https://www.uvic.ca/security/parking/campus/transit/index.php">Bus stops</ref></desc>
                     </category>
                     <category xml:id="transpWalkBusToUVClub">
                         <gloss>Walk from buses to University Club</gloss>
@@ -226,7 +226,7 @@
                     </place>
                     <place xml:id="bldgFirstPeople" corresp="#bldgTeaching #bldgAdmin">
                         <placeName>First Peoples House</placeName>
-                        <desc><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/>
+                        <desc><objectType><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/></objectType>
                         </desc>
                         <desc>                            
                             <list>
@@ -242,7 +242,7 @@
                     </place>
                     <place xml:id="wayFirstPeople" corresp="#transpWalkBusToUVClub">
                         <placeName>Waypoint H: First Peoples House</placeName>
-                        <desc><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/></desc>
+                        <desc><objectType><graphic url="https://burntembers.files.wordpress.com/2013/03/img_1773.jpg"/></objectType></desc>
                         <desc>                            
                             <list>
                                 <item>
@@ -676,7 +676,7 @@
                     </place>
                     <place xml:id="bldgUniversityClub" corresp="#bldgFood">
                         <placeName>University Club</placeName>
-                        <desc><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></desc>
+                        <desc><objectType><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></objectType></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>
@@ -688,7 +688,7 @@
                     </place>
                     <place xml:id="wayUniversityClub" corresp="#transpWalkBusToUVClub">
                         <placeName>Waypoint K: University Club</placeName>
-                        <desc><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></desc>
+                        <desc><objectType><graphic url="https://www.uvic.ca/assets2012/images/photos/main/campus-info-maps-maps/main-blg-ucl.jpg"/></objectType></desc>
                         <desc>
                             <list>
                                 <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/ucl.php"/></item>
@@ -715,7 +715,7 @@
                     <place corresp="#bldgAdmin" xml:id="bldgSvc">
                         <placeName>UVic Services Building</placeName>
                         <desc>The UVic Services Building houses the UVic Bookstore, Finnerty Express Cafe, and several administrative services.
-                            <graphic url="https://c1.staticflickr.com/1/15/68453372_c9536a3fb3.jpg"/>
+                            <objectType><graphic url="https://c1.staticflickr.com/1/15/68453372_c9536a3fb3.jpg"/></objectType>
                         </desc>
                         <desc>
                             <list>
@@ -786,7 +786,7 @@
                     </place>
                     <place corresp="#bldgAdmin" xml:id="bldgStudentUnion">
                         <placeName>Student Union Building</placeName>
-                        <desc><graphic url="./images/subBld.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/subBld.jpg"/></objectType></desc>
                         <desc>
                             <list>
                                 <item>
@@ -800,7 +800,7 @@
                     </place>
                     <place corresp="#transpWalkBusToUVClub #transpWalkBusToClearihue" xml:id="wayStudentUnion">
                         <placeName>Waypoint D: Student Union Building</placeName>
-                        <desc><graphic url="./images/subBld.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/subBld.jpg"/></objectType></desc>
                         <desc>
                             <list>
                                 <item>
@@ -1128,56 +1128,56 @@
                     </place>-->
                     <place corresp="#transpWalkBusToUVClub" xml:id="wayPetchFountain">
                         <placeName>Waypoint G: Howard Petch Fountain</placeName>
-                        <desc><graphic url="https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg"/></desc>
+                        <desc><objectType><graphic url="https://www.uvic.ca/financialplanning/assets/images/photos/SnagWaterfall.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.310555,48.463565]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToClearihue #transpWalkBusToUVClub" xml:id="wayFriendPole">
                         <placeName>Waypoint C: Empowerment totem pole</placeName>
-                        <desc>Contemporary Coast Salish housepost<graphic url="./images/totem.jpg"/></desc>
+                        <desc>Contemporary Coast Salish housepost<objectType><graphic url="./images/totem.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.309012,48.465366]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToClearihue #transpWalkBusToUVClub" xml:id="wayRainbowXing">
                         <placeName>Waypoint E: Rainbow Crossing</placeName>
-                        <desc>A distinctive crosswalk, painted in rainbow colours.<graphic url="https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg"/></desc>
+                        <desc>A distinctive crosswalk, painted in rainbow colours.<objectType><graphic url="https://www.uvic.ca/imagecache/ae19482bba7ba35a647b1ac2e5330d3f_full.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.308977,48.46487]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToClearihue #transpWalkBusToUVClub" xml:id="wayClockTower">
                         <placeName>Waypoint F: Clearihue clock tower</placeName>
-                        <desc>A highly visible landmark, but do not rely on its time-keeping abililty.<graphic url="https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg"/></desc>
+                        <desc>A highly visible landmark, but do not rely on its time-keeping abililty.<objectType><graphic url="https://farm6.static.flickr.com/5268/5647853031_0cce8da5f6_b.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.309661,48.464081]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToUVClub" xml:id="wayPathToUClub">
                         <placeName>Waypoint J: forest path to University Club - entrance</placeName>
-                        <desc><graphic url="./images/pathDownToUClub.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/pathDownToUClub.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.316276,48.463895]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToUVClub #transpWalkBusToClearihue" xml:id="wayBusToSUB">
                         <placeName>Waypoint A: bus terminal to SUB</placeName>
-                        <desc><graphic url="./images/subBusTerminal.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/subBusTerminal.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.309273,48.466244]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToUVClub #transpWalkBusToClearihue" xml:id="wayPathFromSUB">
                         <placeName>Waypoint B: path beside SUB</placeName>
-                        <desc><graphic url="./images/pathBySub.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/pathBySub.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.308957,48.46576]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpWalkBusToUVClub" xml:id="wayPathDivergeAtSedge">
                         <placeName>Waypoint I: path toward University Club</placeName>
-                        <desc><graphic url="./images/pathForkToUClub.jpg"/></desc>
+                        <desc><objectType><graphic url="./images/pathForkToUClub.jpg"/></objectType></desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.314854,48.463514]}</geo>
                         </location>

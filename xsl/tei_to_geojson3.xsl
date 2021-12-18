@@ -213,7 +213,7 @@
       <xsl:if test="desc">
         <string key="desc"><xsl:value-of select="hcmc:createEscapedXhtml(desc)"/></string>
       </xsl:if>
-      <xsl:variable name="iconGraphic" select="desc/graphic[@xml:id='icon_' || $catId]"/>
+      <xsl:variable name="iconGraphic" select="desc/objectType/graphic[@xml:id='icon_' || $catId]"/>
       <xsl:if test="$iconGraphic">
         <string key="icon"><xsl:value-of select="$iconGraphic/@url"/></string>
         <array key="iconDim">
