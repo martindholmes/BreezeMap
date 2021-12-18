@@ -46,10 +46,6 @@
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
                   "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
-                  "icon" : "images\/icon_bldgSports.png",
-                  "iconDim" : 
-                  [ 28,
-                    29 ],
                   "pos" : 3 },
                 
                 { "id" : "bldgFood",
@@ -1298,10 +1294,6 @@
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
                   "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
-                  "icon" : "images\/icon_bldgSports.png",
-                  "iconDim" : 
-                  [ 28,
-                    29 ],
                   "pos" : 3 } ] } ] } },
       
       { "type" : "Feature",
@@ -4960,10 +4952,6 @@
                 { "id" : "bldgSports",
                   "name" : "Sports facilities",
                   "desc" : "<a target=\"_blank\" href=\"images\/icon_bldgSports.png\"><img alt=\"images\/icon_bldgSports.png\" src=\"images\/icon_bldgSports.png\"\/><\/a>Buildings with gyms, swimming pools and other sports services.",
-                  "icon" : "images\/icon_bldgSports.png",
-                  "iconDim" : 
-                  [ 28,
-                    29 ],
                   "pos" : 3 } ] } ] } },
       
       { "type" : "Feature",

@@ -152,15 +152,17 @@
           </p>
           
           <p>If you wish to provide a custom icon for point locations in a particular
-          category, you can do that by adding a TEI <gi>graphic</gi> element in the
+          category, you can do that by adding a TEI <gi>objectDesc</gi> element 
+            containing a <gi>graphic</gi> element in the
           <gi>desc</gi> element, like this:
           
           <egXML xmlns="http://www.tei-c.org/ns/Examples">
             <category xml:id="transpBus">
               <gloss>Buses</gloss>
               <desc>
-                <graphic xml:id="icon_transpBus" width="58px" height="20px" 
-                url="images/icon_transpBus.png"/>
+                <objectDesc><graphic xml:id="icon_transpBus" 
+                  width="58px" height="20px" 
+                  url="images/icon_transpBus.png"/></objectDesc>
                 Bus stops
               </desc>
             </category>
