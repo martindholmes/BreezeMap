@@ -179,13 +179,50 @@
         <div xml:id="places">
           <head>Places (features)</head>
           
-          <p>...</p>
-        </div>
-        
-        <div xml:id="locations">
-          <head>Locations and geo-data</head>
+          <p>Each location (or feature, in OpenLayers/GeoJSON terms) is represented
+          in the TEI XML by a <gi>place</gi> element. Here is an example:
           
-          <p>...</p>
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <place xml:id="greaterVictoria" corresp="#victoria">
+              <placeName>Greater Victoria</placeName>
+              <desc>The Greater Victoria area, BC</desc>
+              <location type="GeoJSON">
+                <geo>"geometry":
+            {"type":"Polygon",
+             "coordinates":[[[-123.581772,48.707275],
+                             [-123.581772,48.373584],
+                             [-123.253555,48.373584],
+                             [-123.253555,48.707275],
+                             [-123.581772,48.707275]]]}</geo>
+              </location>
+            </place>
+          </egXML>
+          
+          The first point to note is that the <gi>place</gi> element
+            has a unique <att>xml:id</att> attribute. It also has a
+            <att>corresp</att> attribute, which points to the 
+            <att>xml:id</att> of a <gi>category</gi> element in the
+            header. This specifies that the place <soCalled>Greater
+            Victoria</soCalled> is a member of the <val>victoria</val>
+            category. The <att>corresp</att> attribute accepts any 
+            number of space-separated values, so a place can be a member 
+            of multiple categories.</p>
+          
+          <p>Next is the <gi>placeName</gi> element, which contains the name of
+          the place as it will be shown on the map, and on the feature 
+          panel. Following that is the <gi>desc</gi> element, which contains
+          a brief description, which will be shown in the popup on the map
+          which appears when the place is selected or clicked on. The <gi>desc</gi>
+          element may contain other TEI markup including <gi>ref</gi> elements for
+          links etc., but only a small subset of elements is supported by the 
+          XSLT. Look at the example files in the <ident>testdata</ident> folder
+          to see what kind of markup you can use.</p>
+          <p>Finally, the location is specified in GeoJSON. You can generate
+          this GeoJSON code in any way that suits you, but you can also create a
+          map with or without places, then turn on the 
+            <ref target="#drawingTools">drawing tools</ref> to
+          draw the location for yourself, then copy the GeoJSON code back
+          into the TEI file.</p>
         </div>
         
         <div xml:id="options">
@@ -253,6 +290,11 @@
           
         </div>
         
+        <div xml:id="drawingTools">
+          <head>Drawing tools</head>
+          
+          <p>...</p>
+        </div>
       </div>
       
     </body>
