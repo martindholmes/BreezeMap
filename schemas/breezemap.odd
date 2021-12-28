@@ -261,7 +261,60 @@
         <div xml:id="timeline">
           <head>Setting up and using a timeline</head>
           
-          <p>...Basics should be here...</p>
+          <p>If the features appearing on your map have points or periods in time associated
+          with them, then you might want to provide the user with a timeline control, so that
+          they can display features based on specific points in time or <soCalled>play</soCalled>
+          the history of your map and see features appear and disappear as time elapses.</p>
+          
+          <p>The first requirement to set up a timeline is to associate points or periods in 
+          time with the features in your XML code. This is done by providing an empty TEI
+          <gi>date</gi> element inside a <gi>desc</gi> element in the <gi>location</gi>
+            element for each feature, using the 
+            attributes <att>from-iso</att>,<att>to-iso</att>, and <att>when-iso</att> and  to
+          specify the starting time and ending time (if any) or the point in time
+          when a feature should appear as the timeline proceeds. The values of these 
+          attributes are ISO datetime values, as specified in 
+            <ref target="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ref>, although
+          only simple dates and times are supported. Here is an example taken from the 
+          example campus map:
+          
+          <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <place xml:id="bldgUniversityCentre" corresp="#bldgAdmin #bldgFood">
+              <placeName>University Centre</placeName>
+              <desc>The University's central administrative building, containing 
+                the Senate Chambers along with food services and the Farquhar Auditorium.</desc>
+              <desc>
+                <list>
+                  <item><ptr target="https://www.uvic.ca/home/about/campus-info/maps/maps/uvc.php"/></item>
+                </list>
+              </desc>
+              <location type="GeoJSON">
+                <desc><date from-iso="1978" to-iso="2020-10-12"/></desc> 
+                <geo><!--...--></geo>
+              </location>
+            </place>
+          </egXML>
+          
+          This specifies that the University Centre building existed from 1978 until December 12 2020
+          (at which point it was renamed, so it became a different <soCalled>place</soCalled>). 
+            When the timeline is enabled and played or dragged manually, this feature will appear
+            in 1978, and then disappear again in December 2020.
+          </p>
+          
+          <p>As you can see from the example, dates and times may be more or less granular; the 
+          <att>from-iso</att> value is a simple year, whereas the <att>to-iso</att> value is
+          a specific day. The granularity of the timeline itself—in other words, the number
+          of points on it and the spacing of those points—depends on two things: 
+          
+          <list rend="numbered">
+            <item>the range of time covered by the features on your map (from the earliest to the latest)</item>
+            <item>the maximum number of points allowed on the timeline, which defaults to 100,
+            but which can be overridden at build time (see future documentation).</item>
+          </list>
+            
+            The build process determines an optimum granularity for the timeline based on 
+            these two values, and creates a sequence of points on the timeline.
+          </p>
           
           <div xml:id="timelineHooking">
             <head>Hooking the timeline</head>

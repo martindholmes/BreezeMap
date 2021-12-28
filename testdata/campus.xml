@@ -255,7 +255,7 @@
                         </location>
                     </place>
                   <place xml:id="bldgUniversityCentre" corresp="#bldgAdmin #bldgFood">
-                    <placeName>University Centre Centre</placeName>
+                    <placeName>University Centre</placeName>
                     <desc>The University's central administrative building, containing 
                       the Senate Chambers along with food services and the Farquhar Auditorium.</desc>
                     <desc>
