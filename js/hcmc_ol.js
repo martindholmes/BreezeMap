@@ -2977,7 +2977,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       this.centerOnFeatures(featNums);
     }
     //Generate a custom event that can be hooked by external code.
-    let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: tp}});
+    let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: tp, playing: (this.playInterval !== null)}});
     document.dispatchEvent(ev);
     
     return true;
