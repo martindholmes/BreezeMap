@@ -153,8 +153,13 @@
   <target name="createTestSite">
     <echo message="${echo.separator}"/>
     <echo message="Creating test site."/>
-    <delete dir="${proj.dir}/testsite"/>
     <mkdir dir="${proj.dir}/testsite"/>
+    <delete includeemptydirs="true">
+      <fileset dir="${proj.dir}/testsite">
+        <include name="*"/>
+        <include name="**/*"/>
+      </fileset>
+    </delete>
     <mkdir dir="${proj.dir}/testsite/js"/>
     <copy todir="${proj.dir}/testsite">
       <fileset dir="${proj.dir}" includes="fonts/*.*"/>

@@ -3060,7 +3060,8 @@ hol.VectorLayer.prototype.timelinePlay = function(){
   //Otherwise, we start playing.
     this.playImg.setAttribute('src', 'images/stop-circle.svg');
     this.playImg.setAttribute('title', this.captions.strStopPlay);
-
+    this.timelineChange(this.timeline);
+    
     this.playInterval = setInterval(function(){
       if (parseInt(this.timeline.value) < parseInt(this.timeline.max)){
         this.timeline.stepUp();
