@@ -823,7 +823,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.initialTaxonomyId = options.initialTaxonomyId || ''; //Either the id of a taxonomy, or the value 'holAllTaxonomies'
                                                 //for the allFeaturesTaxonomy.
 
-
+    this.playInterval = options.playInterval || 1500;
     this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
     this.collator = new Intl.Collator(this.pageLang);
         
@@ -2952,7 +2952,6 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       //Ignore the base feature.
       if (this.features[i].getId() !== 'holMap'){
         //Check whether it's in range; if so, show it.
-        let p = this.features[i].getProperties();
         if (this.featureMatchesTimelinePoints(i, tp)){
           featNums.push(i);
           let wasShowing = (this.features[i].getProperties().showing);
