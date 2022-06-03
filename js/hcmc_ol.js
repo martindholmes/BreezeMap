@@ -2796,7 +2796,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     btns = document.createElement('span');
     
     stepB = document.createElement('button');
-    stepB.setAttribute('id', 'btnPlayTimeline');
+    stepB.setAttribute('id', 'btnStepBTimeline');
     img = document.createElement('img');
     img.setAttribute('src', 'images/step-backward-circle.svg');
     img.setAttribute('title', this.captions.strStepBackward);
@@ -2816,7 +2816,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     btns.appendChild(play);
     
     stepF = document.createElement('button');
-    stepF.setAttribute('id', 'btnPlayTimeline');
+    stepF.setAttribute('id', 'btnStepFTimeline');
     img = document.createElement('img');
     img.setAttribute('src', 'images/step-forward-circle.svg');
     img.setAttribute('title', this.captions.strStepForward);
