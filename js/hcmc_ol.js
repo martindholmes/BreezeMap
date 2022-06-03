@@ -823,7 +823,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.initialTaxonomyId = options.initialTaxonomyId || ''; //Either the id of a taxonomy, or the value 'holAllTaxonomies'
                                                 //for the allFeaturesTaxonomy.
 
-    this.playInterval = options.playInterval || 1500;
+    this.msPlayInterval = (options.msPlayInterval === undefined)? 1500 : options.msPlayInterval;
     this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
     this.collator = new Intl.Collator(this.pageLang);
         
@@ -903,7 +903,6 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
     this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
-    this.msPlayInterval = 1500;                //Default value for timeline step interval.
     this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
     this.stepForwardButton = null;             //Will contain a pointer to the timeline step forward control, if one is constructed.
     this.stepBackButton = null;             //Will contain a pointer to the timeline step back control, if one is constructed.
