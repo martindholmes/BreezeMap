@@ -3060,8 +3060,7 @@ hol.VectorLayer.prototype.timelinePlay = function(){
   //Otherwise, we start playing.
     this.playImg.setAttribute('src', 'images/stop-circle.svg');
     this.playImg.setAttribute('title', this.captions.strStopPlay);
-    this.timelineChange(this.timeline);
-    
+
     this.playInterval = setInterval(function(){
       if (parseInt(this.timeline.value) < parseInt(this.timeline.max)){
         this.timeline.stepUp();
@@ -3074,6 +3073,7 @@ hol.VectorLayer.prototype.timelinePlay = function(){
         this.playImg.setAttribute('title', this.captions.strPlay);
       }
     }.bind(this), this.msPlayInterval);
+    this.timelineChange(this.timeline);
     return true;
   }
   catch(e){
