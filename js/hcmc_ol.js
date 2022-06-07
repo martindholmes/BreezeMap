@@ -3054,6 +3054,9 @@ hol.VectorLayer.prototype.timelinePlay = function(){
           this.showHideFeature(true, i, -1);
         }
       }
+      //Generate a custom event that can be hooked by external code.
+      let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: this.timelinePoints[this.timeline.value], playing: false}});
+      document.dispatchEvent(ev);
       return true;
     }
 
