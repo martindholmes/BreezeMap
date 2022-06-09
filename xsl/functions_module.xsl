@@ -274,6 +274,23 @@
   </xsl:function>
   
   <xd:doc>
+    <xd:desc><xd:ref type="function" name="hcmc:getFeatureIdsForTimelinePoint">hcmc:getFeatureIdsForTimelinePoint</xd:ref>
+    is passed a timeline point and retrieves the ids of all features which have a dateTime range which overlaps with
+    the point. This is used to construct a richer timeline structure which obviates the need to check through all 
+    features in the JavaScript to look for time matches every time the timeline moves.</xd:desc>
+    <xd:param name="timelinePoint" as="xs:string">A timeline point in the form of a slash-delimited range.</xd:param>
+    <xd:param name="places" as="element(place)*">A sequence of zero or more TEI place elements which may or may not 
+    have timing information in the form of date elements in its location/desc.</xd:param>
+    <xd:return>A sequence of feature ids.</xd:return>
+  </xd:doc>
+  <xsl:function name="hcmc:getFeatureIdsForTimelinePoint" as="xs:string*">
+    <xsl:param name="timelinePoint" as="xs:string"/>
+    <xsl:param name="places" as="element(place)*"/>
+    
+    
+  </xsl:function>
+  
+  <xd:doc>
     <xd:desc><xd:ref type="function" name="hcmc:expandDateTime" as="xs:string*">hcmc:expandDateTime</xd:ref>
       receives a date or datetime string and expands it to a complete datetime
     which can be converted into an xs:dateTime, then returns the xs:dateTime.
