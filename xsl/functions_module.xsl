@@ -168,7 +168,6 @@
     <xsl:variable name="strStartFull" as="xs:string" select="format-dateTime($dStart, $dtPictureString)"/>
 
     <!-- Now figure out the optimum unit to use. We'll assume hours are the minimum. -->
-    <!-- TODO: CONTINUE THIS. -->
     <xsl:choose>
       <xsl:when test="($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) lt $maxPointCount and ($dtRangeDayTime div (xs:dayTimeDuration('P0DT1H'))) gt 0">
         <!--<xsl:sequence select="'hours'"/>-->

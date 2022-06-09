@@ -195,14 +195,14 @@
   </x:scenario>
   
   <x:scenario label="Scenarios for testing hcmc:getFeatureIdsForTimelinePoint">
-    <x:scenario label="Simple case: completely contained range.">
+    <x:scenario label="Simple case: three places with only one range each.">
       <x:call function="hcmc:getFeatureIdsForTimelinePoint">
         <x:param name="timelinePoint" select="'1961-01-01T00:00:00/1961-12-31T23:59:59/1961'"/>
         <x:param name="places">
           <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p1">
             <location>
               <desc>
-                <date from-iso="1961-02" to-iso="1961-04"></date>
+                <date from-iso="1959" to-iso="1961-04"></date>
               </desc>
             </location>
           </place>
@@ -216,6 +216,38 @@
           <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p3">
             <location>
               <desc>
+                <date from-iso="1962-06" to-iso="1962-08"></date>
+              </desc>
+            </location>
+          </place>
+        </x:param>
+      </x:call>
+      <x:expect label="Ids p1 and p2" select="('p1', 'p2')"/>
+    </x:scenario>
+    <x:scenario label="More complex case: three places with two ranges each, where the second matches.">
+      <x:call function="hcmc:getFeatureIdsForTimelinePoint">
+        <x:param name="timelinePoint" select="'1961-01-01T00:00:00/1961-12-31T23:59:59/1961'"/>
+        <x:param name="places">
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p1">
+            <location>
+              <desc>
+                <date from-iso="1959" to-iso="1961-04"></date>
+                <date from-iso="1963-01-02" to-iso="1965"></date>
+              </desc>
+            </location>
+          </place>
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p2">
+            <location>
+              <desc>
+                <date from-iso="1958-01-02" to-iso="1960-12-31T23:59:59"></date>
+                <date from-iso="1961-06" to-iso="1962-04"></date>
+              </desc>
+            </location>
+          </place>
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p3">
+            <location>
+              <desc>
+                <date from-iso="1958-01-02" to-iso="1960-12-31T23:59:59"></date>
                 <date from-iso="1962-06" to-iso="1962-08"></date>
               </desc>
             </location>
