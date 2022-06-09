@@ -96,6 +96,22 @@
                           <string><xsl:sequence select="."/></string>
                         </xsl:for-each>
                       </array>
+                      
+                      <!-- This is a richer alternative to the above, providing a list of 
+                           the feature ids which should be showing for each timeline point. -->
+                      <array key="richTimelinePoints">
+                        <xsl:for-each select="$timelinePoints">
+                          <map>
+                            <string key="tp"><xsl:sequence select="."/></string>
+                            <array key="featIds">
+                              <xsl:for-each select="hcmc:getFeatureIdsForTimelinePoint(., $places)">
+                                <string><xsl:sequence select="."/></string>
+                              </xsl:for-each>
+                            </array>
+                          </map>
+                        </xsl:for-each>
+                      </array>
+                      
                     </map>
                   </xsl:if>
                 </map>
