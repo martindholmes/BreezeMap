@@ -278,7 +278,11 @@
     is passed a timeline point and retrieves the ids of all features which have a dateTime range which overlaps with
     the point. This is used to construct a richer timeline structure which obviates the need to check through all 
     features in the JavaScript to look for time matches every time the timeline moves.</xd:desc>
-    <xd:param name="timelinePoint" as="xs:string">A timeline point in the form of a slash-delimited range.</xd:param>
+    
+    <xd:param name="timelinePoint" as="xs:string">
+      A timeline point in the form of a slash-delimited range. It looks like this:
+      "1961-01-01T00:00:00\/1961-12-31T23:59:59\/1961"
+    </xd:param>
     <xd:param name="places" as="element(place)*">A sequence of zero or more TEI place elements which may or may not 
     have timing information in the form of date elements in its location/desc.</xd:param>
     <xd:return>A sequence of feature ids.</xd:return>
@@ -287,7 +291,35 @@
     <xsl:param name="timelinePoint" as="xs:string"/>
     <xsl:param name="places" as="element(place)*"/>
     
+    <!-- Get the bounding points as xs:dateTimes. -->
+    <xsl:variable name="pts" as="xs:string+" select="tokenize($timelinePoint, '/')"/>
+    <xsl:variable name="ptFrom" as="xs:dateTime" select="xs:dateTime($pts[1])"/>
+    <xsl:variable name="ptTo" as="xs:dateTime" select="xs:dateTime($pts[2])"/>
     
+    <!-- Now get the place ids. -->
+    <xsl:variable name="placeIds" as="xs:string*">
+      <xsl:for-each select="$places">
+        <xsl:variable name="thisPlace" as="element(place)" select="."/>
+        <!-- There may be multiple date ranges. -->
+        
+        <xsl:for-each select="$thisPlace/descendant::location/desc[1]/date">
+          
+          <!-- The from-iso att may not be there, in which case we default to the 
+               beginning of this timeline point; otherwise we turn the value into a dateTime. -->
+          <xsl:variable name="locFrom" as="xs:dateTime" select="if (@from-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@from-iso, '/')[1], true())) else $ptFrom"/>
+          
+          <!-- The to-iso att may not be there, in which case we default to the 
+               end of this timeline point; otherwise we turn the value into a dateTime. -->
+          <xsl:variable name="locTo" as="xs:dateTime" select="if (@to-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@to-iso, '/')[last()], false())) else $ptTo"/>
+          
+          <!-- Now we check for overlap. -->
+          <xsl:if test="($locFrom le $ptTo) and ($locTo ge $ptFrom)">
+            <xsl:sequence select="xs:string($thisPlace/@xml:id)"/>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:sequence select="distinct-values($placeIds)"/>
   </xsl:function>
   
   <xd:doc>
