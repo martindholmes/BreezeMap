@@ -900,6 +900,7 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     this.setupMenu = null;                     //Will contain a pointer to map setup menu.
     this.drawMenu = null;                      //Will contain a pointer to the drawing menu.
     
+    this.timelineData = null;                  //Will be populated from the richTimelinePoints property of the base feature.
     this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
     this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
@@ -1733,6 +1734,12 @@ hol.VectorLayer.prototype.loadGeoJSONFromString = function(geojson){
             if (this.mapTitle != ''){
               document.querySelector('span.docTitle').innerHTML = this.mapTitle;
             }
+          }
+
+  //Now check for rich timeline data.
+          if (this.baseFeature.getProperties().hasOwnProperty('timeline') && 
+              this.baseFeature.getProperties().timeline.hasOwnProperty('richTimelinePoints')){
+            this.timelineData = this.baseFeature.getProperties().timeline.richTimelinePoints;
           }
         
 //Now we want to discover whether there's a preferred 
@@ -2758,8 +2765,7 @@ hol.VectorLayer.prototype.buildNavPanel = function(){
  */
 hol.VectorLayer.prototype.buildTimeline = function(){
   try{
-    let tl = this.baseFeature.getProperties().timeline;
-    if (!tl){
+    if (!this.timelineData){
       return true;
     }
     //These are the things we need.
@@ -2770,10 +2776,16 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     //This is forward-looking.
     dl = document.createElement('datalist');
     dl.setAttribute('id', 'tlPoints');
-    for (i = 0, imax=tl.timelinePoints.length; i < imax; i++){
-      let temp = tl.timelinePoints[i].split('/');
+    for (i = 0, imax=this.timelineData.length; i < imax; i++){
+      let temp = this.timelineData[i].tp.split('/');
+      let featNums = [];
+      this.timelineData[i].featIds.forEach(function(featId){
+        featNums.push(this.getFeatNumFromId(featId));
+      }.bind(this));
       this.timelinePoints.push({'start': temp[0], 'end': temp[1], 'label': temp[2], 
-                                'ssStart': Date.parse(temp[0]), 'ssEnd': Date.parse(temp[1])});
+                                'ssStart': Date.parse(temp[0]), 'ssEnd': Date.parse(temp[1]),
+                                'featIds': this.timelineData[i].featIds,
+                                'featNums': featNums});
       opt = document.createElement('option');
       opt.setAttribute('value', i);
       if (i % 5 == 0){
@@ -2831,7 +2843,7 @@ hol.VectorLayer.prototype.buildTimeline = function(){
     slider.setAttribute('value', '0');
     slider.setAttribute('step', '1');
     slider.setAttribute('min', '0');
-    slider.setAttribute('max', (tl.timelinePoints.length - 1).toString());
+    slider.setAttribute('max', (this.timelineData.length - 1).toString());
     slider.setAttribute('list', 'ptsTimeline');
     slider.setAttribute('id', 'rngTimeline');
     slider.addEventListener('change', function(e){this.timelineChange(e.target)}.bind(this));
