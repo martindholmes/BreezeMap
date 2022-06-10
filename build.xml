@@ -16,6 +16,7 @@
     
     ant -lib .
   -->
+ 
 
   <!-- Is this being called with the specific name of an XML file? -->
   <property name="inputXml" value=""/>
@@ -29,6 +30,21 @@
   <dirname property="antfile.dir" file="${ant.file}"/>
   <property name="proj.dir" value="${antfile.dir}"/>
   <property name="abs.proj.dir" location="${proj.dir}"/>
+  
+  <!-- Use the closure compiler in our utilities folder. -->
+  <property name="bmClosure" value="${proj.dir}/utilities/closure-compiler.jar"/>
+  <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${bmClosure}"/>
+
+  <!-- Normally we suppress warnings, but we may turn them ("verbose") on for testing. -->
+  <property name="bmClosureWarning" value="quiet"/>
+  
+  <!-- Normally we stick to simple optimizations, but the user may wish to override
+       in search of performance. WARNING: setting compilation level to ADVANCED seems
+       to break it completely. -->
+  <property name="bmClosureCompilationLevel" value="SIMPLE"/>
+  
+  <!-- What output conformity we want for our JS. We're fairly forward-looking by default. -->
+  <property name="bmClosureOutputSpec" value="ECMASCRIPT_2019"/>
 
   <condition property="buildingTestsOnly">
     <equals arg1="" arg2="${inputXml}"/>
@@ -129,7 +145,7 @@
     </unzip>
   </target>
 
-  <target name="minify">
+  <target name="minify-old">
     <echo message="${echo.separator}"/>
     <echo message="Minifying our JavaScript."/>
     <java jar="${proj.dir}/utilities/yuicompressor-2.4.8.jar" fork="true">
@@ -138,6 +154,23 @@
       <arg line="--charset utf-8"/>
       <arg line="${proj.dir}/js/hcmc_ol.js"/>
     </java>
+  </target>
+  
+  <target name="minify">
+    <echo message="${echo.separator}"/>
+    <echo message="Minifying our JavaScript."/>
+    <jscomp compilationLevel="${bmClosureCompilationLevel}" 
+      warning="${bmClosureWarning}" 
+      debug="false" languageOut="${bmClosureOutputSpec}" 
+      output="${proj.dir}/js/hcmc_ol.min.js"
+      sourceMapFormat="V3"
+      sourceMapLocationMapping="${proj.dir}/js/hcmc_ol.js|hcmc_ol.js"
+      sourceMapOutputFile="${proj.dir}/js/hcmc_ol.js.map"
+      >
+      <sources dir="${proj.dir}/js">
+        <file name="hcmc_ol.js"/>
+      </sources>
+    </jscomp>
   </target>
   
   <target name="buildCss">

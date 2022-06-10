@@ -902,11 +902,12 @@ hol.VectorLayer = function (olMap, featuresUrl, options){
     
     this.timelineData = null;                  //Will be populated from the richTimelinePoints property of the base feature.
     this.timeline = null;                      //Will contain a pointer to the timeline control, if one is constructed.
-    this.timelinePoints = [];                  //Will be populated with objects for start and end points and labels.
+    this.timelinePoints = [];                  //Will be populated with objects for start and end points, labels, and lists of features.
+    this.lastTimelineFeatNums = new Set();     //Will hold the numbers of features shown the last time a timeline change happened.
     this.playInterval = null;                  //Will store the interval pointer when playing the timeline.
     this.playButton = null;                    //Will contain a pointer to the timeline play control, if one is constructed.
     this.stepForwardButton = null;             //Will contain a pointer to the timeline step forward control, if one is constructed.
-    this.stepBackButton = null;             //Will contain a pointer to the timeline step back control, if one is constructed.
+    this.stepBackButton = null;                //Will contain a pointer to the timeline step back control, if one is constructed.
     this.playImg = null;                       //Will contain a pointer to an SVG image for the button if required.
     
 //Start by creating the toolbar for the page.
@@ -2784,8 +2785,8 @@ hol.VectorLayer.prototype.buildTimeline = function(){
       }.bind(this));
       this.timelinePoints.push({'start': temp[0], 'end': temp[1], 'label': temp[2], 
                                 'ssStart': Date.parse(temp[0]), 'ssEnd': Date.parse(temp[1]),
-                                'featIds': this.timelineData[i].featIds,
-                                'featNums': featNums});
+                                'featIds': new Set(this.timelineData[i].featIds),
+                                'featNums': new Set(featNums)});
       opt = document.createElement('option');
       opt.setAttribute('value', i);
       if (i % 5 == 0){
@@ -2946,19 +2947,55 @@ hol.VectorLayer.prototype.toggleTimeline = function(sender){
  *              this checks all the currently-showing features
  *              and switches their styles between showing 
  *              (if they're in the range) and another style
- *              (if they're not).
+ *              (if they're not). The Set of feature numbers which 
+ *              were previously showing is available in the 
+ *              this.lastTimelineFeatNums property; the numbers of
+ *              candidate features are stored in the this.timelinePoints
+ *              array item. 
  * @returns {Boolean} true (succeeded) or false (failed).
  */
 hol.VectorLayer.prototype.timelineChange = function(sender){
   try{
-    let val = sender.value, i, maxi, featNums = [], catNum, cat;
+    let val = sender.value;
+
+    let tp = this.timelinePoints[val];
+
+    //First we get a list of featNums which are currently showing 
+    //but need to be hidden.
+    let featNumsToHide = new Set([...this.lastTimelineFeatNums].filter(x => !tp.featNums.has(x)));
+
+    //We need a set of the featNums which were showing before and should remain so.
+    let featNumsToKeepShowing = new Set([...this.lastTimelineFeatNums].filter(x => tp.featNums.has(x)))
+
+    //Next, we need a list of features in the new set which were not 
+    //previously showing, so need to be shown (assuming they match the taxonomy).
+    let featNumsToShowNew = new Set([...tp.featNums].filter(x => !this.lastTimelineFeatNums.has(x)));
+
+    //Change the label to show the current timeline item.
     document.getElementById('lblTimeline').innerHTML = this.timelinePoints[val].label;
     
     this.stepBackButton.disabled = !(parseInt(sender.value) > this.timeline.min);
     this.stepForwardButton.disabled = !(parseInt(sender.value) < this.timeline.max);
     
-    //console.log(sender.value);
-    let tp = this.timelinePoints[val];
+    //Now hide the ones that need to be hidden.
+    for (let featNum of featNumsToHide) this.showHideFeature(false, featNum, -1);
+
+    //Set the style of those to keep showing. We do this by showing them again.
+    for (let featNum of featNumsToKeepShowing) this.showHideFeature(true, featNum, -1);
+   
+    //Finally we show the new ones with the selected style.
+    featNumsToShowNew.forEach(function(featNum){
+      this.showHideFeature(true, featNum, -1);
+      let catNum = this.features[featNum].getProperties().showingCat;
+      if (catNum < 0){
+        catNum = this.getCatNumFromId(this.features[featNum].getProperties().categories[0]);
+      }
+      let cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+      this.features[featNum].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
+    });
+
+    //
+    /*
     for (i = 0, maxi = this.features.length; i<maxi; i++){
       //Ignore the base feature.
       if (this.features[i].getId() !== 'holMap'){
@@ -2983,9 +3020,15 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
         }
       }
     }
+*/
+
     if (this.timelinePanZoom){
       this.centerOnFeatures(featNums);
     }
+
+    //Now we replace the old list of showing features with the new one.
+    this.lastTimelineFeatNums = tp.featNums; 
+
     //Generate a custom event that can be hooked by external code.
     let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: tp, playing: (this.playInterval !== null)}});
     document.dispatchEvent(ev);
