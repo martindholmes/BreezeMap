@@ -72,28 +72,28 @@
   <target name="teiToGeoJSON">
     <echo message="${echo.separator}"/>
     <echo message="Converting TEI to GeoJSON."/>
-    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}" fork="true">
       <arg value="-s:${proj.dir}/testdata/campus.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
       <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}" fork="true">
       <arg value="-s:${proj.dir}/testdata/world.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
       <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingTestsOnly}" fork="true">
       <arg value="-s:${proj.dir}/testdata/imageMarkup.xml"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
       <arg line="maxTimelinePoints=${maxTimelinePoints}"/>
       <arg value="--suppressXsltNamespaceCheck:on"/>
     </java>
-    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingUserFile}">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" if:true="${buildingUserFile}" fork="true">
       <arg value="-s:${abs.inputXml}"/>
       <arg value="-xsl:${proj.dir}/xsl/tei_to_geojson3.xsl"/>
       <arg line="projDir=${proj.dir}"/>
@@ -109,7 +109,7 @@
     <get src="https://api.github.com/repos/openlayers/openlayers/releases/latest" verbose="on"
       usetimestamp="true" dest="${proj.dir}/js/ol_latest.json"/>
     
-    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar">
+    <java classname="net.sf.saxon.Transform" classpath="${proj.dir}/utilities/saxon-he-10.jar" fork="true">
       <arg value="-s:${proj.dir}/xsl/get_ol_version.xsl"/>
       <arg value="-xsl:${proj.dir}/xsl/get_ol_version.xsl"/>
       <arg line="projDir=${proj.dir}"/>
