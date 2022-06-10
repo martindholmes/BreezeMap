@@ -2976,6 +2976,15 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
     
     this.stepBackButton.disabled = !(parseInt(sender.value) > this.timeline.min);
     this.stepForwardButton.disabled = !(parseInt(sender.value) < this.timeline.max);
+
+
+    if (this.timelinePanZoom){
+      let feats = [...featNumsToKeepShowing, ...featNumsToShowNew];
+      if (feats.length > 1){
+        //setTimeout(function(){this.centerOnFeatures(feats);}.bind(this), 100);
+        this.centerOnFeatures(feats);
+      }
+    }
     
     //Now hide the ones that need to be hidden.
     for (let featNum of featNumsToHide) this.showHideFeature(false, featNum, -1);
@@ -2996,9 +3005,6 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       }
     }.bind(this));
 
-    if (this.timelinePanZoom){
-      this.centerOnFeatures([...featNumsToKeepShowing, ...featNumsToShowNew]);
-    }
 
     //Now we replace the old list of showing features with the new one.
     this.lastTimelineFeatNums = new Set(tp.featNums); 
@@ -3012,49 +3018,6 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
   catch(e){
     console.error(e.message);
     return false;
-  }
-};
-
-/**
- * Function checking whether a feature ought to be showing
- * based on a timeline date range.
- *
- * @function hol.VectorLayer.prototype.featureMatchesTimelinePoints
- * @memberof hol.VectorLayer.prototype
- * @description This method is passed the number of a feature, and
- *           it then checks the dateTime array which is stored in 
- *           the feature's properties (if there is one) to see if
- *           any of the datetimes coincides with the timeline point's
- *           period/range.
- * @param   {Number} featNum The number of the feature in the array.
- * @param   {Object} tp = timelinePoint, an object which contains various 
- *           properties, from which we use ssStart and ssEnd, which are
- *           milliseconds-since-1970 signed integer values.
- * @returns {Boolean} true (there is a match, or there is no dateTime
- *           info in the feature's properties) or false (there is a
- *           dateTime array, but none of its objects matches the timeline
- *           point's range). Default is true.
- */
-hol.VectorLayer.prototype.featureMatchesTimelinePoints = function(featNum, tp){
-  try{
-    let i, maxi, arrDt, f = this.features[featNum], p = f.getProperties();
-    if (p.hasOwnProperty('dateTimes')){
-      arrDt = p.dateTimes;
-      for (i = 0, maxi = arrDt.length; i<maxi; i++){
-        if ((!(arrDt[i].ssFrom) || arrDt[i].ssFrom <= tp.ssEnd) && (!(arrDt[i].ssTo) || arrDt[i].ssTo >= tp.ssStart)){
-          return true;
-        }
-      }
-      return false;
-    }
-    else{
-      //console.log('No dateTimes array found.');
-      return true;
-    }
-  }
-  catch(e){
-    console.error(e.message);
-    return true;
   }
 };
 
@@ -3563,7 +3526,7 @@ hol.VectorLayer.prototype.centerOnFeatures = function(featNums){
       }
       rightMargin = this.navPanel.offsetWidth + 20;
       opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
-              duration: 1000  
+              duration: Math.min(Math.floor(this.msPlayInterval / 2), 1000)  
              };
 
       this.view.fit(extent, /* this.map.getSize(),*/ opts);
