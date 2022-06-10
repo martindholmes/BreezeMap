@@ -2988,46 +2988,20 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       this.showHideFeature(true, featNum, -1);
       let catNum = this.features[featNum].getProperties().showingCat;
       if (catNum < 0){
-        catNum = this.getCatNumFromId(this.features[featNum].getProperties().categories[0]);
+        catNum = this.getCatNumFromId(this.features[featNum].getProperties().taxonomies[0].categories[0]);
       }
-      let cat = this.taxonomies[this.currTaxonomy].categories[catNum];
-      this.features[featNum].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
+      if (catNum > -1){
+        let cat = this.taxonomies[this.currTaxonomy].categories[catNum];
+        this.features[featNum].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
+      }
     }.bind(this));
-
-    //
-    /*
-    for (i = 0, maxi = this.features.length; i<maxi; i++){
-      //Ignore the base feature.
-      if (this.features[i].getId() !== 'holMap'){
-        //Check whether it's in range; if so, show it.
-        if (this.featureMatchesTimelinePoints(i, tp)){
-          featNums.push(i);
-          let wasShowing = (this.features[i].getProperties().showing);
-          this.showHideFeature(true, i, -1);
-          let isShowing = (this.features[i].getProperties().showing);
-          if ((!wasShowing) && isShowing){
-            catNum = this.features[i].getProperties().showingCat;
-            if (catNum < 0){
-              catNum = this.getCatNumFromId(this.features[i].getProperties().categories[0]);
-            }
-            cat = this.taxonomies[this.currTaxonomy].categories[catNum];
-            this.features[i].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
-          }
-        }  
-        //Otherwise hide it.
-        else{
-          this.showHideFeature(false, i, -1);
-        }
-      }
-    }
-*/
 
     if (this.timelinePanZoom){
       this.centerOnFeatures([...featNumsToKeepShowing, ...featNumsToShowNew]);
     }
 
     //Now we replace the old list of showing features with the new one.
-    this.lastTimelineFeatNums = tp.featNums; 
+    this.lastTimelineFeatNums = new Set(tp.featNums); 
 
     //Generate a custom event that can be hooked by external code.
     let ev = new CustomEvent('timelineChange', {detail: {timelinePoint: tp, playing: (this.playInterval !== null)}});
