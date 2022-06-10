@@ -2992,7 +2992,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
       }
       let cat = this.taxonomies[this.currTaxonomy].categories[catNum];
       this.features[featNum].setStyle(hol.Util.getSelectedStyle(cat.icon, cat.iconDim));
-    });
+    }.bind(this));
 
     //
     /*
@@ -3023,7 +3023,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
 */
 
     if (this.timelinePanZoom){
-      this.centerOnFeatures(featNums);
+      this.centerOnFeatures([...featNumsToKeepShowing, ...featNumsToShowNew]);
     }
 
     //Now we replace the old list of showing features with the new one.
