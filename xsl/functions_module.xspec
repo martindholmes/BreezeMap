@@ -263,7 +263,7 @@
           <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p1">
             <location>
               <desc>
-                <date when-iso="1961"></date>
+                <date when-iso="1961-03-04"></date>
                 <date when-iso="1964"></date>
               </desc>
             </location>
