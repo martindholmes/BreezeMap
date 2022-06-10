@@ -256,6 +256,38 @@
       </x:call>
       <x:expect label="Ids p1 and p2" select="('p1', 'p2')"/>
     </x:scenario>
+    <x:scenario label="Cases with only @when-iso.">
+      <x:call function="hcmc:getFeatureIdsForTimelinePoint">
+        <x:param name="timelinePoint" select="'1961-01-01T00:00:00/1961-12-31T23:59:59/1961'"/>
+        <x:param name="places">
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p1">
+            <location>
+              <desc>
+                <date when-iso="1961"></date>
+                <date when-iso="1964"></date>
+              </desc>
+            </location>
+          </place>
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p2">
+            <location>
+              <desc>
+                <date when-iso="1958-04"></date>
+                <date when-iso="1961-06"></date>
+              </desc>
+            </location>
+          </place>
+          <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="p3">
+            <location>
+              <desc>
+                <date when-iso="1958"></date>
+                <date when-iso="1963-09"></date>
+              </desc>
+            </location>
+          </place>
+        </x:param>
+      </x:call>
+      <x:expect label="Ids p1 and p2" select="('p1', 'p2')"/>
+    </x:scenario>
   </x:scenario>
   
 </x:description>

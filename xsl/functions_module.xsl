@@ -303,13 +303,17 @@
         
         <xsl:for-each select="$thisPlace/descendant::location/desc[1]/date">
           
-          <!-- The from-iso att may not be there, in which case we default to the 
+          <!-- The from-iso att may not be there, in which case we try the @when-iso, and then default to the 
                beginning of this timeline point; otherwise we turn the value into a dateTime. -->
-          <xsl:variable name="locFrom" as="xs:dateTime" select="if (@from-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@from-iso, '/')[1], true())) else $ptFrom"/>
+          <xsl:variable name="locFrom" as="xs:dateTime" select="
+            if (@from-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@from-iso, '/')[1], true())) else 
+            if (@when-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@when-iso, '/')[1], true())) else $ptFrom"/>
           
-          <!-- The to-iso att may not be there, in which case we default to the 
+          <!-- The to-iso att may not be there, in which case we try the @when-iso, and then default to the 
                end of this timeline point; otherwise we turn the value into a dateTime. -->
-          <xsl:variable name="locTo" as="xs:dateTime" select="if (@to-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@to-iso, '/')[last()], false())) else $ptTo"/>
+          <xsl:variable name="locTo" as="xs:dateTime" select="
+            if (@to-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@to-iso, '/')[last()], false())) else
+            if (@when-iso) then xs:dateTime(hcmc:expandDateTime(tokenize(@when-iso, '/')[last()], false())) else $ptTo"/>
           
           <!-- Now we check for overlap. -->
           <xsl:if test="($locFrom le $ptTo) and ($locTo ge $ptFrom)">
