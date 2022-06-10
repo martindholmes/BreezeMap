@@ -144,17 +144,6 @@
       <mapper type="flatten"/>
     </unzip>
   </target>
-
-  <target name="minify-old">
-    <echo message="${echo.separator}"/>
-    <echo message="Minifying our JavaScript."/>
-    <java jar="${proj.dir}/utilities/yuicompressor-2.4.8.jar" fork="true">
-      <arg line="-o ${proj.dir}/js/hcmc_ol.min.js"/>
-      <arg line="-v"/>
-      <arg line="--charset utf-8"/>
-      <arg line="${proj.dir}/js/hcmc_ol.js"/>
-    </java>
-  </target>
   
   <target name="minify">
     <echo message="${echo.separator}"/>
