@@ -2980,9 +2980,7 @@ hol.VectorLayer.prototype.timelineChange = function(sender){
 
     if (this.timelinePanZoom){
       let feats = [...featNumsToKeepShowing, ...featNumsToShowNew];
-      //console.log('feats.length, feats[0] geometry: ' + feats.length + ', ' + this.features[feats[0]].getGeometry().GeometryType);
       if ((feats.length > 1)||((feats.length === 1) && (this.features[feats[0]].getGeometry().GeometryType !== 'Point'))){
-        //setTimeout(function(){this.centerOnFeatures(feats);}.bind(this), 100);
         this.centerOnFeatures(feats);
       }
     }
