@@ -22,7 +22,7 @@
                     </category>
                     <category xml:id="bldgSports">
                         <gloss>Sports facilities</gloss>
-                      <desc><objectType><objectType><graphic xml:id="icon_bldgSports" width="28px" height="29px" url="images/icon_bldgSports.png"/></objectType></objectType>Buildings with gyms, swimming pools and other sports services.</desc>
+                      <desc><objectType><graphic xml:id="icon_bldgSports" width="28px" height="29px" url="images/icon_bldgSports.png"/></objectType>Buildings with gyms, swimming pools and other sports services.</desc>
                     </category>
                     <category xml:id="bldgFood">
                         <gloss>Food</gloss>

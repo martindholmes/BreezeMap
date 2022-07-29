@@ -152,7 +152,7 @@
           </p>
           
           <p>If you wish to provide a custom icon for point locations in a particular
-          category, you can do that by adding a TEI <gi>objectDesc</gi> element 
+          category, you can do that by adding a TEI <gi>objectType</gi> element 
             containing a <gi>graphic</gi> element in the
           <gi>desc</gi> element, like this:
           
@@ -160,9 +160,9 @@
             <category xml:id="transpBus">
               <gloss>Buses</gloss>
               <desc>
-                <objectDesc><graphic xml:id="icon_transpBus" 
+                <objectType><graphic xml:id="icon_transpBus" 
                   width="58px" height="20px" 
-                  url="images/icon_transpBus.png"/></objectDesc>
+                  url="images/icon_transpBus.png"/></objectType>
                 Bus stops
               </desc>
             </category>
@@ -171,7 +171,10 @@
           The graphic must have an <att>xml:id</att> attribute which consists of 
             the prefix <code>icon_</code> followed by the <att>xml:id</att> of the
             category itself. You should provide the width and height of the icon
-            in pixels in the appropriate attributes.
+            in pixels in the appropriate attributes. We use the <gi>objectType</gi> element
+            because the graphic is intended to characterize the place in some meaningful
+            way. Note that this only works for point locations; polygons, linestrings etc.
+            are always represented by their outlines.
           </p>
           
         </div>
