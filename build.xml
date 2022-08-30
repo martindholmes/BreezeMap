@@ -135,7 +135,7 @@
     <loadfile property="olzip" srcFile="${proj.dir}/js/ol_latest.txt"/>
     
     <echo message="Downloading zip file from ${olzip}..."/>
-    <get src="${olzip}" verbose="on" usetimestamp="true" dest="${proj.dir}/ol/ol_latest.zip"/>
+    <get src="${olzip}" verbose="on" dest="${proj.dir}/ol/ol_latest.zip"/>
     <echo message="Unzipping the files..."/>
     <unzip src="${proj.dir}/ol/ol_latest.zip" dest="${proj.dir}/ol">
       <patternset>
@@ -212,8 +212,7 @@
     <antcall target="cleanup"/>
     <antcall target="buildCss"/>
     <antcall target="teiToGeoJSON"/>
-    <!-- getOL is commented out because the 7.0.0 release of OL breaks things. -->
-    <!--<antcall target="getOL"/>-->
+    <antcall target="getOL"/>
     <antcall target="minify"/>
     <antcall target="createTestSite"/>
     <antcall target="createUserHtml"/>

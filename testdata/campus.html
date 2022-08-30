@@ -85,7 +85,7 @@
           layers: myLayers,
           renderer: 'canvas',
           target: 'map',
-          interactions: ol.interaction.defaults().extend([
+          interactions: ol.interaction.defaults.defaults().extend([
              	    new ol.interaction.DragRotateAndZoom()
              	  ]),
           view: view
