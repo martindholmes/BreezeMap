@@ -212,7 +212,8 @@
     <antcall target="cleanup"/>
     <antcall target="buildCss"/>
     <antcall target="teiToGeoJSON"/>
-    <antcall target="getOL"/>
+    <!-- getOL is commented out because the 7.0.0 release of OL breaks things. -->
+    <!--<antcall target="getOL"/>-->
     <antcall target="minify"/>
     <antcall target="createTestSite"/>
     <antcall target="createUserHtml"/>
