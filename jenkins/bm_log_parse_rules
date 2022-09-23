@@ -11,7 +11,7 @@ ok /WARNING: clock of the subversion server/
 ok /avoid Java security manager warnings/
 
 #Closure compiler message.
-ok /\[jscomp\] 0 error(s), 0 warning(s)/
+ok /\[jscomp\] 0 error\(s\), 0 warning\(s\)/
 
 error /[Ee]rror/
 warning /[Ww]arning/

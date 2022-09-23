@@ -875,7 +875,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp101076">
-                        <placeName>Uvic Exchange Bay A</placeName>
+                        <placeName>UVic Exchange Bay A</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -889,7 +889,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp102416">
-                        <placeName>Uvic Exchange Bay B</placeName>
+                        <placeName>UVic Exchange Bay B</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -903,7 +903,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp102417">
-                        <placeName>Uvic Exchange Bay C</placeName>
+                        <placeName>UVic Exchange Bay C</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -917,7 +917,7 @@
                         </location>
                     </place>
                     <!--<place corresp="#transpBus" xml:id="transp">
-                        <placeName>Uvic Exchange Bay D</placeName>
+                        <placeName>UVic Exchange Bay D</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -931,7 +931,7 @@
                         </location>
                     </place>-->
                     <!--<place corresp="#transpBus" xml:id="transp">
-                        <placeName>Uvic Exchange Bay E</placeName>
+                        <placeName>UVic Exchange Bay E</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -945,7 +945,7 @@
                         </location>
                     </place>-->
                     <place corresp="#transpBus" xml:id="transp102426">
-                        <placeName>Uvic Exchange Bay F</placeName>
+                        <placeName>UVic Exchange Bay F</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -959,7 +959,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100405">
-                        <placeName>Uvic Exchange Bay G</placeName>
+                        <placeName>UVic Exchange Bay G</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -973,7 +973,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100507">
-                        <placeName>Uvic Exchange Bay H</placeName>
+                        <placeName>UVic Exchange Bay H</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -987,28 +987,28 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp102420">
-                        <placeName>Uvic Exchange Bay I</placeName>
+                        <placeName>UVic Exchange Bay I</placeName>
                         <desc>This is a drop-off only stop.</desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.308544,48.466002]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp102421">
-                        <placeName>Uvic Exchange Bay J</placeName>
+                        <placeName>UVic Exchange Bay J</placeName>
                         <desc>This is a drop-off only stop.</desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.308367,48.466145]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100607">
-                        <placeName>Uvic Exchange Bay K</placeName>
+                        <placeName>UVic Exchange Bay K</placeName>
                         <desc>This is a drop-off only stop.</desc>
                         <location type="GeoJSON">
                             <geo>"geometry":{"type":"Point", "coordinates":[-123.308195,48.466282]}</geo>
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100858">
-                        <placeName>Uvic Exchange Bay L</placeName>
+                        <placeName>UVic Exchange Bay L</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1022,7 +1022,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100741">
-                        <placeName>Uvic Exchange Bay M</placeName>
+                        <placeName>UVic Exchange Bay M</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1036,7 +1036,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100705">
-                        <placeName>Uvic Exchange Bay N</placeName>
+                        <placeName>UVic Exchange Bay N</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1050,7 +1050,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100871">
-                        <placeName>Uvic Exchange Bay O</placeName>
+                        <placeName>UVic Exchange Bay O</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1064,7 +1064,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100878">
-                        <placeName>Uvic Exchange Bay P</placeName>
+                        <placeName>UVic Exchange Bay P</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1078,7 +1078,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100889">
-                        <placeName>Uvic Exchange Bay Q</placeName>
+                        <placeName>UVic Exchange Bay Q</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
@@ -1092,7 +1092,7 @@
                         </location>
                     </place>
                     <place corresp="#transpBus" xml:id="transp100904">
-                        <placeName>Uvic Exchange Bay R</placeName>
+                        <placeName>UVic Exchange Bay R</placeName>
                         <desc>...</desc>
                         <desc>
                             <list>
