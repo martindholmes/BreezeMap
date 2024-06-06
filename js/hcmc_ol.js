@@ -293,7 +293,7 @@ hol.Util.translucentColorSet = hol.Util.tenTranslucentColors;
  * @function hol.Util.getColorForCategory
  * @memberof hol.Util
  * @param  {number} catNum Number of the category.
- * @return {color}
+ * @return {string} CSS string defining a colour.
  */
 hol.Util.getColorForCategory = function(catNum){
   return hol.Util.colorSet[catNum % hol.Util.colorSet.length];
@@ -305,7 +305,7 @@ hol.Util.getColorForCategory = function(catNum){
  * @function hol.Util.getTranslucentColorForCategory
  * @memberof hol.Util
  * @param  {number} catNum Number of the category.
- * @return {color}
+ * @return {string} CSS string defining a colour.
  */
 hol.Util.getTranslucentColorForCategory = function(catNum){
   return hol.Util.translucentColorSet[catNum % hol.Util.translucentColorSet.length];
