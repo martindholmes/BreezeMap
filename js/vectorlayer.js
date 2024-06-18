@@ -259,7 +259,7 @@ class VectorLayer {
     }
 
 
-    setupEditingMenu = function(){
+    setupEditingMenu(){
         try{
             if (this.menu === null){
                 this.menu = document.createElement('ul');
