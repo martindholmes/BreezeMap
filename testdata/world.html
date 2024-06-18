@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
         <script src="ol/ol.js" type="text/ecmascript"></script>
-        <script src="js/hcmc_ol.js" type="text/ecmascript"></script>
+        <script src="js/vectorlayer.js" type="module"></script>
       <style type="text/css">
 <!--        
         #opacitySlider{
@@ -45,12 +45,14 @@
            <a href="https://github.com/martindholmes/BreezeMap">BreezeMap</a>. </p>
        </div>
       
-      <script type="text/ecmascript">
+      <script type="module">
        
       /* Initial setup of the map with default controls using Tileset created by HCMC from 
          Open Street Maps dataset. */
          
       //Globals...
+      import {VectorLayer} from "../js/vectorlayer.js";
+
       var mapCenter = [-123.31207,48.463289];
       
       var map = null, view = null, myLayers = [], layerOSM = null, featureJSONFile = 'js/world.json', holLayer = null;
@@ -104,7 +106,7 @@
         document.getElementById('opacitySlider').onchange();
   
 //Now let's create a hol vector layer for all our features.
-        holLayer = new hol.VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true, 
+        holLayer = new VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true,
                                                               allowDrawing: true,
                                                               allowUpload: true,
                                                               allowUserTracking: true,

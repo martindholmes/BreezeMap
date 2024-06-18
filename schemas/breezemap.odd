@@ -283,7 +283,7 @@
           <head>Options you can pass to the map in JavaScript</head>
           <p>Here's an example of initializing the map in JS:</p>
           
-          <eg>holLayer = new hol.VectorLayer(map, featureJSONFile, {<lb/>
+          <eg>holLayer = new VectorLayer(map, featureJSONFile, {<lb/>
             allowDrawing: true,<lb/>
             allowUserTracking: true,<lb/>
             allFeaturesTaxonomy: true,<lb/>
