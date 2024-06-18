@@ -5,7 +5,7 @@ For information on how to use the code, see the breezemap.html file in the docum
 
 ## Custom Style Guide by HCMC
 
-HCMC uses comments instead of self-commenting code, so the inline documentation had to be preserved. 
+HCMC uses comments instead of self-commenting code, so the inline documentation has to be preserved. 
 
 ## Research Challenge
 The Geohumanist wishing to annotate historical maps, identify toponyms, or plot humanist data on maps currently must choose between highly sophisticated and powerful but proprietary tools (like ArcGIS) or simple tools unsuitable for complex research questions (like Google MyMaps). Our community needs a tool enabling a researcher without GIS expertise or coding skills to create a map with a rich range of feature types (from points to multi-geometries), create useful taxonomies for categorizing these features, link features to external open-data authorities, present the results in a user-friendly rich interface, and store the data in formats suitable for interchange. Documents will be authored primarily in TEI XML (http://www.tei-c.org).
