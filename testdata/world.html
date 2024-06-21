@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/hcmc_ol.css" type="text/css"/>
       
         <script src="ol/ol.js" type="text/ecmascript"></script>
-        <script src="js/vectorlayer.js" type="module"></script>
+        <script src="js/HolVectorLayer.js" type="module"></script>
       <style type="text/css">
 <!--        
         #opacitySlider{
@@ -51,7 +51,7 @@
          Open Street Maps dataset. */
          
       //Globals...
-      import {VectorLayer} from "./js/vectorlayer.js";
+      import {HolVectorLayer} from "./js/HolVectorLayer.js";
 
       var mapCenter = [-123.31207,48.463289];
       
@@ -106,7 +106,7 @@
         document.getElementById('opacitySlider').onchange();
   
 //Now let's create a hol vector layer for all our features.
-        holLayer = new VectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true,
+        holLayer = new HolVectorLayer(map, featureJSONFile, {allowTaxonomyEditing: true,
                                                               allowDrawing: true,
                                                               allowUpload: true,
                                                               allowUserTracking: true,

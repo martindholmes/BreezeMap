@@ -9,7 +9,7 @@
 
     <!--   NOTE: We're using the debug version of OL for testing purposes.   -->
     <script src="ol/ol.js" type="text/ecmascript"></script>
-    <script src="js/vectorlayer.js" type="module"></script>
+    <script src="js/HolVectorLayer.js" type="module"></script>
     <style type="text/css">
         <!--
         #opacitySlider {
@@ -56,7 +56,7 @@
        Open Street Maps dataset. */
 
     //Globals...
-    import {VectorLayer} from "./js/vectorlayer.js";
+    import {HolVectorLayer} from "./js/HolVectorLayer.js";
     var map;
     var extent = [0, 0, 600, 960];
     var projection = new ol.proj.Projection({
@@ -109,7 +109,7 @@
         document.getElementById('opacitySlider').onchange();
 
 //Now let's create a hol vector layer for all our features.
-        holLayer = new VectorLayer(map, featureJSONFile, {
+        holLayer = new HolVectorLayer(map, featureJSONFile, {
             allowTaxonomyEditing: true,
             allowDrawing: true,
             allowUpload: true,

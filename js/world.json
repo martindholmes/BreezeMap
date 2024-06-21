@@ -69,7 +69,7 @@
                 51.493488 ] ] ] },
         "properties" : 
         { "name" : "Agas London",
-          "desc" : "The area covered by the foreground of the <a href=\"http:\/\/jenkins.hcmc.uvic.ca\/job\/MoEML\/lastSuccessfulBuild\/artifact\/static\/site\/agas.htm\">Agas Map<\/a>.",
+          "desc" : "The area covered by the foreground of the <a href=\"https:\/\/mapoflondon.uvic.ca\/agas.htm\">Agas Map<\/a>.",
           "links" : 
           [  ],
           "showOnMenu" : true,

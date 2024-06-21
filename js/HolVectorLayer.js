@@ -33,26 +33,26 @@
 
 'use strict';
 
-import * as util from "./util.js"
-import * as constants from "./constants.js"
+import * as util from "./HolUtil.js"
+import * as constants from "./HolConstants.js"
 
 /**
- * VectorLayer class is the core class which is
+ * HolVectorLayer class is the core class which is
  * instantiated to create the vector layer on the map.
  * When constructing, pass it a pointer to the map,
  * along with the URLs of the JSON files for categories
  * and GeoJSON features, and it will take care of the
  * rest.
  *
- * @class VectorLayer
- * @constructs VectorLayer
+ * @class HolVectorLayer
+ * @constructs HolVectorLayer
  * @param {ol.Map} map OpenLayers3 ol.Map object on
  *        which the vector layer will be constructed.
  * @param {string} featuresUrl URL of the GeoJSON file
  *        which contains the features for the layer.
  *
  */
-class VectorLayer {
+class HolVectorLayer {
 
     constructor(olMap, featuresUrl, options) {
         this.olMap = olMap;
@@ -246,7 +246,7 @@ class VectorLayer {
             //  Now we create a box-dragging feature.
             this.dragBox = new ol.interaction.DragBox({
                 condition: ol.events.condition.platformModifierKeyOnly,
-                style: util.Util.getDragBoxStyle()
+                style: util.HolUtil.getDragBoxStyle()
 
             });
 
@@ -261,7 +261,7 @@ class VectorLayer {
             this.map.on('click', function(evt){this.selectFeatureFromPixel(evt.pixel);}.bind(this));
 
             // Add the vector layer, with no source for the moment.
-            this.layer = new ol.layer.Vector({style: util.Util.getHiddenStyle});
+            this.layer = new ol.layer.Vector({style: util.HolUtil.getHiddenStyle});
             this.map.addLayer(this.layer);
 
             //  Now various extra optional features.
@@ -431,7 +431,7 @@ class VectorLayer {
                     source: new ol.source.Vector({
                         features: this.drawingFeatures
                     }),
-                    style: util.Util.getDrawingStyle()
+                    style: util.HolUtil.getDrawingStyle()
                 });
                 this.featureOverlay.setMap(this.map);
                 this.coordsBox = document.createElement('textarea');
@@ -891,7 +891,7 @@ class VectorLayer {
             featName = window.prompt(this.captions.strGetFeatureName, '');
 
             // Create an id from the name.
-            featId = util.Util.idFromName(featName);
+            featId = util.HolUtil.idFromName(featName);
 
             // Make it unique.
             while (this.getFeatNumFromId(featId, -1) !== -1){
@@ -1065,8 +1065,8 @@ class VectorLayer {
                         // Start by setting default value; if there are no taxonomies,
                         // then -1; else the first one in the list.
                         this.currTaxonomy = 0;
-                        showTax = (this.initialTaxonomyId == '')? util.Util.getQueryParam('taxonomy') : this.initialTaxonomyId;
-                        //showTax = util.Util.getQueryParam('taxonomy');
+                        showTax = (this.initialTaxonomyId == '')? util.HolUtil.getQueryParam('taxonomy') : this.initialTaxonomyId;
+                        //showTax = util.HolUtil.getQueryParam('taxonomy');
                         if (showTax.length > 0){
                             // It may be a name or an index number.
                             showTaxInt = parseInt(showTax);
@@ -1201,7 +1201,7 @@ class VectorLayer {
                         // Start by setting default value; if there are no taxonomies,
                         // then -1; else the first one in the list.
                         this.currTaxonomy = 0;
-                        showTax = util.Util.getQueryParam('taxonomy');
+                        showTax = util.HolUtil.getQueryParam('taxonomy');
                         if (showTax.length > 0){
                             // It may be a name or an index number.
                             showTaxInt = parseInt(showTax);
@@ -1537,7 +1537,7 @@ class VectorLayer {
             taxName = window.prompt(this.captions.strGetTaxonomyName, '');
 
             //Create an id from the name.
-            taxId = util.Util.idFromName(taxName);
+            taxId = util.HolUtil.idFromName(taxName);
 
             //Make it unique.
             while (this.getTaxNumFromId(taxId, -1) !== -1){
@@ -1574,7 +1574,7 @@ class VectorLayer {
             catName = window.prompt(this.captions.strGetCategoryName, '');
 
             //Create an id from the name.
-            catId = util.Util.idFromName(catName);
+            catId = util.HolUtil.idFromName(catName);
 
             //Get the category description.
             catDesc = window.prompt(this.captions.strGetCategoryDesc, '');
@@ -1657,16 +1657,16 @@ class VectorLayer {
             //Now do some sanity checking.
             /*
                 if (this.features.length < 1){
-                  throw new util.Util.DataNotFoundError('features (locations)', this.featuresUrl);
+                  throw new util.HolUtil.DataNotFoundError('features (locations)', this.featuresUrl);
                 }
 
                 if (this.taxonomies.length < 1){
-                  throw new util.Util.DataNotFoundError('taxonomies (lists of location categories)', this.featuresUrl);
+                  throw new util.HolUtil.DataNotFoundError('taxonomies (lists of location categories)', this.featuresUrl);
                 }
 
                 for (i=0, maxi=this.taxonomies.length; i<maxi; i++){
                   if (this.taxonomies[i].categories.length < 1){
-                    throw new util.Util.DataNotFoundError('categories for taxonomy ' + this.taxonomies[i].name, this.featuresUrl);
+                    throw new util.HolUtil.DataNotFoundError('categories for taxonomy ' + this.taxonomies[i].name, this.featuresUrl);
                   }
                 }
                 */
@@ -1680,7 +1680,7 @@ class VectorLayer {
             return true;
         }
         catch(e){
-            if (e instanceof util.Util.DataNotFoundError){
+            if (e instanceof util.HolUtil.DataNotFoundError){
                 alert(e.message);
             }
             console.error(e.message);
@@ -2025,8 +2025,8 @@ class VectorLayer {
             for (catNum = 0; catNum < catMax; catNum++){
                 catLi = doc.createElement('li');
                 catLi.setAttribute('id', 'catLi_' + catNum);
-                catLi.style.color = util.Util.getColorForCategory(catNum);
-                catLi.style.backgroundColor = util.Util.getColorWithAlpha(catNum, '0.1');
+                catLi.style.color = util.HolUtil.getColorForCategory(catNum);
+                catLi.style.backgroundColor = util.HolUtil.getColorWithAlpha(catNum, '0.1');
                 catLiChk = doc.createElement('input');
                 catLiChk.setAttribute('type', 'checkbox');
                 catLiChk.setAttribute('data-type', 'category');
@@ -2036,8 +2036,8 @@ class VectorLayer {
                 catTitleSpan = doc.createElement('span');
                 catTitleSpan.appendChild(doc.createTextNode(cats[catNum].name));
                 catLi.appendChild(catTitleSpan);
-                // catTitleSpan.addEventListener('click', util.Util.expandCollapseCategory.bind(this, catTitleSpan), false);
-                catTitleSpan.addEventListener('click', util.Util.expandCollapseCategory.bind(this, catTitleSpan, catNum), false);
+                // catTitleSpan.addEventListener('click', util.HolUtil.expandCollapseCategory.bind(this, catTitleSpan), false);
+                catTitleSpan.addEventListener('click', util.HolUtil.expandCollapseCategory.bind(this, catTitleSpan, catNum), false);
                 thisCatUl = doc.createElement('ul');
                 thisCatFeatures = cats[catNum].features;
                 /*for (f=0, fmax=thisCatFeatures.length; f<fmax; f++){
@@ -2339,7 +2339,7 @@ class VectorLayer {
                 }
                 if (catNum > -1){
                     let cat = this.taxonomies[this.currTaxonomy].categories[catNum];
-                    this.features[featNum].setStyle(util.Util.getSelectedStyle(cat.icon, cat.iconDim));
+                    this.features[featNum].setStyle(util.HolUtil.getSelectedStyle(cat.icon, cat.iconDim));
                 }
             }.bind(this));
 
@@ -2602,13 +2602,13 @@ class VectorLayer {
             // Now we show or hide the feature.
             this.featureDisplayStatus = constants.NAV_SHOWHIDING_FEATURES;
             if (show === true){
-                thisFeature.setStyle(util.Util.getCategoryStyle(catNum, cat.icon, cat.iconDim));
+                thisFeature.setStyle(util.HolUtil.getCategoryStyle(catNum, cat.icon, cat.iconDim));
                 thisFeature.setProperties({"showing": true, "showingCat": catNum});
             }
             else{
                 if (thisFeature.getProperties().selected){this.deselectFeature();}
                 // todo: below doesn't have an actual declaration
-                thisFeature.setStyle(util.Util.hiddenStyle);
+                thisFeature.setStyle(util.HolUtil.hiddenStyle);
                 thisFeature.setProperties({"showing": false, "showingCat": -1});
             }
             // Next, we set the status of all the checkboxes associated with this
@@ -2949,7 +2949,7 @@ class VectorLayer {
                     hitFeature = feature;
                     fSize = 0;
                 } else if (geomType === 'Polygon'||geomType === 'MultiPolygon'||geomType === 'GeometryCollection'){
-                    thisSize = util.Util.getSize(geom.getExtent());
+                    thisSize = util.HolUtil.getSize(geom.getExtent());
                     if ((thisSize < fSize) || (fSize < 0)){
                         hitFeature = feature;
                         fSize = thisSize;
@@ -3039,7 +3039,7 @@ class VectorLayer {
             }
             cat = this.taxonomies[this.currTaxonomy].categories[catNum];
 
-            currFeat.setStyle(util.Util.getSelectedStyle(cat.icon, cat.iconDim));
+            currFeat.setStyle(util.HolUtil.getSelectedStyle(cat.icon, cat.iconDim));
             currFeat.setProperties({"selected": true});
             // Set the title of the popup to the name of the feature.
             this.infoDiv.querySelector('h2').innerHTML = props.name;
@@ -3112,7 +3112,7 @@ class VectorLayer {
 
                 // Find its geometry type, and set up drawing for that drawing type
                 this.addDrawInteraction(tmpFeat.getGeometry().getType());
-                tmpFeat.setStyle(util.Util.getDrawingStyle());
+                tmpFeat.setStyle(util.HolUtil.getDrawingStyle());
 
                 // Deselect the current feature.
                 this.showHideFeature(false, this.selectedFeature);
@@ -3185,7 +3185,7 @@ class VectorLayer {
 
         try{
             // First parse for a document to display.
-            docPath = util.Util.getQueryParam('docPath');
+            docPath = util.HolUtil.getQueryParam('docPath');
             if (docPath.length > 0){
                 this.showDocument(docPath);
             }
@@ -3196,7 +3196,7 @@ class VectorLayer {
             }
 
             // Now parse the URL for category ids.
-            catIds = util.Util.getQueryParam('catIds');
+            catIds = util.HolUtil.getQueryParam('catIds');
             if (catIds.length > 0){
                 arrCatIds = catIds.split(';');
                 for (i=0, maxi=arrCatIds.length; i<maxi; i++){
@@ -3222,7 +3222,7 @@ class VectorLayer {
             }
 
             // Now parse the search string for individual features.
-            featIds = util.Util.getQueryParam('featIds');
+            featIds = util.HolUtil.getQueryParam('featIds');
             if (featIds.length > 0){
                 arrFeatNums = [];
                 arrFeatIds = featIds.split(';');
@@ -3251,19 +3251,19 @@ class VectorLayer {
             }
 
             // Now check whether we want to allow feature editing.
-            drawing = util.Util.getQueryParam('drawing');
+            drawing = util.HolUtil.getQueryParam('drawing');
             if (drawing.length > 0){
                 this.setupDrawing();
             }
 
             // Now check whether we want to allow JSON file upload.
-            upload = util.Util.getQueryParam('upload');
+            upload = util.HolUtil.getQueryParam('upload');
             if (upload.length > 0){
                 this.setupUpload();
             }
 
             // Now check for the current location feature.
-            currLoc = util.Util.getQueryParam('currLoc');
+            currLoc = util.HolUtil.getQueryParam('currLoc');
             if (currLoc != ''){
                 this.toggleTracking(true);
             }
@@ -3511,7 +3511,7 @@ class VectorLayer {
                 //Create a new user position marker and put it on the map.
                 this.userPositionMarker = new ol.Feature();
 
-                this.userPositionMarker.setStyle(util.Util.getUserLocationStyle());
+                this.userPositionMarker.setStyle(util.HolUtil.getUserLocationStyle());
                 this.source.addFeature(this.userPositionMarker);
             }
 
@@ -3539,4 +3539,4 @@ class VectorLayer {
     }
 }
 
-export {VectorLayer}
+export {HolVectorLayer}

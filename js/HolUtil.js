@@ -1,15 +1,15 @@
 'use strict';
 
 /**
- * Util class contains utility methods
+ * HolUtil class contains utility methods
  * and constants for the rest of the classes.
  *
- * @class Util Contains utility methods
+ * @class HolUtil Contains utility methods
  * and constants for the rest of the classes.
  * @constructor
  */
 
-class Util {
+class HolUtil {
     static tenColors;
     static colorSet;
     static lineOpacity;
@@ -21,22 +21,22 @@ class Util {
         /**
          * Ten maximally distinct colours, useful when using many categories on a layer.
          * @type {string[]}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
         this.tenColors = ['rgb(85, 0, 0)', 'rgb(0, 85, 0)', 'rgb(0, 0, 85)', 'rgb(85, 85, 0)', 'rgb(85, 0, 85)', 'rgb(0, 85, 85)', 'rgb(150, 0, 0)', 'rgb(0, 130, 0)', 'rgb(0, 0, 150)', 'rgb(0, 0, 0)'];
         /**
          * @description Set of distinct colours, initially set to the ten defaults.
          * The end-user can override these colours if they wish. By default,
-         * identical to Util.tenColors.
+         * identical to HolUtil.tenColors.
          * @type {string[]}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
         this.colorSet = this.tenColors;
         /**
          * @description Opacity setting for lines and the outline of shapes, defaulting to '0.6'.
          *              Made into a variable so that projects can override it.
          * @type {string}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
         this.lineOpacity = '0.6';
 
@@ -44,14 +44,14 @@ class Util {
          * @description Opacity setting for the interior of shapes, defaulting to '0.2'.
          *              Made into a variable so that projects can override it.
          * @type {string}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
         this.shapeOpacity = '0.2';
         /**
          * @description Array of strings representing ten maximally distinct colours,
-         * with an alpha setting of Util.lineOpacity (default 0.6).
+         * with an alpha setting of HolUtil.lineOpacity (default 0.6).
          * @type {string[]}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
         this.tenTranslucentColors = [];
 
@@ -61,16 +61,16 @@ class Util {
          */
         void function() {
             let i, maxi;
-            for (i = 0, maxi = Util.tenColors.length; i < maxi; i++) {
-                Util.tenTranslucentColors.push(Util.getColorWithAlpha(i, Util.lineOpacity));
+            for (i = 0, maxi = HolUtil.tenColors.length; i < maxi; i++) {
+                HolUtil.tenTranslucentColors.push(HolUtil.getColorWithAlpha(i, HolUtil.lineOpacity));
             }
         }();
 
         /**
          * @description Set of distinct colours, with an alpha setting of 0.6. Initially set to
-         * the Util.tenTranslucentColors, but can be overridden by the end user.
+         * the HolUtil.tenTranslucentColors, but can be overridden by the end user.
          * @type {string[]}
-         * @memberOf Util
+         * @memberOf HolUtil
          */
 
         this.translucentColorSet = this.tenTranslucentColors;
@@ -82,7 +82,7 @@ class Util {
     /**
      * @description Helper method to avoid repeated code instances.
      * @type
-     * @memberOf Util
+     * @memberOf HolUtil
      * @param {number} dx
      * @param {number[]} end
      * @param {number[]} start
@@ -103,8 +103,8 @@ class Util {
     /**
      * A utility function which shows the current version of this code and
      * the last version of OpenLayers with which it was tested.
-     * @function Util.showVersion
-     * @memberof Util
+     * @function HolUtil.showVersion
+     * @memberof HolUtil
      * @description Outputs the version string to the console and returns it too.
      * @returns {string} The same string as is output to the console.
      */
@@ -117,8 +117,8 @@ class Util {
     /**
      * A utility function borrowed with thanks from here:
      * http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
-     * @function Util.crudeHash
-     * @memberof Util
+     * @function HolUtil.crudeHash
+     * @memberof HolUtil
      * @description Creates a crude
      *                  one-way hash from an input string.
      * @param {string} s The input string.
@@ -139,7 +139,7 @@ class Util {
 
     /**
      * @description Get one of the distinct colours, but combine it with a translucency level.
-     * @method Util.getColorWithAlpha Get one of the distinct colours, but
+     * @method HolUtil.getColorWithAlpha Get one of the distinct colours, but
      *                                    combine it with a translucency level.
      * @param {number} catNum Number of the category
      * @param {string} alpha Alpha value (decimal between 0 and 1) in the form of a string.
@@ -154,8 +154,8 @@ class Util {
     /**
      * @description Get the current main colour for a specific category,
      * based on its index number.
-     * @function Util.getColorForCategory
-     * @memberof Util
+     * @function HolUtil.getColorForCategory
+     * @memberof HolUtil
      * @param  {number} catNum Number of the category.
      * @return {string}
      */
@@ -166,8 +166,8 @@ class Util {
     /**
      * @description Get the current translucent colour for a specific category,
      * based on its index
-     * @function Util.getTranslucentColorForCategory
-     * @memberof Util
+     * @function HolUtil.getTranslucentColorForCategory
+     * @memberof HolUtil
      * @param  {number} catNum Number of the category.
      * @return {string}
      */
@@ -176,8 +176,8 @@ class Util {
     };
 
     /**
-     * @function Util.getCenter
-     * @memberof Util
+     * @function HolUtil.getCenter
+     * @memberof HolUtil
      * @description Calculates the centre
      *               point of an ol.Extent object.
      * @return {number[]} Array of two integers for x and y.
@@ -191,8 +191,8 @@ class Util {
     };
 
     /**
-     * @function Util.escapeXml
-     * @memberof Util
+     * @function HolUtil.escapeXml
+     * @memberof HolUtil
      * @description Escapes a block of XML so that it
      *              can be shown in literal form.
      * @param  {string} xml XML code.
@@ -203,11 +203,11 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.style.Style object which renders a feature as
      * essentially invisible.
-     * @function Util.getHiddenStyle
-     * @memberof Util
+     * @function HolUtil.getHiddenStyle
+     * @memberof HolUtil
      * @description returns the default
      *                    style for features when they are
      *                    not visible on the map.
@@ -237,11 +237,11 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.style.Style object which is used for drawing
      * operations.
-     * @function Util.getDrawingStyle
-     * @memberof Util
+     * @function HolUtil.getDrawingStyle
+     * @memberof HolUtil
      * @description returns the default
      *                    style for drawing new features on
      *                    the map when feature-editing is
@@ -251,7 +251,7 @@ class Util {
     static getDrawingStyle() {
         return new ol.style.Style({
             fill: new ol.style.Fill({
-                color: 'rgba(255, 255, 255, ' + Util.shapeOpacity + ')'
+                color: 'rgba(255, 255, 255, ' + HolUtil.shapeOpacity + ')'
             }),
             stroke: new ol.style.Stroke({
                 color: '#ffcc33',
@@ -267,11 +267,11 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.style.Style object designed for rendering a
      * user-dragged box on the map.
-     * @function Util.getDragBoxStyle
-     * @memberof Util
+     * @function HolUtil.getDragBoxStyle
+     * @memberof HolUtil
      * @description returns the default
      *                    style for a box drawn by the user
      *                    on the map using the mouse.
@@ -287,14 +287,14 @@ class Util {
     };
 
     /**
-     * An immediately-executed function in the Util
+     * An immediately-executed function in the HolUtil
      *                   namespace which maintains
      *                   an incrementing counter, used for
      *                   purposes such as providing a high
      *                   zIndex to make selected objects
      *                   appear above others in their layer.
-     * @function Util.counter
-     * @memberof Util
+     * @function HolUtil.counter
+     * @memberof HolUtil
      * @description returns a function which
      *                   returns an incremented counter value.
      * @returns {function} a function which returns an integer.
@@ -307,11 +307,11 @@ class Util {
     })();
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.style.Style object which renders a feature as
      * it would appear when highlighted.
-     * @function Util.getSelectedStyle
-     * @memberof Util
+     * @function HolUtil.getSelectedStyle
+     * @memberof HolUtil
      * @description returns default
      *                    style for features when they are
      *                    selected on the map.
@@ -397,12 +397,12 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.style.Style object which renders a feature
      * intended to be used to track the user's location
      * on the map.
-     * @function Util.getUserLocationStyle
-     * @memberof Util
+     * @function HolUtil.getUserLocationStyle
+     * @memberof HolUtil
      * @description returns default style for a feature
      *                      which tracks the user's location
      *                      on the map.
@@ -438,11 +438,11 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which returns
+     * A function in the HolUtil namespace which returns
      * an ol.FeatureStyleFunction object which renders a feature as
      * it would appear as a member of a specified category.
-     * @function Util.getCategoryStyle
-     * @memberof Util
+     * @function HolUtil.getCategoryStyle
+     * @memberof HolUtil
      * @description returns a constructed ol.FeatureStyleFunction
      *                    for features when they are
      *                    rendered normally on the map.
@@ -529,7 +529,7 @@ class Util {
 
     /** Utility function which is passed an ol.Extent (minx, miny, maxx, maxy)
      and returns the area of the rectangle.
-     *  @method Util.getSize Utility function for calculating the size of an ol.Extent.
+     *  @method HolUtil.getSize Utility function for calculating the size of an ol.Extent.
      *  @param   {ol.Extent} extent
      *  @returns {number} The width * height of the extent.
      * */
@@ -542,7 +542,7 @@ class Util {
 
     /** Utility function which is passed a user-created name and
      *          returns a valid id constructed from it.
-     *  @method Util.idFromName Utility function for constructing
+     *  @method HolUtil.idFromName Utility function for constructing
      *                   a valid QName from a prose string.
      *  @param   {string} name
      *  @returns {string} The constructed ud.
@@ -556,10 +556,10 @@ class Util {
     };
 
     /**
-     * A function in the Util namespace which expands and
+     * A function in the HolUtil namespace which expands and
      * contracts a category in the navigation panel.
-     * @function Util.expandCollapseCategory
-     * @memberof Util
+     * @function HolUtil.expandCollapseCategory
+     * @memberof HolUtil
      * @description expands or
      *              contracts a category in the
      *              navigation panel.
@@ -595,8 +595,8 @@ class Util {
 
     /**
      * @description A specific exception type we need to tell the user about.
-     * @constructor Util.DataNotFoundError
-     * @memberof Util
+     * @constructor HolUtil.DataNotFoundError
+     * @memberof HolUtil
      * @param {string} missingData Specifics of the data which is missing.
      * @param {string} dataFile The file in which the data was expected to be found.
      */
@@ -605,17 +605,17 @@ class Util {
         this.stack = (new Error()).stack;
         // todo: not sure about the 2-line bit that follows, in terms of where they should be placed
         Object.setPrototypeOf(this.DataNotFoundError.prototype, Error.prototype);
-        this.DataNotFoundError.prototype.name = 'Util.DataNotFoundError';
+        this.DataNotFoundError.prototype.name = 'HolUtil.DataNotFoundError';
     };
 
     /**
      * @description Simple test function. Throws up an alert.
      * @function test
      * @param {string} inStr String to show in alert.
-     * @memberof Util
+     * @memberof HolUtil
      */
     static test(inStr) {
-        alert('Util.test has been called with ' + inStr + '.');
+        alert('HolUtil.test has been called with ' + inStr + '.');
     };
 
     /**
@@ -626,7 +626,7 @@ class Util {
      *
      * Call like this:
      *
-     *  Util.ajaxRetrieve('json/myfile.json', 'json').then(function(response) {
+     *  HolUtil.ajaxRetrieve('json/myfile.json', 'json').then(function(response) {
      *  // The first runs when the promise resolves, with the request.response
      *  // specified within the resolve() method.
      *  something.something = JSON.Parse(response);
@@ -636,8 +636,8 @@ class Util {
      *      console.log(Error);
      *  });
      *
-     * @function Util.ajaxRetrieve
-     * @memberof Util
+     * @function HolUtil.ajaxRetrieve
+     * @memberof HolUtil
      * @description Method for retrieving JSON from a URL using
      * XMLHttpRequest. Stolen from:
      * https://github.com/mdn/promises-test/blob/gh-pages/index.html
@@ -679,8 +679,8 @@ class Util {
     /**
      * Function for parsing a URL query string.
      *
-     * @function Util.getQueryParam
-     * @memberof Util
+     * @function HolUtil.getQueryParam
+     * @memberof HolUtil
      * @description parses a URL query
      *         string and returns a value for a specified param name.
      * @param {string} param The name of the param name to search for.
@@ -694,4 +694,4 @@ class Util {
 
 }
 
-export {Util}
+export {HolUtil}

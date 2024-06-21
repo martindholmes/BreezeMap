@@ -10,7 +10,7 @@
     <!--   NOTE: We're using the debug version of OL for testing purposes.
               Switch to the compiled version for a live site.   -->
     <script src="ol/ol.js" type="text/ecmascript"></script>
-    <script src="js/vectorlayer.js" type="module"></script>
+    <script src="js/HolVectorLayer.js" type="module"></script>
     <style type="text/css">
         <!--
         #opacitySlider {
@@ -57,10 +57,10 @@
        Open Street Maps dataset. */
 
     //Globals...
-    import {VectorLayer} from "./js/vectorlayer.js";
+    import {HolVectorLayer} from "./js/HolVectorLayer.js";
     
     //For testing.
-    import * as tmpUtil from "./js/util.js";
+    import * as tmpUtil from "./js/HolUtil.js";
 
     var mapCentre = [-123.312214, 48.463199];
     var map = null, view = null, myLayers = [], layerXYZ = null, featureJSONFile = 'js/campus.json', holLayer = null;
@@ -108,7 +108,7 @@
         document.getElementById('opacitySlider').onchange();
 
 //Now let's create a hol vector layer for all our features.
-        holLayer = new VectorLayer(map, featureJSONFile, {
+        holLayer = new HolVectorLayer(map, featureJSONFile, {
             allowTaxonomyEditing: true,
             allowDrawing: true,
             allowUpload: true,
@@ -124,7 +124,7 @@
     });
 
     //Echo version for testing.
-    console.log(tmpUtil.Util.showVersion());
+    console.log(tmpUtil.HolUtil.showVersion());
 
 </script>
 
