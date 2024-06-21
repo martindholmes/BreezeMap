@@ -58,9 +58,6 @@
 
     //Globals...
     import {HolVectorLayer} from "./js/HolVectorLayer.js";
-    
-    //For testing.
-    import * as tmpUtil from "./js/HolUtil.js";
 
     var mapCentre = [-123.312214, 48.463199];
     var map = null, view = null, myLayers = [], layerXYZ = null, featureJSONFile = 'js/campus.json', holLayer = null;
@@ -122,9 +119,6 @@
     window.addEventListener('load', function (event) {
         initCampusMap();
     });
-
-    //Echo version for testing.
-    console.log(tmpUtil.HolUtil.showVersion());
 
 </script>
 

@@ -1,5 +1,7 @@
 'use strict';
 
+import * as constants from "./HolConstants.js";
+
 /**
  * HolUtil class contains utility methods
  * and constants for the rest of the classes.
@@ -109,7 +111,7 @@ class HolUtil {
      * @returns {string} The same string as is output to the console.
      */
     static showVersion() {
-        const verString = 'hol (HCMC OpenLayers) JS version ' + VERSION + ' tested with OpenLayers ' + OLVERSION + '.';
+        const verString = 'hol (HCMC OpenLayers) JS version ' + constants.VERSION + ' tested with OpenLayers ' + constants.OLVERSION + '.';
         console.log(verString);
         return verString;
     };

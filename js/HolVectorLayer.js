@@ -33,8 +33,8 @@
 
 'use strict';
 
-import * as util from "./HolUtil.js"
-import * as constants from "./HolConstants.js"
+import * as util from "./HolUtil.js";
+import * as constants from "./HolConstants.js";
 
 /**
  * HolVectorLayer class is the core class which is
