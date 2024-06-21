@@ -58,7 +58,7 @@
                     </place>-->
                     <place corresp="#london" xml:id="agasLondon">
                         <placeName>Agas London</placeName>
-                        <desc>The area covered by the foreground of the <ref target="http://jenkins.hcmc.uvic.ca/job/MoEML/lastSuccessfulBuild/artifact/static/site/agas.htm">Agas Map</ref>.</desc>
+                        <desc>The area covered by the foreground of the <ref target="https://mapoflondon.uvic.ca/agas.htm">Agas Map</ref>.</desc>
 
                         <location type="GeoJSON"> <geo>"geometry": {"type": "Polygon", "coordinates": [[[-0.131021,51.493488],[-0.050941,51.493488],[-0.050941,51.519559],[-0.131021,51.519559],[-0.131021,51.493488]]]}</geo>
                         </location>

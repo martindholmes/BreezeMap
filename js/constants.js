@@ -55,7 +55,7 @@ captions['en'].strStepBackward = 'Step backward in the timeline.'
  *  @type {string}
  *  @default
  */
-const VERSION = '1.2b';
+const VERSION = '1.3b';
 
 /** @constant const OLVERSION
  *  Latest release of OpenLayers with which this codebase was tested.

@@ -1,3 +1,35 @@
+/**
+ * This project provides functionality built onto
+ * the OpenLayers API to handle data in various
+ * formats (GeoJSON initially, along with some
+ * additional custom data relating to the
+ * categories of features which cannot straightforwardly
+ * be encoded in GeoJSON) and create enhanced
+ * OL Features and interface components.
+ *
+ * It requires a CSS file called ../css/hcmc_ol.css, as 
+ * well as an image called placemark.png.
+ *
+ * Written originally by Martin Holmes beginning 2016-03 for
+ * general use, and piloted with the Stolo project; contributions
+ * from Deniz Aydin, Pat Szpak, Greg Newton, and others.
+*/
+
+/**
+ * Prefix "hol" stands for HCMC Open Layers.
+ */
+
+/**
+ * @fileOverview Convenience library for rapidly building
+ *               OpenLayers-based maps with complex
+ *               vector layers, where features are sorted
+ *               into multiple categories in a many-to-many
+ *               relationship, and a navigation panel is
+ *               required.
+ * @author <a href="mailto:mholmes@uvic.ca">Martin Holmes</a>
+ * @version 1.3b for OL 9.2.4
+ */
+
 
 'use strict';
 
@@ -278,8 +310,7 @@ class VectorLayer {
      * Function for setting up interface components for uploading
      *                         a GeoJSON file.
      *
-     * @function
-     setupUpload
+     * @function      setupUpload
      * @memberof VectorLayer.prototype
      * @description Adds components to the toolbar to allow the user
      *              to upload a GeoJSON file into the page.
@@ -342,8 +373,7 @@ class VectorLayer {
     /**
      * Function for setting up feature-editing functionality.
      *
-     * @function
-     setupFeatureEditing
+     * @function      setupFeatureEditing
      * @memberof VectorLayer.prototype
      * @description Sets up some interface controls that allow the user
      *              to create new features and edit existing ones.
@@ -426,8 +456,7 @@ class VectorLayer {
     /**
      * Function for setting up taxonomy-editing functionality.
      *
-     * @function
-     setupTaxonomyEditing
+     * @function      setupTaxonomyEditing
      * @memberof VectorLayer.prototype
      * @description Sets up some interface controls that allow the user
      *              to create new taxonomies and categories, and edit
@@ -454,8 +483,7 @@ class VectorLayer {
     /**
      * Function for allowing the user to define the main map bounds.
      *
-     * @function
-     drawMapBounds
+     * @function      drawMapBounds
      * @memberof VectorLayer.prototype
      * @description Initiates a drawing action the user to draw a
      *              rectangular box which delineates the starting
@@ -493,8 +521,7 @@ class VectorLayer {
     /**
      * Function for initiating a feature-drawing action
      *
-     * @function
-     addDrawInteraction
+     * @function      addDrawInteraction
      * @memberof VectorLayer.prototype
      * @description Initiates a drawing action for users editing and
      *                        creating new feature geometries.
@@ -566,8 +593,7 @@ class VectorLayer {
     /**
      * Function to handle the initiation of drawing a feature.
      *
-     * @function
-     drawStart
+     * @function      drawStart
      * @memberof VectorLayer.prototype
      * @description Handles the beginning of a drawing operation, configuring the
      *                      drawing interface as needed.
@@ -596,8 +622,7 @@ class VectorLayer {
      * 3857 or not. If we're dealing with a static image layer, then it
      * would not be.
      *
-     * @function
-     transformGeom
+     * @function      transformGeom
      * @memberof VectorLayer.prototype
      * @description If the projection of the ol.View is EPSG:3857, then we're
      *              dealing with a real map, and we need to convert to EPSG:4326
@@ -625,8 +650,7 @@ class VectorLayer {
     /**
      * Function to handle the products of drawing a feature.
      *
-     * @function
-     drawEnd
+     * @function      drawEnd
      * @memberof VectorLayer.prototype
      * @description Handles the end of a drawing operation, generating the
      *              appropriate output code.
@@ -758,8 +782,7 @@ class VectorLayer {
     /**
      * Function to handle the end process after defining the map rectangle bounds.
      *
-     * @function
-     drawMapBoundsEnd
+     * @function      drawMapBoundsEnd
      * @memberof VectorLayer.prototype
      * @description Handles the end of a drawing operation which produces a rectangle
      *                      defining the user's preferred map bounds.
@@ -798,8 +821,7 @@ class VectorLayer {
      * the convenience of the researcher in our pilot project; eventually
      * this will be part of the overall feature-editing interface.
      *
-     * @function
-     showCoords
+     * @function      showCoords
      * @memberof VectorLayer.prototype
      * @description Writes out the coordinates of drawn geometries to a
      *              textarea. Note that this is currently an ad-hoc rendering
@@ -838,8 +860,7 @@ class VectorLayer {
     /**
      * Function for adding a newly-drawn feature to the nav.
      *
-     * @function
-     addDrawnFeature
+     * @function      addDrawnFeature
      * @memberof VectorLayer.prototype
      * @description Gets a name from the user for the feature, and
      *              then adds it to the navigation box. If there is
@@ -925,8 +946,7 @@ class VectorLayer {
     /**
      * Function for loading GeoJSON from a string variable.
      *
-     * @function
-     loadGeoJSONFromString
+     * @function      loadGeoJSONFromString
      * @memberof VectorLayer.prototype
      * @description Reads the string supplied as GeoJSON and constructs
      *              a feature set on the vector layer from it, then
@@ -1098,8 +1118,7 @@ class VectorLayer {
      * Function for loading GeoJSON from a string variable without
      * removing existing features.
      *
-     * @function
-     appendGeoJSONFromString
+     * @function      appendGeoJSONFromString
      * @memberof VectorLayer.prototype
      * @description Reads the string supplied as GeoJSON and constructs
      *              a feature set on in a temporary source from it, then
@@ -1221,8 +1240,7 @@ class VectorLayer {
      * Function for providing a download of the map data in GeoJSON
      * format.
      *
-     * @function
-     downloadGeoJSON
+     * @function      downloadGeoJSON
      * @memberof VectorLayer.prototype
      * @description Provides the current state of the map taxonomies, categories
      *              and features in the form of a GeoJSON file for download.
@@ -1262,8 +1280,7 @@ class VectorLayer {
      * Function for providing an option to paste a GeoJSON feature
      * into the map.
      *
-     * @function
-     pasteGeoJSON
+     * @function      pasteGeoJSON
      * @memberof VectorLayer.prototype
      * @description Provides the option for the user to paste some
      *              GeoJSON into the map. Currently handling is
@@ -1296,8 +1313,7 @@ class VectorLayer {
      * Function for testing new features. Subject to change and
      * eventual removal.
      *
-     * @function
-     addTestingFeatures
+     * @function      addTestingFeatures
      * @memberof VectorLayer.prototype
      * @description Performs some initialization of features
      *              which are currently in development and testing.
@@ -1324,8 +1340,7 @@ class VectorLayer {
      * a list of categories, and each category containing a set of
      * features.
      *
-     * @function
-     readTaxonomies
+     * @function      readTaxonomies
      * @memberof VectorLayer.prototype
      * @description Reads the data in the properties members of the
      *           features, and uses it to construct a set of one or
@@ -1429,8 +1444,7 @@ class VectorLayer {
      * Function for checking whether a particular taxonomy
      *              contains a specific category or not.
      *
-     * @function
-     taxonomyHasCategory
+     * @function      taxonomyHasCategory
      * @memberof VectorLayer.prototype
      * @description Checks whether the specified taxonomy contains
      *              a particular category or not.
@@ -1467,8 +1481,7 @@ class VectorLayer {
      * Function for checking whether a particular taxonomy
      *              contains a specific feature or not.
      *
-     * @function
-     taxonomyHasFeature
+     * @function      taxonomyHasFeature
      * @memberof VectorLayer.prototype
      * @description Checks whether the specified taxonomy contains
      *              a particular feature as a member of one of its
@@ -1508,8 +1521,7 @@ class VectorLayer {
     /**
      * Function for adding a new taxonomy to the current set.
      *
-     * @function
-     newTaxonomy
+     * @function      newTaxonomy
      * @memberof VectorLayer.prototype
      * @description Prompts the user for a new taxonomy name, then
      *              constructs an id for the new taxonomy, adds
@@ -1546,8 +1558,7 @@ class VectorLayer {
     /**
      * Function for adding a new category to the current taxonomy.
      *
-     * @function
-     newCategory
+     * @function      newCategory
      * @memberof VectorLayer.prototype
      * @description Prompts the user for a new category name, then
      *              constructs an id for the new category, and adds
@@ -1589,8 +1600,7 @@ class VectorLayer {
      * Function for finding an existing splash screen div, or
      * creating one if one does not exist.
      *
-     * @function
-     getSplashScreen
+     * @function      getSplashScreen
      * @memberof VectorLayer.prototype
      * @description looks for
      * a user-defined splash screen element, and if there isn't one,
@@ -1627,8 +1637,7 @@ class VectorLayer {
      * Function for reconfiguring the splash screen for use as an
      * information popup box.
      *
-     * @function
-     afterLoading
+     * @function      afterLoading
      * @memberof VectorLayer.prototype
      * @description reconfigures
      * the splash screen so that it can be used as purely an
@@ -1683,8 +1692,7 @@ class VectorLayer {
      * Function to handle any annoying browser glitches in support for newer
      * standards features.
      *
-     * @function
-     browserShims
+     * @function      browserShims
      * @memberof VectorLayer.prototype
      * @description Implements some shims/hacks to work around limitations
      *              of old browsers. REMOVE AS SOON AS APPROPRIATE.
@@ -1712,8 +1720,7 @@ class VectorLayer {
      * Function for zooming the map to a specific coordinate box,
      * and showing all of the features which appear within that box.
      *
-     * @function
-     zoomToBox
+     * @function      zoomToBox
      * @memberof VectorLayer.prototype
      * @description Zooms the map
      *                    to show an area dragged by the user, and
@@ -1749,8 +1756,7 @@ class VectorLayer {
      * Function for building the HTML toolbar at the top of the
      * document.
      *
-     * @function
-     buildToolbar
+     * @function      buildToolbar
      * @memberof VectorLayer.prototype
      * @description creates
      *         a toolbar at the top of the screen, including the document
@@ -1826,8 +1832,7 @@ class VectorLayer {
 
     /**
      * Function for adding a taxonomy selector to the toolbar .
-     * @function
-     buildTaxonomySelector
+     * @function      buildTaxonomySelector
      * @memberof VectorLayer.prototype
      * @description creates a selector element for choosing between
      *         taxonomies, and attaches it to the toolbar at the top
@@ -1873,8 +1878,7 @@ class VectorLayer {
     /**
      * Function for switching from one displayed taxonomy to another.
      *
-     * @function
-     changeTaxonomy
+     * @function      changeTaxonomy
      * @memberof VectorLayer.prototype
      * @description Typically called by the user choosing a taxonomy from
      *              a selector at the top of the screen; invokes a rebuild
@@ -1906,8 +1910,7 @@ class VectorLayer {
      * Function for building the HTML navigation panel in the
      * document.
      *
-     * @function
-     buildNavPanel
+     * @function      buildNavPanel
      * @memberof VectorLayer.prototype
      * @description creates
      *         a navigation panel/menu for all the categories
@@ -2088,8 +2091,7 @@ class VectorLayer {
      * Function for building the HTML range control and associated
      *          components for the timeline functionality, if required.
      *
-     * @function
-     buildTimeline
+     * @function      buildTimeline
      * @memberof VectorLayer.prototype
      * @description creates a box containing a range control and
      *               associated components for showing/hiding features based
@@ -2201,8 +2203,7 @@ class VectorLayer {
      * Function for showing/hiding the timeline, when the screen space
      *              is tight (e.g. when drawing).
      *
-     * @function
-     showTimeline
+     * @function      showTimeline
      * @memberof VectorLayer.prototype
      * @description hides or shows any timelines on the page.
      * @param   {Boolean} show show if true, hide if false
@@ -2227,8 +2228,7 @@ class VectorLayer {
     /**
      * Function for toggling the timeline functionality.
      *
-     * @function
-     toggleTimeline
+     * @function      toggleTimeline
      * @memberof VectorLayer.prototype
      * @description enables or disables the timeline control, and
      *              runs its change event to reconfigure visibility
@@ -2278,8 +2278,7 @@ class VectorLayer {
      * Function for showing/hiding features based on their current
      *          display setting and the timeline position.
      *
-     * @function
-     timelineChange
+     * @function      timelineChange
      * @memberof VectorLayer.prototype
      * @description triggered by a change in the timeline position,
      *              this checks all the currently-showing features
@@ -2363,8 +2362,7 @@ class VectorLayer {
     /**
      * Function for "playing" the timeline in sequence.
      *
-     * @function
-     timelinePlay
+     * @function      timelinePlay
      * @memberof VectorLayer.prototype
      * @description triggered by the timeline play button, this
      *              uses a recursive function to advance the
@@ -2421,8 +2419,7 @@ class VectorLayer {
     /**
      * Function for "stepping" the timeline forwards or backwards.
      *
-     * @function
-     timelineStep
+     * @function      timelineStep
      * @memberof VectorLayer.prototype
      * @description triggered by the timeline stepback or stepforward
      *              buttons, this moves the timeline one step.
@@ -2525,8 +2522,7 @@ class VectorLayer {
      * Function for retrieving a workable category id for
      * a feature that is to be displayed.
      *
-     * @function
-     getCurrFirstCatNum
+     * @function      getCurrFirstCatNum
      * @memberof VectorLayer.prototype
      * @description finds the first category number in the currently-active
      *              taxonomy which contains the feature with the supplied
@@ -2563,8 +2559,7 @@ class VectorLayer {
     /**
      * Function for hiding/showing a single feature on the map.
      *
-     * @function
-     showHideFeature
+     * @function      showHideFeature
      * @memberof VectorLayer.prototype
      * @description turns
      *                         a feature on or off on the layer,
@@ -2641,8 +2636,7 @@ class VectorLayer {
     /**
      * Function for showing/hiding all features on the layer.
      *
-     * @function
-     showHideAllFeatures
+     * @function      showHideAllFeatures
      * @memberof VectorLayer.prototype
      * @description toggles display of all features which are part of
      *              the currently-selected taxonomy.
@@ -2692,8 +2686,7 @@ class VectorLayer {
      * Function for hiding/showing features on the map controlled by
      *              the navigation panel.
      *
-     * @function
-     showHideFeatureFromNav
+     * @function      showHideFeatureFromNav
      * @memberof VectorLayer.prototype
      * @description is called
      *             from the navigation panel, and hides
@@ -2728,8 +2721,7 @@ class VectorLayer {
      * Function for selecting and centring a feature on the map controlled by
      *              the navigation panel.
      *
-     * @function
-     selectFeatureFromNav
+     * @function      selectFeatureFromNav
      * @memberof VectorLayer.prototype
      * @description is called
      *             from the navigation panel, and shows, selects and centres
@@ -2760,8 +2752,7 @@ class VectorLayer {
      * after operations which have changed the status of their
      * subsidiary feature checkboxes.
      *
-     * @function
-     harmonizeCategoryCheckboxes
+     * @function      harmonizeCategoryCheckboxes
      * @memberof VectorLayer.prototype
      * @description goes through
      *                         all the checkboxes for categories, and
@@ -2816,8 +2807,7 @@ class VectorLayer {
      * Function for hiding/showing a complete category of
      * features on the map.
      *
-     * @function
-     showHideCategory
+     * @function      showHideCategory
      * @memberof VectorLayer.prototype
      * @description hides
      *             or shows all the features belonging to a
@@ -2858,8 +2848,7 @@ class VectorLayer {
     /**
      * Function for centring the map on a selection of multiple
      * features.
-     * @function
-     centerOnFeatures
+     * @function      centerOnFeatures
      * @memberof VectorLayer.prototype
      * @description
      *              centres the map on a set of features which
@@ -2909,8 +2898,7 @@ class VectorLayer {
      * Function for navigating the map to a specified extent. Used when
      *          defining a map boundary rectangle, and later when using
      *          that rectangle when initializing.
-     * @function
-     setMapBounds
+     * @function      setMapBounds
      * @memberof VectorLayer.prototype
      * @description Navigates the map to a specified extent. Used when
      *           the user defines a map boundary startup setting, and
@@ -2940,8 +2928,7 @@ class VectorLayer {
      * Function for finding the smallest feature at a specific
      *                      pixel on the map.
      *
-     * @function
-     selectFeatureFromPixel
+     * @function      selectFeatureFromPixel
      * @memberof VectorLayer.prototype
      * @description detects
      *                         all features that overlap a specific
@@ -2985,8 +2972,7 @@ class VectorLayer {
      *          the hol: linking protocol whereby a user can point
      *          to the id of a specific feature in a text or description.
      *
-     * @function
-     selectFeatureFromId
+     * @function      selectFeatureFromId
      * @memberof VectorLayer.prototype
      * @description selects a feature on the map based on its
      *          id.
@@ -3020,8 +3006,7 @@ class VectorLayer {
      * Function for selecting a specific feature and displaying info
      *                        about it.
      *
-     * @function
-     setSelectedFeature
+     * @function      setSelectedFeature
      * @memberof VectorLayer.prototype
      * @description deselects
      *                         any feature currently selected, and
@@ -3107,8 +3092,7 @@ class VectorLayer {
      * Function for cloning the currently-selected feature so its
      *                         geometry can be edited.
      *
-     * @function
-     editSelectedFeature
+     * @function      editSelectedFeature
      * @memberof VectorLayer.prototype
      * @description clones the currently-selected feature (if there
      *                     is one) and presents that geometry for
@@ -3156,8 +3140,7 @@ class VectorLayer {
      * Function for deselecting the currently-selected feature if there
      *                          is one.
      *
-     * @function
-     deselectFeature
+     * @function      deselectFeature
      * @memberof VectorLayer.prototype
      * @description deselects
      *                         any feature currently selected.
@@ -3172,8 +3155,7 @@ class VectorLayer {
      * Function for parsing the search component of the URL string
      *              and showing/selecting features found there.
      *
-     * @function
-     parseSearch
+     * @function      parseSearch
      * @memberof VectorLayer.prototype
      * @description Parses the
      *              search component of the window URL and attempts
@@ -3297,8 +3279,7 @@ class VectorLayer {
     /**
      * Function for showing/hiding the search box in the navigation panel.
      *
-     * @function
-     showHideMapSearch
+     * @function      showHideMapSearch
      * @memberof VectorLayer.prototype
      * @description Hides or shows
      *                         the search box for the navigation panel.
@@ -3337,8 +3318,7 @@ class VectorLayer {
     /**
      * Function for searching locations in the navigation panel.
      *
-     * @function
-     doLocationSearch
+     * @function      doLocationSearch
      * @memberof VectorLayer.prototype
      * @description Searches the
      *                         list of locations in the location panel
@@ -3404,8 +3384,7 @@ class VectorLayer {
     };
 
     /**
-     * @function
-     showDocument
+     * @function      showDocument
      * @memberof VectorLayer.prototype
      * @description Shows an HTML
      *                          file linked from a popup description.
@@ -3433,8 +3412,7 @@ class VectorLayer {
     };
 
     /**
-     * @function
-     rewriteHolLinks
+     * @function      rewriteHolLinks
      * @memberof VectorLayer.prototype
      * @description Rewrites links written with the hol: and box: private URI
      *              protocols so that they make a JS call to this object. hol:
@@ -3477,8 +3455,7 @@ class VectorLayer {
     };
 
     /**
-     * @function
-     toggleTracking
+     * @function      toggleTracking
      * @memberof VectorLayer.prototype
      * @description Uses the HTML5 Geolocation API to turn on or off tracking of
      *              the user's current location on the map.
@@ -3519,8 +3496,7 @@ class VectorLayer {
     };
 
     /**
-     * @function
-     trackPosition
+     * @function      trackPosition
      * @memberof VectorLayer.prototype
      * @description Callback function called by the geolocation API when the user's
      *              position changes. Used to update their position on the map.

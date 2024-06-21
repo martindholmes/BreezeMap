@@ -57,7 +57,10 @@
        Open Street Maps dataset. */
 
     //Globals...
-    import {VectorLayer} from "../js/vectorlayer.js";
+    import {VectorLayer} from "./js/vectorlayer.js";
+    
+    //For testing.
+    import * as tmpUtil from "./js/util.js";
 
     var mapCentre = [-123.312214, 48.463199];
     var map = null, view = null, myLayers = [], layerXYZ = null, featureJSONFile = 'js/campus.json', holLayer = null;
@@ -120,6 +123,8 @@
         initCampusMap();
     });
 
+    //Echo version for testing.
+    console.log(tmpUtil.Util.showVersion());
 
 </script>
 
