@@ -2883,9 +2883,11 @@ class HolVectorLayer {
                 }
                 rightMargin = this.navPanel.offsetWidth + 20;
                 opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
-                    duration: Math.min(Math.floor(this.msPlayInterval / 2), 1000),
-                    maxZoom: this.maxZoomOnFeature
+                    duration: Math.min(Math.floor(this.msPlayInterval / 2), 1000)
                 };
+                if (this.maxZoomOnFeature !== 0){
+                    opts.maxZoom = this.maxZoomOnFeature;
+                }
 
                 this.view.fit(extent, /* this.map.getSize(),*/ opts);
 
