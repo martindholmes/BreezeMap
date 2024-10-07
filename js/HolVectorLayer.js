@@ -74,6 +74,9 @@ class HolVectorLayer {
             // generate an additional taxonomy which combines everything. If
             // you combine this with drawing, though, things get messy.
             this.initialTaxonomyId = options.initialTaxonomyId || '';
+            //When zooming in on a point, by default you go to maximum zoom, which is not ideal.
+            //This enables us to constrain that with a specific zoom level.
+            this.maxZoomOnFeature = options.maxZoomOnFeature || 0;
 
 
             this.msPlayInterval = (options.msPlayInterval === undefined)? 1500 : options.msPlayInterval;
@@ -2880,7 +2883,8 @@ class HolVectorLayer {
                 }
                 rightMargin = this.navPanel.offsetWidth + 20;
                 opts = {padding: [20, rightMargin, bottomMargin, leftMargin],
-                    duration: Math.min(Math.floor(this.msPlayInterval / 2), 1000)
+                    duration: Math.min(Math.floor(this.msPlayInterval / 2), 1000),
+                    maxZoom: this.maxZoomOnFeature
                 };
 
                 this.view.fit(extent, /* this.map.getSize(),*/ opts);
