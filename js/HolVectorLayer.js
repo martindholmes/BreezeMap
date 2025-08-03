@@ -66,8 +66,11 @@ class HolVectorLayer {
             }
             // Setting for testing new features.
             this.testing = options.testing || false;
-            this.allowUpload = options.allowUpload || false;
+            this.allowUpload = options.allowUpload || false; //Allow upload of an XML or GeoJSON file???
+            //Allow new features to be drawn on the surface and turned into GeoJSON geometries.
             this.allowDrawing = options.allowDrawing || false;
+            //Allow upload of an image for annotation; only meaningful if drawing is also allowed.
+            this.allowImageUpload = (options.allowImageUpload && this.allowDrawing) || false;  
             this.allowTaxonomyEditing = options.allowTaxonomyEditing || false;
             this.allFeaturesTaxonomy = (options.allFeaturesTaxonomy /*&& !this.allowDrawing*/) || false;
             // If multiple taxonomies are being used, and this is true, then
@@ -77,7 +80,6 @@ class HolVectorLayer {
             //When zooming in on a point, by default you go to maximum zoom, which is not ideal.
             //This enables us to constrain that with a specific zoom level.
             this.maxZoomOnFeature = options.maxZoomOnFeature || 0;
-
 
             this.msPlayInterval = (options.msPlayInterval === undefined)? 1500 : options.msPlayInterval;
             this.pageLang = document.querySelector('html').getAttribute('lang') || 'en';
@@ -204,6 +206,8 @@ class HolVectorLayer {
             this.setupMenu = null;
             // Will contain a pointer to the drawing menu.
             this.drawMenu = null;
+            //Will be a menu item allowing upload of an image for annotation, if configured.
+            this.uploadImageMenuItem = null;
             // Will be populated from the richTimelinePoints property of the base feature.
             this.timelineData = null;
             // Will contain a pointer to the timeline control, if one is constructed.
@@ -409,6 +413,15 @@ class HolVectorLayer {
                 this.drawMenu.appendChild(document.createTextNode(this.captions.strDraw));
                 menu = document.createElement('ul');
                 this.drawMenu.appendChild(menu);
+
+                if (this.allowImageUpload){
+                    this.uploadImageMenuItem = document.createElement('li');
+                    this.uploadImageMenuItem.setAttribute('class', 'divided');
+                    this.uploadImageMenuItem.appendChild(document.createTextNode(this.captions.strUploadImage));
+                    menu.appendChild(this.uploadImageMenuItem);
+                }
+                
+
                 for (i=0, maxi = types.length; i< maxi; i++){
                     item = document.createElement('li');
                     item.appendChild(document.createTextNode(types[i]));

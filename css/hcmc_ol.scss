@@ -139,6 +139,9 @@ ul.holMenu>li>ul li{
   font-family: "Helvetica Neue", Verdana, sans-serif;
   color: rgb(57,70,78);
   font-size: .9rem;
+  &.divided{
+    border-bottom: solid 1pt gray;
+  }
 }
 
 ul.holMenu>li>ul li:hover{

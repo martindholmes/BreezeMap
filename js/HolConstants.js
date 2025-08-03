@@ -18,6 +18,7 @@ captions['en'].strSetup = 'Setup...';
 captions['en'].strMapArea = 'Map area';
 captions['en'].strDraw = 'Draw';
 captions['en'].strLoad = 'Load';
+captions['en'].strUploadImage = 'Upload image';
 captions['en'].strLoading = 'Loading...';
 captions['en'].strInfo = 'Information about this map.';
 captions['en'].strMenuToggle = '≡';
