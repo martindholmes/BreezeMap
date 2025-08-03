@@ -208,6 +208,8 @@ class HolVectorLayer {
             this.drawMenu = null;
             //Will be a menu item allowing upload of an image for annotation, if configured.
             this.uploadImageMenuItem = null;
+            // Will point to a hidden input[@type='input'] for image upload if required.
+            this.uploadImageInput = null;
             // Will be populated from the richTimelinePoints property of the base feature.
             this.timelineData = null;
             // Will contain a pointer to the timeline control, if one is constructed.
@@ -419,6 +421,12 @@ class HolVectorLayer {
                     this.uploadImageMenuItem.setAttribute('class', 'divided');
                     this.uploadImageMenuItem.appendChild(document.createTextNode(this.captions.strUploadImage));
                     menu.appendChild(this.uploadImageMenuItem);
+                    this.uploadImageMenuItem.addEventListener('click', this.fireUploadImage.bind(this));
+                    this.uploadImageInput = document.createElement('input');
+                    this.uploadImageInput.setAttribute('type', 'file');
+                    this.uploadImageInput.setAttribute('class', 'hidden');
+                    this.uploadImageInput.addEventListener('change', this.uploadImage.bind(this));
+                    document.body.appendChild(this.uploadImageInput);
                 }
                 
 
@@ -3555,6 +3563,48 @@ class HolVectorLayer {
             console.error(e.message);
             return false;
         }
+    }
+
+    /**
+     * @function      fireUploadImage
+     * @memberof VectorLayer.prototype
+     * @description Function enabling the user to choose a local image for 
+     *              upload and annotation. Simply invokes the upload method on 
+     *              the uploadImageInput element.
+     * @returns {boolean} true (success) or false (failure).
+     */ 
+    fireUploadImage() {
+        try{
+            this.uploadImageInput.click();
+            return true;
+        } catch (e) {
+            console.error(e.message);
+            return false;
+        }
+    }
+
+    /**
+     * @function      uploadImage
+     * @memberof VectorLayer.prototype
+     * @description Processes the upload of an image for annotation.
+     * @returns {boolean} true (success) or false (failure).
+     */ 
+    uploadImage(event){
+        try{
+            console.log('Asking for image to upload.');
+            const img = event.target.files[0];
+            if (img && img.type.startsWith('image/')){
+                console.log(img.type);
+                const rdr = new FileReader()
+                rdr.onload = (event) => {
+                    console.log('Got image');
+                }
+            }
+        } catch (e) {
+            console.error(e.message);
+            return false;
+        }
+        
     }
 }
 
