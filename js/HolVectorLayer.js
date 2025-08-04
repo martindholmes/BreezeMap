@@ -3596,9 +3596,32 @@ class HolVectorLayer {
             if (img && img.type.toString().startsWith('image/')){
                 console.log(img.type);
                 const rdr = new FileReader();
-                rdr.onload = (event) => {
+                var dataUrl = null, newSource = null, imgW = 0, imgH = 0, imgExtent = [];
+                rdr.onload = function(event){
                     console.log('Got image');
-                }
+                    dataUrl = event.target.result;
+                    const tempImg = new Image();
+                    tempImg.onload = function(){
+                        imgW = tempImg.naturalWidth;
+                        imgH = tempImg.naturalHeight;
+                        imgExtent = [0, 0, imgW, imgH];
+                        console.log(imgExtent);
+                        newSource = new ol.source.ImageStatic({
+                            url: dataUrl,
+                            imageExtent: imgExtent,
+                            attribution: 'Unknown'
+                        });
+                        //Get the image layer (we assume there's only one, and use the first.)
+                        const layers = this.map.getLayers();
+                        const imgLayer = layers.getArray().find((layer) => layer instanceof ol.layer.Image);
+                        if (imgLayer){
+                            console.log('Found image layer...');
+                            imgLayer.setSource(newSource);
+                            this.map.render();
+                        }
+                    }.bind(this);
+                    tempImg.src = dataUrl;
+                }.bind(this);
                 rdr.readAsDataURL(img);
             }
         } catch (e) {
