@@ -491,7 +491,7 @@ class HolVectorLayer {
     setupTaxonomyEditing(){
         let itemAddTaxonomy;
         try{
-            if (this.fileMenu === null){this.setupFileMenu();}
+            if (this.fileMenu === null){this.setupUpload();}
             itemAddTaxonomy = document.createElement('li');
             itemAddTaxonomy.appendChild(document.createTextNode(this.captions.strNewTaxonomy));
             this.fileMenu.getElementsByTagName('ul')[0].appendChild(itemAddTaxonomy);
@@ -3594,11 +3594,9 @@ class HolVectorLayer {
             console.log('Asking for image to upload.');
             const img = event.target.files[0];
             if (img && img.type.toString().startsWith('image/')){
-                console.log(img.type);
                 const rdr = new FileReader();
                 var dataUrl = null, newSource = null, imgW = 0, imgH = 0, imgExtent = [];
                 rdr.onload = function(event){
-                    console.log('Got image');
                     dataUrl = event.target.result;
                     const tempImg = new Image();
                     tempImg.onload = function(){
@@ -3615,7 +3613,6 @@ class HolVectorLayer {
                         const layers = this.map.getLayers();
                         const imgLayer = layers.getArray().find((layer) => layer instanceof ol.layer.Image);
                         if (imgLayer){
-                            console.log('Found image layer...');
                             imgLayer.setSource(newSource);
                             this.map.render();
                         }

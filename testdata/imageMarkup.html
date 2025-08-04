@@ -110,8 +110,9 @@
 
 //Now let's create a hol vector layer for all our features.
         holLayer = new HolVectorLayer(map, featureJSONFile, {
-            allowTaxonomyEditing: true,
+            allowTaxonomyEditing: false,
             allowDrawing: true,
+            allowUpload: false,
             allowImageUpload: true,
             allFeaturesTaxonomy: true
         });
