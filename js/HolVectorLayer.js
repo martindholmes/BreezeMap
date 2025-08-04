@@ -3593,12 +3593,13 @@ class HolVectorLayer {
         try{
             console.log('Asking for image to upload.');
             const img = event.target.files[0];
-            if (img && img.type.startsWith('image/')){
+            if (img && img.type.toString().startsWith('image/')){
                 console.log(img.type);
-                const rdr = new FileReader()
+                const rdr = new FileReader();
                 rdr.onload = (event) => {
                     console.log('Got image');
                 }
+                rdr.readAsDataURL(img);
             }
         } catch (e) {
             console.error(e.message);
