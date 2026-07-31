@@ -1,0 +1,4 @@
+# Debugging/verification scratch — not part of the spike
+.chrome-profile/
+feats.geojson
+_*.png

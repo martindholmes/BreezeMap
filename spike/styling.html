@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>BreezeMap spike: OL per-feature style &rarr; MapLibre feature-state</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="maplibre/maplibre-gl.css"/>
+    <link rel="stylesheet" href="../ol/ol.css"/>
+    <script src="../ol/ol.js"></script>
+    <script src="maplibre/maplibre-gl.js"></script>
+    <style>
+        html, body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #111; }
+        h1 { font-size: 1.1rem; margin: .6rem .8rem .2rem; }
+        p.lede { margin: 0 .8rem .6rem; color: #444; max-width: 60rem; }
+        .maps { display: flex; gap: 8px; padding: 0 8px; }
+        .pane { flex: 1 1 0; min-width: 0; }
+        .pane h2 { font-size: .95rem; margin: .2rem 0; }
+        .map { width: 100%; height: 460px; border: 1px solid #bbb; background: #eef2f4; }
+        .controls { padding: 8px; }
+        table.ctl { border-collapse: collapse; width: 100%; max-width: 60rem; }
+        table.ctl th, table.ctl td { border: 1px solid #ddd; padding: 4px 6px; text-align: left; }
+        table.ctl th { background: #f3f3f3; }
+        button { cursor: pointer; padding: 2px 8px; }
+        .swatch { display: inline-block; width: 12px; height: 12px; border: 1px solid #0003; vertical-align: middle; }
+        .map-note { font-size: .8rem; color: #666; margin: 2px 0 0; }
+        details { margin: 8px; max-width: 60rem; }
+        summary { cursor: pointer; font-weight: 600; }
+        code { background: #f2f2f2; padding: 0 3px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+<h1>Spike: OpenLayers per-feature <code>setStyle</code> &rarr; MapLibre <code>feature-state</code> + expressions</h1>
+<p class="lede">
+    Same three features, same palette, driven by the same runtime state (<em>hidden / normal / selected</em>, plus a
+    category index that drives colour). Left engine reproduces BreezeMap's current imperative styling; right engine
+    reproduces it declaratively. The hard case &mdash; directional arrows that OL culls per-segment by pixel length
+    (<code>pixLen&nbsp;&gt;&nbsp;25</code>) &mdash; is handled on the MapLibre side by <code>symbol-placement:&nbsp;line</code>
+    plus collision detection. Zoom both maps out and watch arrows drop on short segments.
+</p>
+
+<div class="maps">
+    <div class="pane">
+        <h2>OpenLayers (current model &mdash; <code>feature.setStyle(fn)</code>)</h2>
+        <div id="olMap" class="map"></div>
+        <p class="map-note">Per-feature style function re-evaluated each frame with the current resolution.</p>
+    </div>
+    <div class="pane">
+        <h2>MapLibre (target model &mdash; <code>setFeatureState</code> + paint expressions)</h2>
+        <div id="mlMap" class="map"></div>
+        <p class="map-note">One source, static layers. Only per-feature <em>state</em> changes at runtime.</p>
+    </div>
+</div>
+
+<div class="controls">
+    <table class="ctl">
+        <thead>
+        <tr><th>Feature</th><th>State</th><th>Category (colour)</th></tr>
+        </thead>
+        <tbody id="ctlBody"></tbody>
+    </table>
+</div>
+
+<details open>
+    <summary>Translation notes (what this spike proves)</summary>
+    <ul>
+        <li><strong>Category colour from runtime state.</strong> OL reads <code>feature.getProperties().showingCat</code>
+            inside the style fn. MapLibre reads <code>["feature-state","cat"]</code> in a <code>match</code> expression on
+            paint properties (<code>fill-color</code>, <code>line-color</code>, <code>icon-color</code>, <code>text-color</code>).
+            Live re-colour = <code>map.setFeatureState({source,id},{cat})</code>.</li>
+        <li><strong>Three visual states.</strong> OL swaps whole style objects (<code>getCategoryStyle</code> /
+            <code>getSelectedStyle</code> / <code>hiddenStyle</code>). MapLibre keeps one set of layers and switches on
+            <code>["feature-state","vis"]</code> for colour/width/opacity.</li>
+        <li><strong>Selected halo + raised z.</strong> OL uses a magenta stroke + an incrementing <code>zIndex</code>.
+            MapLibre uses a dedicated halo line layer above the base line layer (layer order replaces per-feature z).</li>
+        <li><strong>Icon tinting.</strong> OL tints <code>ol.style.Icon</code> via its <code>color</code>. MapLibre needs an
+            <strong>SDF</strong> image (<code>addImage(..., {sdf:true})</code>) so <code>icon-color</code> can tint it. Done at
+            runtime here from a canvas.</li>
+        <li><strong>Directional arrows (the hard mismatch).</strong> OL walks each segment, measures pixel length against the
+            view resolution, and manually places a rotated triangle only when <code>pixLen&nbsp;&gt;&nbsp;25</code>.
+            MapLibre does this declaratively with a <code>symbol</code> layer, <code>symbol-placement:&nbsp;line</code>,
+            <code>symbol-spacing</code>, and built-in collision detection &mdash; arrows that don't fit are dropped
+            automatically. No resolution math in app code.</li>
+        <li><strong>Labels only when selected.</strong> OL's selected style adds <code>text</code>. <code>text-field</code> is a
+            <em>layout</em> prop and can't read feature-state, so we keep the field constant and gate visibility via
+            <code>text-opacity</code> (a paint prop). This layout-vs-paint split is the one recurring gotcha.</li>
+    </ul>
+</details>
+
+<script type="module">
+    // ---- Shared palette (from HolUtil.tenColors) ----------------------------
+    const tenColors = ['rgb(85,0,0)','rgb(0,85,0)','rgb(0,0,85)','rgb(85,85,0)','rgb(85,0,85)',
+                       'rgb(0,85,85)','rgb(150,0,0)','rgb(0,130,0)','rgb(0,0,150)','rgb(0,0,0)'];
+    const catColor = (c) => tenColors[((c % 10) + 10) % 10];
+    const SHAPE_OPACITY = 0.2;
+    const MAGENTA = 'rgba(255,0,255,1)';
+    const MAGENTA_HALO = 'rgba(255,0,255,0.6)';
+
+    // ---- Shared data (lon/lat) ----------------------------------------------
+    // A point, a directional line (mix of long + short segments), a polygon.
+    const CENTER = [-123.3100, 48.4630];
+    const features = [
+        {
+            id: 1, name: 'Fountain', directional: false, cat: 0,
+            geometry: { type: 'Point', coordinates: [-123.3100, 48.4630] }
+        },
+        {
+            id: 2, name: 'Parade route', directional: true, cat: 4,
+            geometry: { type: 'LineString', coordinates: [
+                [-123.3140, 48.4610],
+                [-123.3110, 48.4615],   // long
+                [-123.3106, 48.4616],   // short
+                [-123.3102, 48.4617],   // short
+                [-123.3070, 48.4640],   // long
+                [-123.3060, 48.4655]    // long
+            ] }
+        },
+        {
+            id: 3, name: 'Quad', directional: false, cat: 2,
+            geometry: { type: 'Polygon', coordinates: [[
+                [-123.3095, 48.4640], [-123.3075, 48.4642], [-123.3078, 48.4658],
+                [-123.3098, 48.4656], [-123.3095, 48.4640]
+            ]] }
+        }
+    ];
+    // Optional ?vis=hidden|normal|selected forces an initial state (for verification).
+    const forcedVis = new URLSearchParams(location.search).get('vis');
+    const initVis = ['hidden','normal','selected'].includes(forcedVis) ? forcedVis : 'normal';
+    // Runtime state, mirroring OL feature properties. vis: hidden|normal|selected.
+    const state = new Map(features.map(f => [f.id, { vis: initVis, cat: f.cat }]));
+
+    // Bounding box of all feature coordinates.
+    function eachCoord(geom, cb) {
+        if (geom.type === 'Point') cb(geom.coordinates);
+        else if (geom.type === 'LineString') geom.coordinates.forEach(cb);
+        else if (geom.type === 'Polygon') geom.coordinates.forEach(r => r.forEach(cb));
+    }
+    const bbox = (() => {
+        let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+        for (const f of features) eachCoord(f.geometry, ([x,y]) => {
+            minX=Math.min(minX,x); minY=Math.min(minY,y); maxX=Math.max(maxX,x); maxY=Math.max(maxY,y);
+        });
+        return [[minX,minY],[maxX,maxY]];
+    })();
+
+    const isLineWidth5 = (f) => (f.geometry.type === 'LineString' && !f.directional) ||
+                                 f.geometry.type === 'MultiLineString';
+
+    /* =========================================================================
+       LEFT: OpenLayers  (reproduces HolUtil styling model)
+       ========================================================================= */
+    const olSource = new ol.source.Vector();
+    const geojson = new ol.format.GeoJSON();
+    const olFeatById = new Map();
+    for (const f of features) {
+        const feat = geojson.readFeature(
+            { type: 'Feature', geometry: f.geometry, properties: { id: f.id, name: f.name, directional: f.directional } },
+            { dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857' }
+        );
+        feat.setId(f.id);
+        olFeatById.set(f.id, feat);
+        olSource.addFeature(feat);
+    }
+
+    function olPointGeometry(start, end) {
+        const rotation = Math.atan2(end[1] - start[1], end[0] - start[0]);
+        const midPoint = [start[0] + (end[0]-start[0])/2, start[1] + (end[1]-start[1])/2];
+        return { rotation, midPoint };
+    }
+    function olArrows(feature, resolution, color) {
+        const out = [];
+        feature.getGeometry().forEachSegment((start, end) => {
+            const pixLen = Math.round(new ol.geom.LineString([start,end]).getLength() / resolution);
+            if (pixLen > 25) {
+                const { rotation, midPoint } = olPointGeometry(start, end);
+                out.push(new ol.style.Style({
+                    geometry: new ol.geom.Point(midPoint),
+                    image: new ol.style.RegularShape({
+                        fill: new ol.style.Fill({ color }),
+                        points: 3, radius: 10, rotation: -rotation, angle: Math.PI/2
+                    })
+                }));
+            }
+        });
+        return out;
+    }
+    function olStyleFn(feature, resolution) {
+        const st = state.get(feature.getId());
+        if (st.vis === 'hidden') {
+            return new ol.style.Style({
+                image: new ol.style.Circle({ radius: 30, fill: new ol.style.Fill({color:'rgba(255,255,255,0)'}) }),
+                fill: new ol.style.Fill({ color: 'rgba(255,255,255,0)' }),
+                stroke: new ol.style.Stroke({ color: 'rgba(255,255,255,0)', width: 12 })
+            });
+        }
+        const col = catColor(st.cat);
+        const directional = feature.getProperties().directional;
+        if (st.vis === 'selected') {
+            const styles = [
+                new ol.style.Style({
+                    image: new ol.style.Circle({ radius: 12, fill: new ol.style.Fill({color: MAGENTA}) }),
+                    stroke: new ol.style.Stroke({ color: MAGENTA_HALO, width: 8 })
+                }),
+                new ol.style.Style({
+                    stroke: new ol.style.Stroke({ color: '#ffffff', width: 3 }),
+                    text: new ol.style.Text({
+                        font: '1em sans-serif', offsetY: 18,
+                        fill: new ol.style.Fill({ color: col }),
+                        stroke: new ol.style.Stroke({ color: '#fff', width: 3 }),
+                        text: feature.getProperties().name
+                    })
+                })
+            ];
+            if (directional) styles.push(...olArrows(feature, resolution, MAGENTA));
+            return styles;
+        }
+        // normal / category
+        const lineWidth = isLineWidth5(features.find(x=>x.id===feature.getId())) ? 5 : 2;
+        const styles = [ new ol.style.Style({
+            image: new ol.style.Circle({ radius: 8, fill: new ol.style.Fill({color: col}) }),
+            fill: new ol.style.Fill({ color: withAlpha(col, SHAPE_OPACITY) }),
+            stroke: new ol.style.Stroke({ color: col, width: lineWidth })
+        }) ];
+        if (directional) styles.push(...olArrows(feature, resolution, col));
+        return styles;
+    }
+    function withAlpha(rgb, a) { return rgb.replace('rgb(', 'rgba(').replace(')', `,${a})`); }
+
+    const olLayer = new ol.layer.Vector({ source: olSource, style: olStyleFn });
+    const olMap = new ol.Map({
+        target: 'olMap',
+        layers: [olLayer],
+        view: new ol.View({ center: ol.proj.fromLonLat(CENTER), zoom: 15 })
+    });
+    olMap.getView().fit(olSource.getExtent(), { padding: [40,40,40,40], maxZoom: 17 });
+
+    /* =========================================================================
+       RIGHT: MapLibre (feature-state + expressions)
+       ========================================================================= */
+    // Pre-compute a static per-feature line width for the "normal" state.
+    const mlGeojson = {
+        type: 'FeatureCollection',
+        features: features.map(f => ({
+            type: 'Feature', id: f.id, geometry: f.geometry,
+            properties: { id: f.id, name: f.name, directional: f.directional,
+                          lwNormal: isLineWidth5(f) ? 5 : 2 }
+        }))
+    };
+
+    // Expression: category colour driven by feature-state "cat".
+    const catColorExpr = ['match', ['to-number', ['feature-state', 'cat']],
+        ...tenColors.flatMap((c, i) => [i, c]),
+        tenColors[0]];
+
+    const mlMap = new maplibregl.Map({
+        container: 'mlMap',
+        style: {
+            version: 8,
+            // No glyphs/sprite/tile URLs — the page is fully self-contained (no network at all).
+            // NB: an unreachable glyphs endpoint will stall the whole map render; keep styles local.
+            sources: {},
+            layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#eef2f4' } }]
+        },
+        // Frame the data on the first paint (bbox centre + a fitting zoom).
+        center: [(bbox[0][0]+bbox[1][0])/2, (bbox[0][1]+bbox[1][1])/2], zoom: 14.4
+    });
+
+    function makeSdfCanvas(draw, w, h) {
+        const cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        const ctx = cv.getContext('2d');
+        draw(ctx, w, h);
+        return ctx.getImageData(0, 0, w, h);
+    }
+
+    mlMap.on('load', () => {
+        // SDF placemark (teardrop) — alpha channel is the mask; icon-color tints it.
+        mlMap.addImage('placemark', makeSdfCanvas((ctx,w,h) => {
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(w/2, h*0.38, w*0.30, Math.PI, 0);
+            ctx.lineTo(w/2, h*0.92);
+            ctx.closePath();
+            ctx.fill();
+        }, 40, 48), { sdf: true });
+
+        // SDF arrow triangle.
+        mlMap.addImage('arrow', makeSdfCanvas((ctx,w,h) => {
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.moveTo(w*0.9, h/2); ctx.lineTo(w*0.15, h*0.12); ctx.lineTo(w*0.15, h*0.88);
+            ctx.closePath(); ctx.fill();
+        }, 28, 28), { sdf: true });
+
+        // Inline data; rely on each feature's top-level numeric `id` for feature-state (no promoteId).
+        mlMap.addSource('feats', { type: 'geojson', data: mlGeojson });
+
+        const visOpacity = (hidden, normal, selected) =>
+            ['match', ['feature-state', 'vis'], 'hidden', hidden, 'selected', selected, normal];
+
+        // Polygon fill.
+        mlMap.addLayer({
+            id: 'fill', type: 'fill', source: 'feats',
+            filter: ['==', ['geometry-type'], 'Polygon'],
+            paint: { 'fill-color': catColorExpr, 'fill-opacity': visOpacity(0, SHAPE_OPACITY, SHAPE_OPACITY) }
+        });
+        // Selected halo (magenta), below the base line. Layer order replaces per-feature z.
+        mlMap.addLayer({
+            id: 'halo', type: 'line', source: 'feats',
+            paint: {
+                'line-color': MAGENTA_HALO, 'line-width': 8,
+                'line-opacity': ['match', ['feature-state', 'vis'], 'selected', 1, 0]
+            }
+        });
+        // Base line / polygon outline.
+        mlMap.addLayer({
+            id: 'line', type: 'line', source: 'feats',
+            paint: {
+                'line-color': ['match', ['feature-state', 'vis'], 'selected', '#ffffff', catColorExpr],
+                'line-width': ['match', ['feature-state', 'vis'], 'selected', 3, ['to-number', ['get', 'lwNormal']]],
+                'line-opacity': visOpacity(0, 1, 1)
+            }
+        });
+        // Directional arrows: collision detection culls short segments automatically.
+        mlMap.addLayer({
+            id: 'arrows', type: 'symbol', source: 'feats',
+            filter: ['==', ['get', 'directional'], true],
+            layout: {
+                'symbol-placement': 'line', 'symbol-spacing': 60,
+                'icon-image': 'arrow', 'icon-size': 0.8,
+                'icon-rotation-alignment': 'map', 'icon-allow-overlap': false, 'icon-ignore-placement': false
+            },
+            paint: {
+                'icon-color': ['match', ['feature-state', 'vis'], 'selected', MAGENTA, catColorExpr],
+                'icon-opacity': visOpacity(0, 1, 1)
+            }
+        });
+        // Points (icon only — no text, so the page needs no glyphs endpoint).
+        mlMap.addLayer({
+            id: 'points', type: 'symbol', source: 'feats',
+            filter: ['==', ['geometry-type'], 'Point'],
+            layout: {
+                'icon-image': 'placemark', 'icon-size': 1, 'icon-anchor': 'bottom', 'icon-allow-overlap': true
+            },
+            paint: {
+                'icon-color': ['match', ['feature-state', 'vis'], 'selected', MAGENTA, catColorExpr],
+                'icon-opacity': visOpacity(0, 1, 1)
+            }
+        });
+
+        mlReady = true;
+        mlMap.resize();
+
+        // Apply feature-state only AFTER the source has finished loading (avoids a race
+        // where setFeatureState runs before the geojson worker has parsed the data).
+        function whenSourceLoaded() {
+            if (mlMap.getSource('feats') && mlMap.isSourceLoaded('feats')) {
+                for (const f of features) applyMlState(f.id);
+                mlMap.off('sourcedata', whenSourceLoaded);
+            }
+        }
+        mlMap.on('sourcedata', whenSourceLoaded);
+        whenSourceLoaded();
+    });
+    window.addEventListener('resize', () => mlMap.resize());
+
+    let mlReady = false;
+    function applyMlState(id) {
+        const st = state.get(id);
+        mlMap.setFeatureState({ source: 'feats', id }, { vis: st.vis, cat: st.cat });
+    }
+
+    /* =========================================================================
+       Controls
+       ========================================================================= */
+    const visOrder = ['hidden', 'normal', 'selected'];
+    const body = document.getElementById('ctlBody');
+    for (const f of features) {
+        const tr = document.createElement('tr');
+        const st = state.get(f.id);
+        tr.innerHTML = `<td>${f.name} <small>(${f.geometry.type}${f.directional ? ', directional' : ''})</small></td>`;
+
+        const tdVis = document.createElement('td');
+        const bVis = document.createElement('button');
+        bVis.textContent = st.vis;
+        bVis.onclick = () => {
+            const cur = state.get(f.id);
+            cur.vis = visOrder[(visOrder.indexOf(cur.vis) + 1) % visOrder.length];
+            bVis.textContent = cur.vis;
+            sync(f.id);
+        };
+        tdVis.appendChild(bVis);
+        tr.appendChild(tdVis);
+
+        const tdCat = document.createElement('td');
+        const bCat = document.createElement('button');
+        const paint = () => {
+            const c = state.get(f.id).cat;
+            bCat.innerHTML = `cat ${c} <span class="swatch" style="background:${catColor(c)}"></span>`;
+        };
+        paint();
+        bCat.onclick = () => {
+            const cur = state.get(f.id);
+            cur.cat = (cur.cat + 1) % 10;
+            paint();
+            sync(f.id);
+        };
+        tdCat.appendChild(bCat);
+        tr.appendChild(tdCat);
+
+        body.appendChild(tr);
+    }
+
+    function sync(id) {
+        // OL: re-evaluate style fn by nudging the feature.
+        olFeatById.get(id).changed();
+        // MapLibre: only the state changes.
+        if (mlReady) applyMlState(id);
+    }
+</script>
+</body>
+</html>
